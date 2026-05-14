@@ -57,6 +57,8 @@ Use this input policy across the workflow:
 - Execution prompts must accept user input.
 - `story` must require user input.
 - `clarify`, `finalize`, `tasks`, and `implement` may accept optional user input for adjustments, constraints, reviewer notes, or operator guidance.
+- Optional user input after `story` is additive only. It may add guidance or context, but it must not silently override approved scope or prior decisions.
+- If optional user input changes scope or invalidates an approved brief, send the workflow back to the appropriate earlier stage instead of mutating the current stage in place.
 - Each prompt file should expose that input through frontmatter and prompt-body placeholders such as `argument-hint` and `${input:...}`.
 
 Use this common structure where applicable:
@@ -256,6 +258,7 @@ Ask only the minimum questions required to unblock implementation.
 **Rules**
 - Do not reopen settled project-wide decisions.
 - Do not ask optional or low-value questions.
+- Treat optional user input as additive guidance. If the new input changes scope, route back to `story` or `finalize` instead of rewriting the current stage silently.
 
 **Handoff**
 Feeds `finalize`.
@@ -285,6 +288,7 @@ Freeze a story into an implementation-ready brief.
 **Rules**
 - If blocking ambiguity remains, mark the brief as `not ready`.
 - Do not silently invent missing requirements.
+- Treat optional user input as additive only. If it changes approved scope or decisions, move back to `clarify` before producing a new finalized brief.
 
 **Handoff**
 Feeds `tasks`.
@@ -315,6 +319,7 @@ Break a finalized story into ordered implementation tasks without changing scope
 - Do not invent new requirements.
 - If execution blockers remain, surface them explicitly.
 - Keep tasks implementation-oriented and small enough to execute or review.
+- Treat optional user input as additive guidance only. Do not use it to redefine the finalized brief.
 
 **Handoff**
 Feeds `implement`.
@@ -335,7 +340,7 @@ Implement the approved work item according to the finalized brief.
 - Current repository state
 
 **Must produce**
-- Implementation plan or direct code changes
+- Direct code changes when executed
 - Files likely to change
 - Validation steps
 - Completion summary
@@ -346,6 +351,7 @@ Implement the approved work item according to the finalized brief.
 - Do not widen scope beyond the finalized brief.
 - Follow the execution task plan unless a blocker requires deviation.
 - Report validation evidence, not just intent.
+- Treat optional user input as additive guidance only. If it changes scope, send the work back to `finalize` or `tasks` rather than overriding the current brief.
 
 **Handoff**
 Feeds review, testing, or delivery workflows.
@@ -391,17 +397,17 @@ repo/
 |   |-- foundation/
 |   |   |-- project-context.md        # Output of the projectcontext stage
 |   |   |-- tech-stack.md             # Output of the techstack stage
-|   |   |-- solution-structure.md     # Output of the solution-structure stage
+|   |   |-- solution-structure.md     # Repo and module structure for implementation placement
 |   |   |-- coding-standards.md       # Output of the coding-standards stage
-|   |   `-- rules.md                  # Output of the rules stage
+|   |   `-- rules.md                  # Project-operational hard constraints and delivery gates
 |   |-- architecture/
-|   |   |-- overview.md               # Shared architecture summary when needed
+|   |   |-- overview.md               # Broader system architecture beyond repo layout
 |   |   |-- decisions/
 |   |   |   `-- ADR-0001-example.md   # Long-lived architecture decisions
 |   |   `-- diagrams/                 # Optional diagrams and visuals
 |   |-- work-items/
 |   |   |-- _template/
-|   |   |   |-- meta.md               # Source id, owner, status, timestamps
+|   |   |   |-- meta.md               # Source reference, owner, status, dates, and related links
 |   |   |   |-- story.md              # Output of the story stage
 |   |   |   |-- clarify.md            # Output of the clarify stage
 |   |   |   |-- finalize.md           # Output of the finalize stage
@@ -410,7 +416,7 @@ repo/
 |   |   |   |-- decisions.md          # Work-item-level decisions and rationale
 |   |   |   `-- notes.md              # Optional supporting notes
 |   |   `-- <feature-name>/
-|   |       |-- meta.md               # Work item metadata and source traceability
+|   |       |-- meta.md               # Work item metadata, source reference, and related links
 |   |       |-- story.md              # Story-normalized work item
 |   |       |-- clarify.md            # Clarifications and answers
 |   |       |-- finalize.md           # Implementation-ready brief
@@ -479,6 +485,18 @@ Use it for:
 
 Do not repeat the same content in agent adapter files. Agent-specific files should point back to `devspec/constitution.md`.
 
+Keep the split explicit:
+
+- `devspec/constitution.md` holds enduring principles that rarely change.
+- `devspec/foundation/rules.md` holds project-operational hard constraints, governance rules, and delivery gates that may evolve over time.
+
+### Structure Versus Architecture
+
+Keep the split explicit:
+
+- `devspec/foundation/solution-structure.md` defines repository layout, module boundaries, ownership seams, and implementation placement.
+- `devspec/architecture/overview.md` defines the broader system view, major components, integration boundaries, and shared diagrams.
+
 ### Spec Folder Naming
 
 Keep folder names simple and developer-friendly:
@@ -489,12 +507,23 @@ Keep folder names simple and developer-friendly:
 
 Do not overload the folder name with tracker ids or system names unless the team truly needs that in the path.
 
+Create the work-item folder at the `story` stage and do not rename it later. If the story title evolves, keep the refined title inside `story.md` and `meta.md` instead of changing the folder path.
+
 Keep external references inside `meta.md`, for example:
 
 - GitHub issue number or URL
 - Azure DevOps work item id or URL
 - Jira issue key or URL
 - Owner, status, and timestamps
+
+`meta.md` should at minimum include:
+
+- source reference
+- owner
+- status
+- created date
+- updated date
+- related links
 
 ### Simple Naming Recommendations
 
