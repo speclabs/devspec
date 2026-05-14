@@ -259,6 +259,11 @@ Ask only the minimum questions required to unblock implementation.
 - Do not reopen settled project-wide decisions.
 - Do not ask optional or low-value questions.
 - Treat optional user input as additive guidance. If the new input changes scope, route back to `story` or `finalize` instead of rewriting the current stage silently.
+- Ask exactly one blocking question at a time.
+- Present the question with clickable multiple-choice options whenever reasonable.
+- Include a `Custom Answer` option.
+- Include one recommended option with a short justification.
+- Wait for the user's selection or input before asking the next question.
 
 **Handoff**
 Feeds `finalize`.
