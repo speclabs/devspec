@@ -19,6 +19,8 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 - Fail fast with guidance if required upstream artifacts are missing.
 - Treat optional user input as additive only.
 - If blockers remain, mark the brief as `not ready`.
+- Bugs are not `ready` if reproducible behavior, user impact, or regression expectations remain unclear.
+- Security vulnerabilities are not `ready` if severity, affected scope, containment or remediation plan, or validation and backport expectations are missing.
 - Do not invent missing requirements.
 - Update `finalize.md` in place.
 
@@ -26,7 +28,8 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 1. Locate the target work item.
 2. Read the required upstream artifacts.
 3. Merge additive guidance without changing approved scope silently.
-4. Write `finalize.md` with scope, acceptance criteria, assumptions, dependencies, risks, mitigation, validation approach, and ready status.
+4. Apply type-specific readiness gates for bugs and security vulnerabilities.
+5. Write `finalize.md` with classification, readiness gates, scope, acceptance criteria, assumptions, dependencies, risks, mitigation, validation approach, release or advisory needs, and ready status.
 5. Report readiness status and blockers.
 
 ## Output Format

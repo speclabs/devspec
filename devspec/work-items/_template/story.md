@@ -3,11 +3,20 @@
 ## Metadata
 
 - Title:
+- Type:
+- Severity:
+- Priority:
 
 ## Context
 
 - Problem:
 - Intended outcome:
+
+## Impact
+
+- User or customer impact:
+- Affected components:
+- Affected versions:
 
 ## Assumptions
 
@@ -16,6 +25,23 @@
 ## Constraints
 
 - Constraint 1:
+
+## Bug Details
+
+- Expected behavior:
+- Actual behavior:
+- Reproduction steps:
+- Regression status:
+- Suspected area:
+
+## Security Details
+
+- Vulnerability class:
+- Attack surface:
+- Exploitability:
+- Exposure level:
+- Disclosure status:
+- Containment or mitigation:
 
 ## Dependencies
 

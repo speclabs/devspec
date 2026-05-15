@@ -217,20 +217,29 @@ Turn a work tracking reference into a normalized internal story.
 - Required user input
 - Story number, Jira number, bug number, issue number, task number, or PBI number
 - Or a full GitHub, Azure DevOps, or Jira URL
+- Work-item type classification when it can be inferred or clarified
 
 **Must produce**
 - Source system and source reference
 - Canonical source link when available
+- Work-item type and severity
 - Problem summary
 - Intended user outcome
+- Impact summary and affected scope
 - In-scope and out-of-scope items
 - Draft acceptance criteria
+- Bug reproduction details when the item is a bug
+- Security impact details when the item is a security vulnerability
 - Known dependencies and risks
 - Open questions blocking implementation
 
 **Rules**
 - Do not guess the source system for ambiguous bare numbers.
 - If the input cannot be resolved confidently, ask for clarification.
+- If the work-item type is unclear, ask for clarification instead of assuming feature, bug, or security-vulnerability.
+- Bugs should capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.
+- Security vulnerabilities should capture severity, affected scope, attack surface, exploitability, disclosure status, and containment or remediation notes.
+- Minimize sensitive exploit detail in shared artifacts unless it is necessary for remediation.
 - Normalize the work item into a consistent internal story format.
 
 **Handoff**
@@ -282,17 +291,22 @@ Freeze a story into an implementation-ready brief.
 - Foundation prompt outputs
 
 **Must produce**
+- Work-item type and severity
 - Final scope
 - Confirmed acceptance criteria
 - Assumptions
 - Dependencies
 - Risks and mitigations
 - Validation approach
+- Type-specific readiness gates
+- Release, backport, or advisory needs when applicable
 - Ready status: `ready` or `not ready`
 
 **Rules**
 - If blocking ambiguity remains, mark the brief as `not ready`.
 - Do not silently invent missing requirements.
+- Bugs are not ready if reproducible behavior, user impact, or regression expectations remain unclear.
+- Security vulnerabilities are not ready if severity, affected scope, containment or remediation plan, or validation and backport expectations are missing.
 - Treat optional user input as additive only. If it changes approved scope or decisions, move back to `clarify` before producing a new finalized brief.
 
 **Handoff**
@@ -317,6 +331,8 @@ Break a finalized story into ordered implementation tasks without changing scope
 - Task dependencies
 - Components, modules, or files likely to change
 - Validation step for each task or task group
+- Bug reproduction and regression tasks when applicable
+- Security verification, backport, or disclosure tasks when applicable
 - Definition of done for the implementation effort
 
 **Rules**
@@ -324,6 +340,8 @@ Break a finalized story into ordered implementation tasks without changing scope
 - Do not invent new requirements.
 - If execution blockers remain, surface them explicitly.
 - Keep tasks implementation-oriented and small enough to execute or review.
+- Bugs should usually include reproduce, fix, and regression-validation tasks.
+- Security vulnerabilities should usually include impact confirmation, remediation, verification across affected supported versions, and backport, release, or advisory tasks when applicable.
 - Treat optional user input as additive guidance only. Do not use it to redefine the finalized brief.
 
 **Handoff**
@@ -349,6 +367,7 @@ Implement one approved task at a time for the current work item according to the
 - Task implemented in the current run
 - Task execution log entry in `implement.md`
 - Next-task handoff
+- Type-specific handling notes when the work item is a bug or security vulnerability
 - Files likely to change
 - Validation steps
 - Completion summary
@@ -362,6 +381,8 @@ Implement one approved task at a time for the current work item according to the
 - If no pending task remains, notify the user that all planned tasks are already implemented and record that completed state in `implement.md`.
 - Record each implementation pass as a dated task-level log entry in `implement.md`.
 - After each task, leave a clear handoff for the next task instead of silently continuing through the task list.
+- For bugs, confirm regression validation as part of implementation evidence.
+- For security vulnerabilities, avoid exposing sensitive exploit detail unnecessarily and record remediation, verification, and backport or advisory status when applicable.
 - Report validation evidence, not just intent.
 - Treat optional user input as additive guidance only. If it changes scope, send the work back to `finalize` or `tasks` rather than overriding the current brief.
 

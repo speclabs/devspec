@@ -15,16 +15,22 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 - Do not proceed without required user input.
 - Resolve the input reference when possible.
 - If the reference is ambiguous or cannot be resolved confidently, ask for clarification and stop.
+- Classify the work item as `feature`, `bug`, or `security-vulnerability`. If that classification is unclear, ask for clarification instead of guessing.
 - Create the work-item folder during the story stage and do not rename it later.
 - Write or update `meta.md` and `story.md`.
+- Record type, severity, impact, and affected scope in `meta.md` and `story.md`.
+- For bugs, capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.
+- For security vulnerabilities, capture severity, affected scope, vulnerability class, attack surface, exploitability, disclosure status, and containment or remediation notes.
+- Minimize sensitive exploit detail in shared artifacts unless it is necessary for remediation.
 - Initialize `decisions.md` and `notes.md` if the work-item folder is new.
 - Do not guess missing facts; record open questions explicitly.
 
 ## Approach
 1. Resolve or normalize the incoming work item reference.
-2. Derive a stable work-item folder name.
-3. Create or update the work-item folder artifacts.
-4. Report the path updated, key changes, and blockers.
+2. Determine the work-item type and severity from the source or user clarification.
+3. Derive a stable work-item folder name.
+4. Create or update the work-item folder artifacts.
+5. Report the path updated, key changes, and blockers.
 
 ## Output Format
 - Work-item path updated

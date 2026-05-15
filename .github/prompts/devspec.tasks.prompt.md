@@ -15,5 +15,7 @@ Requirements:
 - Fail fast with guidance if `finalize.md` is missing or not marked `ready`.
 - Treat optional user input as additive only.
 - Do not change or expand the finalized scope.
-- Write or update `tasks.md` with ordered tasks, dependencies, likely impacted files or components, validation steps, and definition of done.
+- For bugs, include reproduce, fix, and regression-validation tasks where applicable.
+- For security vulnerabilities, include impact confirmation, remediation, verification across affected supported versions, and backport, release, or advisory tasks where applicable.
+- Write or update `tasks.md` with ordered tasks, dependencies, likely impacted files or components, validation steps, type-specific checks, and definition of done.
 - Summarize the work-item path updated, key task groups, and any blocker.

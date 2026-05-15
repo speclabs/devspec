@@ -19,6 +19,8 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - Modify code when applicable and stay within the finalized scope.
 - Select the next pending task using `tasks.md` and any prior handoff recorded in `implement.md`.
 - Update `implement.md` in place with a task-level implementation log, validation summary, and next-task handoff.
+- For bugs, record regression-validation evidence in the implementation log.
+- For security vulnerabilities, minimize sensitive exploit detail and record remediation, verification, and backport or advisory status when applicable.
 - If code changes are not applicable in the current repository, record that clearly.
 - If no pending task remains, notify the user that all planned tasks are already implemented and update `implement.md` to reflect completion.
 - Do not continue into a second task in the same run unless the user explicitly requests it after the first task is logged.
@@ -26,12 +28,13 @@ You implement the current work item and update `devspec/work-items/<feature-name
 ## Approach
 1. Locate the target work item.
 2. Read `finalize.md`, `tasks.md`, `implement.md`, and relevant code context.
-3. Identify the single task to implement now.
-4. If all tasks are already implemented, update `implement.md` with completed status, no next task, and notify the user.
-5. Otherwise, implement that approved task when applicable.
-6. Run appropriate validation for that task when available.
-7. Update `implement.md` with a task log entry, changed files, validation, blockers, and a handoff to the next task.
-8. Report the task implemented, implementation status, and next-task handoff.
+3. Apply type-specific handling rules for bugs or security vulnerabilities when relevant.
+4. Identify the single task to implement now.
+5. If all tasks are already implemented, update `implement.md` with completed status, no next task, and notify the user.
+6. Otherwise, implement that approved task when applicable.
+7. Run appropriate validation for that task when available.
+8. Update `implement.md` with a task log entry, changed files, validation, blockers, type-specific handling notes, and a handoff to the next task.
+9. Report the task implemented, implementation status, and next-task handoff.
 
 ## Output Format
 - Work-item path updated

@@ -15,6 +15,8 @@ Requirements:
 - Fail fast with guidance if required upstream artifacts are missing.
 - Treat optional user input as additive only.
 - If blockers remain, mark the brief as `not ready`.
+- Bugs are not `ready` if reproducible behavior, user impact, or regression expectations remain unclear.
+- Security vulnerabilities are not `ready` if severity, affected scope, containment or remediation plan, or validation and backport expectations are missing.
 - Do not invent missing requirements.
-- Write or update `finalize.md` with final scope, confirmed acceptance criteria, assumptions, dependencies, risks, mitigations, validation approach, and ready status.
+- Write or update `finalize.md` with work-item classification, readiness gates, final scope, confirmed acceptance criteria, assumptions, dependencies, risks, mitigations, validation approach, release or advisory needs, and ready status.
 - Summarize the work-item path updated, readiness status, and any blocker.

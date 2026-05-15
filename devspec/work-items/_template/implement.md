@@ -22,6 +22,12 @@
 
 - Outcome summary:
 
+## Type-Specific Handling
+
+- Bug verification notes:
+- Security handling notes:
+- Backport or disclosure status:
+
 ## Next-Task Handoff
 
 - Next task:

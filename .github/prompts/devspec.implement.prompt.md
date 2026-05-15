@@ -17,7 +17,9 @@ Requirements:
 - Implement exactly one task from `tasks.md` per run.
 - Select the next pending task using `tasks.md` and any prior handoff recorded in `implement.md`.
 - Modify code when applicable and stay within the finalized scope.
-- Write or update `implement.md` with a task-level implementation log entry, files changed, validation performed, blockers, residual risks, and the next-task handoff.
+- For bugs, record regression-validation evidence in the implementation log.
+- For security vulnerabilities, minimize sensitive exploit detail and record remediation, verification, and backport or advisory status where applicable.
+- Write or update `implement.md` with a task-level implementation log entry, files changed, validation performed, blockers, residual risks, type-specific handling notes, and the next-task handoff.
 - If code changes are not applicable in the current repository, record that clearly in `implement.md`.
 - If no pending task remains, update `implement.md` to show completion and notify the user that all planned tasks are already implemented.
 - Do not continue into a second task in the same run unless the user explicitly asks after the first task is logged.

@@ -1,5 +1,18 @@
 # Meta
 
+## Classification
+
+- Type: feature | bug | security-vulnerability
+- Severity: low | medium | high | critical
+- Priority:
+- Disclosure status: internal | coordinated | public | n/a
+
+## Impact
+
+- Customer impact:
+- Affected components:
+- Affected versions:
+
 ## Status
 
 - Work item status:

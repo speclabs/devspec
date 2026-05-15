@@ -1,8 +1,20 @@
 # Finalize
 
+## Work-Item Classification
+
+- Type:
+- Severity:
+
 ## Ready Status
 
 - Status: ready | not ready
+
+## Readiness Gates
+
+- Core readiness:
+- Bug readiness:
+- Security readiness:
+- Outstanding blocker:
 
 ## Final Scope
 
@@ -29,6 +41,11 @@
 ## Validation Approach
 
 - Validation 1:
+
+## Release And Communication
+
+- Backport or patch scope:
+- Release note or advisory:
 
 ## Next Step
 
