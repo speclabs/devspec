@@ -20,6 +20,12 @@ Requirements:
 - Extract evidence from repository layout, dependency manifests, CI/CD, infrastructure, docs, ADRs, contribution guides, CODEOWNERS, and runtime or configuration surfaces when available.
 - Distinguish durable principles from repository-derived facts.
 - Never finalize `devspec/constitution.md` from code inference alone. Present candidate principle changes and require explicit user confirmation before writing them.
+- Ask exactly one confirmation question at a time whenever explicit confirmation is required.
+- Use clickable multiple-choice options whenever reasonable.
+- Always include a `Custom Answer` option for confirmation questions.
+- Always recommend one option with a short justification.
+- Wait for the user's answer before asking the next confirmation question.
+- Do not ask all confirmations at once.
 - For `devspec/foundation/project-context.md`, `devspec/foundation/coding-standards.md`, and `devspec/foundation/rules.md`, separate directly observed facts from inferred or candidate guidance.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/` in place.
 - Preserve human-authored content when updating existing artifacts. Prefer generated sections or conservative in-place merges instead of full-file replacement.
