@@ -15,14 +15,18 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 - Do not proceed without required user input.
 - Validate whether the input is a supported provider URL or identifier before treating it as resolved.
 - Resolve the input reference when possible using the provider guidance in `devspec/foundation/provider-integrations.md`.
+- If provider resolution succeeds, show the resolved item details to the user and require explicit confirmation before creating or updating the work-item folder.
 - If the reference is ambiguous or cannot be resolved confidently, ask for clarification and stop.
 - If the input format is invalid, fail fast, explain why, and ask the user to correct it or choose manual intake.
 - If provider lookup is unavailable or the item cannot be resolved, do not guess. Record the attempt and offer manual intake only as an explicit fallback.
+- Manual intake requires a user-provided external reference plus manual description and manual acceptance criteria before the work item can be created.
 - Classify the work item as `feature`, `bug`, or `security-vulnerability`. If that classification is unclear, ask for clarification instead of guessing.
 - Create the work-item folder during the story stage and do not rename it later.
 - Write or update `meta.md` and `story.md`.
-- Record source resolution status, provider, and resolution notes in `meta.md`.
+- Record source resolution status, provider, resolution notes, and resolved item confirmation status in `meta.md`.
 - Record type, severity, impact, and affected scope in `meta.md` and `story.md`.
+- Record the external reference in `story.md`.
+- For manual intake, record the manual description and manual acceptance criteria in `story.md`.
 - For bugs, capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.
 - For security vulnerabilities, capture severity, affected scope, vulnerability class, attack surface, exploitability, disclosure status, and containment or remediation notes.
 - Minimize sensitive exploit detail in shared artifacts unless it is necessary for remediation.
@@ -32,10 +36,12 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 ## Approach
 1. Validate the incoming work item reference against supported provider formats.
 2. Resolve or normalize the incoming work item reference, or stop with correction guidance if it is invalid.
-3. Determine the work-item type and severity from the source or user clarification.
-4. Derive a stable work-item folder name.
-5. Create or update the work-item folder artifacts.
-6. Report the path updated, key changes, and blockers.
+3. If resolution succeeds, show the resolved details and wait for explicit user confirmation.
+4. If manual intake is chosen, collect the external reference, manual description, and manual acceptance criteria before proceeding.
+5. Determine the work-item type and severity from the source or user clarification.
+6. Derive a stable work-item folder name.
+7. Create or update the work-item folder artifacts.
+8. Report the path updated, key changes, and blockers.
 
 ## Output Format
 - Work-item path updated

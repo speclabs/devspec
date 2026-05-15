@@ -3,14 +3,26 @@
 ## Metadata
 
 - Title:
+- External reference:
 - Type:
 - Severity:
 - Priority:
+
+## Source Confirmation
+
+- Resolved summary shown:
+- User confirmation: confirmed | rejected | pending
 
 ## Context
 
 - Problem:
 - Intended outcome:
+
+## Manual Intake Details
+
+- Manual intake used:
+- Manual description:
+- Manual acceptance criteria:
 
 ## Impact
 

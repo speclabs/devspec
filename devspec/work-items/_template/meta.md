@@ -30,6 +30,7 @@
 - Status: resolved | manual | blocked
 - Provider:
 - Resolution notes:
+- Resolved item confirmation: confirmed | rejected | pending
 
 ## Ownership
 

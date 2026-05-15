@@ -42,6 +42,7 @@
 - If the provider is ambiguous, ask exactly one clarification question to identify the provider.
 - If the provider is known but the item cannot be resolved, stop intake and report whether the failure appears to be not found, access denied, or integration unavailable.
 - If the integration is unavailable, offer manual intake as an explicit fallback instead of guessing.
+- If provider resolution succeeds, show the resolved item details and require explicit user confirmation before creating or updating the work-item folder.
 - Do not create a normal resolved work item from unverified provider input.
 
 ## MCP Server Expectations
@@ -62,6 +63,8 @@
 - Record the source resolution status in `meta.md` as `resolved`, `manual`, or `blocked`.
 - Record the provider and resolution notes whenever provider lookup is attempted.
 - Use `manual` only when the user explicitly chooses to continue without external resolution.
+- Manual intake requires a user-provided external reference, manual description, and manual acceptance criteria.
+- For resolved items, require explicit user confirmation after showing the resolved details.
 - Use `blocked` when the input is invalid or resolution is required but failed.
 
 ## Operational Notes

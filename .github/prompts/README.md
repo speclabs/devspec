@@ -225,6 +225,7 @@ Turn a work tracking reference into a normalized internal story.
 - Source system and source reference
 - Canonical source link when available
 - Source resolution status and provider details
+- Resolved item confirmation status
 - Work-item type and severity
 - Problem summary
 - Intended user outcome
@@ -242,6 +243,8 @@ Turn a work tracking reference into a normalized internal story.
 - If the input cannot be resolved confidently, ask for clarification.
 - If the input format is invalid, fail fast and ask the user to correct it or choose manual intake.
 - If provider lookup is unavailable or resolution fails, record the outcome and offer manual intake only as an explicit fallback.
+- If provider resolution succeeds, show the resolved item details and require explicit user confirmation before creating or updating the work item.
+- Manual intake requires a user-provided external reference, manual description, and manual acceptance criteria.
 - If the work-item type is unclear, ask for clarification instead of assuming feature, bug, or security-vulnerability.
 - Bugs should capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.
 - Security vulnerabilities should capture severity, affected scope, attack surface, exploitability, disclosure status, and containment or remediation notes.
@@ -583,6 +586,8 @@ Keep provider access guidance in `devspec/foundation/provider-integrations.md`.
 - The workflow should prefer exact URLs first, provider-qualified identifiers second, and ambiguous identifiers only after clarification.
 - Invalid input should fail fast.
 - Missing or unavailable provider integration should offer manual intake explicitly instead of guessing.
+- Successful provider resolution should still require explicit user confirmation after showing the resolved details.
+- Manual fallback should require an external reference, description, and acceptance criteria before intake can proceed.
 
 ### Spec Folder Naming
 
@@ -607,6 +612,7 @@ Keep external references inside `meta.md`, for example:
 
 - source reference
 - source resolution status
+- source confirmation status
 - owner
 - status
 - review status
