@@ -62,44 +62,7 @@ Installation worked if:
 
 If the commands do not appear, reopen the repository workspace in VS Code and confirm the prompt and agent files were copied into the target repository root rather than a nested folder.
 
-Before you use provider-backed story intake:
-
-- review `devspec/foundation/provider-integrations.md`
-- record the providers, accepted input formats, and fallback policy your team will support
-- make sure the required provider access, such as MCP-backed lookup, is available for that repository
-
-If provider resolution is not configured yet, you can still use `/devspec.story`, but plan on manual intake rather than assuming GitHub, Jira, or Azure DevOps references will resolve automatically.
-
-### Setup On A New Project
-
-For a brand-new repository with little or no existing code:
-
-1. Copy these folders into the target repo:
-   - `devspec/`
-   - `.github/prompts/`
-   - `.github/agents/`
-2. Commit the copied files.
-3. Open the repository in GitHub Copilot Chat.
-4. Start the foundation workflow with `/devspec.projectcontext`.
-
-For a new project, you will usually skip `/devspec.extract` because there is no mature codebase to backfill yet.
-
-### Setup On An Existing Project
-
-For an existing application or monorepo:
-
-1. Copy these folders into the target repo:
-   - `devspec/`
-   - `.github/prompts/`
-   - `.github/agents/`
-2. Commit the copied files.
-3. Open the repository in GitHub Copilot Chat.
-4. Start with `/devspec.extract` and point it at the current repository path or repository URL.
-5. Refine the extracted foundation using the remaining foundation commands.
-
-This path is best when you already have source code, docs, manifests, CI config, or architecture clues that can be mined into `devspec`.
-
-## What To Copy Into The Target Repo
+### What To Copy Into The Target Repo
 
 Use this minimal working structure:
 
@@ -159,6 +122,35 @@ your-repo/
             |-- decisions.md
             `-- notes.md
 ```
+
+### Setup On A New Project
+
+For a brand-new repository with little or no existing code:
+
+1. Copy these folders into the target repo:
+   - `devspec/`
+   - `.github/prompts/`
+   - `.github/agents/`
+2. Commit the copied files.
+3. Open the repository in GitHub Copilot Chat.
+4. Start the foundation workflow with `/devspec.projectcontext`.
+
+For a new project, you will usually skip `/devspec.extract` because there is no mature codebase to backfill yet.
+
+### Setup On An Existing Project
+
+For an existing application or monorepo:
+
+1. Copy these folders into the target repo:
+   - `devspec/`
+   - `.github/prompts/`
+   - `.github/agents/`
+2. Commit the copied files.
+3. Open the repository in GitHub Copilot Chat.
+4. Start with `/devspec.extract` and point it at the current repository path or repository URL.
+5. Refine the extracted foundation using the remaining foundation commands.
+
+This path is best when you already have source code, docs, manifests, CI config, or architecture clues that can be mined into `devspec`.
 
 ## Repository Layout
 
@@ -386,107 +378,6 @@ For an existing project, use:
 
 This gives you evidence-backed foundation docs first, then lets you refine them with business and operational context that source code alone cannot supply.
 
-## How To Extract Information From An Existing Project
-
-If you are adopting `devspec` into a working codebase, this is the most important setup flow.
-
-### What `/devspec.extract` Pulls From
-
-The extract stage is designed to inspect:
-
-- repository layout
-- dependency manifests
-- runtime and configuration surfaces
-- CI/CD files
-- infrastructure config
-- contribution docs
-- ADRs
-- architecture docs
-- CODEOWNERS and related ownership hints
-
-### Where The Extracted Information Goes
-
-#### `devspec/constitution.md`
-
-This should contain durable principles, not just observations. Extraction can propose principle-level content, but it should not finalize it without user confirmation.
-
-Good extracted candidates:
-
-- "Prefer small, reversible changes over broad rewrites"
-- "Validation is required before work is considered complete"
-- "Do not weaken security controls without explicit approval"
-
-#### `devspec/architecture/overview.md`
-
-This should receive observed and high-confidence architectural facts such as:
-
-- major components
-- system boundaries
-- external integrations
-- high-level data flow
-
-#### `devspec/foundation/project-context.md`
-
-This may get partial drafts from docs, but usually needs human input because product goals and intended outcomes are often not fully inferable from code.
-
-#### `devspec/foundation/tech-stack.md`
-
-This is one of the strongest extraction targets because code and manifests usually reveal:
-
-- languages
-- runtimes
-- frameworks
-- databases
-- hosting clues
-- test tooling
-- CI tooling
-
-#### `devspec/foundation/codebase-structure.md`
-
-This is also a strong extraction target because folder layout and module names can usually be observed directly.
-
-#### `devspec/foundation/coding-standards.md`
-
-This can be partially inferred from:
-
-- lint config
-- formatting config
-- test patterns
-- logging libraries
-- existing conventions in the codebase
-
-But the result should still be reviewed, because "what the code does today" and "what the team wants as a standard" are not always the same.
-
-#### `devspec/foundation/rules.md`
-
-This may be partially supported by:
-
-- CI checks
-- branch policies
-- security scanning
-- deployment gates
-- compliance docs
-
-But project-operational rules often need human refinement after extraction.
-
-### Practical Existing-Project Example
-
-Example sequence in Copilot Chat:
-
-```text
-/devspec.extract D:\work\customer-portal
-```
-
-Then refine what the code could not fully tell you:
-
-```text
-/devspec.projectcontext Customer portal for insurance members to view claims, upload documents, and track approvals. Primary users are policyholders and support agents. Goals are self-service and lower support volume. Non-goals include broker onboarding. Constraints include HIPAA-adjacent privacy expectations and mobile-first usage.
-```
-
-```text
-/devspec.rules Protected health information must not be exposed in logs. Any document-upload change requires malware scanning and content-type validation. Releases need QA signoff for claims workflows.
-```
-
 ## How To Start A User Story
 
 Once the project foundation exists, use the work-item commands.
@@ -661,6 +552,25 @@ Example:
 /devspec.review Pay extra attention to regression risk around existing file upload flows.
 ```
 
+## Command Reference
+
+Before using `/devspec.story` with external work-item references, validate `devspec/foundation/provider-integrations.md` for the providers and fallback behavior your repository supports.
+
+| Command | Purpose | Main output |
+| --- | --- | --- |
+| `/devspec.extract` | Backfill devspec from an existing repo | `constitution.md`, `architecture/overview.md`, `foundation/*.md` |
+| `/devspec.projectcontext` | Define product and business context | `foundation/project-context.md` |
+| `/devspec.techstack` | Define technical environment | `foundation/tech-stack.md` |
+| `/devspec.codebase-structure` | Define repository and module structure | `foundation/codebase-structure.md` |
+| `/devspec.coding-standards` | Define engineering expectations | `foundation/coding-standards.md` |
+| `/devspec.rules` | Define hard constraints and gates | `foundation/rules.md` |
+| `/devspec.story` | Create or update a work item | `work-items/<feature-name>/meta.md`, `story.md` |
+| `/devspec.clarify` | Resolve one blocker at a time | `work-items/<feature-name>/clarify.md` |
+| `/devspec.finalize` | Freeze the implementation-ready brief | `work-items/<feature-name>/finalize.md` |
+| `/devspec.tasks` | Create ordered implementation tasks | `work-items/<feature-name>/tasks.md` |
+| `/devspec.implement` | Implement exactly one task per run | `work-items/<feature-name>/implement.md` |
+| `/devspec.review` | Review implemented work | `work-items/<feature-name>/review.md` |
+
 ## End-To-End Examples
 
 ### Example: New Project
@@ -711,24 +621,122 @@ Then start a story:
 /devspec.story https://github.com/acme/warehouse-suite/issues/932
 ```
 
-## Command Reference
+## How To Extract Information From An Existing Project
 
-Before using `/devspec.story` with external work-item references, validate `devspec/foundation/provider-integrations.md` for the providers and fallback behavior your repository supports.
+If you are adopting `devspec` into a working codebase, this is the most important setup flow.
 
-| Command | Purpose | Main output |
-| --- | --- | --- |
-| `/devspec.extract` | Backfill devspec from an existing repo | `constitution.md`, `architecture/overview.md`, `foundation/*.md` |
-| `/devspec.projectcontext` | Define product and business context | `foundation/project-context.md` |
-| `/devspec.techstack` | Define technical environment | `foundation/tech-stack.md` |
-| `/devspec.codebase-structure` | Define repository and module structure | `foundation/codebase-structure.md` |
-| `/devspec.coding-standards` | Define engineering expectations | `foundation/coding-standards.md` |
-| `/devspec.rules` | Define hard constraints and gates | `foundation/rules.md` |
-| `/devspec.story` | Create or update a work item | `work-items/<feature-name>/meta.md`, `story.md` |
-| `/devspec.clarify` | Resolve one blocker at a time | `work-items/<feature-name>/clarify.md` |
-| `/devspec.finalize` | Freeze the implementation-ready brief | `work-items/<feature-name>/finalize.md` |
-| `/devspec.tasks` | Create ordered implementation tasks | `work-items/<feature-name>/tasks.md` |
-| `/devspec.implement` | Implement exactly one task per run | `work-items/<feature-name>/implement.md` |
-| `/devspec.review` | Review implemented work | `work-items/<feature-name>/review.md` |
+### What `/devspec.extract` Pulls From
+
+The extract stage is designed to inspect:
+
+- repository layout
+- dependency manifests
+- runtime and configuration surfaces
+- CI/CD files
+- infrastructure config
+- contribution docs
+- ADRs
+- architecture docs
+- CODEOWNERS and related ownership hints
+
+### Where The Extracted Information Goes
+
+#### `devspec/constitution.md`
+
+This should contain durable principles, not just observations. Extraction can propose principle-level content, but it should not finalize it without user confirmation.
+
+Good extracted candidates:
+
+- "Prefer small, reversible changes over broad rewrites"
+- "Validation is required before work is considered complete"
+- "Do not weaken security controls without explicit approval"
+
+#### `devspec/architecture/overview.md`
+
+This should receive observed and high-confidence architectural facts such as:
+
+- major components
+- system boundaries
+- external integrations
+- high-level data flow
+
+#### `devspec/foundation/project-context.md`
+
+This may get partial drafts from docs, but usually needs human input because product goals and intended outcomes are often not fully inferable from code.
+
+#### `devspec/foundation/tech-stack.md`
+
+This is one of the strongest extraction targets because code and manifests usually reveal:
+
+- languages
+- runtimes
+- frameworks
+- databases
+- hosting clues
+- test tooling
+- CI tooling
+
+#### `devspec/foundation/codebase-structure.md`
+
+This is also a strong extraction target because folder layout and module names can usually be observed directly.
+
+#### `devspec/foundation/coding-standards.md`
+
+This can be partially inferred from:
+
+- lint config
+- formatting config
+- test patterns
+- logging libraries
+- existing conventions in the codebase
+
+But the result should still be reviewed, because "what the code does today" and "what the team wants as a standard" are not always the same.
+
+#### `devspec/foundation/rules.md`
+
+This may be partially supported by:
+
+- CI checks
+- branch policies
+- security scanning
+- deployment gates
+- compliance docs
+
+But project-operational rules often need human refinement after extraction.
+
+### Practical Existing-Project Example
+
+Example sequence in Copilot Chat:
+
+```text
+/devspec.extract D:\work\customer-portal
+```
+
+Then refine what the code could not fully tell you:
+
+```text
+/devspec.projectcontext Customer portal for insurance members to view claims, upload documents, and track approvals. Primary users are policyholders and support agents. Goals are self-service and lower support volume. Non-goals include broker onboarding. Constraints include HIPAA-adjacent privacy expectations and mobile-first usage.
+```
+
+```text
+/devspec.rules Protected health information must not be exposed in logs. Any document-upload change requires malware scanning and content-type validation. Releases need QA signoff for claims workflows.
+```
+
+## How To Set Up MCP Servers Or Tools In VS Code
+
+Use this setup when you want `devspec` to resolve external work items instead of falling back to manual intake.
+
+1. Choose the provider access path you will support in VS Code.
+   For most teams, this means an MCP server per provider or one internal tool that wraps multiple providers.
+2. Install or connect that MCP server or integration tool in the VS Code environment your team uses for Copilot Chat.
+3. Configure authentication outside the prompt artifacts.
+   Prefer least-privilege, read-only access for story intake and review workflows unless write-back is explicitly required.
+4. Verify the integration can validate and fetch a real work item before relying on `/devspec.story`.
+   The integration should be able to return core fields such as title, description, status, type or labels, and canonical links.
+5. Record the supported providers, accepted input formats, and manual fallback policy in `devspec/foundation/provider-integrations.md`.
+6. Test one provider-backed intake example and one manual fallback example in the target repository.
+
+You should treat provider-backed intake as ready only when VS Code can reach the configured tool, authentication works, and `devspec/foundation/provider-integrations.md` matches the behavior your team expects.
 
 ## Important Workflow Rules
 
