@@ -224,6 +224,7 @@ Turn a work tracking reference into a normalized internal story.
 **Must produce**
 - Source system and source reference
 - Canonical source link when available
+- Source resolution status and provider details
 - Work-item type and severity
 - Problem summary
 - Intended user outcome
@@ -237,7 +238,10 @@ Turn a work tracking reference into a normalized internal story.
 
 **Rules**
 - Do not guess the source system for ambiguous bare numbers.
+- Validate the input against supported provider formats before treating it as resolved.
 - If the input cannot be resolved confidently, ask for clarification.
+- If the input format is invalid, fail fast and ask the user to correct it or choose manual intake.
+- If provider lookup is unavailable or resolution fails, record the outcome and offer manual intake only as an explicit fallback.
 - If the work-item type is unclear, ask for clarification instead of assuming feature, bug, or security-vulnerability.
 - Bugs should capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.
 - Security vulnerabilities should capture severity, affected scope, attack surface, exploitability, disclosure status, and containment or remediation notes.
@@ -469,6 +473,7 @@ repo/
 |   |   |-- tech-stack.md             # Output of the techstack stage
 |   |   |-- codebase-structure.md     # Repo and module structure for implementation placement
 |   |   |-- coding-standards.md       # Output of the coding-standards stage
+|   |   |-- provider-integrations.md  # Provider input formats, MCP integration guidance, and resolution policy
 |   |   `-- rules.md                  # Project-operational hard constraints and delivery gates
 |   |-- architecture/
 |   |   |-- overview.md               # Broader system architecture beyond repo layout
@@ -569,6 +574,16 @@ Keep the split explicit:
 - `devspec/foundation/codebase-structure.md` defines repository layout, module boundaries, ownership seams, and implementation placement.
 - `devspec/architecture/overview.md` defines the broader system view, major components, integration boundaries, and shared diagrams.
 
+### Provider Integrations
+
+Keep provider access guidance in `devspec/foundation/provider-integrations.md`.
+
+- The `story` stage should stay provider-agnostic.
+- Provider-specific resolution should happen through MCP servers or equivalent integration tools.
+- The workflow should prefer exact URLs first, provider-qualified identifiers second, and ambiguous identifiers only after clarification.
+- Invalid input should fail fast.
+- Missing or unavailable provider integration should offer manual intake explicitly instead of guessing.
+
 ### Spec Folder Naming
 
 Keep folder names simple and developer-friendly:
@@ -591,6 +606,7 @@ Keep external references inside `meta.md`, for example:
 `meta.md` should at minimum include:
 
 - source reference
+- source resolution status
 - owner
 - status
 - review status
@@ -606,6 +622,7 @@ If the goal is ease of use for developers and alignment with the devspec workflo
 - `tech-stack.md` for stack constraints and choices
 - `codebase-structure.md` for codebase layout and boundaries
 - `coding-standards.md` for engineering expectations
+- `provider-integrations.md` for provider input formats and MCP integration guidance
 - `rules.md` for hard constraints
 - `story.md` for work-item intake
 - `clarify.md` for follow-up questions and answers

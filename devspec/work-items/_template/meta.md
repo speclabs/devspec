@@ -25,6 +25,12 @@
 - Identifier:
 - URL:
 
+## Source Resolution
+
+- Status: resolved | manual | blocked
+- Provider:
+- Resolution notes:
+
 ## Ownership
 
 - Owner:
