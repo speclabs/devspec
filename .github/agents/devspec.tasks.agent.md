@@ -6,7 +6,7 @@ user-invocable: false
 agents: []
 handoffs:
   - label: Continue to Implement
-    agent: devspec.implement
+    agent: devspec.implement-task
     prompt: Continue by implementing the approved work item based on the finalized brief and task breakdown above.
 ---
 You create or update `devspec/work-items/<feature-name>/tasks.md`.

@@ -3,18 +3,29 @@
 ## Implementation Status
 
 - Status:
+- Current task:
 
-## Files Changed
+## Task Execution Log
 
-- File 1:
+### Entry 1
 
-## Validation Performed
-
-- Validation 1:
-
-## Outcome Summary
-
+- Task:
+- Status:
 - Summary:
+- Files changed:
+- Validation:
+- Blockers:
+- Date:
+
+## Current Task Outcome
+
+- Outcome summary:
+
+## Next-Task Handoff
+
+- Next task:
+- Preconditions:
+- Notes for next implementation pass:
 
 ## Residual Risks
 

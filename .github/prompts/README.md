@@ -335,7 +335,7 @@ Optional.
 ### `devspec.implement.prompt.md`
 
 **Goal**
-Implement the approved work item according to the finalized brief.
+Implement one approved task at a time for the current work item according to the finalized brief.
 
 **Inputs**
 - Optional user input
@@ -345,7 +345,10 @@ Implement the approved work item according to the finalized brief.
 - Current repository state
 
 **Must produce**
-- Direct code changes when executed
+- Direct code changes for the single task executed in the current run
+- Task implemented in the current run
+- Task execution log entry in `implement.md`
+- Next-task handoff
 - Files likely to change
 - Validation steps
 - Completion summary
@@ -354,7 +357,10 @@ Implement the approved work item according to the finalized brief.
 **Rules**
 - Respect codebase structure, coding standards, and hard rules.
 - Do not widen scope beyond the finalized brief.
-- Follow the execution task plan unless a blocker requires deviation.
+- Follow the execution task plan one task at a time unless a blocker requires deviation.
+- Select the next pending task using `tasks.md` and any prior handoff recorded in `implement.md`.
+- Record each implementation pass as a dated task-level log entry in `implement.md`.
+- After each task, leave a clear handoff for the next task instead of silently continuing through the task list.
 - Report validation evidence, not just intent.
 - Treat optional user input as additive guidance only. If it changes scope, send the work back to `finalize` or `tasks` rather than overriding the current brief.
 
