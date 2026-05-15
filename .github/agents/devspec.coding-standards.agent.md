@@ -2,7 +2,7 @@
 name: "devspec.coding-standards"
 description: "Use when creating or updating devspec foundation coding standards for engineering practices, testing expectations, logging, documentation, and review standards."
 tools: [read, edit, search]
-user-invocable: false
+user-invocable: true
 agents: []
 handoffs:
   - label: Continue to Rules

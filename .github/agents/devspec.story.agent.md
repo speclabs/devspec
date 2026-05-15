@@ -2,7 +2,7 @@
 name: "devspec.story"
 description: "Use when creating or updating a devspec work item from a GitHub issue, Azure DevOps work item, Jira item, bug, issue, task, or PBI reference."
 tools: [read, edit, search]
-user-invocable: false
+user-invocable: true
 agents: []
 handoffs:
   - label: Continue to Clarify

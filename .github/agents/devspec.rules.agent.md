@@ -2,7 +2,7 @@
 name: "devspec.rules"
 description: "Use when creating or updating devspec foundation rules for hard constraints, compliance requirements, forbidden patterns, governance rules, and delivery gates."
 tools: [read, edit, search]
-user-invocable: false
+user-invocable: true
 agents: []
 handoffs:
   - label: Start a Work Item Story

@@ -2,7 +2,7 @@
 name: "devspec.finalize"
 description: "Use when creating or updating the implementation-ready finalized brief for the current devspec work item."
 tools: [read, edit, search]
-user-invocable: false
+user-invocable: true
 agents: []
 handoffs:
   - label: Return to Clarify

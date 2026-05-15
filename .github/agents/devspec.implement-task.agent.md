@@ -2,7 +2,7 @@
 name: "devspec.implement-task"
 description: "Use when implementing exactly one task at a time for the current ready devspec work item, changing code when applicable, and recording the task execution log and next-task handoff in implement.md."
 tools: [read, edit, search, execute]
-user-invocable: false
+user-invocable: true
 agents: []
 handoffs:
   - label: Continue to Review

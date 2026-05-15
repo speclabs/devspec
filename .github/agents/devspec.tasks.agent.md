@@ -2,7 +2,7 @@
 name: "devspec.tasks"
 description: "Use when creating or updating ordered implementation tasks for the current ready devspec work item."
 tools: [read, edit, search]
-user-invocable: false
+user-invocable: true
 agents: []
 handoffs:
   - label: Continue to Implement

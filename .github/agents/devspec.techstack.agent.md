@@ -2,7 +2,7 @@
 name: "devspec.techstack"
 description: "Use when creating or updating devspec foundation tech stack from languages, frameworks, services, tooling, hosting, and delivery constraints."
 tools: [read, edit, search]
-user-invocable: false
+user-invocable: true
 agents: []
 handoffs:
   - label: Continue to Codebase Structure

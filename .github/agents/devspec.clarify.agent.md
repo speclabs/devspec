@@ -2,7 +2,7 @@
 name: "devspec.clarify"
 description: "Use when asking and recording exactly one blocking clarification question at a time for the current devspec work item."
 tools: [read, edit, search, vscode/askQuestions]
-user-invocable: false
+user-invocable: true
 agents: []
 handoffs:
   - label: Back to Story Intake

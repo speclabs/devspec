@@ -2,7 +2,7 @@
 name: "devspec.extract"
 description: "Use when extracting or refreshing devspec constitution, architecture, and foundation artifacts from GitHub, Azure DevOps, or GitLab repository URLs, or from local repository folder paths."
 tools: [read, edit, search, execute, web]
-user-invocable: false
+user-invocable: true
 agents: []
 ---
 You create or refresh devspec extraction artifacts from supported repository sources.

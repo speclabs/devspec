@@ -2,7 +2,7 @@
 name: "devspec.codebase-structure"
 description: "Use when creating or updating devspec foundation codebase structure for repository layout, module boundaries, ownership seams, and integration boundaries."
 tools: [read, edit, search]
-user-invocable: false
+user-invocable: true
 agents: []
 handoffs:
   - label: Continue to Coding Standards

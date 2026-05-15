@@ -2,7 +2,7 @@
 name: "devspec.review"
 description: "Use when reviewing the current implemented devspec work item for bugs, regressions, scope drift, security risks, and validation gaps, then recording the outcome in review.md."
 tools: [read, edit, search]
-user-invocable: false
+user-invocable: true
 agents: []
 handoffs:
   - label: Return to Implement
