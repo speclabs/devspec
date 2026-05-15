@@ -198,7 +198,7 @@ Define how the codebase is organized.
 - Existing repository structure if present
 
 **Must produce**
-- Top-level repository layout
+- One tree node repository layout per repo under a dedicated repo heading
 - Service or module boundaries
 - Naming conventions
 - Ownership seams

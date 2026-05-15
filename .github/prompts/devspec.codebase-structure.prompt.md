@@ -20,6 +20,8 @@ Requirements:
 - Only record unresolved blockers when the user declines to answer or the evidence remains unavailable.
 - Write or update `devspec/foundation/codebase-structure.md`.
 - Focus on repo and module structure, not broad system architecture.
+- Keep repository layout output in tree node format.
+- For multi-repo inputs, use one heading per repo and include one tree node block under each repo heading.
 - Update the file in place if it already exists.
 - End the response with a recommended next step or next prompt to run.
-- Summarize the file updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+- Summarize the file updated, key changes including repo headings and tree sections updated, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
