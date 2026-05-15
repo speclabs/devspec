@@ -6,19 +6,20 @@ This document defines the proposed end-to-end prompt workflow for project develo
 
 Use the prompts in this order:
 
-1. `devspec.projectcontext.prompt.md`
-2. `devspec.techstack.prompt.md`
-3. `devspec.codebase-structure.prompt.md`
-4. `devspec.coding-standards.prompt.md`
-5. `devspec.rules.prompt.md`
-6. `devspec.story.prompt.md`
-7. `devspec.clarify.prompt.md`
-8. `devspec.finalize.prompt.md`
-9. `devspec.tasks.prompt.md`
-10. `devspec.implement.prompt.md`
-11. `devspec.review.prompt.md`
+1. `devspec.extract.prompt.md`
+2. `devspec.projectcontext.prompt.md`
+3. `devspec.techstack.prompt.md`
+4. `devspec.codebase-structure.prompt.md`
+5. `devspec.coding-standards.prompt.md`
+6. `devspec.rules.prompt.md`
+7. `devspec.story.prompt.md`
+8. `devspec.clarify.prompt.md`
+9. `devspec.finalize.prompt.md`
+10. `devspec.tasks.prompt.md`
+11. `devspec.implement.prompt.md`
+12. `devspec.review.prompt.md`
 
-The first five prompts define stable project context. The last six prompts process one work item inside that context.
+The extract prompt is the repo-ingestion entry point for backfilling existing projects. The next five prompts define stable project context. The last six prompts process one work item inside that context.
 
 ## Prompt Groups
 
@@ -28,6 +29,7 @@ These are project-level prompts and should be created or refreshed when the proj
 
 | Prompt | Purpose | Output |
 | --- | --- | --- |
+| `extract` | Extract candidate constitution, architecture, and foundation content from supported repositories or local paths. | Evidence-backed project draft |
 | `projectcontext` | Define business goals, users, domain terms, constraints, and success measures. | Project brief |
 | `techstack` | Record languages, frameworks, services, tooling, hosting, and delivery constraints. | Stack matrix |
 | `codebase-structure` | Define repository layout, module boundaries, and ownership seams for implementation placement. | Structure blueprint |
@@ -82,6 +84,37 @@ Use this common structure where applicable:
 Not every prompt needs every section, but section names should stay stable across prompts.
 
 ## Prompt Contracts
+
+### `devspec.extract.prompt.md`
+
+**Goal**
+Backfill devspec artifacts from one or more existing repositories.
+
+**Inputs**
+- Required user input
+- One or more GitHub, Azure DevOps, or GitLab repository URLs
+- Or one or more local repository folder paths
+- Optional branch, tag, or commit guidance when the default branch is not correct
+
+**Must produce**
+- Source validation results
+- Evidence-backed candidate updates for constitution, architecture, and foundation artifacts
+- Clear separation between observed facts, high-confidence inference, and open questions
+- Explicit confirmation step before constitution changes are written
+- Updated architecture and foundation files when evidence is sufficient
+
+**Rules**
+- Accept repository URLs only, not issues, pull requests, merge requests, work items, wiki pages, releases, or pipelines.
+- Reject unsupported providers.
+- Preserve human-authored content when updating existing artifacts.
+- Do not synthesize ADRs without explicit user direction and strong evidence.
+- Treat principle-level content as confirm-before-write.
+
+**Handoff**
+Feeds the foundation prompts and can reduce the manual input needed for them.
+
+**User input**
+Mandatory.
 
 ### `devspec.projectcontext.prompt.md`
 
