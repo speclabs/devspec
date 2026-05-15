@@ -17,6 +17,7 @@
 
 - Work item status:
 - Ready status:
+- Review status:
 
 ## Source Reference
 
@@ -27,6 +28,7 @@
 ## Ownership
 
 - Owner:
+- Reviewer:
 
 ## Dates
 

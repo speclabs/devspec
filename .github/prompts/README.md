@@ -16,8 +16,9 @@ Use the prompts in this order:
 8. `devspec.finalize.prompt.md`
 9. `devspec.tasks.prompt.md`
 10. `devspec.implement.prompt.md`
+11. `devspec.review.prompt.md`
 
-The first five prompts define stable project context. The last four prompts process one work item inside that context.
+The first five prompts define stable project context. The last six prompts process one work item inside that context.
 
 ## Prompt Groups
 
@@ -44,6 +45,7 @@ These are work-item-level prompts and should run for each story, issue, bug, tas
 | `finalize` | Freeze the implementation-ready contract for the work item. | Final story brief |
 | `tasks` | Decompose a finalized story into ordered implementation work. | Execution task plan |
 | `implement` | Execute the approved work against the finalized brief. | Change summary and validation evidence |
+| `review` | Review implemented work for defects, scope drift, and validation gaps. | Review findings and approval status |
 
 ## Shared Contract
 
@@ -56,7 +58,7 @@ Use this input policy across the workflow:
 - Foundation prompts must require user input.
 - Execution prompts must accept user input.
 - `story` must require user input.
-- `clarify`, `finalize`, `tasks`, and `implement` may accept optional user input for adjustments, constraints, reviewer notes, or operator guidance.
+- `clarify`, `finalize`, `tasks`, `implement`, and `review` may accept optional user input for adjustments, constraints, reviewer notes, or operator guidance.
 - Optional user input after `story` is additive only. It may add guidance or context, but it must not silently override approved scope or prior decisions.
 - If optional user input changes scope or invalidates an approved brief, send the workflow back to the appropriate earlier stage instead of mutating the current stage in place.
 - Each prompt file should expose that input through frontmatter and prompt-body placeholders such as `argument-hint` and `${input:...}`.
@@ -387,7 +389,41 @@ Implement one approved task at a time for the current work item according to the
 - Treat optional user input as additive guidance only. If it changes scope, send the work back to `finalize` or `tasks` rather than overriding the current brief.
 
 **Handoff**
-Feeds review, testing, or delivery workflows.
+Feeds `review`.
+
+**User input**
+Optional.
+
+### `devspec.review.prompt.md`
+
+**Goal**
+Review the implemented work item against the finalized brief and record approval or required changes.
+
+**Inputs**
+- Optional user input
+- Final story brief with `ready` status
+- Execution task plan when available
+- Implementation log and changed code
+- Foundation prompt outputs
+
+**Must produce**
+- Review status: `approved`, `approved-with-follow-ups`, or `changes-requested`
+- Findings ordered by severity
+- Scope compliance assessment
+- Validation gaps
+- Type-specific review notes when the work item is a bug or security vulnerability
+- Next step or handoff
+
+**Rules**
+- Review should focus on bugs, regressions, security risks, validation gaps, missing tests, and scope drift.
+- Do not silently reopen planning or rewrite the finalized brief during review.
+- Bugs with meaningful regression risk should receive review before closure.
+- Security vulnerabilities must receive review before closure.
+- If blocking findings exist, mark the review as `changes-requested` and route the work back to `implement`.
+- Treat optional user input as additive guidance only. If it changes scope, route back to `finalize` instead of mutating the review stage.
+
+**Handoff**
+Feeds `implement` when changes are required, or delivery when approved.
 
 **User input**
 Optional.
@@ -398,6 +434,7 @@ Optional.
 - Keep foundation prompts reusable and project-wide. They should not mention a specific work item.
 - Keep execution prompts narrow. Each should solve one stage of work-item processing.
 - Keep `tasks` separate from `implement` for medium and large work items. Planning and execution are different activities and benefit from an explicit handoff.
+- Keep `review` separate from `implement`. Execution and review are different responsibilities and should leave separate artifacts.
 - Make user input handling explicit in every prompt. Foundation prompts should refuse to proceed without required user input, while execution prompts after `story` should treat user input as additive rather than required.
 - Favor stable headings over creative formatting. Prompt chaining works better when downstream prompts can rely on exact section names.
 - Require `story` and `finalize` to fail safely when inputs are incomplete or ambiguous. This prevents low-quality implementation work from starting.
@@ -446,6 +483,7 @@ repo/
 |   |   |   |-- finalize.md           # Output of the finalize stage
 |   |   |   |-- tasks.md              # Output of the tasks stage
 |   |   |   |-- implement.md          # Output of the implement stage
+|   |   |   |-- review.md             # Output of the review stage
 |   |   |   |-- decisions.md          # Work-item-level decisions and rationale
 |   |   |   `-- notes.md              # Optional supporting notes
 |   |   `-- <feature-name>/
@@ -455,6 +493,7 @@ repo/
 |   |       |-- finalize.md           # Implementation-ready brief
 |   |       |-- tasks.md              # Task breakdown used by implement stage
 |   |       |-- implement.md          # Implementation outcome and validation summary
+|   |       |-- review.md             # Review findings and approval status
 |   |       |-- decisions.md          # Local decision history for this work item
 |   |       `-- notes.md              # Optional scratchpad or review notes
 |   `-- glossary.md                   # Shared domain vocabulary when needed
@@ -554,6 +593,7 @@ Keep external references inside `meta.md`, for example:
 - source reference
 - owner
 - status
+- review status
 - created date
 - updated date
 - related links
@@ -572,6 +612,7 @@ If the goal is ease of use for developers and alignment with the devspec workflo
 - `finalize.md` for the implementation-ready brief
 - `tasks.md` for implementation work
 - `implement.md` for implementation outcome and validation summary
+- `review.md` for review findings and approval status
 - `decisions.md` for decision history
 - `notes.md` for optional scratch notes
 - `meta.md` for lightweight metadata and external references
@@ -583,9 +624,9 @@ This keeps file names short, stage-aligned, and easy to scan in editors and pull
 - It supports multiple agent ecosystems without making any one agent the source of truth.
 - It gives the project one clear constitutional source for principles that all prompts, specs, and agents can follow.
 - It keeps prompt outcomes and work-item artifacts durable and diffable in Git.
-- It gives each work item a local history of story intake, clarifications, finalization, tasks, implementation, and decisions.
+- It gives each work item a local history of story intake, clarifications, finalization, tasks, implementation, review, and decisions.
 - It lets agent-specific instruction files stay small and easier to maintain.
 
 ## Recommended Next Step
 
-Create the missing prompt files using this contract, align the existing `devspec.story.prompt.md` with the `story` contract above, add `devspec.tasks.prompt.md`, and decide whether the repository should adopt the cross-agent layout described above.
+Run the workflow on one sample feature, one bug, and one security-vulnerability work item to validate the new typed intake, one-task-at-a-time implementation, and review-stage handoff behavior before broader adoption.

@@ -5,6 +5,9 @@ tools: [read, edit, search, execute]
 user-invocable: false
 agents: []
 handoffs:
+  - label: Continue to Review
+    agent: devspec.review
+    prompt: Review the current work item implementation and record findings in review.md.
   - label: Start Another Work Item
     agent: devspec.story
     prompt: Start or update another devspec work item.
@@ -24,6 +27,7 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - If code changes are not applicable in the current repository, record that clearly.
 - If no pending task remains, notify the user that all planned tasks are already implemented and update `implement.md` to reflect completion.
 - Do not continue into a second task in the same run unless the user explicitly requests it after the first task is logged.
+- When the implementation is ready for inspection, hand off to `devspec.review` rather than treating implementation as final closure.
 
 ## Approach
 1. Locate the target work item.

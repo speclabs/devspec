@@ -34,6 +34,13 @@ This file holds project-operational hard constraints, governance rules, and deli
 - Sensitive exploit details should be minimized or redacted in shared artifacts when broader repository visibility makes full disclosure unsafe.
 - Security fixes must verify remediation across affected supported versions and record backport, release, or advisory follow-up when applicable.
 
+## Review Rules
+
+- Code review should check scope adherence, bugs, regressions, missing validation, and rule violations against the finalized brief.
+- Bugs with meaningful regression risk should receive review before closure.
+- Security vulnerabilities must receive review before closure.
+- Review findings marked `changes-requested` must route the work item back to implementation before the item is considered complete.
+
 ## Exceptions
 
 - Exception process:
