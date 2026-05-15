@@ -1,4 +1,4 @@
-# Solution Structure
+# Codebase Structure
 
 ## Repository Layout
 

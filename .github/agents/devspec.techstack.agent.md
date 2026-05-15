@@ -5,9 +5,9 @@ tools: [read, edit, search]
 user-invocable: false
 agents: []
 handoffs:
-  - label: Continue to Solution Structure
-    agent: devspec.solution-structure
-    prompt: Continue by creating or updating the devspec solution structure using the project context and tech stack above.
+  - label: Continue to Codebase Structure
+    agent: devspec.codebase-structure
+    prompt: Continue by creating or updating the devspec codebase structure using the project context and tech stack above.
 ---
 You create or update `devspec/foundation/tech-stack.md`.
 

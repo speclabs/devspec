@@ -8,7 +8,7 @@ Use the prompts in this order:
 
 1. `devspec.projectcontext.prompt.md`
 2. `devspec.techstack.prompt.md`
-3. `devspec.solution-structure.prompt.md`
+3. `devspec.codebase-structure.prompt.md`
 4. `devspec.coding-standards.prompt.md`
 5. `devspec.rules.prompt.md`
 6. `devspec.story.prompt.md`
@@ -29,7 +29,7 @@ These are project-level prompts and should be created or refreshed when the proj
 | --- | --- | --- |
 | `projectcontext` | Define business goals, users, domain terms, constraints, and success measures. | Project brief |
 | `techstack` | Record languages, frameworks, services, tooling, hosting, and delivery constraints. | Stack matrix |
-| `solution-structure` | Define architecture, repository layout, module boundaries, and ownership seams. | Structure blueprint |
+| `codebase-structure` | Define repository layout, module boundaries, and ownership seams for implementation placement. | Structure blueprint |
 | `coding-standards` | Define preferred implementation practices, testing expectations, and quality rules. | Engineering standards |
 | `rules` | Define non-negotiable constraints, forbidden choices, governance, and release gates. | Hard ruleset |
 
@@ -133,10 +133,10 @@ Constrains architecture and implementation choices.
 **User input**
 Mandatory.
 
-### `devspec.solution-structure.prompt.md`
+### `devspec.codebase-structure.prompt.md`
 
 **Goal**
-Define how the solution is organized.
+Define how the codebase is organized.
 
 **Inputs**
 - Required user input
@@ -310,7 +310,7 @@ Break a finalized story into ordered implementation tasks without changing scope
 - Optional user input
 - Final story brief with `ready` status
 - Foundation prompt outputs
-- Current solution structure
+- Current codebase structure
 
 **Must produce**
 - Ordered task list
@@ -352,7 +352,7 @@ Implement the approved work item according to the finalized brief.
 - Residual risks or follow-up work
 
 **Rules**
-- Respect solution structure, coding standards, and hard rules.
+- Respect codebase structure, coding standards, and hard rules.
 - Do not widen scope beyond the finalized brief.
 - Follow the execution task plan unless a blocker requires deviation.
 - Report validation evidence, not just intent.
@@ -402,7 +402,7 @@ repo/
 |   |-- foundation/
 |   |   |-- project-context.md        # Output of the projectcontext stage
 |   |   |-- tech-stack.md             # Output of the techstack stage
-|   |   |-- solution-structure.md     # Repo and module structure for implementation placement
+|   |   |-- codebase-structure.md     # Repo and module structure for implementation placement
 |   |   |-- coding-standards.md       # Output of the coding-standards stage
 |   |   `-- rules.md                  # Project-operational hard constraints and delivery gates
 |   |-- architecture/
@@ -499,7 +499,7 @@ Keep the split explicit:
 
 Keep the split explicit:
 
-- `devspec/foundation/solution-structure.md` defines repository layout, module boundaries, ownership seams, and implementation placement.
+- `devspec/foundation/codebase-structure.md` defines repository layout, module boundaries, ownership seams, and implementation placement.
 - `devspec/architecture/overview.md` defines the broader system view, major components, integration boundaries, and shared diagrams.
 
 ### Spec Folder Naming
@@ -536,7 +536,7 @@ If the goal is ease of use for developers and alignment with the devspec workflo
 
 - `project-context.md` for project-wide context
 - `tech-stack.md` for stack constraints and choices
-- `solution-structure.md` for architecture and boundaries
+- `codebase-structure.md` for codebase layout and boundaries
 - `coding-standards.md` for engineering expectations
 - `rules.md` for hard constraints
 - `story.md` for work-item intake
