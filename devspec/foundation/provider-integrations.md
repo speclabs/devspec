@@ -45,6 +45,25 @@
 - If provider resolution succeeds, show the resolved item details and require explicit user confirmation before creating or updating the work-item folder.
 - Do not create a normal resolved work item from unverified provider input.
 
+## Resolved Item Confirmation
+
+Show this minimum confirmation set when provider resolution succeeds:
+
+- Provider
+- Identifier
+- Title
+- Type when available
+- Current external status when available
+- Canonical link
+- Short summary
+
+Offer only these confirmation actions:
+
+- Confirm and continue
+- Reject and retry input
+- Switch to manual intake
+- Cancel
+
 ## MCP Server Expectations
 
 - Expose tools that can validate and fetch work items by URL or provider-specific identifier.
@@ -66,6 +85,7 @@
 - Manual intake requires a user-provided external reference, manual description, and manual acceptance criteria.
 - For resolved items, require explicit user confirmation after showing the resolved details.
 - Use `blocked` when the input is invalid or resolution is required but failed.
+- Record the confirmation result in `meta.md` and the summary shown in `story.md`.
 
 ## Operational Notes
 

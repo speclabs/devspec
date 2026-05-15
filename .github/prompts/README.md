@@ -226,6 +226,7 @@ Turn a work tracking reference into a normalized internal story.
 - Canonical source link when available
 - Source resolution status and provider details
 - Resolved item confirmation status
+- Resolved summary shown to the user
 - Work-item type and severity
 - Problem summary
 - Intended user outcome
@@ -243,7 +244,8 @@ Turn a work tracking reference into a normalized internal story.
 - If the input cannot be resolved confidently, ask for clarification.
 - If the input format is invalid, fail fast and ask the user to correct it or choose manual intake.
 - If provider lookup is unavailable or resolution fails, record the outcome and offer manual intake only as an explicit fallback.
-- If provider resolution succeeds, show the resolved item details and require explicit user confirmation before creating or updating the work item.
+- If provider resolution succeeds, show at least provider, identifier, title, type when available, current external status when available, canonical link, and a short summary, then require explicit user confirmation before creating or updating the work item.
+- Offer only these confirmation actions after successful resolution: confirm and continue, reject and retry input, switch to manual intake, or cancel.
 - Manual intake requires a user-provided external reference, manual description, and manual acceptance criteria.
 - If the work-item type is unclear, ask for clarification instead of assuming feature, bug, or security-vulnerability.
 - Bugs should capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.
@@ -587,6 +589,8 @@ Keep provider access guidance in `devspec/foundation/provider-integrations.md`.
 - Invalid input should fail fast.
 - Missing or unavailable provider integration should offer manual intake explicitly instead of guessing.
 - Successful provider resolution should still require explicit user confirmation after showing the resolved details.
+- The resolved confirmation view should at minimum show provider, identifier, title, type when available, current external status when available, canonical link, and a short summary.
+- The confirmation step should allow only confirm and continue, reject and retry input, switch to manual intake, or cancel.
 - Manual fallback should require an external reference, description, and acceptance criteria before intake can proceed.
 
 ### Spec Folder Naming

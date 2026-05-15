@@ -14,7 +14,8 @@ Requirements:
 - Treat the user input as required. If it is missing, stop and ask for it.
 - Validate whether the input is a supported provider URL or identifier before treating it as resolved.
 - Resolve the reference when possible using the provider guidance in `devspec/foundation/provider-integrations.md`.
-- If provider resolution succeeds, show the resolved item details to the user and require explicit confirmation before creating or updating the work-item folder.
+- If provider resolution succeeds, show at least provider, identifier, title, type when available, current external status when available, canonical link, and a short summary, then require explicit confirmation before creating or updating the work-item folder.
+- Offer only these confirmation actions after successful resolution: confirm and continue, reject and retry input, switch to manual intake, or cancel.
 - If the reference is ambiguous or cannot be resolved confidently, ask for clarification and stop.
 - If the input format is invalid, fail fast, explain why, and ask the user to correct it or choose manual intake.
 - If provider lookup is unavailable or the item cannot be resolved, do not guess. Record the attempt and offer manual intake only as an explicit fallback.
@@ -23,6 +24,7 @@ Requirements:
 - Create the work-item folder during the story stage and keep the folder path stable after creation.
 - Write or update `meta.md` and `story.md` for the target work item.
 - Record source resolution status, provider, resolution notes, and resolved item confirmation status in `meta.md`.
+- Record the resolved summary shown and the confirmation actions offered in `story.md`.
 - Record type, severity, impact, and affected scope in `meta.md` and `story.md`.
 - Record the external reference in `story.md`.
 - For manual intake, record the manual description and manual acceptance criteria in `story.md`.

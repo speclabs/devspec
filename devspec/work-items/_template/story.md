@@ -11,6 +11,8 @@
 ## Source Confirmation
 
 - Resolved summary shown:
+- Resolved summary fields: provider, identifier, title, type, current external status, canonical link, short summary
+- Confirmation actions offered: confirm and continue | reject and retry input | switch to manual intake | cancel
 - User confirmation: confirmed | rejected | pending
 
 ## Context
