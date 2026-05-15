@@ -1,7 +1,7 @@
 ---
 name: "devspec.story"
 description: "Use when creating or updating a devspec work item from a GitHub issue, Azure DevOps work item, Jira item, bug, issue, task, or PBI reference."
-tools: [read, edit, search]
+tools: [read, edit, search, vscode/askQuestions]
 user-invocable: true
 agents: []
 handoffs:
@@ -13,6 +13,12 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 
 ## Constraints
 - Do not proceed without required user input.
+- If clarification, selection, or confirmation is required, ask exactly one question at a time.
+- Use clickable multiple-choice options whenever reasonable.
+- Always include a `Custom Answer` option.
+- Always provide one recommended option with a short justification.
+- Wait for the user's selection or custom answer before asking the next question.
+- Do not bundle unrelated questions into one message.
 - Validate whether the input is a supported provider URL or identifier before treating it as resolved.
 - Resolve the input reference when possible using the provider guidance in `devspec/foundation/provider-integrations.md`.
 - If provider resolution succeeds, show at least provider, identifier, title, type when available, current external status when available, canonical link, and a short summary, then require explicit confirmation before creating or updating the work-item folder.
@@ -38,7 +44,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 ## Approach
 1. Validate the incoming work item reference against supported provider formats.
 2. Resolve or normalize the incoming work item reference, or stop with correction guidance if it is invalid.
-3. If resolution succeeds, show the resolved details and wait for explicit user confirmation.
+3. If clarification or confirmation is required, ask exactly one multiple-choice question at a time, include `Custom Answer`, recommend one option with a brief justification, and wait for the user's answer.
 4. If manual intake is chosen, collect the external reference, manual description, and manual acceptance criteria before proceeding.
 5. Determine the work-item type and severity from the source or user clarification.
 6. Derive a stable work-item folder name.
