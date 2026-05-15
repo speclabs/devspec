@@ -63,8 +63,18 @@ Use this input policy across the workflow:
 - `clarify`, `finalize`, `tasks`, `implement`, and `review` may accept optional user input for adjustments, constraints, reviewer notes, or operator guidance.
 - Optional user input after `story` is additive only. It may add guidance or context, but it must not silently override approved scope or prior decisions.
 - If optional user input changes scope or invalidates an approved brief, send the workflow back to the appropriate earlier stage instead of mutating the current stage in place.
-- Every prompt response should end with a recommended next step or the next prompt to run so users can follow the workflow without guessing.
+- Resolve missing information by asking exactly one clarification or confirmation question at a time with clickable options whenever reasonable, plus `Custom Answer`, one recommended option, and a short justification.
+- Wait for the user's answer before asking the next question.
+- Only record unresolved blockers when the user declines to answer or the evidence remains unavailable.
+- Every prompt response should end with a recommended next step or prompt to run so users can follow the workflow without guessing.
 - Each prompt file should expose that input through frontmatter and prompt-body placeholders such as `argument-hint` and `${input:...}`.
+
+Use this closing pattern consistently:
+
+```markdown
+Recommended next step or prompt to run
+- `devspec.<next-stage>.prompt.md` because {short justification}
+```
 
 Use this common structure where applicable:
 
@@ -78,7 +88,7 @@ Use this common structure where applicable:
 ## Decisions
 ## Acceptance Criteria
 ## Risks
-## Open Questions
+## Blockers
 ## Next Step
 ```
 
@@ -100,7 +110,7 @@ Backfill devspec artifacts from one or more existing repositories.
 **Must produce**
 - Source validation results
 - Evidence-backed candidate updates for constitution, architecture, and foundation artifacts
-- Clear separation between observed facts, high-confidence inference, and open questions
+- Clear separation between observed facts, high-confidence inference, and unresolved blockers only when they cannot be resolved during questioning
 - Explicit confirmation step before constitution changes are written
 - Updated architecture and foundation files when evidence is sufficient
 
@@ -110,7 +120,7 @@ Backfill devspec artifacts from one or more existing repositories.
 - Preserve human-authored content when updating existing artifacts.
 - Do not synthesize ADRs without explicit user direction and strong evidence.
 - Treat principle-level content as confirm-before-write.
-- End with a recommended next prompt, usually `devspec.projectcontext.prompt.md` after extraction succeeds.
+- End with a recommended next step or prompt to run, usually `devspec.projectcontext.prompt.md` after extraction succeeds.
 
 **Handoff**
 Feeds the foundation prompts and can reduce the manual input needed for them.
@@ -226,6 +236,9 @@ Define preferred engineering practices.
 **Handoff**
 Guides code quality during `finalize` and `implement`.
 
+**Recommended next prompt**
+`devspec.rules.prompt.md`
+
 **User input**
 Mandatory.
 
@@ -250,6 +263,9 @@ Define hard constraints that cannot be violated.
 
 **Handoff**
 Applied as a hard filter to every work item and implementation plan.
+
+**Recommended next prompt**
+`devspec.story.prompt.md`
 
 **User input**
 Mandatory.
@@ -280,7 +296,7 @@ Turn a work tracking reference into a normalized internal story.
 - Bug reproduction details when the item is a bug
 - Security impact details when the item is a security vulnerability
 - Known dependencies and risks
-- Open questions blocking implementation
+- Unresolved blockers after questioning and confirmation attempts
 
 **Rules**
 - Do not guess the source system for ambiguous bare numbers.
@@ -299,6 +315,9 @@ Turn a work tracking reference into a normalized internal story.
 
 **Handoff**
 Feeds `clarify`.
+
+**Recommended next prompt**
+`devspec.clarify.prompt.md`
 
 **User input**
 Mandatory.
@@ -331,6 +350,9 @@ Ask only the minimum questions required to unblock implementation.
 
 **Handoff**
 Feeds `finalize`.
+
+**Recommended next prompt**
+`devspec.finalize.prompt.md`
 
 **User input**
 Optional.
@@ -367,6 +389,9 @@ Freeze a story into an implementation-ready brief.
 **Handoff**
 Feeds `tasks`.
 
+**Recommended next prompt**
+`devspec.tasks.prompt.md`
+
 **User input**
 Optional.
 
@@ -401,6 +426,9 @@ Break a finalized story into ordered implementation tasks without changing scope
 
 **Handoff**
 Feeds `implement`.
+
+**Recommended next prompt**
+`devspec.implement.prompt.md`
 
 **User input**
 Optional.
@@ -444,6 +472,9 @@ Implement one approved task at a time for the current work item according to the
 **Handoff**
 Feeds `review`.
 
+**Recommended next prompt**
+`devspec.review.prompt.md`
+
 **User input**
 Optional.
 
@@ -477,6 +508,9 @@ Review the implemented work item against the finalized brief and record approval
 
 **Handoff**
 Feeds `implement` when changes are required, or delivery when approved.
+
+**Recommended next prompt**
+`devspec.implement.prompt.md` when changes are requested, otherwise stop the workflow or hand off to delivery.
 
 **User input**
 Optional.

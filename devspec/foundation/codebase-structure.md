@@ -23,6 +23,6 @@
 - Concern:
 - Placement:
 
-## Open Questions
+## Blockers
 
-- Question 1:
+- Blocker 1:

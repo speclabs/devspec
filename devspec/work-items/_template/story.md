@@ -73,9 +73,9 @@
 
 - Risk 1:
 
-## Open Questions
+## Blockers
 
-- Question 1:
+- Blocker 1:
 
 ## Next Step
 

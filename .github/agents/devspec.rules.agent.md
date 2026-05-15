@@ -29,10 +29,10 @@ You create or update `devspec/foundation/rules.md`.
 2. If required input is incomplete or ambiguous, ask exactly one multiple-choice question with `Custom Answer`, include a recommended option with a brief justification, and wait for the user's answer.
 3. Merge the required user input into a stable rules document.
 4. Write the updated artifact.
-5. Report the file updated, key changes, open questions, and the recommended next step or prompt to run.
+5. Report the file updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
 
 ## Output Format
 - Artifact updated
 - Key changes
-- Open questions or blockers
+- Questions resolved or remaining blockers
 - Recommended next step or prompt to run

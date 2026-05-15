@@ -26,10 +26,12 @@ Requirements:
 - Always recommend one option with a short justification.
 - Wait for the user's answer before asking the next confirmation question.
 - Do not ask all confirmations at once.
+- If other details remain missing or ambiguous, ask exactly one clarification or confirmation question at a time using the same pattern until the artifact can be completed or a real blocker remains.
+- Only record unresolved blockers when the user declines to answer or the evidence remains unavailable.
 - For `devspec/foundation/project-context.md`, `devspec/foundation/coding-standards.md`, and `devspec/foundation/rules.md`, separate directly observed facts from inferred or candidate guidance.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/` in place.
 - Preserve human-authored content when updating existing artifacts. Prefer generated sections or conservative in-place merges instead of full-file replacement.
 - Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence.
-- Capture open questions explicitly instead of guessing missing facts.
+- Resolve missing facts through the one-question-at-a-time flow instead of leaving unresolved items whenever practical.
 - End the response with a recommended next step or next prompt to run.
-- Summarize the sources processed, files updated, evidence used, confidence levels, confirmation blockers, and the recommended next step or prompt to run.
+- Summarize the sources processed, files updated, evidence used, confidence levels, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.

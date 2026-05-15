@@ -21,6 +21,12 @@ Requirements:
 - If provider lookup is unavailable or the item cannot be resolved, do not guess. Record the attempt and offer manual intake only as an explicit fallback.
 - Manual intake requires a user-provided external reference plus manual description and manual acceptance criteria before the work item can be created.
 - Classify the work item as `feature`, `bug`, or `security-vulnerability`. If that classification is unclear, ask for clarification instead of guessing.
+- Ask missing clarification or confirmation questions one at a time using clickable multiple-choice options whenever reasonable.
+- Include a `Custom Answer` option.
+- Include one recommended option with a short justification.
+- Wait for the user's answer before asking the next question.
+- Resolve those questions before writing the artifact whenever practical.
+- Only record unresolved blockers when the user declines to answer or the evidence remains unavailable.
 - Create the work-item folder during the story stage and keep the folder path stable after creation.
 - Write or update `meta.md` and `story.md` for the target work item.
 - Record source resolution status, provider, resolution notes, and resolved item confirmation status in `meta.md`.
@@ -32,7 +38,7 @@ Requirements:
 - For security vulnerabilities, capture severity, affected scope, vulnerability class, attack surface, exploitability, disclosure status, and containment or remediation notes.
 - Minimize sensitive exploit detail in shared artifacts unless it is necessary for remediation.
 - Initialize `decisions.md` and `notes.md` if the work-item folder is being created for the first time.
-- Capture open questions explicitly instead of guessing missing facts.
+- Resolve missing facts through the one-question-at-a-time flow instead of leaving unresolved items whenever practical.
 - End the response with a recommended next step or next prompt to run.
-- Summarize the work-item path updated, key changes, any blocker, and the recommended next step or prompt to run.
+- Summarize the work-item path updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
 

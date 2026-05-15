@@ -40,7 +40,8 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 - For security vulnerabilities, capture severity, affected scope, vulnerability class, attack surface, exploitability, disclosure status, and containment or remediation notes.
 - Minimize sensitive exploit detail in shared artifacts unless it is necessary for remediation.
 - Initialize `decisions.md` and `notes.md` if the work-item folder is new.
-- Do not guess missing facts; record open questions explicitly.
+- Do not guess missing facts; ask targeted clarification or confirmation questions one at a time before writing the artifact.
+- Record unresolved blockers only when the user declines to answer or supporting evidence remains unavailable.
 
 ## Approach
 1. Validate the incoming work item reference against supported provider formats.
@@ -50,10 +51,10 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 5. Determine the work-item type and severity from the source or user clarification.
 6. Derive a stable work-item folder name.
 7. Create or update the work-item folder artifacts.
-8. Report the path updated, key changes, blockers, and the recommended next step or prompt to run.
+8. Report the path updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
 
 ## Output Format
 - Work-item path updated
 - Key changes
-- Open questions or blockers
+- Questions resolved or remaining blockers
 - Recommended next step or prompt to run

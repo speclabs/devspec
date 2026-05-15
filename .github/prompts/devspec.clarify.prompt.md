@@ -22,4 +22,4 @@ Requirements:
 - Write or update `clarify.md` with the current blocking question, any answer provided, its impact, and the current status.
 - If no blocking question remains, state that clearly in `clarify.md`.
 - End the response with a recommended next step or next prompt to run.
-- Summarize the work-item path updated, current blocker status, next step, and the recommended next prompt to run.
+- Summarize the work-item path updated, current blocker status, next step, and the recommended next step or prompt to run.
