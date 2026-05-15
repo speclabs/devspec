@@ -49,6 +49,19 @@ The intended command sequence is:
 
 Right now, the recommended setup is file-copy based. Package-based install can be added later, but the current workflow assumes these files live inside the target repository.
 
+Before you start:
+
+- open the target repository as a workspace in VS Code
+- make sure GitHub Copilot Chat is available in that workspace
+- copy both `.github/prompts/` and `.github/agents/` along with `devspec/`, because the slash-command workflow depends on all three
+
+Installation worked if:
+
+- the copied files are visible in the target repository under `devspec/`, `.github/prompts/`, and `.github/agents/`
+- GitHub Copilot Chat in that repository recognizes `/devspec` commands such as `/devspec.projectcontext` or `/devspec.story`
+
+If the commands do not appear, reopen the repository workspace in VS Code and confirm the prompt and agent files were copied into the target repository root rather than a nested folder.
+
 ### Setup On A New Project
 
 For a brand-new repository with little or no existing code:
