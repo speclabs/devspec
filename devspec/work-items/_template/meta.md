@@ -1,5 +1,10 @@
 # Meta
 
+## Status
+
+- Work item status:
+- Ready status:
+
 ## Source Reference
 
 - System:
@@ -9,7 +14,6 @@
 ## Ownership
 
 - Owner:
-- Status:
 
 ## Dates
 

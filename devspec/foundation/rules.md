@@ -2,6 +2,11 @@
 
 This file holds project-operational hard constraints, governance rules, and delivery gates.
 
+## Scope Reminder
+
+- Use this file for operational constraints, delivery gates, and evolving project rules.
+- Do not duplicate enduring principles that belong in `devspec/constitution.md`.
+
 ## Hard Constraints
 
 - Constraint 1:

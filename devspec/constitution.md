@@ -28,3 +28,8 @@ This file holds enduring project principles that apply across all work items and
 
 - Update this file only for durable principles.
 - Project-operational constraints belong in `devspec/foundation/rules.md`.
+
+## Scope Reminder
+
+- Use this file for enduring principles that rarely change.
+- Do not place project-operational delivery gates or evolving compliance rules here.
