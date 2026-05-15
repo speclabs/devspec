@@ -62,6 +62,14 @@ Installation worked if:
 
 If the commands do not appear, reopen the repository workspace in VS Code and confirm the prompt and agent files were copied into the target repository root rather than a nested folder.
 
+Before you use provider-backed story intake:
+
+- review `devspec/foundation/provider-integrations.md`
+- record the providers, accepted input formats, and fallback policy your team will support
+- make sure the required provider access, such as MCP-backed lookup, is available for that repository
+
+If provider resolution is not configured yet, you can still use `/devspec.story`, but plan on manual intake rather than assuming GitHub, Jira, or Azure DevOps references will resolve automatically.
+
 ### Setup On A New Project
 
 For a brand-new repository with little or no existing code:
@@ -483,6 +491,8 @@ Then refine what the code could not fully tell you:
 
 Once the project foundation exists, use the work-item commands.
 
+If you want `/devspec.story` to resolve GitHub, Jira, or Azure DevOps references, review and update `devspec/foundation/provider-integrations.md` first so the accepted provider formats, access model, and manual fallback are explicit for your repository.
+
 The work-item flow is:
 
 1. `/devspec.story`
@@ -510,6 +520,8 @@ Supported inputs:
 - Jira issue key or URL
 - Azure DevOps work item URL
 - issue, task, bug, or PBI reference when the provider can be resolved clearly
+
+Before relying on those external references, confirm that `devspec/foundation/provider-integrations.md` reflects your configured providers and fallback path. If it does not, use manual intake until that file is updated.
 
 Example with an external reference:
 
@@ -700,6 +712,8 @@ Then start a story:
 ```
 
 ## Command Reference
+
+Before using `/devspec.story` with external work-item references, validate `devspec/foundation/provider-integrations.md` for the providers and fallback behavior your repository supports.
 
 | Command | Purpose | Main output |
 | --- | --- | --- |
