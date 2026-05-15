@@ -4,6 +4,13 @@ description: "Use when asking and recording exactly one blocking clarification q
 tools: [read, edit, search, vscode/askQuestions]
 user-invocable: false
 agents: []
+handoffs:
+  - label: Back to Story Intake
+    agent: devspec.story
+    prompt: Return to the story stage to revise intake context based on the clarification above.
+  - label: Continue to Finalize
+    agent: devspec.finalize
+    prompt: Continue by creating or updating the finalized implementation-ready brief for this work item.
 ---
 You create or update `devspec/work-items/<feature-name>/clarify.md`.
 

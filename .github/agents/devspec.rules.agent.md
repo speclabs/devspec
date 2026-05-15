@@ -4,6 +4,10 @@ description: "Use when creating or updating devspec foundation rules for hard co
 tools: [read, edit, search]
 user-invocable: false
 agents: []
+handoffs:
+  - label: Start a Work Item Story
+    agent: devspec.story
+    prompt: Start or update a devspec work item story using the foundation artifacts above.
 ---
 You create or update `devspec/foundation/rules.md`.
 

@@ -4,6 +4,13 @@ description: "Use when creating or updating the implementation-ready finalized b
 tools: [read, edit, search]
 user-invocable: false
 agents: []
+handoffs:
+  - label: Return to Clarify
+    agent: devspec.clarify
+    prompt: Return to clarify the remaining blocking question for this work item.
+  - label: Continue to Tasks
+    agent: devspec.tasks
+    prompt: Continue by creating or updating the ordered implementation tasks for this ready work item.
 ---
 You create or update `devspec/work-items/<feature-name>/finalize.md`.
 

@@ -4,6 +4,10 @@ description: "Use when creating or updating devspec foundation project context f
 tools: [read, edit, search]
 user-invocable: false
 agents: []
+handoffs:
+  - label: Continue to Tech Stack
+    agent: devspec.techstack
+    prompt: Continue by creating or updating the devspec tech stack based on the project context above.
 ---
 You create or update `devspec/foundation/project-context.md`.
 

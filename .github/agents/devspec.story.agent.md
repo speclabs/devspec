@@ -4,6 +4,10 @@ description: "Use when creating or updating a devspec work item from a GitHub is
 tools: [read, edit, search]
 user-invocable: false
 agents: []
+handoffs:
+  - label: Continue to Clarify
+    agent: devspec.clarify
+    prompt: Continue by resolving the next blocking clarification for this work item.
 ---
 You create or update work-item intake artifacts under `devspec/work-items/<feature-name>/`.
 

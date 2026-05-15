@@ -4,6 +4,10 @@ description: "Use when creating or updating devspec foundation coding standards 
 tools: [read, edit, search]
 user-invocable: false
 agents: []
+handoffs:
+  - label: Continue to Rules
+    agent: devspec.rules
+    prompt: Continue by creating or updating the devspec operational rules and delivery gates using the foundation context above.
 ---
 You create or update `devspec/foundation/coding-standards.md`.
 

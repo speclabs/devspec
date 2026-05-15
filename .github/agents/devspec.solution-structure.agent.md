@@ -4,6 +4,10 @@ description: "Use when creating or updating devspec foundation solution structur
 tools: [read, edit, search]
 user-invocable: false
 agents: []
+handoffs:
+  - label: Continue to Coding Standards
+    agent: devspec.coding-standards
+    prompt: Continue by creating or updating the devspec coding standards using the foundation context above.
 ---
 You create or update `devspec/foundation/solution-structure.md`.
 

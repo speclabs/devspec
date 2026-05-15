@@ -4,6 +4,10 @@ description: "Use when creating or updating ordered implementation tasks for the
 tools: [read, edit, search]
 user-invocable: false
 agents: []
+handoffs:
+  - label: Continue to Implement
+    agent: devspec.implement
+    prompt: Continue by implementing the approved work item based on the finalized brief and task breakdown above.
 ---
 You create or update `devspec/work-items/<feature-name>/tasks.md`.
 

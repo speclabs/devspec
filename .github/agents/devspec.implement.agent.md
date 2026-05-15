@@ -4,6 +4,10 @@ description: "Use when implementing the current ready devspec work item, changin
 tools: [read, edit, search, execute]
 user-invocable: false
 agents: []
+handoffs:
+  - label: Start Another Work Item
+    agent: devspec.story
+    prompt: Start or update another devspec work item.
 ---
 You implement the current work item and update `devspec/work-items/<feature-name>/implement.md`.
 

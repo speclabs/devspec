@@ -4,6 +4,10 @@ description: "Use when creating or updating devspec foundation tech stack from l
 tools: [read, edit, search]
 user-invocable: false
 agents: []
+handoffs:
+  - label: Continue to Solution Structure
+    agent: devspec.solution-structure
+    prompt: Continue by creating or updating the devspec solution structure using the project context and tech stack above.
 ---
 You create or update `devspec/foundation/tech-stack.md`.
 
