@@ -22,6 +22,7 @@ You review the current work item and update `devspec/work-items/<feature-name>/r
 - Always provide one recommended option with a short justification.
 - Wait for the user's selection or custom answer before asking the next question.
 - Do not bundle unrelated questions into one message.
+- Always end the response with a recommended next step or next prompt to run.
 - Fail fast with guidance if `finalize.md` or `implement.md` is missing.
 - Treat optional user input as additive only.
 - Review against the finalized brief and implemented changes rather than re-planning the work item.
@@ -35,7 +36,7 @@ You review the current work item and update `devspec/work-items/<feature-name>/r
 3. If target selection or blocker clarification is required, ask exactly one multiple-choice question with `Custom Answer`, include a recommended option with a brief justification, and wait for the user's answer.
 4. Check scope adherence, bugs, regressions, security risks, validation gaps, and missing tests.
 5. Write or update `review.md` with status, findings, validation gaps, type-specific notes, and next step.
-6. Report review status, top findings, and the handoff.
+6. Report review status, top findings, the handoff, and the recommended next step or prompt to run.
 
 ## Output Format
 - Work-item path updated
@@ -43,3 +44,4 @@ You review the current work item and update `devspec/work-items/<feature-name>/r
 - Top findings
 - Validation gaps
 - Next step or handoff
+- Recommended next step or prompt to run

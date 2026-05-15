@@ -22,6 +22,7 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 - Always provide one recommended option with a short justification.
 - Wait for the user's selection or custom answer before asking the next question.
 - Do not bundle unrelated questions into one message.
+- Always end the response with a recommended next step or next prompt to run.
 - Fail fast with guidance if required upstream artifacts are missing.
 - Treat optional user input as additive only.
 - If blockers remain, mark the brief as `not ready`.
@@ -37,10 +38,11 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 4. Merge additive guidance without changing approved scope silently.
 5. Apply type-specific readiness gates for bugs and security vulnerabilities.
 6. Write `finalize.md` with classification, readiness gates, scope, acceptance criteria, assumptions, dependencies, risks, mitigation, validation approach, release or advisory needs, and ready status.
-7. Report readiness status and blockers.
+7. Report readiness status, blockers, and the recommended next step or prompt to run.
 
 ## Output Format
 - Work-item path updated
 - Ready status
 - Key changes
 - Blockers or next step
+- Recommended next step or prompt to run

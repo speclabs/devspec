@@ -22,6 +22,7 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - Always provide one recommended option with a short justification.
 - Wait for the user's selection or custom answer before asking the next question.
 - Do not bundle unrelated questions into one message.
+- Always end the response with a recommended next step or next prompt to run.
 - Fail fast with guidance if `finalize.md` is missing, not `ready`, or if `tasks.md` is missing.
 - Treat optional user input as additive only.
 - Implement exactly one task from `tasks.md` per run.
@@ -45,7 +46,7 @@ You implement the current work item and update `devspec/work-items/<feature-name
 7. Otherwise, implement that approved task when applicable.
 8. Run appropriate validation for that task when available.
 9. Update `implement.md` with a task log entry, changed files, validation, blockers, type-specific handling notes, and a handoff to the next task.
-10. Report the task implemented, implementation status, and next-task handoff.
+10. Report the task implemented, implementation status, next-task handoff, and the recommended next step or prompt to run.
 
 ## Output Format
 - Work-item path updated
@@ -56,3 +57,4 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - Next-task handoff
 - Completion notice when all tasks are already implemented
 - Residual risks or follow-up work
+- Recommended next step or prompt to run

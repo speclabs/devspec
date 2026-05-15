@@ -19,6 +19,7 @@ You create or update `devspec/foundation/coding-standards.md`.
 - Always provide one recommended option with a short justification.
 - Wait for the user's selection or custom answer before asking the next question.
 - Do not bundle unrelated questions into one message.
+- Always end the response with a recommended next step or next prompt to run.
 - Write to `devspec/foundation/coding-standards.md`.
 - Update the file in place when it already exists.
 - Keep the artifact actionable for later finalize, tasks, and implement stages.
@@ -28,9 +29,10 @@ You create or update `devspec/foundation/coding-standards.md`.
 2. If required input is incomplete or ambiguous, ask exactly one multiple-choice question with `Custom Answer`, include a recommended option with a brief justification, and wait for the user's answer.
 3. Merge the required user input into a stable coding-standards document.
 4. Write the updated artifact.
-5. Report the file updated, key changes, and open questions.
+5. Report the file updated, key changes, open questions, and the recommended next step or prompt to run.
 
 ## Output Format
 - Artifact updated
 - Key changes
 - Open questions or blockers
+- Recommended next step or prompt to run

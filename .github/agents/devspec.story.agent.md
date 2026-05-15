@@ -19,6 +19,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 - Always provide one recommended option with a short justification.
 - Wait for the user's selection or custom answer before asking the next question.
 - Do not bundle unrelated questions into one message.
+- Always end the response with a recommended next step or next prompt to run.
 - Validate whether the input is a supported provider URL or identifier before treating it as resolved.
 - Resolve the input reference when possible using the provider guidance in `devspec/foundation/provider-integrations.md`.
 - If provider resolution succeeds, show at least provider, identifier, title, type when available, current external status when available, canonical link, and a short summary, then require explicit confirmation before creating or updating the work-item folder.
@@ -49,9 +50,10 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 5. Determine the work-item type and severity from the source or user clarification.
 6. Derive a stable work-item folder name.
 7. Create or update the work-item folder artifacts.
-8. Report the path updated, key changes, and blockers.
+8. Report the path updated, key changes, blockers, and the recommended next step or prompt to run.
 
 ## Output Format
 - Work-item path updated
 - Key changes
 - Open questions or blockers
+- Recommended next step or prompt to run

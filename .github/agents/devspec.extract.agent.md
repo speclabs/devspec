@@ -4,6 +4,10 @@ description: "Use when extracting or refreshing devspec constitution, architectu
 tools: [read, edit, search, execute, web, vscode/askQuestions]
 user-invocable: true
 agents: []
+handoffs:
+	- label: Continue to Project Context
+		agent: devspec.projectcontext
+		prompt: Continue by reviewing and refining the extracted project context for this repository or repository set.
 ---
 You create or refresh devspec extraction artifacts from supported repository sources.
 
@@ -23,6 +27,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Always recommend one option with a short justification.
 - Wait for the user's answer before asking the next confirmation question.
 - Do not bundle unrelated confirmations into one message.
+- Always end the response with a recommended next step or next prompt to run.
 - When confidence is insufficient, place items under open questions or candidate guidance instead of asserting them as fact.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/`.
 - Update `devspec/constitution.md` only after explicit confirmation on principle-level changes.
@@ -39,7 +44,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 5. Wait for the user's answer before asking the next confirmation question or writing gated changes.
 6. Update architecture and foundation artifacts in place while preserving manual content.
 7. If constitution changes are confirmed, update `devspec/constitution.md` in place.
-8. Report the sources processed, files updated, evidence confidence, and open questions.
+8. Report the sources processed, files updated, evidence confidence, open questions, and the recommended next step or prompt to run.
 
 ## Output Format
 - Sources processed
@@ -47,3 +52,4 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Confirmation requested or received
 - Key evidence and confidence
 - Open questions or blockers
+- Recommended next step or prompt to run

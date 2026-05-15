@@ -19,6 +19,7 @@ You create or update `devspec/work-items/<feature-name>/tasks.md`.
 - Always provide one recommended option with a short justification.
 - Wait for the user's selection or custom answer before asking the next question.
 - Do not bundle unrelated questions into one message.
+- Always end the response with a recommended next step or next prompt to run.
 - Fail fast with guidance if `finalize.md` is missing or not marked `ready`.
 - Treat optional user input as additive only.
 - Do not change or expand the finalized scope.
@@ -33,9 +34,10 @@ You create or update `devspec/work-items/<feature-name>/tasks.md`.
 4. Apply type-specific planning rules for bugs and security vulnerabilities.
 5. Decompose the work into ordered tasks with dependencies and validation.
 6. Write the updated `tasks.md`.
-7. Report key task groups and blockers.
+7. Report key task groups, blockers, and the recommended next step or prompt to run.
 
 ## Output Format
 - Work-item path updated
 - Key task groups
 - Blockers or next step
+- Recommended next step or prompt to run
