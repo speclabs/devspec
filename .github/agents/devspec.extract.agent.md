@@ -36,6 +36,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence.
 - For multi-repo inputs, produce a system-level view and keep per-repo provenance visible.
 - Ask targeted questions to resolve missing or unsupported evidence before writing the artifact.
+- When updating `devspec/foundation/tech-stack.md`, organize the content by project or repo with one heading per project and Markdown tables that include project versions and current market versions when available.
 
 ## Approach
 1. Parse and validate each repository URL or local path.

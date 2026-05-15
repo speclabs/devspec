@@ -170,9 +170,10 @@ Capture the actual technology and delivery environment.
 - Tooling preferences
 
 **Must produce**
-- Languages and versions
-- Frameworks and libraries
-- Data stores and messaging
+- One heading per project or repo
+- Tech stack tables for languages and runtimes, frameworks and libraries, services and infrastructure, tooling, and hosting or delivery constraints
+- Versions used in the project
+- Current market versions when available
 - CI/CD and hosting model
 - Local development and testing tools
 - Operational constraints

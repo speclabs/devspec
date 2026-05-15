@@ -1,29 +1,42 @@
 # Tech Stack
 
-## Languages And Runtimes
+## Projects
 
-- Language:
-- Runtime:
+### Project: <project-name>
 
-## Frameworks And Libraries
+#### Languages And Runtimes
 
-- Framework:
+| Technology | Version In Project | Current Market Version | Notes |
+| --- | --- | --- | --- |
+| <language-or-runtime> | <version> | <market-version-if-known> | <notes> |
 
-## Services And Infrastructure
+#### Frameworks And Libraries
 
-- Service:
+| Technology | Version In Project | Current Market Version | Notes |
+| --- | --- | --- | --- |
+| <framework-or-library> | <version> | <market-version-if-known> | <notes> |
 
-## Tooling
+#### Services And Infrastructure
 
-- Build:
-- Test:
-- Lint:
-- CI/CD:
+| Technology | Version In Project | Current Market Version | Notes |
+| --- | --- | --- | --- |
+| <service-or-platform> | <version-or-managed-plan> | <market-version-if-known> | <notes> |
 
-## Hosting And Delivery Constraints
+#### Tooling
 
-- Hosting:
-- Constraint:
+| Tooling Area | Technology | Version In Project | Current Market Version | Notes |
+| --- | --- | --- | --- | --- |
+| Build | <tool> | <version> | <market-version-if-known> | <notes> |
+| Test | <tool> | <version> | <market-version-if-known> | <notes> |
+| Lint | <tool> | <version> | <market-version-if-known> | <notes> |
+| CI/CD | <tool> | <version> | <market-version-if-known> | <notes> |
+
+#### Hosting And Delivery Constraints
+
+| Area | Current Choice | Current Market Version | Notes |
+| --- | --- | --- | --- |
+| Hosting | <hosting-target> | <market-version-if-known> | <notes> |
+| Delivery Constraint | <constraint> | n/a | <notes> |
 
 ## Blockers
 
