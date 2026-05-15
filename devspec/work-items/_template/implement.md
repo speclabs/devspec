@@ -4,6 +4,7 @@
 
 - Status:
 - Current task:
+- Completion note:
 
 ## Task Execution Log
 

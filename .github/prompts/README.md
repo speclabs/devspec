@@ -359,6 +359,7 @@ Implement one approved task at a time for the current work item according to the
 - Do not widen scope beyond the finalized brief.
 - Follow the execution task plan one task at a time unless a blocker requires deviation.
 - Select the next pending task using `tasks.md` and any prior handoff recorded in `implement.md`.
+- If no pending task remains, notify the user that all planned tasks are already implemented and record that completed state in `implement.md`.
 - Record each implementation pass as a dated task-level log entry in `implement.md`.
 - After each task, leave a clear handoff for the next task instead of silently continuing through the task list.
 - Report validation evidence, not just intent.
