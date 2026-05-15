@@ -547,6 +547,7 @@ Important behavior:
 - asks exactly one blocking question at a time
 - uses clickable options whenever reasonable
 - includes `Custom Answer`
+- includes one recommended option with a short justification
 - waits for your answer before proceeding
 
 Example:
@@ -710,7 +711,7 @@ These are core behaviors baked into the prompts and agents:
 - `/devspec.story` requires user input.
 - Later work-item commands accept optional additive input.
 - Clarification should happen one question at a time.
-- Clickable options with `Custom Answer` are preferred whenever reasonable.
+- Clickable options with `Custom Answer` and one recommended option with a short justification are preferred whenever reasonable.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
 - `/devspec.finalize` should mark a story `not ready` if blockers remain.
 - `/devspec.tasks` must not expand scope.
