@@ -31,4 +31,5 @@ Requirements:
 - Preserve human-authored content when updating existing artifacts. Prefer generated sections or conservative in-place merges instead of full-file replacement.
 - Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence.
 - Capture open questions explicitly instead of guessing missing facts.
-- Summarize the sources processed, files updated, evidence used, confidence levels, and confirmation blockers.
+- End the response with a recommended next step or next prompt to run.
+- Summarize the sources processed, files updated, evidence used, confidence levels, confirmation blockers, and the recommended next step or prompt to run.

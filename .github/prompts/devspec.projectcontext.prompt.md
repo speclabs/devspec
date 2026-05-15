@@ -15,4 +15,5 @@ Requirements:
 - Write or update `devspec/foundation/project-context.md`.
 - Keep the artifact concise, structured, and durable for later stages.
 - Update the file in place if it already exists.
-- Summarize the file updated, key changes, and open questions.
+- End the response with a recommended next step or next prompt to run.
+- Summarize the file updated, key changes, open questions, and the recommended next step or prompt to run.

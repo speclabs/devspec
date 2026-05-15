@@ -15,4 +15,5 @@ Requirements:
 - Write or update `devspec/foundation/rules.md`.
 - Keep this artifact focused on project-operational hard constraints, not enduring principles that belong in `devspec/constitution.md`.
 - Update the file in place if it already exists.
-- Summarize the file updated, key changes, and open questions.
+- End the response with a recommended next step or next prompt to run.
+- Summarize the file updated, key changes, open questions, and the recommended next step or prompt to run.

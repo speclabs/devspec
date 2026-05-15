@@ -63,6 +63,7 @@ Use this input policy across the workflow:
 - `clarify`, `finalize`, `tasks`, `implement`, and `review` may accept optional user input for adjustments, constraints, reviewer notes, or operator guidance.
 - Optional user input after `story` is additive only. It may add guidance or context, but it must not silently override approved scope or prior decisions.
 - If optional user input changes scope or invalidates an approved brief, send the workflow back to the appropriate earlier stage instead of mutating the current stage in place.
+- Every prompt response should end with a recommended next step or the next prompt to run so users can follow the workflow without guessing.
 - Each prompt file should expose that input through frontmatter and prompt-body placeholders such as `argument-hint` and `${input:...}`.
 
 Use this common structure where applicable:
@@ -109,6 +110,7 @@ Backfill devspec artifacts from one or more existing repositories.
 - Preserve human-authored content when updating existing artifacts.
 - Do not synthesize ADRs without explicit user direction and strong evidence.
 - Treat principle-level content as confirm-before-write.
+- End with a recommended next prompt, usually `devspec.projectcontext.prompt.md` after extraction succeeds.
 
 **Handoff**
 Feeds the foundation prompts and can reduce the manual input needed for them.
@@ -140,6 +142,9 @@ Create the canonical project brief.
 **Handoff**
 Used by all later prompts.
 
+**Recommended next prompt**
+`devspec.techstack.prompt.md`
+
 **User input**
 Mandatory.
 
@@ -165,6 +170,9 @@ Capture the actual technology and delivery environment.
 **Handoff**
 Constrains architecture and implementation choices.
 
+**Recommended next prompt**
+`devspec.codebase-structure.prompt.md`
+
 **User input**
 Mandatory.
 
@@ -189,6 +197,9 @@ Define how the codebase is organized.
 
 **Handoff**
 Used by `story`, `finalize`, and `implement` to place changes correctly.
+
+**Recommended next prompt**
+`devspec.coding-standards.prompt.md`
 
 **User input**
 Mandatory.

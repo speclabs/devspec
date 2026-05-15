@@ -33,5 +33,6 @@ Requirements:
 - Minimize sensitive exploit detail in shared artifacts unless it is necessary for remediation.
 - Initialize `decisions.md` and `notes.md` if the work-item folder is being created for the first time.
 - Capture open questions explicitly instead of guessing missing facts.
-- Summarize the work-item path updated, key changes, and any blocker.
+- End the response with a recommended next step or next prompt to run.
+- Summarize the work-item path updated, key changes, any blocker, and the recommended next step or prompt to run.
 

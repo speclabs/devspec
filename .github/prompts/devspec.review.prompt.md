@@ -18,4 +18,5 @@ Requirements:
 - Review for scope adherence, bugs, regressions, security risks, missing validation, and missing tests.
 - Write or update `review.md` with review status, findings by severity, validation gaps, type-specific review notes, and next step.
 - If the work item is a bug or security vulnerability, apply the stricter review expectations from `devspec/foundation/rules.md`.
-- Summarize the work-item path updated, review status, top findings, and next step.
+- End the response with a recommended next step or next prompt to run.
+- Summarize the work-item path updated, review status, top findings, next step, and the recommended next step or prompt to run.

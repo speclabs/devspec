@@ -23,4 +23,5 @@ Requirements:
 - If code changes are not applicable in the current repository, record that clearly in `implement.md`.
 - If no pending task remains, update `implement.md` to show completion and notify the user that all planned tasks are already implemented.
 - Do not continue into a second task in the same run unless the user explicitly asks after the first task is logged.
-- Summarize the work-item path updated, the task implemented, implementation status, validation outcome, and next-task handoff.
+- End the response with a recommended next step or next prompt to run.
+- Summarize the work-item path updated, the task implemented, implementation status, validation outcome, next-task handoff, and the recommended next step or prompt to run.
