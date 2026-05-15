@@ -18,4 +18,5 @@ Requirements:
 - For bugs, include reproduce, fix, and regression-validation tasks where applicable.
 - For security vulnerabilities, include impact confirmation, remediation, verification across affected supported versions, and backport, release, or advisory tasks where applicable.
 - Write or update `tasks.md` with ordered tasks, dependencies, likely impacted files or components, validation steps, type-specific checks, and definition of done.
-- Summarize the work-item path updated, key task groups, and any blocker.
+- End the response with a recommended next step or next prompt to run.
+- Summarize the work-item path updated, key task groups, any blocker, and the recommended next step or prompt to run.

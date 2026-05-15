@@ -6,19 +6,20 @@ This document defines the proposed end-to-end prompt workflow for project develo
 
 Use the prompts in this order:
 
-1. `devspec.projectcontext.prompt.md`
-2. `devspec.techstack.prompt.md`
-3. `devspec.codebase-structure.prompt.md`
-4. `devspec.coding-standards.prompt.md`
-5. `devspec.rules.prompt.md`
-6. `devspec.story.prompt.md`
-7. `devspec.clarify.prompt.md`
-8. `devspec.finalize.prompt.md`
-9. `devspec.tasks.prompt.md`
-10. `devspec.implement.prompt.md`
-11. `devspec.review.prompt.md`
+1. `devspec.extract.prompt.md`
+2. `devspec.projectcontext.prompt.md`
+3. `devspec.techstack.prompt.md`
+4. `devspec.codebase-structure.prompt.md`
+5. `devspec.coding-standards.prompt.md`
+6. `devspec.rules.prompt.md`
+7. `devspec.story.prompt.md`
+8. `devspec.clarify.prompt.md`
+9. `devspec.finalize.prompt.md`
+10. `devspec.tasks.prompt.md`
+11. `devspec.implement.prompt.md`
+12. `devspec.review.prompt.md`
 
-The first five prompts define stable project context. The last six prompts process one work item inside that context.
+The extract prompt is the repo-ingestion entry point for backfilling existing projects. The next five prompts define stable project context. The last six prompts process one work item inside that context.
 
 ## Prompt Groups
 
@@ -28,6 +29,7 @@ These are project-level prompts and should be created or refreshed when the proj
 
 | Prompt | Purpose | Output |
 | --- | --- | --- |
+| `extract` | Extract candidate constitution, architecture, and foundation content from supported repositories or local paths. | Evidence-backed project draft |
 | `projectcontext` | Define business goals, users, domain terms, constraints, and success measures. | Project brief |
 | `techstack` | Record languages, frameworks, services, tooling, hosting, and delivery constraints. | Stack matrix |
 | `codebase-structure` | Define repository layout, module boundaries, and ownership seams for implementation placement. | Structure blueprint |
@@ -61,7 +63,18 @@ Use this input policy across the workflow:
 - `clarify`, `finalize`, `tasks`, `implement`, and `review` may accept optional user input for adjustments, constraints, reviewer notes, or operator guidance.
 - Optional user input after `story` is additive only. It may add guidance or context, but it must not silently override approved scope or prior decisions.
 - If optional user input changes scope or invalidates an approved brief, send the workflow back to the appropriate earlier stage instead of mutating the current stage in place.
+- Resolve missing information by asking exactly one clarification or confirmation question at a time with clickable options whenever reasonable, plus `Custom Answer`, one recommended option, and a short justification.
+- Wait for the user's answer before asking the next question.
+- Only record unresolved blockers when the user declines to answer or the evidence remains unavailable.
+- Every prompt response should end with a recommended next step or prompt to run so users can follow the workflow without guessing.
 - Each prompt file should expose that input through frontmatter and prompt-body placeholders such as `argument-hint` and `${input:...}`.
+
+Use this closing pattern consistently:
+
+```markdown
+Recommended next step or prompt to run
+- `devspec.<next-stage>.prompt.md` because {short justification}
+```
 
 Use this common structure where applicable:
 
@@ -75,13 +88,45 @@ Use this common structure where applicable:
 ## Decisions
 ## Acceptance Criteria
 ## Risks
-## Open Questions
+## Blockers
 ## Next Step
 ```
 
 Not every prompt needs every section, but section names should stay stable across prompts.
 
 ## Prompt Contracts
+
+### `devspec.extract.prompt.md`
+
+**Goal**
+Backfill devspec artifacts from one or more existing repositories.
+
+**Inputs**
+- Required user input
+- One or more GitHub, Azure DevOps, or GitLab repository URLs
+- Or one or more local repository folder paths
+- Optional branch, tag, or commit guidance when the default branch is not correct
+
+**Must produce**
+- Source validation results
+- Evidence-backed candidate updates for constitution, architecture, and foundation artifacts
+- Clear separation between observed facts, high-confidence inference, and unresolved blockers only when they cannot be resolved during questioning
+- Explicit confirmation step before constitution changes are written
+- Updated architecture and foundation files when evidence is sufficient
+
+**Rules**
+- Accept repository URLs only, not issues, pull requests, merge requests, work items, wiki pages, releases, or pipelines.
+- Reject unsupported providers.
+- Preserve human-authored content when updating existing artifacts.
+- Do not synthesize ADRs without explicit user direction and strong evidence.
+- Treat principle-level content as confirm-before-write.
+- End with a recommended next step or prompt to run, usually `devspec.projectcontext.prompt.md` after extraction succeeds.
+
+**Handoff**
+Feeds the foundation prompts and can reduce the manual input needed for them.
+
+**User input**
+Mandatory.
 
 ### `devspec.projectcontext.prompt.md`
 
@@ -107,6 +152,9 @@ Create the canonical project brief.
 **Handoff**
 Used by all later prompts.
 
+**Recommended next prompt**
+`devspec.techstack.prompt.md`
+
 **User input**
 Mandatory.
 
@@ -122,15 +170,19 @@ Capture the actual technology and delivery environment.
 - Tooling preferences
 
 **Must produce**
-- Languages and versions
-- Frameworks and libraries
-- Data stores and messaging
+- One heading per project or repo
+- Tech stack tables for languages and runtimes, frameworks and libraries, services and infrastructure, tooling, and hosting or delivery constraints
+- Versions used in the project
+- Current market versions when available
 - CI/CD and hosting model
 - Local development and testing tools
 - Operational constraints
 
 **Handoff**
 Constrains architecture and implementation choices.
+
+**Recommended next prompt**
+`devspec.codebase-structure.prompt.md`
 
 **User input**
 Mandatory.
@@ -147,7 +199,7 @@ Define how the codebase is organized.
 - Existing repository structure if present
 
 **Must produce**
-- Top-level repository layout
+- One tree node repository layout per repo under a dedicated repo heading
 - Service or module boundaries
 - Naming conventions
 - Ownership seams
@@ -156,6 +208,9 @@ Define how the codebase is organized.
 
 **Handoff**
 Used by `story`, `finalize`, and `implement` to place changes correctly.
+
+**Recommended next prompt**
+`devspec.coding-standards.prompt.md`
 
 **User input**
 Mandatory.
@@ -182,6 +237,9 @@ Define preferred engineering practices.
 **Handoff**
 Guides code quality during `finalize` and `implement`.
 
+**Recommended next prompt**
+`devspec.rules.prompt.md`
+
 **User input**
 Mandatory.
 
@@ -206,6 +264,9 @@ Define hard constraints that cannot be violated.
 
 **Handoff**
 Applied as a hard filter to every work item and implementation plan.
+
+**Recommended next prompt**
+`devspec.story.prompt.md`
 
 **User input**
 Mandatory.
@@ -236,7 +297,7 @@ Turn a work tracking reference into a normalized internal story.
 - Bug reproduction details when the item is a bug
 - Security impact details when the item is a security vulnerability
 - Known dependencies and risks
-- Open questions blocking implementation
+- Unresolved blockers after questioning and confirmation attempts
 
 **Rules**
 - Do not guess the source system for ambiguous bare numbers.
@@ -255,6 +316,9 @@ Turn a work tracking reference into a normalized internal story.
 
 **Handoff**
 Feeds `clarify`.
+
+**Recommended next prompt**
+`devspec.clarify.prompt.md`
 
 **User input**
 Mandatory.
@@ -287,6 +351,9 @@ Ask only the minimum questions required to unblock implementation.
 
 **Handoff**
 Feeds `finalize`.
+
+**Recommended next prompt**
+`devspec.finalize.prompt.md`
 
 **User input**
 Optional.
@@ -323,6 +390,9 @@ Freeze a story into an implementation-ready brief.
 **Handoff**
 Feeds `tasks`.
 
+**Recommended next prompt**
+`devspec.tasks.prompt.md`
+
 **User input**
 Optional.
 
@@ -357,6 +427,9 @@ Break a finalized story into ordered implementation tasks without changing scope
 
 **Handoff**
 Feeds `implement`.
+
+**Recommended next prompt**
+`devspec.implement.prompt.md`
 
 **User input**
 Optional.
@@ -400,6 +473,9 @@ Implement one approved task at a time for the current work item according to the
 **Handoff**
 Feeds `review`.
 
+**Recommended next prompt**
+`devspec.review.prompt.md`
+
 **User input**
 Optional.
 
@@ -433,6 +509,9 @@ Review the implemented work item against the finalized brief and record approval
 
 **Handoff**
 Feeds `implement` when changes are required, or delivery when approved.
+
+**Recommended next prompt**
+`devspec.implement.prompt.md` when changes are requested, otherwise stop the workflow or hand off to delivery.
 
 **User input**
 Optional.

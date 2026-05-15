@@ -19,4 +19,5 @@ Requirements:
 - Security vulnerabilities are not `ready` if severity, affected scope, containment or remediation plan, or validation and backport expectations are missing.
 - Do not invent missing requirements.
 - Write or update `finalize.md` with work-item classification, readiness gates, final scope, confirmed acceptance criteria, assumptions, dependencies, risks, mitigations, validation approach, release or advisory needs, and ready status.
-- Summarize the work-item path updated, readiness status, and any blocker.
+- End the response with a recommended next step or next prompt to run.
+- Summarize the work-item path updated, readiness status, any blocker, and the recommended next step or prompt to run.
