@@ -288,7 +288,7 @@ Turn a work tracking reference into a normalized internal story.
 - Source resolution status and provider details
 - Resolved item confirmation status
 - Resolved summary shown to the user
-- Work-item type and severity
+- Work-item type and type-appropriate urgency, using priority for features and severity for bugs or security vulnerabilities
 - Problem summary
 - Intended user outcome
 - Impact summary and affected scope
@@ -310,6 +310,7 @@ Turn a work tracking reference into a normalized internal story.
 - Manual intake requires a user-provided external reference, manual description, and manual acceptance criteria.
 - If the work-item type is unclear, ask for clarification instead of assuming feature, bug, or security-vulnerability.
 - Bugs should capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.
+- Features should capture priority instead of severity.
 - Security vulnerabilities should capture severity, affected scope, attack surface, exploitability, disclosure status, and containment or remediation notes.
 - Minimize sensitive exploit detail in shared artifacts unless it is necessary for remediation.
 - Normalize the work item into a consistent internal story format.
@@ -369,7 +370,7 @@ Freeze a story into an implementation-ready brief.
 - Foundation prompt outputs
 
 **Must produce**
-- Work-item type and severity
+- Work-item type and severity or priority as applicable
 - Final scope
 - Confirmed acceptance criteria
 - Assumptions

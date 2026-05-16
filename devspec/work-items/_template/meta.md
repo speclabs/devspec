@@ -3,8 +3,8 @@
 ## Classification
 
 - Type: feature | bug | security-vulnerability
-- Severity: low | medium | high | critical
-- Priority:
+- Severity: low | medium | high | critical | n/a for feature
+- Priority: record for features when available
 - Disclosure status: internal | coordinated | public | n/a
 
 ## Impact

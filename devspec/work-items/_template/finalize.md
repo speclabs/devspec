@@ -3,7 +3,8 @@
 ## Work-Item Classification
 
 - Type:
-- Severity:
+- Severity: bugs and security vulnerabilities only
+- Priority: features should record priority
 
 ## Ready Status
 
