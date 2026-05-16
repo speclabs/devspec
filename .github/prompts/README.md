@@ -113,6 +113,7 @@ Backfill devspec artifacts from one or more existing repositories.
 - Clear separation between observed facts, high-confidence inference, and unresolved blockers only when they cannot be resolved during questioning
 - Explicit confirmation step before constitution changes are written
 - Updated architecture and foundation files when evidence is sufficient
+- Language-specific or framework-specific coding standards when supported by repository evidence
 
 **Rules**
 - Accept repository URLs only, not issues, pull requests, merge requests, work items, wiki pages, releases, or pipelines.
@@ -120,6 +121,8 @@ Backfill devspec artifacts from one or more existing repositories.
 - Preserve human-authored content when updating existing artifacts.
 - Do not synthesize ADRs without explicit user direction and strong evidence.
 - Treat principle-level content as confirm-before-write.
+- Extract coding-standard evidence from language-specific style configs, formatting configs, lint configs, standards docs, and contribution guidance when available.
+- Ask exactly one confirmation question at a time when coding-standard evidence is ambiguous, conflicting, or incomplete.
 - End with a recommended next step or prompt to run, usually `devspec.projectcontext.prompt.md` after extraction succeeds.
 
 **Handoff**
@@ -225,14 +228,22 @@ Define preferred engineering practices.
 - Tech stack
 - Team standards
 - Existing code patterns
+- Existing coding-standard links or document paths when available
 
 **Must produce**
+- Standards sources or links when provided
+- Language-specific or framework-specific sections when applicable
 - Style and naming expectations
 - Testing expectations
 - Error handling patterns
 - Logging and observability expectations
 - Documentation expectations
 - Code review expectations
+
+**Rules**
+- Accept direct standards content, links to existing standards, repository-relative document paths, or a mix of those inputs.
+- Ask exactly one confirmation question at a time when open questions remain.
+- Organize language-specific or framework-specific standards before cross-cutting expectations when applicable.
 
 **Handoff**
 Guides code quality during `finalize` and `implement`.

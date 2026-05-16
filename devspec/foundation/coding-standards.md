@@ -1,5 +1,21 @@
 # Coding Standards
 
+## Standards Sources
+
+- Source 1:
+
+## Language And Framework Standards
+
+### Language Or Framework: <name>
+
+- File naming:
+- Indentation:
+- Regions or grouping rules:
+- Formatting or linting:
+- Testing conventions:
+- Framework-specific conventions:
+- Notes:
+
 ## Style And Naming
 
 - Rule 1:

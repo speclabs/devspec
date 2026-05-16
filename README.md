@@ -213,7 +213,7 @@ Use this when you already have a repository and want Copilot to backfill `devspe
 What it does:
 
 - validates repository URLs or local repository paths
-- reads repository layout, manifests, CI/CD, docs, config, ADRs, contribution docs, and related evidence
+- reads repository layout, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
 - proposes updates to:
   - `devspec/constitution.md`
   - `devspec/architecture/overview.md`
@@ -243,7 +243,8 @@ Expected outcome:
 - `architecture/overview.md` gets a first-pass system view
 - `foundation/tech-stack.md` gets stack evidence
 - `foundation/codebase-structure.md` gets a repo-layout draft
-- `foundation/coding-standards.md` and `foundation/rules.md` get evidence-backed candidate content
+- `foundation/coding-standards.md` gets evidence-backed language-specific and framework-specific standards when the repository exposes them
+- `foundation/rules.md` gets evidence-backed candidate content
 - `constitution.md` gets only confirmed principle updates
 
 ### 2. `/devspec.projectcontext`
@@ -321,16 +322,24 @@ What it writes:
 
 Use it for:
 
+- language-specific or framework-specific coding standards
 - naming and style rules
 - testing expectations
 - error handling
 - logging and observability
 - review expectations
+- links to existing coding standards docs
 
 Example:
 
 ```text
 /devspec.coding-standards Prefer explicit TypeScript types at module boundaries. Require unit tests for business logic and Playwright coverage for critical user flows. Use structured logging with request ids. Avoid silent catch blocks. Document any new environment variables in the repo docs.
+```
+
+Another example:
+
+```text
+/devspec.coding-standards Use the existing standards in docs/engineering/csharp.md and https://example.com/python-style-guide for C# and Python. Confirm any gaps before writing.
 ```
 
 ### 6. `/devspec.rules`
@@ -721,9 +730,11 @@ This can be partially inferred from:
 
 - lint config
 - formatting config
+- language-specific style config such as `.editorconfig`, StyleCop, ESLint, Prettier, Ruff, Black, Checkstyle, Spotless, or clang-format
 - test patterns
 - logging libraries
 - existing conventions in the codebase
+- standards docs or style-guide links already referenced by the repository
 
 But the result should still be reviewed, because "what the code does today" and "what the team wants as a standard" are not always the same.
 

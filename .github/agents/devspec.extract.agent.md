@@ -17,7 +17,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Treat remote inputs as repository URLs only. Reject issue, pull request, merge request, work item, wiki, release, and pipeline URLs.
 - Support a single repo, a monorepo root, or multiple related repos.
 - Resolve every source before extraction. If any source is invalid, unsupported, inaccessible, or ambiguous, stop and explain which source failed and why.
-- Build an evidence inventory from repository layout, manifests, dependency files, CI/CD, infrastructure, docs, ADRs, contribution docs, CODEOWNERS, and runtime or configuration surfaces when available.
+- Build an evidence inventory from repository layout, manifests, dependency files, CI/CD, infrastructure, docs, ADRs, contribution docs, CODEOWNERS, style guides, and runtime or configuration surfaces when available.
 - Separate directly observed facts, high-confidence inferences, and low-confidence assumptions.
 - Do not present inferred principles as settled truth.
 - Never write final `devspec/constitution.md` changes without explicit user confirmation.
@@ -37,6 +37,8 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - For multi-repo inputs, produce a system-level view and keep per-repo provenance visible.
 - Ask targeted questions to resolve missing or unsupported evidence before writing the artifact.
 - When updating `devspec/foundation/tech-stack.md`, organize the content by project or repo with one heading per project and Markdown tables that include project versions and current market versions when available.
+- When updating `devspec/foundation/coding-standards.md`, organize standards by language or framework when evidence exists, and include standards source links or repository paths when available.
+- If coding-standard evidence is conflicting, incomplete, or split across multiple candidate sources, ask exactly one confirmation question at a time before writing the affected section.
 
 ## Approach
 1. Parse and validate each repository URL or local path.

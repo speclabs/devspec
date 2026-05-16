@@ -17,7 +17,7 @@ Requirements:
 - Accept repository URLs only. Reject issue, pull request, merge request, work item, wiki, release, and pipeline URLs.
 - Resolve and validate each source before extraction. If any source is ambiguous, unsupported, inaccessible, or malformed, stop and ask the user to correct it.
 - For local paths, confirm the path exists and appears to be a repository or monorepo root before proceeding.
-- Extract evidence from repository layout, dependency manifests, CI/CD, infrastructure, docs, ADRs, contribution guides, CODEOWNERS, and runtime or configuration surfaces when available.
+- Extract evidence from repository layout, dependency manifests, CI/CD, infrastructure, docs, ADRs, contribution guides, CODEOWNERS, style guides, and runtime or configuration surfaces when available.
 - Distinguish durable principles from repository-derived facts.
 - Never finalize `devspec/constitution.md` from code inference alone. Present candidate principle changes and require explicit user confirmation before writing them.
 - Ask exactly one confirmation question at a time whenever explicit confirmation is required.
@@ -29,6 +29,9 @@ Requirements:
 - If other details remain missing or ambiguous, ask exactly one clarification or confirmation question at a time using the same pattern until the artifact can be completed or a real blocker remains.
 - Only record unresolved blockers when the user declines to answer or the evidence remains unavailable.
 - For `devspec/foundation/project-context.md`, `devspec/foundation/coding-standards.md`, and `devspec/foundation/rules.md`, separate directly observed facts from inferred or candidate guidance.
+- When updating `devspec/foundation/coding-standards.md`, extract language-specific and framework-specific standards when evidence exists, including items such as file naming, indentation, regions, formatting, linting, testing, and framework conventions.
+- For `devspec/foundation/coding-standards.md`, record standards source links or repository paths when they exist, and preserve whether a standard is directly observed, inferred, or still open.
+- If multiple conflicting or incomplete coding-standard sources exist, ask exactly one confirmation question at a time before finalizing the affected section.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/` in place.
 - When updating `devspec/foundation/tech-stack.md`, organize the content by project or repo with one heading per project and Markdown tables that include project versions and current market versions when available.
 - Preserve human-authored content when updating existing artifacts. Prefer generated sections or conservative in-place merges instead of full-file replacement.
