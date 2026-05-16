@@ -35,6 +35,8 @@ Requirements:
 - For features, record priority instead of severity.
 - Confirm whether the work has multi-repo dependencies.
 - If the work has multi-repo dependencies, ask for all affected or dependent repos and record them in `meta.md` and `story.md`.
+- If the work has multi-repo dependencies, confirm that `devspec/foundation/codebase-structure.md` already contains multi-repo configuration for those repos, including repo role, local path, and current workspace availability.
+- If that multi-repo configuration is missing or outdated, stop and direct the user to update `/devspec.codebase-structure` before continuing.
 - Record the external reference in `story.md`.
 - For manual intake, record the manual description and manual acceptance criteria in `story.md`.
 - For bugs, capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.

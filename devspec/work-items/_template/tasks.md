@@ -3,12 +3,14 @@
 ## Ordered Tasks
 
 1. Task:
+	- Target repo:
 
 ## Dependencies
 
 - Multi-repo dependency: yes | no
 - Related repos:
 - Dependency 1:
+- Repo path source: `devspec/foundation/codebase-structure.md` when `Multi-repo dependency` is `yes`
 
 ## Impacted Files Or Areas
 

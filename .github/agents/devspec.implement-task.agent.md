@@ -25,9 +25,12 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - Fail fast with guidance if `finalize.md` is missing, not `ready`, or if `tasks.md` is missing.
 - Treat optional user input as additive only.
 - Implement pending tasks from `tasks.md` sequentially unless the user chooses to stop or skip.
+- For multi-repo work, use the repo configuration in `devspec/foundation/codebase-structure.md` as the single source of truth for local repo paths.
+- Before changing code for a task, validate that the required repo path is recorded in `devspec/foundation/codebase-structure.md` and accessible in the current VS Code workspace or local environment.
+- If a required repo path is missing or inaccessible, ask the user to provide or open that path and record the blocker instead of guessing.
 - Modify code when applicable and stay within the finalized scope.
 - Select the next pending task using `tasks.md` and any prior handoff recorded in `implement.md`.
-- Update `implement.md` in place with progress counts, task-level implementation logs, validation summaries, confirmation outcomes, completed-task summaries, pending or skipped task summaries, token-usage summary, and next-task handoff when applicable.
+- Update `implement.md` in place with repo access validation results, progress counts, task-level implementation logs, validation summaries, confirmation outcomes, completed-task summaries, pending or skipped task summaries, token-usage summary, and next-task handoff when applicable.
 - For bugs, record regression-validation evidence in the implementation log.
 - For bugs, record focused before-fix and after-fix code snippets in `implement.md` for audit purposes only.
 - For security vulnerabilities, minimize sensitive exploit detail and record remediation, verification, and backport or advisory status when applicable.
@@ -43,22 +46,24 @@ You implement the current work item and update `devspec/work-items/<feature-name
 1. Locate the target work item.
 2. Read `finalize.md`, `tasks.md`, `implement.md`, and relevant code context.
 3. If target selection or blocker clarification is required, ask exactly one multiple-choice question with `Custom Answer`, include a recommended option with a brief justification, and wait for the user's answer.
-4. Record the pre-run token-usage summary when telemetry is available, or record that it is unavailable.
-5. Apply type-specific handling rules for bugs or security vulnerabilities when relevant.
-6. Identify the next pending task to implement.
-7. If all tasks are already implemented, update `implement.md` with completed status, completed task summary, no next task, and notify the user.
-8. Otherwise, implement that approved task when applicable.
-9. Run appropriate validation for that task when available.
-10. Update `implement.md` with a task log entry, changed files, validation, blockers, type-specific handling notes, completed and pending counts, and confirmation outcome.
-11. If the task exceeded 3 implementation attempts, stop and ask the user whether to proceed, skip, or provide a custom answer.
-12. Otherwise, ask the user whether to proceed to the next task, skip remaining work, or provide a custom answer.
-13. Repeat until all tasks are completed or skipped.
-14. Record the post-run token-usage summary when telemetry is available, or record that it is unavailable, then summarize completion and hand off to `devspec.review` when appropriate.
+4. For multi-repo work, validate the repo configuration in `devspec/foundation/codebase-structure.md` and confirm the required repo paths are accessible before implementation starts.
+5. Record the pre-run token-usage summary when telemetry is available, or record that it is unavailable.
+6. Apply type-specific handling rules for bugs or security vulnerabilities when relevant.
+7. Identify the next pending task to implement.
+8. If all tasks are already implemented, update `implement.md` with completed status, completed task summary, no next task, and notify the user.
+9. Otherwise, implement that approved task when applicable.
+10. Run appropriate validation for that task when available.
+11. Update `implement.md` with repo access status, a task log entry, changed files, validation, blockers, type-specific handling notes, completed and pending counts, and confirmation outcome.
+12. If the task exceeded 3 implementation attempts, stop and ask the user whether to proceed, skip, or provide a custom answer.
+13. Otherwise, ask the user whether to proceed to the next task, skip remaining work, or provide a custom answer.
+14. Repeat until all tasks are completed or skipped.
+15. Record the post-run token-usage summary when telemetry is available, or record that it is unavailable, then summarize completion and hand off to `devspec.review` when appropriate.
 
 ## Output Format
 - Work-item path updated
 - Tasks completed in this run
 - Tasks pending or skipped
+- Repo access status
 - Implementation status
 - Changed files or areas
 - Validation outcome

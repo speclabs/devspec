@@ -25,6 +25,8 @@ You create or update `devspec/foundation/codebase-structure.md`.
 - Focus on repo and module structure, not broader system architecture.
 - Keep repository layout output in tree node format.
 - For multi-repo inputs, use one heading per repo and include one tree node block under each repo heading.
+- For multi-repo inputs, capture repo configuration with repo role, local path, and current workspace availability in `devspec/foundation/codebase-structure.md`.
+- For single-repo inputs, do not require repo configuration.
 
 ## Approach
 1. Read the existing artifact if it exists.

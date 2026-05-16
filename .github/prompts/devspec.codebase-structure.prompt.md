@@ -1,7 +1,7 @@
 ---
 name: "devspec.codebase-structure"
-description: "Create or update devspec foundation codebase structure from required user-provided repository layout, module boundaries, ownership seams, and integration boundaries."
-argument-hint: "Describe the repository layout, module boundaries, ownership seams, and integration boundaries"
+description: "Create or update devspec foundation codebase structure from required user-provided repository layout, module boundaries, ownership seams, integration boundaries, and multi-repo configuration when applicable."
+argument-hint: "Describe the repository layout, module boundaries, ownership seams, integration boundaries, and multi-repo configuration when applicable"
 agent: "devspec.codebase-structure"
 ---
 
@@ -22,6 +22,8 @@ Requirements:
 - Focus on repo and module structure, not broad system architecture.
 - Keep repository layout output in tree node format.
 - For multi-repo inputs, use one heading per repo and include one tree node block under each repo heading.
+- For multi-repo inputs, capture repo configuration with repo role, local path, and current workspace availability in `devspec/foundation/codebase-structure.md`.
+- For single-repo inputs, do not require repo configuration.
 - Update the file in place if it already exists.
 - End the response with a recommended next step or next prompt to run.
 - Summarize the file updated, key changes including repo headings and tree sections updated, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.

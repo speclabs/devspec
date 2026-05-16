@@ -314,6 +314,8 @@ Turn a work tracking reference into a normalized internal story.
 - Features should capture priority instead of severity.
 - Story intake should confirm whether the work has multi-repo dependencies.
 - If the work depends on multiple repos, capture all related repos in the story artifacts.
+- Do not store repo paths in `story.md` or `meta.md`.
+- If the work depends on multiple repos, require matching multi-repo configuration in `devspec/foundation/codebase-structure.md` before story intake can continue.
 - Security vulnerabilities should capture severity, affected scope, attack surface, exploitability, disclosure status, and containment or remediation notes.
 - Minimize sensitive exploit detail in shared artifacts unless it is necessary for remediation.
 - Normalize the work item into a consistent internal story format.
@@ -378,6 +380,7 @@ Freeze a story into an implementation-ready brief.
 - Confirmed acceptance criteria
 - Assumptions
 - Dependencies
+- Multi-repo configuration status for multi-repo work only
 - Risks and mitigations
 - Validation approach
 - Type-specific readiness gates
@@ -389,6 +392,8 @@ Freeze a story into an implementation-ready brief.
 - Do not silently invent missing requirements.
 - Bugs are not ready if reproducible behavior, user impact, or regression expectations remain unclear.
 - Security vulnerabilities are not ready if severity, affected scope, containment or remediation plan, or validation and backport expectations are missing.
+- Multi-repo work is not ready for implementation if required repo configuration is missing from `devspec/foundation/codebase-structure.md` or if required repo paths or workspace availability remain unknown there.
+- `devspec/foundation/codebase-structure.md` is the single source of truth for multi-repo paths.
 - Treat optional user input as additive only. If it changes approved scope or decisions, move back to `clarify` before producing a new finalized brief.
 
 **Handoff**
@@ -413,6 +418,7 @@ Break a finalized story into ordered implementation tasks without changing scope
 
 **Must produce**
 - Ordered task list
+- Repo assignment for each task
 - Task dependencies
 - Components, modules, or files likely to change
 - Validation step for each task or task group
@@ -425,6 +431,8 @@ Break a finalized story into ordered implementation tasks without changing scope
 - Do not invent new requirements.
 - If execution blockers remain, surface them explicitly.
 - Keep tasks implementation-oriented and small enough to execute or review.
+- For multi-repo work, assign each task to a target repo from the repo configuration recorded in `devspec/foundation/codebase-structure.md`.
+- If required repo assignment is missing, or if multi-repo configuration is missing from `devspec/foundation/codebase-structure.md`, surface it as a blocker instead of guessing.
 - Bugs should usually include reproduce, fix, and regression-validation tasks.
 - Security vulnerabilities should usually include impact confirmation, remediation, verification across affected supported versions, and backport, release, or advisory tasks when applicable.
 - Treat optional user input as additive guidance only. Do not use it to redefine the finalized brief.
@@ -462,6 +470,7 @@ Implement pending approved tasks for the current work item according to the fina
 - Bug audit snippets before and after the fix when the work item is a bug
 - Loop-escalation note when a task exceeds 3 implementation attempts
 - Token-usage summary before implementation and after completion when runtime telemetry is available
+- Repo access validation results for the repos touched in the current run
 - Files likely to change
 - Validation steps
 - Completion summary
@@ -471,6 +480,9 @@ Implement pending approved tasks for the current work item according to the fina
 - Respect codebase structure, coding standards, and hard rules.
 - Do not widen scope beyond the finalized brief.
 - Follow the execution task plan sequentially unless a blocker requires deviation.
+- For multi-repo work, use the repo configuration in `devspec/foundation/codebase-structure.md` as the single source of truth for local repo paths.
+- Before changing code for a task, validate that the required repo path is recorded in `devspec/foundation/codebase-structure.md` and accessible in the current VS Code workspace or local environment.
+- If a required repo path is missing or inaccessible, ask the user to provide or open that path and record the blocker instead of guessing.
 - Select the next pending task using `tasks.md` and any prior handoff recorded in `implement.md`.
 - If no pending task remains, notify the user that all planned tasks are already implemented and record that completed state in `implement.md`.
 - Record each implementation pass as a dated task-level log entry in `implement.md`.

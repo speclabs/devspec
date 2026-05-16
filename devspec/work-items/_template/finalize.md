@@ -36,6 +36,14 @@
 - Related repos:
 - Dependency 1:
 
+## Foundation Multi-Repo Configuration
+
+Use this section only when `Multi-repo dependency` is `yes`.
+
+- Config source: `devspec/foundation/codebase-structure.md`
+- Configuration status: configured | missing
+- Missing configuration blocker:
+
 ## Risks And Mitigations
 
 - Risk:

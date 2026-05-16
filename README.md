@@ -52,8 +52,11 @@ Right now, the recommended setup is file-copy based. Package-based install can b
 Before you start:
 
 - open the target repository as a workspace in VS Code
+- for multi-repo work, open a VS Code multi-root workspace that includes every repo you expect to inspect or edit
 - make sure GitHub Copilot Chat is available in that workspace
 - copy both `.github/prompts/` and `.github/agents/` along with `devspec/`, because the slash-command workflow depends on all three
+
+For multi-repo work, the most reliable pattern is to keep one shared workspace open and record repo configuration in `devspec/foundation/codebase-structure.md`. That keeps one source of truth for local repo paths and lets story, tasks, finalize, and implement rely on the same configured repos. Single-repo work does not need any extra repo configuration.
 
 Installation worked if:
 
@@ -295,9 +298,12 @@ What it writes:
 Use it for:
 
 - repo tree
+- multi-repo repo configuration when applicable
 - module boundaries
 - ownership seams
 - integration boundaries
+
+For multi-repo projects, use this stage to capture each repo's role, local path, and whether it is already open in the current VS Code workspace.
 
 Example:
 
@@ -376,6 +382,8 @@ What it does:
 - initializes `decisions.md` and `notes.md` if the folder is new
 - for features, records priority instead of severity
 - confirms multi-repo dependencies and records all related repos when applicable
+- does not store local repo paths
+- if the work is multi-repo, requires multi-repo foundation configuration in `devspec/foundation/codebase-structure.md` before story intake can continue
 
 Supported inputs:
 
@@ -457,6 +465,8 @@ Important behavior:
 - marks the item `ready` or `not ready`
 - does not invent missing requirements
 - records final scope, acceptance criteria, dependencies, risks, and validation approach
+- for multi-repo work, verifies that `devspec/foundation/codebase-structure.md` contains the required repo configuration
+- should stay `not ready` if required multi-repo foundation configuration is missing or incomplete
 
 Example:
 
@@ -474,9 +484,10 @@ What it writes:
 
 Important behavior:
 
-- must not change finalized scope
+- must not change or expand the finalized scope
 - should create ordered, implementation-oriented tasks
 - should include validation steps and type-specific checks
+- for multi-repo work, should assign each task to a target repo and use `devspec/foundation/codebase-structure.md` as the source of truth for local repo paths
 
 Example:
 
@@ -497,6 +508,8 @@ Important behavior:
 - requires `finalize.md` to be `ready`
 - requires `tasks.md`
 - implements pending tasks sequentially until the work is completed or the user chooses to stop or skip
+- for multi-repo work, uses the repo configuration in `devspec/foundation/codebase-structure.md` as the single source of truth for which physical repo path to change
+- validates required repo paths before making code changes and surfaces missing repo access as a blocker
 - after each task, reports completed and pending counts and asks whether to proceed or skip
 - once all tasks are implemented, records the completed task list and completion summary
 - if the same task loops more than 3 times, explains the issue and asks whether to proceed, skip, or provide a custom answer

@@ -13,11 +13,20 @@
 - Skipped tasks count:
 - Last confirmation outcome: proceed | skip | custom
 
+## Repo Access Validation
+
+- Repo path source: `devspec/foundation/codebase-structure.md` when `Multi-repo dependency` is `yes`
+
+| Repo | Access status | Notes |
+| --- | --- | --- |
+| repo-name | accessible | |
+
 ## Task Execution Log
 
 ### Entry 1
 
 - Task:
+- Target repo:
 - Attempt count:
 - Status:
 - Summary:

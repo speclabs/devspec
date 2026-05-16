@@ -15,8 +15,10 @@ Requirements:
 - Fail fast with guidance if `finalize.md` is missing or not marked `ready`.
 - Treat optional user input as additive only.
 - Do not change or expand the finalized scope.
+- For multi-repo work, assign each task to a target repo from the repo configuration recorded in `devspec/foundation/codebase-structure.md`.
+- If required repo assignment is missing, or if multi-repo configuration is missing from `devspec/foundation/codebase-structure.md`, surface that as a blocker instead of guessing.
 - For bugs, include reproduce, fix, and regression-validation tasks where applicable.
 - For security vulnerabilities, include impact confirmation, remediation, verification across affected supported versions, and backport, release, or advisory tasks where applicable.
-- Write or update `tasks.md` with ordered tasks, dependencies, likely impacted files or components, validation steps, type-specific checks, and definition of done.
+- Write or update `tasks.md` with ordered tasks, repo assignments, dependencies, likely impacted files or components, validation steps, type-specific checks, and definition of done.
 - End the response with a recommended next step or next prompt to run.
 - Summarize the work-item path updated, key task groups, any blocker, and the recommended next step or prompt to run.
