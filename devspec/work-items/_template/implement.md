@@ -25,6 +25,8 @@
 ## Type-Specific Handling
 
 - Bug verification notes:
+- Bug audit before-fix snippet:
+- Bug audit after-fix snippet:
 - Security handling notes:
 - Backport or disclosure status:
 

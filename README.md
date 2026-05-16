@@ -498,6 +498,7 @@ Important behavior:
 - requires `tasks.md`
 - implements one task per run
 - updates the execution log and next-task handoff
+- for bug fixes, records focused before-fix and after-fix code snippets in `implement.md` for audit purposes only
 
 Example:
 

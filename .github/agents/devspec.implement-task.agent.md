@@ -30,6 +30,7 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - Select the next pending task using `tasks.md` and any prior handoff recorded in `implement.md`.
 - Update `implement.md` in place with a task-level implementation log, validation summary, and next-task handoff.
 - For bugs, record regression-validation evidence in the implementation log.
+- For bugs, record focused before-fix and after-fix code snippets in `implement.md` for audit purposes only.
 - For security vulnerabilities, minimize sensitive exploit detail and record remediation, verification, and backport or advisory status when applicable.
 - If code changes are not applicable in the current repository, record that clearly.
 - If no pending task remains, notify the user that all planned tasks are already implemented and update `implement.md` to reflect completion.

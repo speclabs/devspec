@@ -456,6 +456,7 @@ Implement one approved task at a time for the current work item according to the
 - Task execution log entry in `implement.md`
 - Next-task handoff
 - Type-specific handling notes when the work item is a bug or security vulnerability
+- Bug audit snippets before and after the fix when the work item is a bug
 - Files likely to change
 - Validation steps
 - Completion summary
@@ -470,6 +471,7 @@ Implement one approved task at a time for the current work item according to the
 - Record each implementation pass as a dated task-level log entry in `implement.md`.
 - After each task, leave a clear handoff for the next task instead of silently continuing through the task list.
 - For bugs, confirm regression validation as part of implementation evidence.
+- For bugs, record focused before-fix and after-fix code snippets in `implement.md` for audit purposes only.
 - For security vulnerabilities, avoid exposing sensitive exploit detail unnecessarily and record remediation, verification, and backport or advisory status when applicable.
 - Report validation evidence, not just intent.
 - Treat optional user input as additive guidance only. If it changes scope, send the work back to `finalize` or `tasks` rather than overriding the current brief.
