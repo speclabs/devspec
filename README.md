@@ -325,6 +325,7 @@ Use it for:
 - language-specific or framework-specific coding standards
 - naming and style rules
 - database or SQL indentation patterns
+- separate regions for properties, methods, events, and other member types, with ordering by access specifier and name inside each region
 - XML documentation comments where supported, and developer comments for non-obvious implementation details
 - testing expectations
 - error handling
@@ -336,7 +337,7 @@ Use it for:
 Example:
 
 ```text
-/devspec.coding-standards Prefer explicit TypeScript types at module boundaries. Require unit tests for business logic and Playwright coverage for critical user flows. Use structured logging with request ids. Avoid silent catch blocks. Require XML documentation comments where supported and concise developer comments for non-obvious implementation details. Document any new environment variables in the repo docs.
+/devspec.coding-standards Prefer explicit TypeScript types at module boundaries. Use separate regions for properties, methods, and events, then sort members within each region by access specifier and then name. Require unit tests for business logic and Playwright coverage for critical user flows. Use structured logging with request ids. Avoid silent catch blocks. Require XML documentation comments where supported and concise developer comments for non-obvious implementation details. Document any new environment variables in the repo docs.
 ```
 
 Another example:

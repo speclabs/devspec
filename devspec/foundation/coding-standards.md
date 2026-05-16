@@ -12,6 +12,7 @@
 - Indentation:
 - Database or SQL indentation patterns:
 - XML or developer comments:
+- Member grouping and ordering: Use separate regions for each member type, such as properties, methods, and events, then sort members within each region by access specifier and by name.
 - Regions or grouping rules:
 - Formatting or linting:
 - Testing conventions:
@@ -21,7 +22,7 @@
 
 ## Style And Naming
 
-- Rule 1:
+- Rule 1: Use separate regions for each member type, such as properties, methods, and events, then sort members within each region by access specifier and by name.
 
 ## Testing Expectations
 
