@@ -31,7 +31,10 @@ Requirements:
 - Write or update `meta.md` and `story.md` for the target work item.
 - Record source resolution status, provider, resolution notes, and resolved item confirmation status in `meta.md`.
 - Record the resolved summary shown and the confirmation actions offered in `story.md`.
-- Record type, severity, impact, and affected scope in `meta.md` and `story.md`.
+- Record type, impact, affected scope, and type-appropriate urgency in `meta.md` and `story.md`.
+- For features, record priority instead of severity.
+- Confirm whether the work has multi-repo dependencies.
+- If the work has multi-repo dependencies, ask for all affected or dependent repos and record them in `meta.md` and `story.md`.
 - Record the external reference in `story.md`.
 - For manual intake, record the manual description and manual acceptance criteria in `story.md`.
 - For bugs, capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.

@@ -5,8 +5,8 @@
 - Title:
 - External reference:
 - Type:
-- Severity:
-- Priority:
+- Severity: bugs and security vulnerabilities only
+- Priority: features should record priority
 
 ## Source Confirmation
 
@@ -59,6 +59,8 @@
 
 ## Dependencies
 
+- Multi-repo dependency: yes | no
+- Related repos:
 - Dependency 1:
 
 ## Decisions

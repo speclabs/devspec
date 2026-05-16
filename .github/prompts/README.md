@@ -288,7 +288,8 @@ Turn a work tracking reference into a normalized internal story.
 - Source resolution status and provider details
 - Resolved item confirmation status
 - Resolved summary shown to the user
-- Work-item type and severity
+- Work-item type and type-appropriate urgency, using priority for features and severity for bugs or security vulnerabilities
+- Multi-repo dependency status and the related repos when applicable
 - Problem summary
 - Intended user outcome
 - Impact summary and affected scope
@@ -310,6 +311,9 @@ Turn a work tracking reference into a normalized internal story.
 - Manual intake requires a user-provided external reference, manual description, and manual acceptance criteria.
 - If the work-item type is unclear, ask for clarification instead of assuming feature, bug, or security-vulnerability.
 - Bugs should capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.
+- Features should capture priority instead of severity.
+- Story intake should confirm whether the work has multi-repo dependencies.
+- If the work depends on multiple repos, capture all related repos in the story artifacts.
 - Security vulnerabilities should capture severity, affected scope, attack surface, exploitability, disclosure status, and containment or remediation notes.
 - Minimize sensitive exploit detail in shared artifacts unless it is necessary for remediation.
 - Normalize the work item into a consistent internal story format.
@@ -369,7 +373,7 @@ Freeze a story into an implementation-ready brief.
 - Foundation prompt outputs
 
 **Must produce**
-- Work-item type and severity
+- Work-item type and severity or priority as applicable
 - Final scope
 - Confirmed acceptance criteria
 - Assumptions
@@ -437,7 +441,7 @@ Optional.
 ### `devspec.implement.prompt.md`
 
 **Goal**
-Implement one approved task at a time for the current work item according to the finalized brief.
+Implement pending approved tasks for the current work item according to the finalized brief, confirming whether to proceed after each task.
 
 **Inputs**
 - Optional user input
@@ -447,11 +451,17 @@ Implement one approved task at a time for the current work item according to the
 - Current repository state
 
 **Must produce**
-- Direct code changes for the single task executed in the current run
-- Task implemented in the current run
-- Task execution log entry in `implement.md`
-- Next-task handoff
+- Direct code changes for each task executed in the current run
+- Tasks implemented in the current run
+- Task execution log entries in `implement.md`
+- Completed and pending task counts after each task
+- User confirmation outcome after each task
+- Completion summary covering all completed tasks when the work finishes
+- Next-task handoff when work remains
 - Type-specific handling notes when the work item is a bug or security vulnerability
+- Bug audit snippets before and after the fix when the work item is a bug
+- Loop-escalation note when a task exceeds 3 implementation attempts
+- Token-usage summary before implementation and after completion when runtime telemetry is available
 - Files likely to change
 - Validation steps
 - Completion summary
@@ -460,13 +470,17 @@ Implement one approved task at a time for the current work item according to the
 **Rules**
 - Respect codebase structure, coding standards, and hard rules.
 - Do not widen scope beyond the finalized brief.
-- Follow the execution task plan one task at a time unless a blocker requires deviation.
+- Follow the execution task plan sequentially unless a blocker requires deviation.
 - Select the next pending task using `tasks.md` and any prior handoff recorded in `implement.md`.
 - If no pending task remains, notify the user that all planned tasks are already implemented and record that completed state in `implement.md`.
 - Record each implementation pass as a dated task-level log entry in `implement.md`.
+- After each task, report completed and pending counts and ask the user whether to `proceed`, `skip`, or provide a `Custom Answer` before continuing.
+- If the same task exceeds 3 implementation attempts, explain the loop issue and ask the user whether to `proceed`, `skip`, or provide a `Custom Answer`.
 - After each task, leave a clear handoff for the next task instead of silently continuing through the task list.
 - For bugs, confirm regression validation as part of implementation evidence.
+- For bugs, record focused before-fix and after-fix code snippets in `implement.md` for audit purposes only.
 - For security vulnerabilities, avoid exposing sensitive exploit detail unnecessarily and record remediation, verification, and backport or advisory status when applicable.
+- Capture a token-usage summary before implementation and after completion when runtime telemetry is available. If telemetry is unavailable, record that explicitly instead of inventing values.
 - Report validation evidence, not just intent.
 - Treat optional user input as additive guidance only. If it changes scope, send the work back to `finalize` or `tasks` rather than overriding the current brief.
 
