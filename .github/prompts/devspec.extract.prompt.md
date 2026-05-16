@@ -29,8 +29,9 @@ Requirements:
 - If other details remain missing or ambiguous, ask exactly one clarification or confirmation question at a time using the same pattern until the artifact can be completed or a real blocker remains.
 - Only record unresolved blockers when the user declines to answer or the evidence remains unavailable.
 - For `devspec/foundation/project-context.md`, `devspec/foundation/coding-standards.md`, and `devspec/foundation/rules.md`, separate directly observed facts from inferred or candidate guidance.
-- When updating `devspec/foundation/coding-standards.md`, extract language-specific and framework-specific standards when evidence exists, including items such as file naming, indentation, regions, formatting, linting, testing, and framework conventions.
+- When updating `devspec/foundation/coding-standards.md`, extract language-specific and framework-specific standards when evidence exists, including items such as file naming, indentation, regions, formatting, linting, testing, framework conventions, and database or SQL indentation patterns when applicable.
 - For `devspec/foundation/coding-standards.md`, record standards source links or repository paths when they exist, and preserve whether a standard is directly observed, inferred, or still open.
+- For each language or framework section in `devspec/foundation/coding-standards.md`, keep at least one short example when repository evidence supports it.
 - If multiple conflicting or incomplete coding-standard sources exist, ask exactly one confirmation question at a time before finalizing the affected section.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/` in place.
 - When updating `devspec/foundation/tech-stack.md`, organize the content by project or repo with one heading per project and Markdown tables that include project versions and current market versions when available.

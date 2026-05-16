@@ -233,6 +233,7 @@ Define preferred engineering practices.
 **Must produce**
 - Standards sources or links when provided
 - Language-specific or framework-specific sections when applicable
+- Short examples for each language or framework section when available
 - Style and naming expectations
 - Testing expectations
 - Error handling patterns
@@ -244,6 +245,7 @@ Define preferred engineering practices.
 - Accept direct standards content, links to existing standards, repository-relative document paths, or a mix of those inputs.
 - Ask exactly one confirmation question at a time when open questions remain.
 - Organize language-specific or framework-specific standards before cross-cutting expectations when applicable.
+- Capture database or SQL indentation patterns explicitly when applicable.
 
 **Handoff**
 Guides code quality during `finalize` and `implement`.

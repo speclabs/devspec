@@ -324,11 +324,13 @@ Use it for:
 
 - language-specific or framework-specific coding standards
 - naming and style rules
+- database or SQL indentation patterns
 - testing expectations
 - error handling
 - logging and observability
 - review expectations
 - links to existing coding standards docs
+- short examples for each language or framework section when available
 
 Example:
 
@@ -735,6 +737,8 @@ This can be partially inferred from:
 - logging libraries
 - existing conventions in the codebase
 - standards docs or style-guide links already referenced by the repository
+
+Useful extracted examples include short snippets that show the prevailing indentation or formatting pattern, especially for SQL query layout and other database code.
 
 But the result should still be reviewed, because "what the code does today" and "what the team wants as a standard" are not always the same.
 

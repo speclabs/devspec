@@ -37,7 +37,8 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - For multi-repo inputs, produce a system-level view and keep per-repo provenance visible.
 - Ask targeted questions to resolve missing or unsupported evidence before writing the artifact.
 - When updating `devspec/foundation/tech-stack.md`, organize the content by project or repo with one heading per project and Markdown tables that include project versions and current market versions when available.
-- When updating `devspec/foundation/coding-standards.md`, organize standards by language or framework when evidence exists, and include standards source links or repository paths when available.
+- When updating `devspec/foundation/coding-standards.md`, organize standards by language or framework when evidence exists, include standards source links or repository paths when available, and capture database or SQL indentation patterns when applicable.
+- For each language or framework section in `devspec/foundation/coding-standards.md`, keep at least one short example when repository evidence supports it.
 - If coding-standard evidence is conflicting, incomplete, or split across multiple candidate sources, ask exactly one confirmation question at a time before writing the affected section.
 
 ## Approach

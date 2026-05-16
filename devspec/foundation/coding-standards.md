@@ -10,11 +10,13 @@
 
 - File naming:
 - Indentation:
+- Database or SQL indentation patterns:
 - Regions or grouping rules:
 - Formatting or linting:
 - Testing conventions:
 - Framework-specific conventions:
 - Notes:
+- Example 1:
 
 ## Style And Naming
 
