@@ -6,21 +6,40 @@
 - Current task:
 - Completion note:
 
+## Progress Summary
+
+- Completed tasks count:
+- Pending tasks count:
+- Skipped tasks count:
+- Last confirmation outcome: proceed | skip | custom
+
 ## Task Execution Log
 
 ### Entry 1
 
 - Task:
+- Attempt count:
 - Status:
 - Summary:
 - Files changed:
 - Validation:
 - Blockers:
+- Confirmation after task:
 - Date:
 
 ## Current Task Outcome
 
 - Outcome summary:
+
+## Completed Tasks Summary
+
+- Completed task 1:
+- Overall completed summary:
+
+## Pending Or Skipped Tasks
+
+- Pending task 1:
+- Skipped task 1:
 
 ## Type-Specific Handling
 
@@ -29,6 +48,18 @@
 - Bug audit after-fix snippet:
 - Security handling notes:
 - Backport or disclosure status:
+
+## Loop Escalations
+
+- Escalation 1:
+
+## Token Usage Summary
+
+| Checkpoint | Token summary | Availability | Notes |
+| --- | --- | --- | --- |
+| Before implementation | unavailable | telemetry unavailable by default | |
+| After completion | unavailable | telemetry unavailable by default | |
+| Delta | unavailable | telemetry unavailable by default | |
 
 ## Next-Task Handoff
 

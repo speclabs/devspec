@@ -196,7 +196,7 @@ These are core behaviors baked into the prompts and agents:
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
 - `/devspec.finalize` should mark a story `not ready` if blockers remain.
 - `/devspec.tasks` must not expand scope.
-- `/devspec.implement` should implement exactly one task per run.
+- `/devspec.implement` should implement pending tasks sequentially, asking whether to proceed after each task.
 - `/devspec.review` should review against the finalized brief, not re-plan the story.
 
 ## Foundation workflow
@@ -486,7 +486,7 @@ Example:
 
 ### 5. `/devspec.implement`
 
-Use this to implement exactly one task at a time.
+Use this to implement pending tasks with confirmation after each task.
 
 What it writes:
 
@@ -496,7 +496,11 @@ Important behavior:
 
 - requires `finalize.md` to be `ready`
 - requires `tasks.md`
-- implements one task per run
+- implements pending tasks sequentially until the work is completed or the user chooses to stop or skip
+- after each task, reports completed and pending counts and asks whether to proceed or skip
+- once all tasks are implemented, records the completed task list and completion summary
+- if the same task loops more than 3 times, explains the issue and asks whether to proceed, skip, or provide a custom answer
+- captures token-usage summary before implementation and after completion when runtime telemetry is available, and records when it is unavailable
 - updates the execution log and next-task handoff
 - for bug fixes, records focused before-fix and after-fix code snippets in `implement.md` for audit purposes only
 
@@ -541,7 +545,7 @@ Before using `/devspec.story` with external work-item references, validate `devs
 | `/devspec.clarify` | Resolve one blocker at a time | `work-items/<feature-name>/clarify.md` |
 | `/devspec.finalize` | Freeze the implementation-ready brief | `work-items/<feature-name>/finalize.md` |
 | `/devspec.tasks` | Create ordered implementation tasks | `work-items/<feature-name>/tasks.md` |
-| `/devspec.implement` | Implement exactly one task per run | `work-items/<feature-name>/implement.md` |
+| `/devspec.implement` | Implement pending tasks with confirmation after each task | `work-items/<feature-name>/implement.md` |
 | `/devspec.review` | Review implemented work | `work-items/<feature-name>/review.md` |
 
 ## End-to-end examples

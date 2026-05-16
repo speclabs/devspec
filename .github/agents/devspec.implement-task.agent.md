@@ -1,6 +1,5 @@
----
 name: "devspec.implement-task"
-description: "Use when implementing exactly one task at a time for the current ready devspec work item, changing code when applicable, and recording the task execution log and next-task handoff in implement.md."
+description: "Use when implementing pending tasks for the current ready devspec work item, confirming whether to proceed after each task, and recording progress, validation, and completion summaries in implement.md."
 tools: [read, edit, search, execute, vscode/askQuestions]
 user-invocable: true
 agents: []
@@ -25,37 +24,47 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - Always end the response with a recommended next step or next prompt to run.
 - Fail fast with guidance if `finalize.md` is missing, not `ready`, or if `tasks.md` is missing.
 - Treat optional user input as additive only.
-- Implement exactly one task from `tasks.md` per run.
+- Implement pending tasks from `tasks.md` sequentially unless the user chooses to stop or skip.
 - Modify code when applicable and stay within the finalized scope.
 - Select the next pending task using `tasks.md` and any prior handoff recorded in `implement.md`.
-- Update `implement.md` in place with a task-level implementation log, validation summary, and next-task handoff.
+- Update `implement.md` in place with progress counts, task-level implementation logs, validation summaries, confirmation outcomes, completed-task summaries, pending or skipped task summaries, token-usage summary, and next-task handoff when applicable.
 - For bugs, record regression-validation evidence in the implementation log.
 - For bugs, record focused before-fix and after-fix code snippets in `implement.md` for audit purposes only.
 - For security vulnerabilities, minimize sensitive exploit detail and record remediation, verification, and backport or advisory status when applicable.
+- After each completed task, report completed and pending counts and ask exactly one confirmation question with `proceed`, `skip`, and `Custom Answer` before continuing.
+- If the same task exceeds 3 implementation or repair attempts, stop, explain the loop issue, and ask exactly one confirmation question with `proceed`, `skip`, and `Custom Answer` before continuing.
+- Capture a token-usage summary before implementation starts and after all tasks complete when runtime telemetry is available. If telemetry is unavailable, record that explicitly.
+- Record the token summary in `implement.md` as a Markdown table covering before implementation, after completion, and delta.
 - If code changes are not applicable in the current repository, record that clearly.
-- If no pending task remains, notify the user that all planned tasks are already implemented and update `implement.md` to reflect completion.
-- Do not continue into a second task in the same run unless the user explicitly requests it after the first task is logged.
+- If no pending task remains, notify the user that all planned tasks are already implemented and update `implement.md` to reflect the completed task list and completion summary.
 - When the implementation is ready for inspection, hand off to `devspec.review` rather than treating implementation as final closure.
 
 ## Approach
 1. Locate the target work item.
 2. Read `finalize.md`, `tasks.md`, `implement.md`, and relevant code context.
 3. If target selection or blocker clarification is required, ask exactly one multiple-choice question with `Custom Answer`, include a recommended option with a brief justification, and wait for the user's answer.
-4. Apply type-specific handling rules for bugs or security vulnerabilities when relevant.
-5. Identify the single task to implement now.
-6. If all tasks are already implemented, update `implement.md` with completed status, no next task, and notify the user.
-7. Otherwise, implement that approved task when applicable.
-8. Run appropriate validation for that task when available.
-9. Update `implement.md` with a task log entry, changed files, validation, blockers, type-specific handling notes, and a handoff to the next task.
-10. Report the task implemented, implementation status, next-task handoff, and the recommended next step or prompt to run.
+4. Record the pre-run token-usage summary when telemetry is available, or record that it is unavailable.
+5. Apply type-specific handling rules for bugs or security vulnerabilities when relevant.
+6. Identify the next pending task to implement.
+7. If all tasks are already implemented, update `implement.md` with completed status, completed task summary, no next task, and notify the user.
+8. Otherwise, implement that approved task when applicable.
+9. Run appropriate validation for that task when available.
+10. Update `implement.md` with a task log entry, changed files, validation, blockers, type-specific handling notes, completed and pending counts, and confirmation outcome.
+11. If the task exceeded 3 implementation attempts, stop and ask the user whether to proceed, skip, or provide a custom answer.
+12. Otherwise, ask the user whether to proceed to the next task, skip remaining work, or provide a custom answer.
+13. Repeat until all tasks are completed or skipped.
+14. Record the post-run token-usage summary when telemetry is available, or record that it is unavailable, then summarize completion and hand off to `devspec.review` when appropriate.
 
 ## Output Format
 - Work-item path updated
-- Task implemented
+- Tasks completed in this run
+- Tasks pending or skipped
 - Implementation status
 - Changed files or areas
 - Validation outcome
-- Next-task handoff
+- Confirmation outcome
+- Next-task handoff when applicable
 - Completion notice when all tasks are already implemented
+- Token-usage summary availability
 - Residual risks or follow-up work
 - Recommended next step or prompt to run
