@@ -770,6 +770,7 @@ Setup is currently copy-based. There is no `npm`, package-manager, or installer-
 
 That is a reasonable future enhancement, but the current framework expects `devspec/`, `.github/prompts/`, and `.github/agents/` to exist directly in the target repository.
 
-## Copyright and license
+## License
 
-Code and documentation copyright 2026 [SpecLabs](https://github.com/speclabs) Code released under the [Apache-2.0 License](https://github.com/speclabs/devspec/blob/main/LICENSE).
+This repository is released under the [Apache License 2.0](LICENSE).
+See [LICENSE](LICENSE) for the full license text.
