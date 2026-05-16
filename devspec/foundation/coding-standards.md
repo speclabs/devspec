@@ -16,7 +16,7 @@
 - Testing conventions:
 - Framework-specific conventions:
 - Notes:
-- Example 1:
+- Example 1: optional when evidence exists
 
 ## Style And Naming
 

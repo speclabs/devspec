@@ -11,19 +11,12 @@ Required user input:
 ${input:codebaseStructureInput:Describe the repository layout, module boundaries, ownership seams, and integration boundaries}
 
 Requirements:
-- Treat the user input as required. If it is missing, stop and ask for it.
-- If required details remain missing or ambiguous, ask exactly one clarification or confirmation question at a time using clickable multiple-choice options whenever reasonable.
-- Include a `Custom Answer` option.
-- Include one recommended option with a short justification.
-- Wait for the user's answer before asking the next question.
-- Resolve those questions before writing the artifact whenever practical.
-- Only record unresolved blockers when the user declines to answer or the evidence remains unavailable.
+- Follow the [Prerequisite Validation Pattern](PATTERNS.md#prerequisite-validation-pattern); required user input is mandatory for this stage.
+- Follow the [Interactive Question Pattern](PATTERNS.md#interactive-question-pattern) when required details remain missing or ambiguous.
 - Write or update `devspec/foundation/codebase-structure.md`.
 - Focus on repo and module structure, not broad system architecture.
 - Keep repository layout output in tree node format.
 - For multi-repo inputs, use one heading per repo and include one tree node block under each repo heading.
-- For multi-repo inputs, capture repo configuration with repo role, local path, and current workspace availability in `devspec/foundation/codebase-structure.md`.
-- For single-repo inputs, do not require repo configuration.
+- Follow the [Multi-Repo Validation Pattern](PATTERNS.md#multi-repo-validation-pattern) when the input spans multiple repos.
 - Update the file in place if it already exists.
-- End the response with a recommended next step or next prompt to run.
-- Summarize the file updated, key changes including repo headings and tree sections updated, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+- Follow the [Output Closure Pattern](PATTERNS.md#output-closure-pattern).

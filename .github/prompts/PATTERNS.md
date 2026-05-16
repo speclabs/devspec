@@ -1,0 +1,31 @@
+# Shared Prompt Patterns
+
+Use this file to keep repeated workflow behavior out of individual prompt and agent contracts.
+
+## Interactive Question Pattern
+
+- Ask exactly one blocking clarification, confirmation, or selection question at a time.
+- Use clickable multiple-choice options whenever reasonable.
+- Always include a `Custom Answer` option.
+- Recommend exactly one option with a short justification.
+- Wait for the user's answer before asking the next question.
+- Do not bundle unrelated questions into one message.
+
+## Prerequisite Validation Pattern
+
+- Validate required user input and required upstream artifacts before producing output.
+- If a required prerequisite is missing, invalid, ambiguous, or not ready, stop immediately, explain the blocker, and direct the user to the correct recovery step.
+- Record unresolved blockers only when the user declines to answer or the evidence remains unavailable.
+- Treat optional user input as additive guidance only unless the stage explicitly requires user input.
+
+## Output Closure Pattern
+
+- End with a recommended next step or next prompt to run.
+- Summarize only the artifact or work-item path updated, the key outcome, blockers or open questions, and the recommended next step.
+
+## Multi-Repo Validation Pattern
+
+- `devspec/foundation/codebase-structure.md` is the single source of truth for multi-repo configuration.
+- Validate repo role, local path, and current workspace availability there before planning or implementation depends on a repo.
+- For multi-repo work, stop and surface a blocker instead of guessing when required repo configuration is missing, outdated, or inaccessible.
+- For single-repo work, do not require multi-repo configuration.

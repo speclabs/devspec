@@ -26,12 +26,9 @@
 
 - Criterion 1:
 
-## Assumptions
+## Context Notes
 
 - Assumption 1:
-
-## Dependencies
-
 - Multi-repo dependency: yes | no
 - Related repos:
 - Dependency 1:
@@ -44,20 +41,10 @@ Use this section only when `Multi-repo dependency` is `yes`.
 - Configuration status: configured | missing
 - Missing configuration blocker:
 
-## Risks And Mitigations
+## Delivery Notes
 
 - Risk:
 - Mitigation:
-
-## Validation Approach
-
 - Validation 1:
-
-## Release And Communication
-
 - Backport or patch scope:
 - Release note or advisory:
-
-## Next Step
-
-- Run `devspec.tasks` when ready.

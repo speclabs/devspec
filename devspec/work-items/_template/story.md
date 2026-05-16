@@ -32,30 +32,23 @@
 - Affected components:
 - Affected versions:
 
-## Assumptions
+## Context Notes
 
 - Assumption 1:
-
-## Constraints
-
 - Constraint 1:
 
-## Bug Details
+## Type-Specific Notes
 
-- Expected behavior:
-- Actual behavior:
-- Reproduction steps:
-- Regression status:
-- Suspected area:
-
-## Security Details
-
-- Vulnerability class:
-- Attack surface:
-- Exploitability:
-- Exposure level:
-- Disclosure status:
-- Containment or mitigation:
+- Rule source: `devspec/foundation/rules.md`
+- Bug expected behavior:
+- Bug actual behavior:
+- Bug reproduction steps:
+- Bug regression context:
+- Security vulnerability class:
+- Security attack surface:
+- Security exploitability:
+- Security disclosure status:
+- Security containment or remediation:
 
 ## Dependencies
 
@@ -71,14 +64,7 @@
 
 - Criterion 1:
 
-## Risks
+## Open Items
 
 - Risk 1:
-
-## Blockers
-
 - Blocker 1:
-
-## Next Step
-
-- Run `devspec.clarify` if blockers remain.

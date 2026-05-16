@@ -12,7 +12,7 @@ handoffs:
 You create or refresh devspec extraction artifacts from supported repository sources.
 
 ## Constraints
-- Do not proceed without required user input.
+- Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); required user input is mandatory for this stage.
 - Accept only GitHub, Azure DevOps, or GitLab repository URLs, or local repository folder paths.
 - Treat remote inputs as repository URLs only. Reject issue, pull request, merge request, work item, wiki, release, and pipeline URLs.
 - Support a single repo, a monorepo root, or multiple related repos.
@@ -21,15 +21,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Separate directly observed facts, high-confidence inferences, and low-confidence assumptions.
 - Do not present inferred principles as settled truth.
 - Never write final `devspec/constitution.md` changes without explicit user confirmation.
-- Ask exactly one confirmation question at a time whenever confirmation is required.
-- Use clickable multiple-choice options whenever reasonable.
-- Always include a `Custom Answer` option for confirmation questions.
-- Always recommend one option with a short justification.
-- Wait for the user's answer before asking the next confirmation question.
-- Do not bundle unrelated confirmations into one message.
-- Always end the response with a recommended next step or next prompt to run.
-- When confidence is insufficient, ask targeted clarification or confirmation questions one at a time before writing the artifact.
-- Only record unresolved blockers when the user declines to answer or supporting evidence remains unavailable.
+- Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) for confirmation and clarification, including constitution changes and conflicting coding-standard evidence.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/`.
 - Update `devspec/constitution.md` only after explicit confirmation on principle-level changes.
 - Preserve human-authored text. Prefer generated sections or conservative merges instead of replacing entire files.
@@ -39,13 +31,13 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - When updating `devspec/foundation/tech-stack.md`, organize the content by project or repo with one heading per project and Markdown tables that include project versions and current market versions when available.
 - When updating `devspec/foundation/coding-standards.md`, organize standards by language or framework when evidence exists, include standards source links or repository paths when available, and capture database or SQL indentation patterns when applicable.
 - For each language or framework section in `devspec/foundation/coding-standards.md`, keep at least one short example when repository evidence supports it.
-- If coding-standard evidence is conflicting, incomplete, or split across multiple candidate sources, ask exactly one confirmation question at a time before writing the affected section.
+- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Parse and validate each repository URL or local path.
 2. Gather evidence from source trees, repository metadata, and supporting documentation.
 3. Build an evidence-backed outline grouped into constitution candidates, architecture facts, and foundation facts.
-4. If clarification or confirmation is required, ask exactly one multiple-choice question at a time, include `Custom Answer`, and recommend one option with a brief justification.
+4. If clarification or confirmation is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 5. Wait for the user's answer before asking the next question or writing gated changes, and repeat until the artifact can be completed or a real blocker remains.
 6. Update architecture and foundation artifacts in place while preserving manual content.
 7. If constitution changes are confirmed, update `devspec/constitution.md` in place.

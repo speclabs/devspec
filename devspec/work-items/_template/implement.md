@@ -36,22 +36,19 @@
 - Confirmation after task:
 - Date:
 
-## Current Task Outcome
+## Execution Summary
 
-- Outcome summary:
-
-## Completed Tasks Summary
-
+- Current task outcome:
 - Completed task 1:
 - Overall completed summary:
-
-## Pending Or Skipped Tasks
-
 - Pending task 1:
 - Skipped task 1:
+- Residual risk 1:
+- Follow-up 1:
 
 ## Type-Specific Handling
 
+- Rule source: `devspec/foundation/rules.md`
 - Bug verification notes:
 - Bug audit before-fix snippet:
 - Bug audit after-fix snippet:
@@ -75,11 +72,3 @@
 - Next task:
 - Preconditions:
 - Notes for next implementation pass:
-
-## Residual Risks
-
-- Risk 1:
-
-## Follow-Up Work
-
-- Follow-up 1:
