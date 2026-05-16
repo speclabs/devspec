@@ -35,6 +35,8 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 - Record the resolved summary shown and the confirmation actions offered in `story.md`.
 - Record type, impact, affected scope, and type-appropriate urgency in `meta.md` and `story.md`.
 - For features, record priority instead of severity.
+- For features, confirm whether the work has multi-repo dependencies.
+- If a feature has multi-repo dependencies, ask for all affected or dependent repos and record them in `meta.md` and `story.md`.
 - Record the external reference in `story.md`.
 - For manual intake, record the manual description and manual acceptance criteria in `story.md`.
 - For bugs, capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.
@@ -50,9 +52,10 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 3. If clarification or confirmation is required, ask exactly one multiple-choice question at a time, include `Custom Answer`, recommend one option with a brief justification, and wait for the user's answer.
 4. If manual intake is chosen, collect the external reference, manual description, and manual acceptance criteria before proceeding.
 5. Determine the work-item type and capture priority for features, or severity for bugs and security vulnerabilities, from the source or user clarification.
-6. Derive a stable work-item folder name.
-7. Create or update the work-item folder artifacts.
-8. Report the path updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+6. For features, confirm whether the work has multi-repo dependencies and, if yes, collect all related repos.
+7. Derive a stable work-item folder name.
+8. Create or update the work-item folder artifacts.
+9. Report the path updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
 
 ## Output Format
 - Work-item path updated

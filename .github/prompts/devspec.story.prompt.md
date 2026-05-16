@@ -33,6 +33,8 @@ Requirements:
 - Record the resolved summary shown and the confirmation actions offered in `story.md`.
 - Record type, impact, affected scope, and type-appropriate urgency in `meta.md` and `story.md`.
 - For features, record priority instead of severity.
+- For features, confirm whether the work has multi-repo dependencies.
+- If a feature has multi-repo dependencies, ask for all affected or dependent repos and record them in `meta.md` and `story.md`.
 - Record the external reference in `story.md`.
 - For manual intake, record the manual description and manual acceptance criteria in `story.md`.
 - For bugs, capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.

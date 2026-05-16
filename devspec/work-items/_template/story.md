@@ -59,6 +59,8 @@
 
 ## Dependencies
 
+- Multi-repo dependency: yes | no
+- Related repos:
 - Dependency 1:
 
 ## Decisions

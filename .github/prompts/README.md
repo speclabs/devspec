@@ -289,6 +289,7 @@ Turn a work tracking reference into a normalized internal story.
 - Resolved item confirmation status
 - Resolved summary shown to the user
 - Work-item type and type-appropriate urgency, using priority for features and severity for bugs or security vulnerabilities
+- Multi-repo dependency status for features and the related repos when applicable
 - Problem summary
 - Intended user outcome
 - Impact summary and affected scope
@@ -311,6 +312,8 @@ Turn a work tracking reference into a normalized internal story.
 - If the work-item type is unclear, ask for clarification instead of assuming feature, bug, or security-vulnerability.
 - Bugs should capture expected behavior, actual behavior, reproduction steps, regression context, and user impact.
 - Features should capture priority instead of severity.
+- Features should confirm whether the work has multi-repo dependencies.
+- If a feature depends on multiple repos, capture all related repos in the story artifacts.
 - Security vulnerabilities should capture severity, affected scope, attack surface, exploitability, disclosure status, and containment or remediation notes.
 - Minimize sensitive exploit detail in shared artifacts unless it is necessary for remediation.
 - Normalize the work item into a consistent internal story format.

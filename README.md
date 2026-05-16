@@ -374,6 +374,8 @@ What it does:
 - creates the work-item folder
 - writes `meta.md` and `story.md`
 - initializes `decisions.md` and `notes.md` if the folder is new
+- for features, records priority instead of severity
+- for features, confirms multi-repo dependencies and records all related repos when applicable
 
 Supported inputs:
 

@@ -6,6 +6,8 @@
 
 ## Dependencies
 
+- Multi-repo dependency: yes | no
+- Related repos:
 - Dependency 1:
 
 ## Impacted Files Or Areas

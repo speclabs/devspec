@@ -13,6 +13,12 @@
 - Affected components:
 - Affected versions:
 
+## Dependencies
+
+- Multi-repo dependency: yes | no
+- Related repos:
+- Dependency summary:
+
 ## Status
 
 - Work item status:
