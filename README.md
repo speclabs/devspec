@@ -10,7 +10,7 @@ It gives your repository:
 
 In short: `devspec` helps teams define the spec before coding, keep implementation aligned to that spec, and leave a reviewable paper trail in Git.
 
-## What devspec Adds To A Repository
+## What devspec adds to a repository
 
 When installed into a project, `devspec` adds two kinds of assets:
 
@@ -20,7 +20,7 @@ When installed into a project, `devspec` adds two kinds of assets:
 2. `.github/prompts/` and `.github/agents/`
    These power the GitHub Copilot Chat slash-command workflow such as `/devspec.extract`, `/devspec.projectcontext`, and `/devspec.story`.
 
-## How devspec Works
+## How devspec works
 
 The workflow has two layers:
 
@@ -62,7 +62,7 @@ Installation worked if:
 
 If the commands do not appear, reopen the repository workspace in VS Code and confirm the prompt and agent files were copied into the target repository root rather than a nested folder.
 
-### What To Copy Into The Target Repo
+### What to copy into the target repo
 
 Use this minimal working structure:
 
@@ -123,7 +123,7 @@ your-repo/
             `-- notes.md
 ```
 
-### Setup On A New Project
+### Setup on a new project
 
 For a brand-new repository with little or no existing code:
 
@@ -137,7 +137,7 @@ For a brand-new repository with little or no existing code:
 
 For a new project, you will usually skip `/devspec.extract` because there is no mature codebase to backfill yet.
 
-### Setup On An Existing Project
+### Setup on an existing project
 
 For an existing application or monorepo:
 
@@ -152,52 +152,54 @@ For an existing application or monorepo:
 
 This path is best when you already have source code, docs, manifests, CI config, or architecture clues that can be mined into `devspec`.
 
-## Repository Layout
+## Recommended foundation sequences
 
-### `devspec/constitution.md`
+### New project sequence
 
-Holds durable project principles that apply across all work items and all agents.
+For a new project with little code, use:
 
-Examples:
+1. `/devspec.projectcontext`
+2. `/devspec.techstack`
+3. `/devspec.codebase-structure`
+4. `/devspec.coding-standards`
+5. `/devspec.rules`
 
-- engineering principles
-- delivery guardrails
-- testing expectations
-- security defaults
+You can then manually refine:
 
-This file is intentionally harder to change. The extraction flow explicitly requires confirmation before principle-level updates are written.
+- `devspec/constitution.md`
+- `devspec/architecture/overview.md`
 
-### `devspec/foundation/`
+Or let those evolve as the project becomes more concrete.
 
-Holds project-operational context and constraints.
+### Existing project sequence
 
-- `project-context.md`
-  Product vision, intended users, goals, non-goals, constraints, and success metrics.
-- `tech-stack.md`
-  Languages, frameworks, services, tooling, hosting, and delivery constraints.
-- `codebase-structure.md`
-  Repository layout, module boundaries, ownership seams, and integration boundaries.
-- `coding-standards.md`
-  Implementation expectations, testing rules, error handling, logging, documentation, and review norms.
-- `provider-integrations.md`
-  How external work-item systems such as GitHub, Jira, or Azure DevOps should be resolved.
-- `rules.md`
-  Hard constraints, forbidden patterns, compliance rules, governance, and delivery gates.
+For an existing project, use:
 
-### `devspec/architecture/`
+1. `/devspec.extract`
+2. `/devspec.projectcontext`
+3. `/devspec.techstack`
+4. `/devspec.codebase-structure`
+5. `/devspec.coding-standards`
+6. `/devspec.rules`
 
-Holds broader technical architecture.
+This gives you evidence-backed foundation docs first, then lets you refine them with business and operational context that source code alone cannot supply.
 
-- `overview.md`
-  System view, major components, integrations, data flow, and blockers.
-- `decisions/`
-  ADRs for long-lived architecture decisions.
+## Important workflow rules
 
-### `devspec/work-items/`
+These are core behaviors baked into the prompts and agents:
 
-Holds one folder per story, feature, bug, or security issue. Each work item carries its own staged artifacts from intake through review.
+- Foundation commands require user input.
+- `/devspec.story` requires user input.
+- Later work-item commands accept optional additive input.
+- Clarification should happen one question at a time.
+- Clickable options with `Custom Answer` and one recommended option with a short justification are preferred whenever reasonable.
+- `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
+- `/devspec.finalize` should mark a story `not ready` if blockers remain.
+- `/devspec.tasks` must not expand scope.
+- `/devspec.implement` should implement exactly one task per run.
+- `/devspec.review` should review against the finalized brief, not re-plan the story.
 
-## Foundation Workflow
+## Foundation workflow
 
 These commands establish the project-wide spec that all stories must follow.
 
@@ -346,39 +348,7 @@ Example:
 /devspec.rules PII must stay encrypted at rest and in transit. No client-side secrets. No ORM-generated schema changes without review. Production releases require passing CI, security scan approval, and rollback notes for database migrations.
 ```
 
-## Recommended Foundation Sequences
-
-### New Project Sequence
-
-For a new project with little code, use:
-
-1. `/devspec.projectcontext`
-2. `/devspec.techstack`
-3. `/devspec.codebase-structure`
-4. `/devspec.coding-standards`
-5. `/devspec.rules`
-
-You can then manually refine:
-
-- `devspec/constitution.md`
-- `devspec/architecture/overview.md`
-
-Or let those evolve as the project becomes more concrete.
-
-### Existing Project Sequence
-
-For an existing project, use:
-
-1. `/devspec.extract`
-2. `/devspec.projectcontext`
-3. `/devspec.techstack`
-4. `/devspec.codebase-structure`
-5. `/devspec.coding-standards`
-6. `/devspec.rules`
-
-This gives you evidence-backed foundation docs first, then lets you refine them with business and operational context that source code alone cannot supply.
-
-## How To Start A User Story
+## How to start a user story
 
 Once the project foundation exists, use the work-item commands.
 
@@ -428,7 +398,7 @@ Example with manual-style input after fallback:
 
 If provider lookup succeeds, the command should show the resolved item summary and ask you to confirm before it writes the work-item.
 
-### What Gets Created
+### What gets created
 
 The story stage creates a folder under `devspec/work-items/<feature-name>/`.
 
@@ -552,7 +522,7 @@ Example:
 /devspec.review Pay extra attention to regression risk around existing file upload flows.
 ```
 
-## Command Reference
+## Command reference
 
 Before using `/devspec.story` with external work-item references, validate `devspec/foundation/provider-integrations.md` for the providers and fallback behavior your repository supports.
 
@@ -571,9 +541,9 @@ Before using `/devspec.story` with external work-item references, validate `devs
 | `/devspec.implement` | Implement exactly one task per run | `work-items/<feature-name>/implement.md` |
 | `/devspec.review` | Review implemented work | `work-items/<feature-name>/review.md` |
 
-## End-To-End Examples
+## End-to-end examples
 
-### Example: New Project
+### Example: new project
 
 ```text
 /devspec.projectcontext Build a lightweight internal CRM for a small sales team. Users are account executives and sales managers. Goals are contact tracking, pipeline visibility, and activity logging. Non-goals include marketing automation and billing.
@@ -601,7 +571,7 @@ Then start the first work item:
 /devspec.story CRM-12
 ```
 
-### Example: Existing Project
+### Example: existing project
 
 ```text
 /devspec.extract D:\repos\warehouse-suite
@@ -621,11 +591,56 @@ Then start a story:
 /devspec.story https://github.com/acme/warehouse-suite/issues/932
 ```
 
-## How To Extract Information From An Existing Project
+## Repository layout
+
+### `devspec/constitution.md`
+
+Holds durable project principles that apply across all work items and all agents.
+
+Examples:
+
+- engineering principles
+- delivery guardrails
+- testing expectations
+- security defaults
+
+This file is intentionally harder to change. The extraction flow explicitly requires confirmation before principle-level updates are written.
+
+### `devspec/foundation/`
+
+Holds project-operational context and constraints.
+
+- `project-context.md`
+  Product vision, intended users, goals, non-goals, constraints, and success metrics.
+- `tech-stack.md`
+  Languages, frameworks, services, tooling, hosting, and delivery constraints.
+- `codebase-structure.md`
+  Repository layout, module boundaries, ownership seams, and integration boundaries.
+- `coding-standards.md`
+  Implementation expectations, testing rules, error handling, logging, documentation, and review norms.
+- `provider-integrations.md`
+  How external work-item systems such as GitHub, Jira, or Azure DevOps should be resolved.
+- `rules.md`
+  Hard constraints, forbidden patterns, compliance rules, governance, and delivery gates.
+
+### `devspec/architecture/`
+
+Holds broader technical architecture.
+
+- `overview.md`
+  System view, major components, integrations, data flow, and blockers.
+- `decisions/`
+  ADRs for long-lived architecture decisions.
+
+### `devspec/work-items/`
+
+Holds one folder per story, feature, bug, or security issue. Each work item carries its own staged artifacts from intake through review.
+
+## Advanced: extracting information from an existing project
 
 If you are adopting `devspec` into a working codebase, this is the most important setup flow.
 
-### What `/devspec.extract` Pulls From
+### What `/devspec.extract` pulls from
 
 The extract stage is designed to inspect:
 
@@ -639,7 +654,7 @@ The extract stage is designed to inspect:
 - architecture docs
 - CODEOWNERS and related ownership hints
 
-### Where The Extracted Information Goes
+### Where the extracted information goes
 
 #### `devspec/constitution.md`
 
@@ -704,7 +719,7 @@ This may be partially supported by:
 
 But project-operational rules often need human refinement after extraction.
 
-### Practical Existing-Project Example
+### Practical existing-project example
 
 Example sequence in Copilot Chat:
 
@@ -722,7 +737,7 @@ Then refine what the code could not fully tell you:
 /devspec.rules Protected health information must not be exposed in logs. Any document-upload change requires malware scanning and content-type validation. Releases need QA signoff for claims workflows.
 ```
 
-## How To Set Up MCP Servers Or Tools In VS Code
+## Advanced: setting up MCP servers or tools in VS Code
 
 Use this setup when you want `devspec` to resolve external work items instead of falling back to manual intake.
 
@@ -738,22 +753,7 @@ Use this setup when you want `devspec` to resolve external work items instead of
 
 You should treat provider-backed intake as ready only when VS Code can reach the configured tool, authentication works, and `devspec/foundation/provider-integrations.md` matches the behavior your team expects.
 
-## Important Workflow Rules
-
-These are core behaviors baked into the prompts and agents:
-
-- Foundation commands require user input.
-- `/devspec.story` requires user input.
-- Later work-item commands accept optional additive input.
-- Clarification should happen one question at a time.
-- Clickable options with `Custom Answer` and one recommended option with a short justification are preferred whenever reasonable.
-- `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
-- `/devspec.finalize` should mark a story `not ready` if blockers remain.
-- `/devspec.tasks` must not expand scope.
-- `/devspec.implement` should implement exactly one task per run.
-- `/devspec.review` should review against the finalized brief, not re-plan the story.
-
-## Recommended Adoption Pattern
+## Recommended adoption pattern
 
 If you are introducing `devspec` to a team, this usually works well:
 
@@ -764,12 +764,12 @@ If you are introducing `devspec` to a team, this usually works well:
 5. If relevant, run one security-vulnerability story.
 6. Adjust the foundation docs after learning from those first runs.
 
-## Current Limitation
+## Current limitation
 
 Setup is currently copy-based. There is no `npm`, package-manager, or installer-based bootstrap flow yet.
 
 That is a reasonable future enhancement, but the current framework expects `devspec/`, `.github/prompts/`, and `.github/agents/` to exist directly in the target repository.
 
-## License
+## Copyright and license
 
-See `LICENSE`.
+Code and documentation copyright 2026 [SpecLabs](https://github.com/speclabs) Code released under the [Apache-2.0 License](https://github.com/speclabs/devspec/blob/main/LICENSE).
