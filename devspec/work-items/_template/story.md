@@ -40,15 +40,8 @@
 ## Type-Specific Notes
 
 - Rule source: `devspec/foundation/rules.md`
-- Bug expected behavior:
-- Bug actual behavior:
-- Bug reproduction steps:
-- Bug regression context:
-- Security vulnerability class:
-- Security attack surface:
-- Security exploitability:
-- Security disclosure status:
-- Security containment or remediation:
+- Bug notes: expected behavior, actual behavior, reproduction steps, regression context, and user impact when applicable.
+- Security notes: vulnerability class, attack surface, exploitability, disclosure status, and containment or remediation when applicable.
 
 ## Dependencies
 

@@ -14,7 +14,6 @@
 
 - Finalized scope alignment:
 - Scope drift found:
-- Validation gap 1:
 - Follow-up 1:
 
 ## Findings

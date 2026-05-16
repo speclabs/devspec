@@ -13,8 +13,7 @@
 ## Readiness Gates
 
 - Core readiness:
-- Bug readiness:
-- Security readiness:
+- Type-specific readiness: see `devspec/foundation/rules.md` when the work item is a bug or security vulnerability.
 - Outstanding blocker:
 
 ## Final Scope

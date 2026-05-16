@@ -49,11 +49,8 @@
 ## Type-Specific Handling
 
 - Rule source: `devspec/foundation/rules.md`
-- Bug verification notes:
-- Bug audit before-fix snippet:
-- Bug audit after-fix snippet:
-- Security handling notes:
-- Backport or disclosure status:
+- Bug handling notes: regression validation and before or after audit snippets when applicable.
+- Security handling notes: remediation, verification, and backport or advisory status when applicable.
 
 ## Loop Escalations
 
