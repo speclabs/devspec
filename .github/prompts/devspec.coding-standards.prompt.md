@@ -17,7 +17,8 @@ Requirements:
 - Write or update `devspec/foundation/coding-standards.md`.
 - Organize the artifact by language or framework when applicable, then capture cross-cutting standards that apply across the codebase.
 - Record standards source links or document paths when the user provides them.
-- Capture language-specific details such as file naming, indentation, regions, formatting, linting, testing, framework conventions, and database or SQL indentation patterns when they are provided or confirmed.
+- Capture language-specific details such as file naming, indentation, regions, formatting, linting, testing, framework conventions, database or SQL indentation patterns, and XML or developer comment expectations when they are provided or confirmed.
+- Always record a documentation-comment rule that requires XML documentation comments where the language supports them and concise developer comments for non-obvious implementation details elsewhere.
 - Keep at least one short example for each language or framework section when the user provides one or confirms one.
 - Keep the artifact actionable for later `finalize`, `tasks`, and `implement` stages.
 - Update the file in place if it already exists.

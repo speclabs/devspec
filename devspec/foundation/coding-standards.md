@@ -11,6 +11,7 @@
 - File naming:
 - Indentation:
 - Database or SQL indentation patterns:
+- XML or developer comments:
 - Regions or grouping rules:
 - Formatting or linting:
 - Testing conventions:
@@ -36,7 +37,7 @@
 
 ## Documentation Expectations
 
-- Expectation 1:
+- Expectation 1: Require XML documentation comments where the language supports them, and require concise developer comments for non-obvious implementation details elsewhere.
 
 ## Review Expectations
 
