@@ -40,30 +40,27 @@ Access requirement values:
 
 ## Modules And Boundaries
 
-### Repo: <repo-name>
-
-- Module:
-- Responsibility:
+| Scope | Module | Responsibility | Key paths | Boundary rules | Notes |
+| --- | --- | --- | --- | --- | --- |
+| repo:<repo-name> | <module-name> | <primary responsibility> | <path-or-pattern> | <allowed dependencies or ownership boundary> | |
 
 ## Ownership Seams
 
-### Repo: <repo-name>
-
-- Area:
-- Owner:
+| Scope | Area | Owner or team | Responsibility | Review or escalation path | Notes |
+| --- | --- | --- | --- | --- | --- |
+| repo:<repo-name> | <area-name> | <owner-or-team> | <what they own> | <review-or-escalation-path> | |
 
 ## Integration Boundaries
 
-### Repo: <repo-name>
-
-- Boundary:
+| Source scope | Target or system | Boundary or contract | Direction | Data or protocol | Notes |
+| --- | --- | --- | --- | --- | --- |
+| repo:<repo-name> | <target-system> | <api-event-db-or-package-contract> | inbound | <data-shape-or-protocol> | |
 
 ## Cross-Cutting Concerns
 
-### Repo: <repo-name>
-
-- Concern:
-- Placement:
+| Scope | Concern | Placement | Applies to | Notes |
+| --- | --- | --- | --- | --- |
+| repo:<repo-name> | <concern-name> | <path-or-layer> | <modules-or-services> | |
 
 ## Blockers
 
