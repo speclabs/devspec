@@ -343,7 +343,8 @@ Use it for:
 - logging and observability
 - review expectations
 - links to existing coding standards docs
-- short examples for each language or framework section when available
+- evidence-backed pattern catalogs with source paths and confidence
+- short canonical examples for important style, indentation, SQL layout, member ordering, or framework patterns when available
 
 Example:
 
@@ -580,7 +581,7 @@ Before using `/devspec.story` with external work-item references, validate `devs
 | 1 | `/devspec.projectcontext` | Product and business context need to be created or updated. | Product vision, users, goals, non-goals, and constraints. | `foundation/project-context.md` | `/devspec.techstack` |
 | 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Languages, frameworks, services, tooling, hosting, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
 | 3 | `/devspec.codebase-structure` | Repo layout, module boundaries, ownership seams, or multi-repo config need to be recorded. | Repository layout, integration boundaries, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
-| 4 | `/devspec.coding-standards` | Engineering expectations need to be recorded. | Direct standards, links, or repo-relative standards docs. | `foundation/coding-standards.md` | `/devspec.rules` |
+| 4 | `/devspec.coding-standards` | Engineering expectations or observed code patterns need to be recorded. | Direct standards, links, repo-relative standards docs, or evidence-backed examples. | `foundation/coding-standards.md` | `/devspec.rules` |
 | 5 | `/devspec.rules` | Operational hard constraints and delivery gates need to be recorded. | Compliance requirements, forbidden patterns, governance rules, and gates. | `foundation/rules.md` | `/devspec.story` |
 | 6 | `/devspec.story` | A feature, bug, or security vulnerability needs intake. | Work-item reference or manual intake details. | `work-items/<feature-name>/meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
 | 7 | `/devspec.clarify` | A blocking question must be resolved. | Existing `story.md`. | `work-items/<feature-name>/clarify.md` | Repeat until unblocked, then `/devspec.finalize` |
@@ -758,7 +759,7 @@ This can be partially inferred from:
 - existing conventions in the codebase
 - standards docs or style-guide links already referenced by the repository
 
-Useful extracted examples include short snippets that show the prevailing indentation or formatting pattern, especially for SQL query layout and other database code.
+Useful extracted examples include short snippets that show the prevailing indentation or formatting pattern, especially for SQL query layout and other database code. Treat this file as a pattern catalog: record the rule, source evidence, confidence, and a compact example rather than copying large code blocks.
 
 But the result should still be reviewed, because "what the code does today" and "what the team wants as a standard" are not always the same.
 

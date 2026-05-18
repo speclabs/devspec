@@ -24,7 +24,7 @@ Work items: `story` -> `clarify` -> `finalize` -> `tasks` -> `implement` -> `rev
 | `devspec.projectcontext.prompt.md` | Capture product vision, users, goals, non-goals, constraints, and metrics. | `foundation/project-context.md` |
 | `devspec.techstack.prompt.md` | Capture languages, frameworks, services, tooling, hosting, and versions. | `foundation/tech-stack.md` |
 | `devspec.codebase-structure.prompt.md` | Capture repo layout, module boundaries, ownership seams, and multi-repo config. | `foundation/codebase-structure.md` |
-| `devspec.coding-standards.prompt.md` | Capture language/framework standards and links to source standards. | `foundation/coding-standards.md` |
+| `devspec.coding-standards.prompt.md` | Capture evidence-backed language/framework standards, observed patterns, source links, and short examples. | `foundation/coding-standards.md` |
 | `devspec.rules.prompt.md` | Capture operational constraints, compliance, forbidden patterns, and gates. | `foundation/rules.md` |
 | `devspec.story.prompt.md` | Create or update work-item intake artifacts. | `meta.md`, `story.md`, support files |
 | `devspec.clarify.prompt.md` | Ask and record one blocking clarification. | `clarify.md` |

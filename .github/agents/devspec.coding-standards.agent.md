@@ -16,15 +16,19 @@ You create or update `devspec/foundation/coding-standards.md`.
 - Accept direct standards content, links to existing standards, repository-relative paths to standards docs, or a mix of those inputs.
 - Organize the artifact by language or framework when applicable, then capture cross-cutting standards that apply across the codebase.
 - Record standards source links or document paths when the user provides them.
-- Capture file naming, indentation, grouping, formatting, linting, testing, framework, database/SQL, XML-doc, and developer-comment rules when provided, detected, or confirmed.
-- Keep at least one short example for each language or framework section when the user provides one or confirms one.
+- Treat `coding-standards.md` as an evidence-backed pattern catalog, not a plain prose guide or copied code archive.
+- Capture file naming, indentation, grouping, formatting, linting, testing, framework, database/SQL, XML-doc, developer-comment, error-handling, logging, and review patterns when provided, detected, or confirmed.
+- Record each pattern with source evidence and confidence: `confirmed`, `observed`, or `inferred`.
+- Prefer short canonical examples over long snippets. Use 5-20 lines when possible, only enough to show style, indentation, naming, grouping, SQL layout, or the reusable pattern.
+- Link to real source files or standards docs for full context instead of copying large files.
+- Ask one clarification at a time when evidence conflicts or a detected pattern should become a rule.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Read the existing artifact if it exists.
 2. Ask one clarification at a time if required input is incomplete or ambiguous.
-3. Merge the required user input into a stable coding-standards document, preserving language-specific sections and standards sources when applicable.
+3. Merge the required user input into a stable coding-standards pattern catalog, preserving language-specific sections, standards sources, evidence, confidence, and short examples when applicable.
 4. Write the updated artifact.
 5. Report key changes, blockers, and next prompt.
 

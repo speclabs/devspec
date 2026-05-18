@@ -2,44 +2,65 @@
 
 ## Standards Sources
 
-- Source 1:
+| Source | Type | Applies to | Confidence | Notes |
+| --- | --- | --- | --- | --- |
+| <path-or-link> | formatter | <language-or-framework> | confirmed | |
 
 ## Language And Framework Standards
 
 ### Language Or Framework: <name>
 
-- File naming:
-- Indentation:
-- Database or SQL indentation patterns:
-- Documentation comments:
-- Developer comments for non-obvious details:
-- Member grouping and ordering:
-- Formatting or linting:
-- Testing conventions:
-- Framework-specific conventions:
-- Notes:
-- Example 1: optional when evidence exists
+| Category | Rule | Evidence | Confidence | Example |
+| --- | --- | --- | --- | --- |
+| File naming | <rule> | <path-or-config> | confirmed | |
+| Formatting and indentation | <indent-size-line-length-brace-style> | <config-or-source-path> | observed | CS-001 |
+| Database or SQL layout | <keyword-case-join-indent-query-layout> | <path-or-query-file> | observed | CS-002 |
+| Documentation comments | <xml-doc-jsdoc-docstring-rule> | <path-or-docs> | inferred | |
+| Developer comments | <when-comments-are-required> | <path-or-docs> | confirmed | |
+| Member grouping and ordering | <fields-constructors-public-private-order> | <source-path> | observed | CS-003 |
+| Formatting or linting | <tool-and-command> | <config-path> | confirmed | |
+| Testing conventions | <test-naming-structure-assertions> | <test-path> | observed | |
+| Framework-specific conventions | <framework-pattern> | <source-path> | observed | |
 
-## Style And Naming
+## Observed Patterns
 
-- Rule 1:
+Use this as a compact pattern catalog. Prefer source references plus short examples over long copied code.
 
-## Testing Expectations
+| Pattern ID | Pattern | Applies to | Rule | Evidence | Confidence | Example |
+| --- | --- | --- | --- | --- | --- | --- |
+| CS-001 | <pattern-name> | <language-framework-or-layer> | <rule-to-follow> | <source-path> | observed | CS-001 |
 
-- Expectation 1:
+## Formatting Examples
 
-## Error Handling
+Keep examples minimal and canonical. Use 5-20 lines when possible, enough to show indentation, grouping, naming, or layout.
 
-- Pattern 1:
+### CS-001: <formatting-or-pattern-name>
 
-## Logging And Observability
+Source: `<source-path>`
 
-- Rule 1:
+```text
+<short representative snippet>
+```
 
-## Documentation Expectations
+## Anti-Patterns
 
-- Expectation 1:
+| Pattern | Avoid | Evidence | Preferred pattern | Confidence |
+| --- | --- | --- | --- | --- |
+| <anti-pattern-name> | <what-not-to-do> | <source-or-rule-path> | <preferred-pattern-id-or-rule> | observed |
 
-## Review Expectations
+## Cross-Cutting Expectations
 
-- Expectation 1:
+| Area | Expectation | Evidence | Confidence | Notes |
+| --- | --- | --- | --- | --- |
+| Style and naming | <expectation> | <path-or-rule> | confirmed | |
+| Testing | <expectation> | <path-or-rule> | confirmed | |
+| Error handling | <expectation> | <path-or-rule> | observed | |
+| Logging and observability | <expectation> | <path-or-rule> | observed | |
+| Documentation | <expectation> | <path-or-rule> | confirmed | |
+| Review | <expectation> | <path-or-rule> | confirmed | |
+
+## Blockers Or Conflicts
+
+| Topic | Conflict or gap | Evidence | Resolution needed |
+| --- | --- | --- | --- |
+| <topic> | <conflict-or-gap> | <source-paths> | <question-or-decision> |

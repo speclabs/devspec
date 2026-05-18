@@ -42,7 +42,9 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - When extraction spans multiple repos, keep `codebase-structure.md` as the source of truth for repo role, local path, workspace availability, and access requirement.
 - Treat local paths outside the current repo folder as valid extraction sources when accessible; do not classify them as `reference-only` based on path location.
 - Do not infer access requirements during extraction. Ask one repo-specific multiple-choice confirmation for each missing or ambiguous access requirement before writing multi-repo configuration.
-- Keep `coding-standards.md` per language/framework with source paths and evidence-backed examples when available.
+- Keep `coding-standards.md` per language/framework as an evidence-backed pattern catalog with source paths, confidence, observed patterns, anti-patterns, and short examples when available.
+- For formatting-sensitive languages or SQL/database code, capture compact canonical snippets that show indentation, grouping, and layout without copying large code blocks.
+- Limit coding-standard examples to representative snippets, usually 5-20 lines, and link to source paths for full context.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
