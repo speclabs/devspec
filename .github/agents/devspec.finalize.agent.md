@@ -21,7 +21,7 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 - If blockers remain, mark the brief as `not ready`.
 - Follow the [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern) when discovery is needed before freezing the brief.
 - Apply the relevant readiness gates in `../../devspec/foundation/rules.md` for bugs and security vulnerabilities.
-- For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and record only the configuration status in `finalize.md`.
+- For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and record only the configuration status in `finalize.md`, including whether required repo access requirements are configured.
 - For single-repo work, do not add multi-repo configuration status.
 - Do not invent missing requirements.
 - Use the `Explore` subagent when implementation context, analogous existing behavior, or likely impact areas need quick discovery before finalizing the brief.

@@ -19,7 +19,9 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) for target selection, blockers, and per-task proceed or skip decisions.
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); `finalize.md` must be `ready` and `tasks.md` must exist.
 - Implement pending tasks from `tasks.md` sequentially unless the user chooses to stop or skip.
-- For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and validate repo access before changing code for a task.
+- For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and validate repo path plus access requirement before changing code or running validation for a task.
+- Do not edit repos marked `reference-only`, `validation-only`, `release-coordination`, or `blocked` without explicit user confirmation.
+- Do not run validation in repos marked `reference-only`, `release-coordination`, or `blocked` without explicit user confirmation.
 - Modify code when applicable and stay within the finalized scope.
 - Select the next pending task using `tasks.md` and any prior handoff recorded in `implement.md`.
 - Update `implement.md` in place using `../../devspec/work-items/_template/implement.md` as the section contract.
@@ -38,7 +40,7 @@ You implement the current work item and update `devspec/work-items/<feature-name
 1. Locate the target work item.
 2. Read `finalize.md`, `tasks.md`, `implement.md`, and relevant code context.
 3. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
-4. For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and confirm the required repo paths are accessible before implementation starts.
+4. For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and confirm the required repo paths and access requirements before implementation starts.
 5. Record the pre-run token-usage summary when telemetry is available, or record that it is unavailable.
 6. Apply the relevant type-specific rules from `../../devspec/foundation/rules.md` when the work item is a bug or security vulnerability.
 7. Identify the next pending task to implement.

@@ -24,6 +24,9 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) for confirmation and clarification, including constitution changes and conflicting coding-standard evidence.
 - Follow the [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern) when repository discovery is iterative or spans multiple surfaces.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/`.
+- When high-level modules or workflows are identified, record Mermaid architecture-diagram and user-journey candidates in `devspec/architecture/artifact-queue.md` as a resumable work queue.
+- Ask user confirmation before generating each diagram or user journey. Generate at most one confirmed Mermaid artifact at a time, update its queue status, then ask whether to continue to the next candidate.
+- On rerun, resume from `devspec/architecture/artifact-queue.md` before proposing duplicate candidates.
 - Update `devspec/constitution.md` only after explicit confirmation on principle-level changes.
 - Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence.
 - For multi-repo inputs, produce a system-level view and keep per-repo provenance visible.
@@ -31,7 +34,9 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Use the `Explore` subagent when repository discovery, analogous patterns, or likely artifact touchpoints need to be gathered efficiently before writing.
 - When the input spans multiple independent repos or surfaces, prefer 2-3 focused `Explore` runs in parallel rather than one broad search.
 - Use session memory only for transient evidence summaries and unresolved questions; the canonical output remains the updated devspec artifacts.
-- Keep `tech-stack.md` per-project with version tables and verified current market versions when available.
+- Keep `tech-stack.md` per-project with version tables and verified current LTS versions when available.
+- Keep `codebase-structure.md` repository layouts as selective 2-4 level trees focused on file-placement decisions, not exhaustive file listings.
+- When extraction spans multiple repos, keep `codebase-structure.md` as the source of truth for repo role, local path, workspace availability, and access requirement.
 - Keep `coding-standards.md` per language/framework with source paths and evidence-backed examples when available.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
@@ -44,13 +49,15 @@ You create or refresh devspec extraction artifacts from supported repository sou
 5. If clarification or confirmation is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 6. Wait for the user's answer before asking the next question or writing gated changes, and repeat until the artifact can be completed or a real blocker remains.
 7. Update architecture and foundation artifacts in place while preserving manual content.
-8. If constitution changes are confirmed, update `devspec/constitution.md` in place.
-9. Report sources processed, artifacts updated, evidence confidence, blockers, and next prompt.
+8. Process confirmed Mermaid diagram or user-journey items from `artifact-queue.md` one at a time, stopping for confirmation before each generated artifact.
+9. If constitution changes are confirmed, update `devspec/constitution.md` in place.
+10. Report sources processed, artifacts updated, diagram queue status, evidence confidence, blockers, and next prompt.
 
 ## Output Format
 - Sources processed
 - Artifacts updated
 - Confirmation requested or received
+- Diagram queue status
 - Key evidence and confidence
 - Questions resolved or remaining blockers
 - Recommended next step or prompt to run

@@ -20,6 +20,7 @@ You create or update `devspec/work-items/<feature-name>/clarify.md`.
 - Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 - Update `clarify.md` in place.
 - Do not resolve multiple independent blockers in one run.
+- If no blocking question remains, state that clearly in `clarify.md`.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 

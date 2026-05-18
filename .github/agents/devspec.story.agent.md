@@ -24,7 +24,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 - Create the work-item folder during the story stage and do not rename it later.
 - Write or update `meta.md` and `story.md` using `../../devspec/work-items/_template/` as the section contract.
 - Record source resolution, confirmation, type, impact, affected scope, and type-appropriate urgency; for features, record priority instead of severity.
-- Confirm whether the work has multi-repo dependencies and record all affected or dependent repos in `meta.md` and `story.md`.
+- Confirm whether the work has multi-repo dependencies and record all affected or dependent repos in `meta.md` and `story.md`; repo paths and access requirements stay in `devspec/foundation/codebase-structure.md`.
 - Follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) for multi-repo work. If configuration is missing or outdated, stop and direct the user to update `/devspec.codebase-structure` before continuing.
 - Record the external reference, and for manual intake record the manual description and acceptance criteria.
 - For bugs and security vulnerabilities, capture the type-specific facts required by `../../devspec/foundation/rules.md`.

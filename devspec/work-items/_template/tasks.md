@@ -4,6 +4,7 @@
 
 1. Task:
 	- Target repo:
+	- Required access:
 
 ## Execution Context
 
@@ -11,6 +12,7 @@
 - Related repos:
 - Dependency 1:
 - Repo path source:
+- Access requirement source: `devspec/foundation/codebase-structure.md`
 - Type-specific rule source: `devspec/foundation/rules.md`
 
 ## Impacted Files Or Areas
