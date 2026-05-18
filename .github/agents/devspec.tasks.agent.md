@@ -17,7 +17,8 @@ You create or update `devspec/work-items/<feature-name>/tasks.md`.
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); `finalize.md` must exist and be marked `ready`.
 - Do not change or expand the finalized scope.
 - Follow the [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern) when discovery is needed to decompose or sequence the work.
-- For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and assign each task to a configured repo.
+- For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and assign each task to a configured repo whose access requirement supports the planned work.
+- Use `reference-only` repos for context only; surface a blocker when edits are needed in a repo marked `reference-only`, `validation-only`, `release-coordination`, or `blocked`, or when validation is needed in a repo marked `reference-only`, `release-coordination`, or `blocked`.
 - Apply the relevant bug and security planning rules in `../../devspec/foundation/rules.md`.
 - Use the `Explore` subagent when you need quick discovery of impacted code paths, analogous implementations, or likely verification surfaces before decomposing tasks.
 - Use session memory only for transient dependency mapping, open questions, and decomposition notes; `tasks.md` remains the canonical task list.

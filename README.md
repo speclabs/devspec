@@ -52,11 +52,11 @@ Right now, the recommended setup is file-copy based. Package-based install can b
 Before you start:
 
 - open the target repository as a workspace in VS Code
-- for multi-repo work, open a VS Code multi-root workspace that includes every repo you expect to inspect or edit
+- for multi-repo work, open a VS Code multi-root workspace that includes every repo you expect to inspect, edit, test, or coordinate
 - make sure GitHub Copilot Chat is available in that workspace
 - copy both `.github/prompts/` and `.github/agents/` along with `devspec/`, because the slash-command workflow depends on all three
 
-For multi-repo work, the most reliable pattern is to keep one shared workspace open and record repo configuration in `devspec/foundation/codebase-structure.md`. That keeps one source of truth for local repo paths and lets story, tasks, finalize, and implement rely on the same configured repos. Single-repo work does not need any extra repo configuration.
+For multi-repo work, the most reliable pattern is to keep one shared workspace open and record repo configuration in `devspec/foundation/codebase-structure.md`. That keeps one source of truth for local repo paths and access requirements, so story, tasks, finalize, and implement rely on the same configured repos. Single-repo work does not need any extra repo configuration.
 
 Installation worked if:
 
@@ -308,7 +308,7 @@ Use it for:
 - ownership seams
 - integration boundaries
 
-For multi-repo projects, use this stage to capture each repo's role, local path, and whether it is already open in the current VS Code workspace.
+For multi-repo projects, use this stage to capture each repo's role, local path, whether it is already open in the current VS Code workspace, and its access requirement such as `reference-only`, `edit`, `edit-and-test`, `validation-only`, `release-coordination`, or `blocked`.
 
 The repository tree should go deep enough for file-placement decisions, usually 2-4 levels for important source roots, feature/module folders, tests, scripts, config, infrastructure, docs, and routing-critical files. Avoid exhaustive file listings.
 
@@ -403,6 +403,7 @@ What it does:
 - confirms multi-repo dependencies and records all related repos when applicable
 - does not store local repo paths
 - if the work is multi-repo, requires multi-repo foundation configuration in `devspec/foundation/codebase-structure.md` before story intake can continue
+- leaves local paths and repo access requirements in the foundation artifact rather than duplicating them into story artifacts
 
 Supported inputs:
 
@@ -487,7 +488,7 @@ Important behavior:
 - marks the item `ready` or `not ready`
 - does not invent missing requirements
 - records final scope, acceptance criteria, dependencies, risks, and validation approach
-- for multi-repo work, verifies that `devspec/foundation/codebase-structure.md` contains the required repo configuration
+- for multi-repo work, verifies that `devspec/foundation/codebase-structure.md` contains the required repo configuration and access requirements
 - should stay `not ready` if required multi-repo foundation configuration is missing or incomplete
 
 Example:
@@ -509,7 +510,7 @@ Important behavior:
 - must not change or expand the finalized scope
 - should create ordered, implementation-oriented tasks
 - should include validation steps and type-specific checks
-- for multi-repo work, should assign each task to a target repo and use `devspec/foundation/codebase-structure.md` as the source of truth for local repo paths
+- for multi-repo work, should assign each task to a target repo and use `devspec/foundation/codebase-structure.md` as the source of truth for local repo paths and access requirements
 
 Example:
 
@@ -530,8 +531,8 @@ Important behavior:
 - requires `finalize.md` to be `ready`
 - requires `tasks.md`
 - implements pending tasks sequentially until the work is completed or the user chooses to stop or skip
-- for multi-repo work, uses the repo configuration in `devspec/foundation/codebase-structure.md` as the single source of truth for which physical repo path to change
-- validates required repo paths before making code changes and surfaces missing repo access as a blocker
+- for multi-repo work, uses the repo configuration in `devspec/foundation/codebase-structure.md` as the single source of truth for which physical repo path to change and what access is allowed
+- validates required repo paths and access requirements before making code changes or running validation, and surfaces missing repo access as a blocker
 - after each task, reports completed and pending counts and asks whether to proceed, skip, or provide a custom answer
 - once all tasks are implemented, records the completed task list and completion summary
 - if the same task loops more than 3 times, explains the issue and asks whether to proceed, skip, or provide a custom answer
@@ -573,7 +574,7 @@ Before using `/devspec.story` with external work-item references, validate `devs
 | 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Repository URL or local repo path. | `constitution.md`, `architecture/overview.md`, `foundation/*.md` | Refine with `/devspec.projectcontext`. |
 | 1 | `/devspec.projectcontext` | Product and business context need to be created or updated. | Product vision, users, goals, non-goals, and constraints. | `foundation/project-context.md` | `/devspec.techstack` |
 | 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Languages, frameworks, services, tooling, hosting, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
-| 3 | `/devspec.codebase-structure` | Repo layout, module boundaries, ownership seams, or multi-repo config need to be recorded. | Repository layout and integration boundaries. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
+| 3 | `/devspec.codebase-structure` | Repo layout, module boundaries, ownership seams, or multi-repo config need to be recorded. | Repository layout, integration boundaries, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
 | 4 | `/devspec.coding-standards` | Engineering expectations need to be recorded. | Direct standards, links, or repo-relative standards docs. | `foundation/coding-standards.md` | `/devspec.rules` |
 | 5 | `/devspec.rules` | Operational hard constraints and delivery gates need to be recorded. | Compliance requirements, forbidden patterns, governance rules, and gates. | `foundation/rules.md` | `/devspec.story` |
 | 6 | `/devspec.story` | A feature, bug, or security vulnerability needs intake. | Work-item reference or manual intake details. | `work-items/<feature-name>/meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
@@ -738,7 +739,7 @@ This is one of the strongest extraction targets because code and manifests usual
 
 #### `devspec/foundation/codebase-structure.md`
 
-This is also a strong extraction target because folder layout and module names can usually be observed directly. Extracted layouts should be selective 2-4 level trees focused on helping agents decide where new files and folders belong.
+This is also a strong extraction target because folder layout and module names can usually be observed directly. Extracted layouts should be selective 2-4 level trees focused on helping agents decide where new files and folders belong. For multi-repo work, this file is also the source of truth for repo roles, local paths, workspace availability, and access requirements.
 
 #### `devspec/foundation/coding-standards.md`
 

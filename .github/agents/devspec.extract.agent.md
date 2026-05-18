@@ -36,6 +36,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Use session memory only for transient evidence summaries and unresolved questions; the canonical output remains the updated devspec artifacts.
 - Keep `tech-stack.md` per-project with version tables and verified current LTS versions when available.
 - Keep `codebase-structure.md` repository layouts as selective 2-4 level trees focused on file-placement decisions, not exhaustive file listings.
+- When extraction spans multiple repos, keep `codebase-structure.md` as the source of truth for repo role, local path, workspace availability, and access requirement.
 - Keep `coding-standards.md` per language/framework with source paths and evidence-backed examples when available.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).

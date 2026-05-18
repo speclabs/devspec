@@ -46,7 +46,9 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 ## Multi-Repo Validation Pattern
 
 - `devspec/foundation/codebase-structure.md` is the single source of truth for multi-repo configuration.
-- Validate repo role, local path, and current workspace availability there before planning or implementation depends on a repo.
+- Validate repo role, local path, current workspace availability, and access requirement there before planning or implementation depends on a repo.
+- Respect access requirements: do not edit repos marked `reference-only`, `validation-only`, `release-coordination`, or `blocked` unless the user explicitly confirms a scope change.
+- Do not run validation in repos marked `reference-only`, `release-coordination`, or `blocked` unless the user explicitly confirms a scope change.
 - For multi-repo work, stop and surface a blocker instead of guessing when required repo configuration is missing, outdated, or inaccessible.
 - For single-repo work, do not require multi-repo configuration.
 

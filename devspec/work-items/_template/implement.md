@@ -17,9 +17,9 @@
 
 - Repo path source: `devspec/foundation/codebase-structure.md` when `Multi-repo dependency` is `yes`
 
-| Repo | Access status | Notes |
-| --- | --- | --- |
-| repo-name | accessible | |
+| Repo | Access requirement | Access status | Notes |
+| --- | --- | --- | --- |
+| repo-name | edit-and-test | accessible | |
 
 ## Task Execution Log
 

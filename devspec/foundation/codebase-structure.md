@@ -25,9 +25,18 @@ Use a selective 2-4 level tree that helps agents decide where to create or edit 
 
 Use this section only when multiple repos participate in delivery.
 
-| Repo | Role | Local path | In current workspace | Notes |
-| --- | --- | --- | --- | --- |
-| <repo-name> | ui | C:\path\to\repo | yes | |
+| Repo | Role | Local path | In current workspace | Access requirement | Notes |
+| --- | --- | --- | --- | --- | --- |
+| <repo-name> | ui | C:\path\to\repo | yes | edit-and-test | |
+
+Access requirement values:
+
+- `reference-only`: inspect for context only; do not edit or run project validation.
+- `edit`: code or documentation changes are expected.
+- `edit-and-test`: code or documentation changes and validation are expected.
+- `validation-only`: run validation only; do not edit.
+- `release-coordination`: track delivery dependency; edits require separate user confirmation.
+- `blocked`: required repo is unavailable or inaccessible.
 
 ## Modules And Boundaries
 

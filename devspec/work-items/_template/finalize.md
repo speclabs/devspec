@@ -38,6 +38,7 @@ Use this section only when `Multi-repo dependency` is `yes`.
 
 - Config source: `devspec/foundation/codebase-structure.md`
 - Configuration status: configured | missing
+- Access requirement status: configured | missing | blocked
 - Missing configuration blocker:
 
 ## Delivery Notes
