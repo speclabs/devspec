@@ -246,6 +246,7 @@ Expected outcome:
 - `architecture/overview.md` gets a first-pass system view
 - `foundation/tech-stack.md` gets stack evidence
 - `foundation/codebase-structure.md` gets a repo-layout draft
+- repository layout should be a selective 2-4 level map that helps agents place new files and folders
 - `foundation/coding-standards.md` gets evidence-backed language-specific and framework-specific standards when the repository exposes them
 - `foundation/rules.md` gets evidence-backed candidate content
 - `constitution.md` gets only confirmed principle updates
@@ -308,6 +309,8 @@ Use it for:
 - integration boundaries
 
 For multi-repo projects, use this stage to capture each repo's role, local path, and whether it is already open in the current VS Code workspace.
+
+The repository tree should go deep enough for file-placement decisions, usually 2-4 levels for important source roots, feature/module folders, tests, scripts, config, infrastructure, docs, and routing-critical files. Avoid exhaustive file listings.
 
 Example:
 
@@ -735,7 +738,7 @@ This is one of the strongest extraction targets because code and manifests usual
 
 #### `devspec/foundation/codebase-structure.md`
 
-This is also a strong extraction target because folder layout and module names can usually be observed directly.
+This is also a strong extraction target because folder layout and module names can usually be observed directly. Extracted layouts should be selective 2-4 level trees focused on helping agents decide where new files and folders belong.
 
 #### `devspec/foundation/coding-standards.md`
 
