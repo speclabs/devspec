@@ -21,13 +21,12 @@ Requirements:
 - Distinguish durable principles from repository-derived facts.
 - Never finalize `devspec/constitution.md` from code inference alone. Present candidate principle changes and require explicit user confirmation before writing them.
 - Follow the [Interactive Question Pattern](PATTERNS.md#interactive-question-pattern) for confirmation and clarification, including constitution changes and conflicting coding-standard evidence.
-- For `devspec/foundation/project-context.md`, `devspec/foundation/coding-standards.md`, and `devspec/foundation/rules.md`, separate directly observed facts from inferred or candidate guidance.
-- When updating `devspec/foundation/coding-standards.md`, extract language-specific and framework-specific standards when evidence exists, including items such as file naming, indentation, regions, formatting, linting, testing, framework conventions, and database or SQL indentation patterns when applicable.
-- For `devspec/foundation/coding-standards.md`, record standards source links or repository paths when they exist, and preserve whether a standard is directly observed, inferred, or still open.
-- For each language or framework section in `devspec/foundation/coding-standards.md`, keep at least one short example when repository evidence supports it.
+- Separate directly observed facts, high-confidence inferences, and candidate guidance.
+- For coding standards, record source links or paths, language/framework-specific rules, and short evidence-backed examples when available.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/` in place.
-- When updating `devspec/foundation/tech-stack.md`, organize the content by project or repo with one heading per project and Markdown tables that include project versions and current market versions when available.
+- Organize `tech-stack.md` by project or repo with Markdown tables that include project versions and verified current market versions when available.
 - Preserve human-authored content when updating existing artifacts. Prefer generated sections or conservative in-place merges instead of full-file replacement.
 - Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence.
 - Resolve missing facts through the one-question-at-a-time flow instead of leaving unresolved items whenever practical.
+- Follow the [Token Stewardship Pattern](PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](PATTERNS.md#output-closure-pattern).

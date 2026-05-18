@@ -25,16 +25,15 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Follow the [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern) when repository discovery is iterative or spans multiple surfaces.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/`.
 - Update `devspec/constitution.md` only after explicit confirmation on principle-level changes.
-- Preserve human-authored text. Prefer generated sections or conservative merges instead of replacing entire files.
 - Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence.
 - For multi-repo inputs, produce a system-level view and keep per-repo provenance visible.
 - Ask targeted questions to resolve missing or unsupported evidence before writing the artifact.
 - Use the `Explore` subagent when repository discovery, analogous patterns, or likely artifact touchpoints need to be gathered efficiently before writing.
 - When the input spans multiple independent repos or surfaces, prefer 2-3 focused `Explore` runs in parallel rather than one broad search.
 - Use session memory only for transient evidence summaries and unresolved questions; the canonical output remains the updated devspec artifacts.
-- When updating `devspec/foundation/tech-stack.md`, organize the content by project or repo with one heading per project and Markdown tables that include project versions and current market versions when available.
-- When updating `devspec/foundation/coding-standards.md`, organize standards by language or framework when evidence exists, include standards source links or repository paths when available, and capture database or SQL indentation patterns when applicable.
-- For each language or framework section in `devspec/foundation/coding-standards.md`, keep at least one short example when repository evidence supports it.
+- Keep `tech-stack.md` per-project with version tables and verified current market versions when available.
+- Keep `coding-standards.md` per language/framework with source paths and evidence-backed examples when available.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
@@ -46,7 +45,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 6. Wait for the user's answer before asking the next question or writing gated changes, and repeat until the artifact can be completed or a real blocker remains.
 7. Update architecture and foundation artifacts in place while preserving manual content.
 8. If constitution changes are confirmed, update `devspec/constitution.md` in place.
-9. Report the sources processed, files updated, evidence confidence, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+9. Report sources processed, artifacts updated, evidence confidence, blockers, and next prompt.
 
 ## Output Format
 - Sources processed

@@ -15,14 +15,14 @@ handoffs:
 You review the current work item and update `devspec/work-items/<feature-name>/review.md`.
 
 ## Constraints
-- Use the current work-item context if it is clear. Otherwise, ask the user to select the target work item.
+- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).
 - Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) when clarification, selection, or confirmation is required.
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); `finalize.md` and `implement.md` must exist.
-- Treat optional user input as additive only.
 - Review against the finalized brief and implemented changes rather than re-planning the work item.
 - Record findings with severity and clear required action when applicable.
 - If the work item is a bug or security vulnerability, apply the stricter review expectations from `../../devspec/foundation/rules.md`.
 - Update `review.md` in place.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
@@ -30,8 +30,8 @@ You review the current work item and update `devspec/work-items/<feature-name>/r
 2. Read `finalize.md`, `tasks.md` when present, `implement.md`, `review.md` when present, and relevant code context.
 3. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 4. Check scope adherence, bugs, regressions, security risks, validation gaps, and missing tests.
-5. Write or update `review.md` with status, findings, validation gaps, type-specific notes, and next step.
-6. Report review status, top findings, the handoff, and the recommended next step or prompt to run.
+5. Write or update `review.md` using `../../devspec/work-items/_template/review.md` as the section contract.
+6. Report review status, top findings, handoff, and next prompt.
 
 ## Output Format
 - Work-item path updated

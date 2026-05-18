@@ -63,6 +63,7 @@ Offer only these confirmation actions:
 - Reject and retry input
 - Switch to manual intake
 - Cancel
+- Custom Answer, which must route to clarification and must not create or update the work-item folder until resolved
 
 ## MCP Server Expectations
 

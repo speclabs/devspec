@@ -23,6 +23,26 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - End with a recommended next step or next prompt to run.
 - Summarize only the artifact or work-item path updated, the key outcome, blockers or open questions, and the recommended next step.
 
+## Token Stewardship Pattern
+
+- Prefer canonical references over restating policy, templates, or provider rules.
+- Keep stage artifacts concise: record decisions, evidence, blockers, validation, and handoffs; omit narrative filler.
+- Do not duplicate content already captured in another devspec artifact. Link or name the source instead.
+- Preserve user-authored content with targeted edits instead of whole-file rewrites.
+
+## Foundation Update Pattern
+
+- Required user input is mandatory.
+- Ask one clarification at a time when required details are missing or ambiguous, following the Interactive Question Pattern.
+- Update the target foundation artifact in place.
+- Keep output durable, structured, concise, and usable by later work-item stages.
+
+## Work-Item Target Pattern
+
+- Use the current work item when clear; otherwise ask the user to select one, following the Interactive Question Pattern.
+- Treat optional user input as additive guidance only.
+- Update the target work-item artifact in place and stay within the current stage scope; after finalization, stay within the finalized scope.
+
 ## Multi-Repo Validation Pattern
 
 - `devspec/foundation/codebase-structure.md` is the single source of truth for multi-repo configuration.

@@ -15,10 +15,9 @@ handoffs:
 You create or update `devspec/work-items/<feature-name>/finalize.md`.
 
 ## Constraints
-- Use the current work-item context if it is clear. Otherwise, ask the user to select the target work item.
+- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).
 - Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) when clarification, selection, or confirmation is required.
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); required upstream artifacts must exist before finalization.
-- Treat optional user input as additive only.
 - If blockers remain, mark the brief as `not ready`.
 - Follow the [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern) when discovery is needed before freezing the brief.
 - Apply the relevant readiness gates in `../../devspec/foundation/rules.md` for bugs and security vulnerabilities.
@@ -28,6 +27,7 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 - Use the `Explore` subagent when implementation context, analogous existing behavior, or likely impact areas need quick discovery before finalizing the brief.
 - Use session memory only for transient discovery notes, assumptions, and open questions; `finalize.md` remains the canonical brief.
 - Update `finalize.md` in place.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
@@ -36,10 +36,10 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 3. Use `Explore` when needed to confirm impacted code areas, reusable patterns, dependencies, or likely blockers.
 4. Persist meaningful discovery notes and unresolved assumptions to session memory before asking for clarification or writing the brief.
 5. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
-6. Merge additive guidance without changing approved scope silently.
+6. Merge additive guidance without silently changing the current work-item scope.
 7. Apply type-specific readiness gates for bugs and security vulnerabilities.
-8. Write `finalize.md` with classification, readiness gates, scope, acceptance criteria, assumptions, dependencies, multi-repo configuration status when applicable, risks, mitigation, validation approach, release or advisory needs, and ready status.
-9. Report readiness status, blockers, and the recommended next step or prompt to run.
+8. Write `finalize.md` using `../../devspec/work-items/_template/finalize.md` as the section contract.
+9. Report readiness status, blockers, and next prompt.
 
 ## Output Format
 - Work-item path updated

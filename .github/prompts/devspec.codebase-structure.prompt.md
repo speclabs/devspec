@@ -11,12 +11,9 @@ Required user input:
 ${input:codebaseStructureInput:Describe the repository layout, module boundaries, ownership seams, and integration boundaries}
 
 Requirements:
-- Follow the [Prerequisite Validation Pattern](PATTERNS.md#prerequisite-validation-pattern); required user input is mandatory for this stage.
-- Follow the [Interactive Question Pattern](PATTERNS.md#interactive-question-pattern) when required details remain missing or ambiguous.
-- Write or update `devspec/foundation/codebase-structure.md`.
+- Follow the [Foundation Update Pattern](PATTERNS.md#foundation-update-pattern).
 - Focus on repo and module structure, not broad system architecture.
-- Keep repository layout output in tree node format.
-- For multi-repo inputs, use one heading per repo and include one tree node block under each repo heading.
+- Keep repository layout in tree-node format; for multi-repo input, use one heading and one tree block per repo.
 - Follow the [Multi-Repo Validation Pattern](PATTERNS.md#multi-repo-validation-pattern) when the input spans multiple repos.
-- Update the file in place if it already exists.
+- Follow the [Token Stewardship Pattern](PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](PATTERNS.md#output-closure-pattern).

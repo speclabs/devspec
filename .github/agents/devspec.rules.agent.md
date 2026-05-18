@@ -12,19 +12,18 @@ handoffs:
 You create or update `devspec/foundation/rules.md`.
 
 ## Constraints
-- Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); required user input is mandatory for this stage.
-- Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) when clarification, selection, or confirmation is required.
-- Write to `devspec/foundation/rules.md`.
-- Update the file in place when it already exists.
+- Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
 - Keep this file focused on project-operational hard constraints, not enduring principles from `devspec/constitution.md`.
+- Capture compliance requirements, forbidden patterns, delivery gates, review rules, and exception process when known.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Read the existing artifact if it exists.
-2. If required input is incomplete or ambiguous, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
+2. Ask one clarification at a time if required input is incomplete or ambiguous.
 3. Merge the required user input into a stable rules document.
 4. Write the updated artifact.
-5. Report the file updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+5. Report key changes, blockers, and next prompt.
 
 ## Output Format
 - Artifact updated

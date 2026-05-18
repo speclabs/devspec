@@ -1,3 +1,4 @@
+---
 name: "devspec.implement"
 description: "Implement pending tasks for the current ready devspec work item, confirm whether to proceed after each task, and update implement.md with progress, validation, and completion summaries."
 argument-hint: "Optional: add additive guidance for implementation, validation, or task-order handling"
@@ -10,9 +11,8 @@ Optional user input:
 ${input:implementInput:Optional: add additive guidance for implementation, validation, task order, or skip handling}
 
 Requirements:
-- Use the current work-item context if it is clear. Otherwise, ask the user to select the target work item.
+- Follow the [Work-Item Target Pattern](PATTERNS.md#work-item-target-pattern).
 - Follow the [Prerequisite Validation Pattern](PATTERNS.md#prerequisite-validation-pattern); `finalize.md` must be `ready` and `tasks.md` must exist.
-- Treat optional user input as additive only.
 - Follow the [Interactive Question Pattern](PATTERNS.md#interactive-question-pattern) for target selection, blockers, and per-task proceed or skip decisions.
 - Implement pending tasks from `tasks.md` sequentially in the current run unless the user chooses to stop or skip.
 - For multi-repo work, follow the [Multi-Repo Validation Pattern](PATTERNS.md#multi-repo-validation-pattern) and validate repo access before changing code for a task.
@@ -23,7 +23,8 @@ Requirements:
 - If the same task enters a repair or retry loop more than 3 times, stop, explain the issue, and ask the user whether to `proceed`, `skip`, or provide a `Custom Answer` before continuing.
 - Capture a token-usage summary before implementation starts and after all tasks are completed when runtime telemetry is available. If telemetry is unavailable, record that explicitly instead of inventing values.
 - Record the token summary in `implement.md` as a Markdown table covering before implementation, after completion, and delta.
-- Write or update `implement.md` with repo access validation results, progress counts, task-level implementation log entries, files changed, validation performed, blockers, residual risks, type-specific handling notes, confirmation outcomes, loop-escalation notes, completed-task summaries, pending or skipped task summaries, token-usage summary, and the next-task handoff when applicable.
+- Write or update `implement.md` using `devspec/work-items/_template/implement.md` as the section contract.
 - If code changes are not applicable in the current repository, record that clearly in `implement.md`.
 - If no pending task remains, update `implement.md` to show the completed task list and a completion summary, then notify the user that all planned tasks are already implemented.
+- Follow the [Token Stewardship Pattern](PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](PATTERNS.md#output-closure-pattern).

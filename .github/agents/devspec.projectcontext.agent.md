@@ -12,19 +12,17 @@ handoffs:
 You create or update `devspec/foundation/project-context.md`.
 
 ## Constraints
-- Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); required user input is mandatory for this stage.
-- Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) when clarification, selection, or confirmation is required.
-- Write to `devspec/foundation/project-context.md`.
-- Update the file in place when it already exists.
-- Keep the artifact concise, structured, and durable for later stages.
+- Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
+- Capture product vision, users, goals, non-goals, constraints, success metrics, and blockers when known.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Read the existing artifact if it exists.
-2. If required input is incomplete or ambiguous, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
+2. Ask one clarification at a time if required input is incomplete or ambiguous.
 3. Merge the required user input into a stable project-context structure.
 4. Write the updated artifact.
-5. Report the file updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+5. Report the artifact updated, key outcome, blockers, and next prompt.
 
 ## Output Format
 - Artifact updated

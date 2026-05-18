@@ -11,8 +11,7 @@
 ## Source Confirmation
 
 - Resolved summary shown:
-- Resolved summary fields: provider, identifier, title, type, current external status, canonical link, short summary
-- Confirmation actions offered: confirm and continue | reject and retry input | switch to manual intake | cancel
+- Confirmation basis: `devspec/foundation/provider-integrations.md`
 - User confirmation: confirmed | rejected | pending
 
 ## Context
@@ -40,8 +39,8 @@
 ## Type-Specific Notes
 
 - Rule source: `devspec/foundation/rules.md`
-- Bug notes: expected behavior, actual behavior, reproduction steps, regression context, and user impact when applicable.
-- Security notes: vulnerability class, attack surface, exploitability, disclosure status, and containment or remediation when applicable.
+- Bug notes:
+- Security notes:
 
 ## Dependencies
 

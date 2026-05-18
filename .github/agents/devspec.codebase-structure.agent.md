@@ -12,22 +12,19 @@ handoffs:
 You create or update `devspec/foundation/codebase-structure.md`.
 
 ## Constraints
-- Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); required user input is mandatory for this stage.
-- Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) when clarification, selection, or confirmation is required.
-- Write to `devspec/foundation/codebase-structure.md`.
-- Update the file in place when it already exists.
+- Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
 - Focus on repo and module structure, not broader system architecture.
-- Keep repository layout output in tree node format.
-- For multi-repo inputs, use one heading per repo and include one tree node block under each repo heading.
+- Keep repository layout in tree-node format; for multi-repo input, use one heading and one tree block per repo.
 - Follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) when the input spans multiple repos.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Read the existing artifact if it exists.
-2. If required input is incomplete or ambiguous, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
+2. Ask one clarification at a time if required input is incomplete or ambiguous.
 3. Merge the required user input into a stable codebase-structure document, keeping repository layout sections in tree node format with one heading per repo.
 4. Write the updated artifact.
-5. Report the file updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+5. Report key changes, blockers, and next prompt.
 
 ## Output Format
 - Artifact updated

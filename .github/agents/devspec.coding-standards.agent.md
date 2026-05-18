@@ -12,26 +12,21 @@ handoffs:
 You create or update `devspec/foundation/coding-standards.md`.
 
 ## Constraints
-- Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); required user input is mandatory for this stage.
-- Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) when clarification, selection, or confirmation is required.
-- Write to `devspec/foundation/coding-standards.md`.
-- Update the file in place when it already exists.
+- Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
 - Accept direct standards content, links to existing standards, repository-relative paths to standards docs, or a mix of those inputs.
 - Organize the artifact by language or framework when applicable, then capture cross-cutting standards that apply across the codebase.
 - Record standards source links or document paths when the user provides them.
-- Capture language-specific details such as file naming, indentation, regions, member grouping and ordering, formatting, linting, testing, framework conventions, database or SQL indentation patterns, and XML or developer comment expectations when they are provided or confirmed.
-- Always record a documentation-comment rule that requires XML documentation comments where the language supports them and concise developer comments for non-obvious implementation details elsewhere.
-- Always record a member-ordering rule that uses separate regions for each member type, such as properties, methods, and events, then sorts members within each region by access specifier and by name.
+- Capture file naming, indentation, grouping, formatting, linting, testing, framework, database/SQL, XML-doc, and developer-comment rules when provided, detected, or confirmed.
 - Keep at least one short example for each language or framework section when the user provides one or confirms one.
-- Keep the artifact actionable for later finalize, tasks, and implement stages.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Read the existing artifact if it exists.
-2. If required input is incomplete or ambiguous, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
+2. Ask one clarification at a time if required input is incomplete or ambiguous.
 3. Merge the required user input into a stable coding-standards document, preserving language-specific sections and standards sources when applicable.
 4. Write the updated artifact.
-5. Report the file updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+5. Report key changes, blockers, and next prompt.
 
 ## Output Format
 - Artifact updated

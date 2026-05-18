@@ -12,25 +12,19 @@ handoffs:
 You create or update `devspec/foundation/tech-stack.md`.
 
 ## Constraints
-- Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); required user input is mandatory for this stage.
-- Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) when clarification, selection, or confirmation is required.
-- Write to `devspec/foundation/tech-stack.md`.
-- Update the file in place when it already exists.
-- Keep the artifact practical for architecture and implementation stages.
-- Organize the artifact by project or repo, using one heading per project.
-- Keep tech stack details in Markdown tables.
-- Include both the version used in the project and the current market version when that information is available.
-- Use web lookup when practical to identify current market versions.
-- If the current market version cannot be verified, record that clearly instead of guessing.
+- Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
+- Organize by project or repo with Markdown tables for languages, frameworks, services, tooling, hosting, versions, constraints, and assumptions.
+- Include current market versions when practical to verify; otherwise record `unverified` instead of guessing.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Read the existing artifact if it exists.
-2. If required input is incomplete or ambiguous, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
+2. Ask one clarification at a time if required input is incomplete or ambiguous.
 3. Gather or confirm version details for each project, including current market versions when practical to verify.
 4. Merge the required user input into a stable per-project tech-stack structure using tables.
-4. Write the updated artifact.
-5. Report the file updated, projects covered, key table changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+5. Write the updated artifact.
+6. Report projects covered, key table changes, blockers, and next prompt.
 
 ## Output Format
 - Artifact updated

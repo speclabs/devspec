@@ -15,12 +15,12 @@ handoffs:
 You create or update `devspec/work-items/<feature-name>/clarify.md`.
 
 ## Constraints
-- Use the current work-item context if it is clear. Otherwise, ask the user to select the target work item.
+- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); `story.md` must exist.
 - Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
-- Treat optional user input as additive only.
 - Update `clarify.md` in place.
 - Do not resolve multiple independent blockers in one run.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
@@ -29,7 +29,7 @@ You create or update `devspec/work-items/<feature-name>/clarify.md`.
 3. If a blocking question is needed, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 4. Wait for the user's selection or custom answer.
 5. Update `clarify.md` with the question, answer if available, impact, and status.
-6. Report blocker status and the recommended next step or prompt to run.
+6. Report blocker status and next prompt.
 
 ## Output Format
 - Work-item path updated

@@ -11,14 +11,8 @@ Required user input:
 ${input:techStackInput:Describe the languages, frameworks, services, tooling, hosting, and delivery constraints}
 
 Requirements:
-- Follow the [Prerequisite Validation Pattern](PATTERNS.md#prerequisite-validation-pattern); required user input is mandatory for this stage.
-- Follow the [Interactive Question Pattern](PATTERNS.md#interactive-question-pattern) when required details remain missing or ambiguous.
-- Write or update `devspec/foundation/tech-stack.md`.
-- Capture versions, platform constraints, tooling, and operational assumptions when known.
-- Organize the artifact by project or repo, using one heading per project.
-- Keep tech stack details in Markdown tables.
-- Include both the version used in the project and the current market version when that information is available.
-- Use web lookup when practical to identify current market versions.
-- If the current market version cannot be verified, record that clearly instead of guessing.
-- Update the file in place if it already exists.
+- Follow the [Foundation Update Pattern](PATTERNS.md#foundation-update-pattern).
+- Organize by project or repo with Markdown tables for languages, frameworks, services, tooling, hosting, versions, constraints, and assumptions.
+- Include current market versions when practical to verify; otherwise record `unverified` instead of guessing.
+- Follow the [Token Stewardship Pattern](PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](PATTERNS.md#output-closure-pattern).

@@ -11,9 +11,9 @@
 - File naming:
 - Indentation:
 - Database or SQL indentation patterns:
-- XML or developer comments:
-- Member grouping and ordering: Use separate regions for each member type, such as properties, methods, and events, then sort members within each region by access specifier and by name.
-- Regions or grouping rules:
+- Documentation comments:
+- Developer comments for non-obvious details:
+- Member grouping and ordering:
 - Formatting or linting:
 - Testing conventions:
 - Framework-specific conventions:
@@ -22,7 +22,7 @@
 
 ## Style And Naming
 
-- Rule 1: Use separate regions for each member type, such as properties, methods, and events, then sort members within each region by access specifier and by name.
+- Rule 1:
 
 ## Testing Expectations
 
@@ -38,7 +38,7 @@
 
 ## Documentation Expectations
 
-- Expectation 1: Require XML documentation comments where the language supports them, and require concise developer comments for non-obvious implementation details elsewhere.
+- Expectation 1:
 
 ## Review Expectations
 

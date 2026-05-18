@@ -12,10 +12,9 @@ handoffs:
 You create or update `devspec/work-items/<feature-name>/tasks.md`.
 
 ## Constraints
-- Use the current work-item context if it is clear. Otherwise, ask the user to select the target work item.
+- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).
 - Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) when clarification, selection, or confirmation is required.
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); `finalize.md` must exist and be marked `ready`.
-- Treat optional user input as additive only.
 - Do not change or expand the finalized scope.
 - Follow the [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern) when discovery is needed to decompose or sequence the work.
 - For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and assign each task to a configured repo.
@@ -23,6 +22,7 @@ You create or update `devspec/work-items/<feature-name>/tasks.md`.
 - Use the `Explore` subagent when you need quick discovery of impacted code paths, analogous implementations, or likely verification surfaces before decomposing tasks.
 - Use session memory only for transient dependency mapping, open questions, and decomposition notes; `tasks.md` remains the canonical task list.
 - Update `tasks.md` in place.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
@@ -32,9 +32,9 @@ You create or update `devspec/work-items/<feature-name>/tasks.md`.
 4. Persist meaningful discovery notes, dependency mapping, and unresolved questions to session memory before asking for clarification or finalizing the task breakdown.
 5. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 6. Apply type-specific planning rules for bugs and security vulnerabilities.
-7. Decompose the work into ordered tasks with repo assignments, dependencies, and validation.
+7. Decompose the work into ordered tasks using `../../devspec/work-items/_template/tasks.md` as the section contract.
 8. Write the updated `tasks.md`.
-9. Report key task groups, blockers, and the recommended next step or prompt to run.
+9. Report key task groups, blockers, and next prompt.
 
 ## Output Format
 - Work-item path updated

@@ -16,26 +16,22 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 - Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) when clarification, selection, or confirmation is required.
 - Validate whether the input is a supported provider URL or identifier before treating it as resolved.
 - Resolve the input reference when possible using the provider guidance in `devspec/foundation/provider-integrations.md`.
-- If provider resolution succeeds, show at least provider, identifier, title, type when available, current external status when available, canonical link, and a short summary, then require explicit confirmation before creating or updating the work-item folder.
-- Offer only these confirmation actions after successful resolution: confirm and continue, reject and retry input, switch to manual intake, or cancel.
+- Use `devspec/foundation/provider-integrations.md` for confirmation fields, allowed confirmation actions, manual fallback, and source-resolution status.
 - If the reference is ambiguous or cannot be resolved confidently, stop and ask for clarification.
 - If provider lookup is unavailable or the item cannot be resolved, do not guess. Record the attempt and offer manual intake only as an explicit fallback.
 - Manual intake requires a user-provided external reference plus manual description and manual acceptance criteria before the work item can be created.
 - Classify the work item as `feature`, `bug`, or `security-vulnerability`. If that classification is unclear, ask for clarification instead of guessing.
 - Create the work-item folder during the story stage and do not rename it later.
-- Write or update `meta.md` and `story.md`.
-- Record source resolution status, provider, resolution notes, and resolved item confirmation status in `meta.md`.
-- Record the resolved summary shown and the confirmation actions offered in `story.md`.
-- Record type, impact, affected scope, and type-appropriate urgency in `meta.md` and `story.md`.
-- For features, record priority instead of severity.
+- Write or update `meta.md` and `story.md` using `../../devspec/work-items/_template/` as the section contract.
+- Record source resolution, confirmation, type, impact, affected scope, and type-appropriate urgency; for features, record priority instead of severity.
 - Confirm whether the work has multi-repo dependencies and record all affected or dependent repos in `meta.md` and `story.md`.
 - Follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) for multi-repo work. If configuration is missing or outdated, stop and direct the user to update `/devspec.codebase-structure` before continuing.
-- Record the external reference in `story.md`.
-- For manual intake, record the manual description and manual acceptance criteria in `story.md`.
+- Record the external reference, and for manual intake record the manual description and acceptance criteria.
 - For bugs and security vulnerabilities, capture the type-specific facts required by `../../devspec/foundation/rules.md`.
 - Initialize `decisions.md` and `notes.md` if the work-item folder is new.
 - Do not guess missing facts; ask targeted clarification or confirmation questions one at a time before writing the artifact.
 - Record unresolved blockers only when the user declines to answer or supporting evidence remains unavailable.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
@@ -47,7 +43,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 6. Confirm whether the work has multi-repo dependencies and, if yes, collect all related repos and follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern).
 7. Derive a stable work-item folder name.
 8. Create or update the work-item folder artifacts.
-9. Report the path updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+9. Report path updated, key changes, blockers, and next prompt.
 
 ## Output Format
 - Work-item path updated
