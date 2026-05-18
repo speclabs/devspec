@@ -13,8 +13,7 @@
 ## Readiness Gates
 
 - Core readiness:
-- Bug readiness:
-- Security readiness:
+- Type-specific readiness:
 - Outstanding blocker:
 
 ## Final Scope
@@ -26,30 +25,25 @@
 
 - Criterion 1:
 
-## Assumptions
+## Context Notes
 
 - Assumption 1:
-
-## Dependencies
-
 - Multi-repo dependency: yes | no
 - Related repos:
 - Dependency 1:
 
-## Risks And Mitigations
+## Foundation Multi-Repo Configuration
+
+Use this section only when `Multi-repo dependency` is `yes`.
+
+- Config source: `devspec/foundation/codebase-structure.md`
+- Configuration status: configured | missing
+- Missing configuration blocker:
+
+## Delivery Notes
 
 - Risk:
 - Mitigation:
-
-## Validation Approach
-
 - Validation 1:
-
-## Release And Communication
-
 - Backport or patch scope:
 - Release note or advisory:
-
-## Next Step
-
-- Run `devspec.tasks` when ready.

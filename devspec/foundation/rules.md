@@ -25,20 +25,23 @@ This file holds project-operational hard constraints, governance rules, and deli
 
 ## Bug Handling Rules
 
-- Bugs must record expected behavior, actual behavior, reproduction steps, user or customer impact, and regression status before being marked ready unless a documented blocker prevents it.
-- Bug fixes must include regression validation appropriate to the affected area.
+- Intake and readiness must capture expected behavior, actual behavior, reproduction steps, user or customer impact, and regression context unless a documented blocker prevents it.
+- Planning should usually include reproduce, fix, and regression-validation work.
+- Implementation must record regression validation appropriate to the affected area.
+- When bug fixes change code, implementation records should keep focused before-fix and after-fix snippets for audit purposes only.
+- Bugs with meaningful regression risk should receive review before closure.
 
 ## Security Vulnerability Rules
 
-- Security vulnerabilities must record severity, affected scope, attack surface, exploitability, and a containment or remediation plan before being marked ready.
+- Intake and readiness must capture severity, affected scope, attack surface, exploitability, disclosure status, and a containment or remediation plan before the item is marked ready.
 - Sensitive exploit details should be minimized or redacted in shared artifacts when broader repository visibility makes full disclosure unsafe.
-- Security fixes must verify remediation across affected supported versions and record backport, release, or advisory follow-up when applicable.
+- Planning should include impact confirmation, remediation, verification across affected supported versions, and backport, release, or advisory follow-up when applicable.
+- Implementation must verify remediation across affected supported versions and record backport, release, or advisory follow-up when applicable.
+- Security vulnerabilities must receive review before closure.
 
 ## Review Rules
 
 - Code review should check scope adherence, bugs, regressions, missing validation, and rule violations against the finalized brief.
-- Bugs with meaningful regression risk should receive review before closure.
-- Security vulnerabilities must receive review before closure.
 - Review findings marked `changes-requested` must route the work item back to implementation before the item is considered complete.
 
 ## Exceptions

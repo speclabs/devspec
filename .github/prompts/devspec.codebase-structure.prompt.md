@@ -1,7 +1,7 @@
 ---
 name: "devspec.codebase-structure"
-description: "Create or update devspec foundation codebase structure from required user-provided repository layout, module boundaries, ownership seams, and integration boundaries."
-argument-hint: "Describe the repository layout, module boundaries, ownership seams, and integration boundaries"
+description: "Create or update devspec foundation codebase structure from required user-provided repository layout, module boundaries, ownership seams, integration boundaries, and multi-repo configuration when applicable."
+argument-hint: "Describe the repository layout, module boundaries, ownership seams, integration boundaries, and multi-repo configuration when applicable"
 agent: "devspec.codebase-structure"
 ---
 
@@ -11,17 +11,9 @@ Required user input:
 ${input:codebaseStructureInput:Describe the repository layout, module boundaries, ownership seams, and integration boundaries}
 
 Requirements:
-- Treat the user input as required. If it is missing, stop and ask for it.
-- If required details remain missing or ambiguous, ask exactly one clarification or confirmation question at a time using clickable multiple-choice options whenever reasonable.
-- Include a `Custom Answer` option.
-- Include one recommended option with a short justification.
-- Wait for the user's answer before asking the next question.
-- Resolve those questions before writing the artifact whenever practical.
-- Only record unresolved blockers when the user declines to answer or the evidence remains unavailable.
-- Write or update `devspec/foundation/codebase-structure.md`.
+- Follow the [Foundation Update Pattern](PATTERNS.md#foundation-update-pattern).
 - Focus on repo and module structure, not broad system architecture.
-- Keep repository layout output in tree node format.
-- For multi-repo inputs, use one heading per repo and include one tree node block under each repo heading.
-- Update the file in place if it already exists.
-- End the response with a recommended next step or next prompt to run.
-- Summarize the file updated, key changes including repo headings and tree sections updated, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+- Keep repository layout in tree-node format; for multi-repo input, use one heading and one tree block per repo.
+- Follow the [Multi-Repo Validation Pattern](PATTERNS.md#multi-repo-validation-pattern) when the input spans multiple repos.
+- Follow the [Token Stewardship Pattern](PATTERNS.md#token-stewardship-pattern).
+- Follow the [Output Closure Pattern](PATTERNS.md#output-closure-pattern).

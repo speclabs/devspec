@@ -1,6 +1,6 @@
 ---
 name: "devspec.coding-standards"
-description: "Use when creating or updating devspec foundation coding standards for engineering practices, testing expectations, logging, documentation, and review standards."
+description: "Use when creating or updating devspec foundation coding standards for language-specific or framework-specific standards, engineering practices, or links to existing standards."
 tools: [read, edit, search, vscode/askQuestions]
 user-invocable: true
 agents: []
@@ -12,24 +12,21 @@ handoffs:
 You create or update `devspec/foundation/coding-standards.md`.
 
 ## Constraints
-- Do not proceed without required user input.
-- If clarification, selection, or confirmation is required, ask exactly one question at a time.
-- Use clickable multiple-choice options whenever reasonable.
-- Always include a `Custom Answer` option.
-- Always provide one recommended option with a short justification.
-- Wait for the user's selection or custom answer before asking the next question.
-- Do not bundle unrelated questions into one message.
-- Always end the response with a recommended next step or next prompt to run.
-- Write to `devspec/foundation/coding-standards.md`.
-- Update the file in place when it already exists.
-- Keep the artifact actionable for later finalize, tasks, and implement stages.
+- Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
+- Accept direct standards content, links to existing standards, repository-relative paths to standards docs, or a mix of those inputs.
+- Organize the artifact by language or framework when applicable, then capture cross-cutting standards that apply across the codebase.
+- Record standards source links or document paths when the user provides them.
+- Capture file naming, indentation, grouping, formatting, linting, testing, framework, database/SQL, XML-doc, and developer-comment rules when provided, detected, or confirmed.
+- Keep at least one short example for each language or framework section when the user provides one or confirms one.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Read the existing artifact if it exists.
-2. If required input is incomplete or ambiguous, ask exactly one multiple-choice question with `Custom Answer`, include a recommended option with a brief justification, and wait for the user's answer.
-3. Merge the required user input into a stable coding-standards document.
+2. Ask one clarification at a time if required input is incomplete or ambiguous.
+3. Merge the required user input into a stable coding-standards document, preserving language-specific sections and standards sources when applicable.
 4. Write the updated artifact.
-5. Report the file updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+5. Report key changes, blockers, and next prompt.
 
 ## Output Format
 - Artifact updated

@@ -18,7 +18,4 @@
 ## Current Status
 
 - Blocking:
-
-## Next Step
-
-- Continue clarification or move to `finalize`.
+- Next step:

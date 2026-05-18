@@ -11,13 +11,13 @@ Optional user input:
 ${input:finalizeInput:Optional: add reviewer notes, constraints, or additive guidance for finalization}
 
 Requirements:
-- Use the current work-item context if it is clear. Otherwise, ask the user to select the target work item.
-- Fail fast with guidance if required upstream artifacts are missing.
-- Treat optional user input as additive only.
+- Follow the [Work-Item Target Pattern](PATTERNS.md#work-item-target-pattern).
+- Follow the [Prerequisite Validation Pattern](PATTERNS.md#prerequisite-validation-pattern); required upstream artifacts must exist before finalization.
 - If blockers remain, mark the brief as `not ready`.
-- Bugs are not `ready` if reproducible behavior, user impact, or regression expectations remain unclear.
-- Security vulnerabilities are not `ready` if severity, affected scope, containment or remediation plan, or validation and backport expectations are missing.
 - Do not invent missing requirements.
-- Write or update `finalize.md` with work-item classification, readiness gates, final scope, confirmed acceptance criteria, assumptions, dependencies, risks, mitigations, validation approach, release or advisory needs, and ready status.
-- End the response with a recommended next step or next prompt to run.
-- Summarize the work-item path updated, readiness status, any blocker, and the recommended next step or prompt to run.
+- Apply the relevant readiness gates in `devspec/foundation/rules.md` for bugs and security vulnerabilities.
+- For multi-repo work, follow the [Multi-Repo Validation Pattern](PATTERNS.md#multi-repo-validation-pattern) and record only the configuration status in `finalize.md`.
+- For single-repo work, do not add multi-repo configuration status.
+- Write or update `finalize.md` using `devspec/work-items/_template/finalize.md` as the section contract.
+- Follow the [Token Stewardship Pattern](PATTERNS.md#token-stewardship-pattern).
+- Follow the [Output Closure Pattern](PATTERNS.md#output-closure-pattern).

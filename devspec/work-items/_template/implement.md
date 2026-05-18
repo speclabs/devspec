@@ -13,11 +13,20 @@
 - Skipped tasks count:
 - Last confirmation outcome: proceed | skip | custom
 
+## Repo Access Validation
+
+- Repo path source: `devspec/foundation/codebase-structure.md` when `Multi-repo dependency` is `yes`
+
+| Repo | Access status | Notes |
+| --- | --- | --- |
+| repo-name | accessible | |
+
 ## Task Execution Log
 
 ### Entry 1
 
 - Task:
+- Target repo:
 - Attempt count:
 - Status:
 - Summary:
@@ -27,27 +36,21 @@
 - Confirmation after task:
 - Date:
 
-## Current Task Outcome
+## Execution Summary
 
-- Outcome summary:
-
-## Completed Tasks Summary
-
+- Current task outcome:
 - Completed task 1:
 - Overall completed summary:
-
-## Pending Or Skipped Tasks
-
 - Pending task 1:
 - Skipped task 1:
+- Residual risk 1:
+- Follow-up 1:
 
 ## Type-Specific Handling
 
-- Bug verification notes:
-- Bug audit before-fix snippet:
-- Bug audit after-fix snippet:
+- Rule source: `devspec/foundation/rules.md`
+- Bug handling notes:
 - Security handling notes:
-- Backport or disclosure status:
 
 ## Loop Escalations
 
@@ -66,11 +69,3 @@
 - Next task:
 - Preconditions:
 - Notes for next implementation pass:
-
-## Residual Risks
-
-- Risk 1:
-
-## Follow-Up Work
-
-- Follow-up 1:

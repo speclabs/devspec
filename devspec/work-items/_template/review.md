@@ -10,10 +10,11 @@
 
 - Summary:
 
-## Scope Compliance
+## Review Notes
 
 - Finalized scope alignment:
 - Scope drift found:
+- Follow-up 1:
 
 ## Findings
 
@@ -32,11 +33,3 @@
 
 - Bug review notes:
 - Security review notes:
-
-## Follow-Up Work
-
-- Follow-up 1:
-
-## Next Step
-
-- Return to `devspec.implement` if changes are required.

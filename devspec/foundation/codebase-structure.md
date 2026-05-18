@@ -10,6 +10,14 @@
 `-- <folder-or-file>/
 ```
 
+## Repo Configuration
+
+Use this section only when multiple repos participate in delivery.
+
+| Repo | Role | Local path | In current workspace | Notes |
+| --- | --- | --- | --- | --- |
+| <repo-name> | ui | C:\path\to\repo | yes | |
+
 ## Modules And Boundaries
 
 ### Repo: <repo-name>

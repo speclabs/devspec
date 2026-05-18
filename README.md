@@ -52,12 +52,16 @@ Right now, the recommended setup is file-copy based. Package-based install can b
 Before you start:
 
 - open the target repository as a workspace in VS Code
+- for multi-repo work, open a VS Code multi-root workspace that includes every repo you expect to inspect or edit
 - make sure GitHub Copilot Chat is available in that workspace
 - copy both `.github/prompts/` and `.github/agents/` along with `devspec/`, because the slash-command workflow depends on all three
+
+For multi-repo work, the most reliable pattern is to keep one shared workspace open and record repo configuration in `devspec/foundation/codebase-structure.md`. That keeps one source of truth for local repo paths and lets story, tasks, finalize, and implement rely on the same configured repos. Single-repo work does not need any extra repo configuration.
 
 Installation worked if:
 
 - the copied files are visible in the target repository under `devspec/`, `.github/prompts/`, and `.github/agents/`
+- `.github/prompts/PATTERNS.md` is present, because every prompt and agent relies on the shared patterns there
 - GitHub Copilot Chat in that repository recognizes `/devspec` commands such as `/devspec.projectcontext` or `/devspec.story`
 
 If the commands do not appear, reopen the repository workspace in VS Code and confirm the prompt and agent files were copied into the target repository root rather than a nested folder.
@@ -83,6 +87,7 @@ your-repo/
 |   |   |-- devspec.tasks.agent.md
 |   |   `-- devspec.techstack.agent.md
 |   `-- prompts/
+|       |-- PATTERNS.md
 |       |-- devspec.clarify.prompt.md
 |       |-- devspec.codebase-structure.prompt.md
 |       |-- devspec.coding-standards.prompt.md
@@ -210,7 +215,7 @@ Use this when you already have a repository and want Copilot to backfill `devspe
 What it does:
 
 - validates repository URLs or local repository paths
-- reads repository layout, manifests, CI/CD, docs, config, ADRs, contribution docs, and related evidence
+- reads repository layout, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
 - proposes updates to:
   - `devspec/constitution.md`
   - `devspec/architecture/overview.md`
@@ -240,7 +245,8 @@ Expected outcome:
 - `architecture/overview.md` gets a first-pass system view
 - `foundation/tech-stack.md` gets stack evidence
 - `foundation/codebase-structure.md` gets a repo-layout draft
-- `foundation/coding-standards.md` and `foundation/rules.md` get evidence-backed candidate content
+- `foundation/coding-standards.md` gets evidence-backed language-specific and framework-specific standards when the repository exposes them
+- `foundation/rules.md` gets evidence-backed candidate content
 - `constitution.md` gets only confirmed principle updates
 
 ### 2. `/devspec.projectcontext`
@@ -295,9 +301,12 @@ What it writes:
 Use it for:
 
 - repo tree
+- multi-repo repo configuration when applicable
 - module boundaries
 - ownership seams
 - integration boundaries
+
+For multi-repo projects, use this stage to capture each repo's role, local path, and whether it is already open in the current VS Code workspace.
 
 Example:
 
@@ -315,16 +324,28 @@ What it writes:
 
 Use it for:
 
+- language-specific or framework-specific coding standards
 - naming and style rules
+- database or SQL indentation patterns
+- member grouping and ordering rules when the team provides, confirms, or the repository clearly evidences them
+- documentation-comment expectations where supported, and developer comments for non-obvious implementation details
 - testing expectations
 - error handling
 - logging and observability
 - review expectations
+- links to existing coding standards docs
+- short examples for each language or framework section when available
 
 Example:
 
 ```text
-/devspec.coding-standards Prefer explicit TypeScript types at module boundaries. Require unit tests for business logic and Playwright coverage for critical user flows. Use structured logging with request ids. Avoid silent catch blocks. Document any new environment variables in the repo docs.
+/devspec.coding-standards Prefer explicit TypeScript types at module boundaries. Require unit tests for business logic and Playwright coverage for critical user flows. Use structured logging with request ids. Avoid silent catch blocks. Require concise developer comments for non-obvious implementation details. Document any new environment variables in the repo docs.
+```
+
+Another example:
+
+```text
+/devspec.coding-standards Use the existing standards in docs/engineering/csharp.md and https://example.com/python-style-guide for C# and Python. Confirm any gaps before writing.
 ```
 
 ### 6. `/devspec.rules`
@@ -376,6 +397,8 @@ What it does:
 - initializes `decisions.md` and `notes.md` if the folder is new
 - for features, records priority instead of severity
 - confirms multi-repo dependencies and records all related repos when applicable
+- does not store local repo paths
+- if the work is multi-repo, requires multi-repo foundation configuration in `devspec/foundation/codebase-structure.md` before story intake can continue
 
 Supported inputs:
 
@@ -398,7 +421,7 @@ Example with manual-style input after fallback:
 /devspec.story INS-2041
 ```
 
-If provider lookup succeeds, the command should show the resolved item summary and ask you to confirm before it writes the work-item.
+If provider lookup succeeds, the command should show the resolved item summary and ask you to confirm before it writes the work item. The confirmation choices are `Confirm and continue`, `Reject and retry input`, `Switch to manual intake`, `Cancel`, and `Custom Answer`. A custom answer routes back through clarification and must not create or update the work-item folder until resolved.
 
 ### What gets created
 
@@ -410,17 +433,20 @@ Example:
 devspec/work-items/document-upload-virus-scan/
 ```
 
-Inside that folder you will typically have:
+During story intake, the command writes:
 
 - `meta.md`
 - `story.md`
+- `decisions.md`
+- `notes.md`
+
+Later workflow stages add or update:
+
 - `clarify.md`
 - `finalize.md`
 - `tasks.md`
 - `implement.md`
 - `review.md`
-- `decisions.md`
-- `notes.md`
 
 ### 2. `/devspec.clarify`
 
@@ -457,6 +483,8 @@ Important behavior:
 - marks the item `ready` or `not ready`
 - does not invent missing requirements
 - records final scope, acceptance criteria, dependencies, risks, and validation approach
+- for multi-repo work, verifies that `devspec/foundation/codebase-structure.md` contains the required repo configuration
+- should stay `not ready` if required multi-repo foundation configuration is missing or incomplete
 
 Example:
 
@@ -474,9 +502,10 @@ What it writes:
 
 Important behavior:
 
-- must not change finalized scope
+- must not change or expand the finalized scope
 - should create ordered, implementation-oriented tasks
 - should include validation steps and type-specific checks
+- for multi-repo work, should assign each task to a target repo and use `devspec/foundation/codebase-structure.md` as the source of truth for local repo paths
 
 Example:
 
@@ -497,7 +526,9 @@ Important behavior:
 - requires `finalize.md` to be `ready`
 - requires `tasks.md`
 - implements pending tasks sequentially until the work is completed or the user chooses to stop or skip
-- after each task, reports completed and pending counts and asks whether to proceed or skip
+- for multi-repo work, uses the repo configuration in `devspec/foundation/codebase-structure.md` as the single source of truth for which physical repo path to change
+- validates required repo paths before making code changes and surfaces missing repo access as a blocker
+- after each task, reports completed and pending counts and asks whether to proceed, skip, or provide a custom answer
 - once all tasks are implemented, records the completed task list and completion summary
 - if the same task loops more than 3 times, explains the issue and asks whether to proceed, skip, or provide a custom answer
 - captures token-usage summary before implementation and after completion when runtime telemetry is available, and records when it is unavailable
@@ -529,24 +560,24 @@ Example:
 /devspec.review Pay extra attention to regression risk around existing file upload flows.
 ```
 
-## Command reference
+## Command reference and step order
 
 Before using `/devspec.story` with external work-item references, validate `devspec/foundation/provider-integrations.md` for the providers and fallback behavior your repository supports.
 
-| Command | Purpose | Main output |
-| --- | --- | --- |
-| `/devspec.extract` | Backfill devspec from an existing repo | `constitution.md`, `architecture/overview.md`, `foundation/*.md` |
-| `/devspec.projectcontext` | Define product and business context | `foundation/project-context.md` |
-| `/devspec.techstack` | Define technical environment | `foundation/tech-stack.md` |
-| `/devspec.codebase-structure` | Define repository and module structure | `foundation/codebase-structure.md` |
-| `/devspec.coding-standards` | Define engineering expectations | `foundation/coding-standards.md` |
-| `/devspec.rules` | Define hard constraints and gates | `foundation/rules.md` |
-| `/devspec.story` | Create or update a work item | `work-items/<feature-name>/meta.md`, `story.md` |
-| `/devspec.clarify` | Resolve one blocker at a time | `work-items/<feature-name>/clarify.md` |
-| `/devspec.finalize` | Freeze the implementation-ready brief | `work-items/<feature-name>/finalize.md` |
-| `/devspec.tasks` | Create ordered implementation tasks | `work-items/<feature-name>/tasks.md` |
-| `/devspec.implement` | Implement pending tasks with confirmation after each task | `work-items/<feature-name>/implement.md` |
-| `/devspec.review` | Review implemented work | `work-items/<feature-name>/review.md` |
+| Step | Command | Use when | Requires | Main output | Next step |
+| --- | --- | --- | --- | --- | --- |
+| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Repository URL or local repo path. | `constitution.md`, `architecture/overview.md`, `foundation/*.md` | Refine with `/devspec.projectcontext`. |
+| 1 | `/devspec.projectcontext` | Product and business context need to be created or updated. | Product vision, users, goals, non-goals, and constraints. | `foundation/project-context.md` | `/devspec.techstack` |
+| 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Languages, frameworks, services, tooling, hosting, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
+| 3 | `/devspec.codebase-structure` | Repo layout, module boundaries, ownership seams, or multi-repo config need to be recorded. | Repository layout and integration boundaries. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
+| 4 | `/devspec.coding-standards` | Engineering expectations need to be recorded. | Direct standards, links, or repo-relative standards docs. | `foundation/coding-standards.md` | `/devspec.rules` |
+| 5 | `/devspec.rules` | Operational hard constraints and delivery gates need to be recorded. | Compliance requirements, forbidden patterns, governance rules, and gates. | `foundation/rules.md` | `/devspec.story` |
+| 6 | `/devspec.story` | A feature, bug, or security vulnerability needs intake. | Work-item reference or manual intake details. | `work-items/<feature-name>/meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
+| 7 | `/devspec.clarify` | A blocking question must be resolved. | Existing `story.md`. | `work-items/<feature-name>/clarify.md` | Repeat until unblocked, then `/devspec.finalize` |
+| 8 | `/devspec.finalize` | The work item needs an implementation-ready brief. | Upstream work-item artifacts. | `work-items/<feature-name>/finalize.md` with `ready` or `not ready`. | `/devspec.tasks` when ready |
+| 9 | `/devspec.tasks` | A ready brief needs ordered implementation tasks. | `finalize.md` marked `ready`. | `work-items/<feature-name>/tasks.md` | `/devspec.implement` |
+| 10 | `/devspec.implement` | Pending tasks should be implemented. | `finalize.md` marked `ready` and `tasks.md`. | `work-items/<feature-name>/implement.md` and code changes when applicable. | `/devspec.review` |
+| 11 | `/devspec.review` | Implemented work needs review against the finalized brief. | `finalize.md` and `implement.md`. | `work-items/<feature-name>/review.md` | Return to implementation for changes, or close the work item |
 
 ## End-to-end examples
 
@@ -708,9 +739,13 @@ This can be partially inferred from:
 
 - lint config
 - formatting config
+- language-specific style config such as `.editorconfig`, StyleCop, ESLint, Prettier, Ruff, Black, Checkstyle, Spotless, or clang-format
 - test patterns
 - logging libraries
 - existing conventions in the codebase
+- standards docs or style-guide links already referenced by the repository
+
+Useful extracted examples include short snippets that show the prevailing indentation or formatting pattern, especially for SQL query layout and other database code.
 
 But the result should still be reviewed, because "what the code does today" and "what the team wants as a standard" are not always the same.
 

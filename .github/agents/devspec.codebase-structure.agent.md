@@ -12,26 +12,19 @@ handoffs:
 You create or update `devspec/foundation/codebase-structure.md`.
 
 ## Constraints
-- Do not proceed without required user input.
-- If clarification, selection, or confirmation is required, ask exactly one question at a time.
-- Use clickable multiple-choice options whenever reasonable.
-- Always include a `Custom Answer` option.
-- Always provide one recommended option with a short justification.
-- Wait for the user's selection or custom answer before asking the next question.
-- Do not bundle unrelated questions into one message.
-- Always end the response with a recommended next step or next prompt to run.
-- Write to `devspec/foundation/codebase-structure.md`.
-- Update the file in place when it already exists.
+- Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
 - Focus on repo and module structure, not broader system architecture.
-- Keep repository layout output in tree node format.
-- For multi-repo inputs, use one heading per repo and include one tree node block under each repo heading.
+- Keep repository layout in tree-node format; for multi-repo input, use one heading and one tree block per repo.
+- Follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) when the input spans multiple repos.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Read the existing artifact if it exists.
-2. If required input is incomplete or ambiguous, ask exactly one multiple-choice question with `Custom Answer`, include a recommended option with a brief justification, and wait for the user's answer.
+2. Ask one clarification at a time if required input is incomplete or ambiguous.
 3. Merge the required user input into a stable codebase-structure document, keeping repository layout sections in tree node format with one heading per repo.
 4. Write the updated artifact.
-5. Report the file updated, key changes, questions resolved, remaining blockers if any, and the recommended next step or prompt to run.
+5. Report key changes, blockers, and next prompt.
 
 ## Output Format
 - Artifact updated

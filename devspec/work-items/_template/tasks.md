@@ -3,12 +3,15 @@
 ## Ordered Tasks
 
 1. Task:
+	- Target repo:
 
-## Dependencies
+## Execution Context
 
 - Multi-repo dependency: yes | no
 - Related repos:
 - Dependency 1:
+- Repo path source:
+- Type-specific rule source: `devspec/foundation/rules.md`
 
 ## Impacted Files Or Areas
 
@@ -17,11 +20,6 @@
 ## Validation Steps
 
 - Validation 1:
-
-## Type-Specific Checks
-
-- Bug reproduction and regression tasks included:
-- Security verification, backport, and disclosure tasks included:
 
 ## Definition Of Done
 

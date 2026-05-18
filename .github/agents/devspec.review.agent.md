@@ -15,28 +15,23 @@ handoffs:
 You review the current work item and update `devspec/work-items/<feature-name>/review.md`.
 
 ## Constraints
-- Use the current work-item context if it is clear. Otherwise, ask the user to select the target work item.
-- If clarification, selection, or confirmation is required, ask exactly one question at a time.
-- Use clickable multiple-choice options whenever reasonable.
-- Always include a `Custom Answer` option.
-- Always provide one recommended option with a short justification.
-- Wait for the user's selection or custom answer before asking the next question.
-- Do not bundle unrelated questions into one message.
-- Always end the response with a recommended next step or next prompt to run.
-- Fail fast with guidance if `finalize.md` or `implement.md` is missing.
-- Treat optional user input as additive only.
+- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).
+- Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) when clarification, selection, or confirmation is required.
+- Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); `finalize.md` and `implement.md` must exist.
 - Review against the finalized brief and implemented changes rather than re-planning the work item.
 - Record findings with severity and clear required action when applicable.
-- If the work item is a bug or security vulnerability, apply the stricter review expectations from `devspec/foundation/rules.md`.
+- If the work item is a bug or security vulnerability, apply the stricter review expectations from `../../devspec/foundation/rules.md`.
 - Update `review.md` in place.
+- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Locate the target work item.
 2. Read `finalize.md`, `tasks.md` when present, `implement.md`, `review.md` when present, and relevant code context.
-3. If target selection or blocker clarification is required, ask exactly one multiple-choice question with `Custom Answer`, include a recommended option with a brief justification, and wait for the user's answer.
+3. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 4. Check scope adherence, bugs, regressions, security risks, validation gaps, and missing tests.
-5. Write or update `review.md` with status, findings, validation gaps, type-specific notes, and next step.
-6. Report review status, top findings, the handoff, and the recommended next step or prompt to run.
+5. Write or update `review.md` using `../../devspec/work-items/_template/review.md` as the section contract.
+6. Report review status, top findings, handoff, and next prompt.
 
 ## Output Format
 - Work-item path updated

@@ -11,15 +11,10 @@ Optional user input:
 ${input:clarifyInput:Optional: answer the current blocking question or add clarifying notes}
 
 Requirements:
-- Use the current work-item context if it is clear. Otherwise, ask the user to select the target work item.
-- Fail fast with guidance if `story.md` for the target work item is missing.
-- Ask exactly one blocking question at a time.
-- Present that question with clickable multiple-choice options whenever reasonable.
-- Include a `Custom Answer` option.
-- Include one recommended option with a short justification.
-- Wait for the user's selection or input before moving to the next question.
-- Treat optional user input as additive only.
+- Follow the [Work-Item Target Pattern](PATTERNS.md#work-item-target-pattern).
+- Follow the [Prerequisite Validation Pattern](PATTERNS.md#prerequisite-validation-pattern); `story.md` for the target work item must exist.
+- Follow the [Interactive Question Pattern](PATTERNS.md#interactive-question-pattern).
 - Write or update `clarify.md` with the current blocking question, any answer provided, its impact, and the current status.
 - If no blocking question remains, state that clearly in `clarify.md`.
-- End the response with a recommended next step or next prompt to run.
-- Summarize the work-item path updated, current blocker status, next step, and the recommended next step or prompt to run.
+- Follow the [Token Stewardship Pattern](PATTERNS.md#token-stewardship-pattern).
+- Follow the [Output Closure Pattern](PATTERNS.md#output-closure-pattern).
