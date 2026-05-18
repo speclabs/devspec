@@ -29,3 +29,12 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - Validate repo role, local path, and current workspace availability there before planning or implementation depends on a repo.
 - For multi-repo work, stop and surface a blocker instead of guessing when required repo configuration is missing, outdated, or inaccessible.
 - For single-repo work, do not require multi-repo configuration.
+
+## Explore and Memory Pattern
+
+- Use `Explore` when repository discovery, analogous implementations, impacted areas, or likely blockers cannot be resolved cheaply from the current artifact context.
+- Persist only transient working-state summaries to `/memories/session/<stage>.md`; do not treat session memory as the canonical source of truth.
+- Keep session memory concise and structured with objective, findings, open questions, decisions, and next recommended step.
+- Update session memory only after meaningful discovery or scope changes, not after every minor step.
+- If clarification changes the scope or invalidates prior findings, rerun discovery as needed and replace stale memory sections instead of appending conflicting notes.
+- Write final user-visible results and durable workflow state to the stage artifact, not only to session memory.
