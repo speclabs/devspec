@@ -17,6 +17,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 - Validate whether the input is a supported provider URL or identifier before treating it as resolved.
 - Resolve the input reference when possible using the provider guidance in `devspec/foundation/provider-integrations.md`.
 - Use `devspec/foundation/provider-integrations.md` for confirmation fields, allowed confirmation actions, manual fallback, and source-resolution status.
+- Treat provider integrations as manually maintained project configuration initialized from `devspec/foundation/_template/provider-integrations.md` when missing.
 - If the reference is ambiguous or cannot be resolved confidently, stop and ask for clarification.
 - If provider lookup is unavailable or the item cannot be resolved, do not guess. Record the attempt and offer manual intake only as an explicit fallback.
 - Manual intake requires a user-provided external reference plus manual description and manual acceptance criteria before the work item can be created.

@@ -5,9 +5,9 @@ tools: [read, edit, search, execute, web, vscode/askQuestions, vscode/memory]
 user-invocable: true
 agents: [Explore]
 handoffs:
-	- label: Continue to Project Context
-		agent: devspec.projectcontext
-		prompt: Continue by reviewing and refining the extracted project context for this repository or repository set.
+  - label: Continue to Project Context
+    agent: devspec.projectcontext
+    prompt: Continue by reviewing and refining the extracted project context for this repository or repository set.
 ---
 You create or refresh devspec extraction artifacts from supported repository sources.
 

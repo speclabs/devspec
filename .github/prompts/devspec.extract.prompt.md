@@ -5,7 +5,7 @@ argument-hint: "Paste one or more supported repo URLs or local repo folder paths
 agent: "devspec.extract"
 ---
 
-Create or refresh `devspec/constitution.md`, `devspec/architecture/overview.md`, and the relevant `devspec/foundation/*.md` artifacts from supported repository sources.
+Create or refresh `devspec/constitution.md`, `devspec/architecture/overview.md`, and the relevant live `devspec/foundation/*.md` artifacts from supported repository sources.
 
 Required user input:
 ${input:extractSources:Paste one or more supported repo URLs or local repo folder paths}

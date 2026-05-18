@@ -4,7 +4,7 @@
 
 | Source | Type | Applies to | Confidence | Notes |
 | --- | --- | --- | --- | --- |
-| <path-or-link> | formatter | <language-or-framework> | confirmed | |
+| <path-or-link> | formatter | <language-or-framework> | <confidence> | |
 
 ## Language And Framework Standards
 
@@ -12,15 +12,15 @@
 
 | Category | Rule | Evidence | Confidence | Example |
 | --- | --- | --- | --- | --- |
-| File naming | <rule> | <path-or-config> | confirmed | |
-| Formatting and indentation | <indent-size-line-length-brace-style> | <config-or-source-path> | observed | CS-001 |
-| Database or SQL layout | <keyword-case-join-indent-query-layout> | <path-or-query-file> | observed | CS-002 |
-| Documentation comments | <xml-doc-jsdoc-docstring-rule> | <path-or-docs> | inferred | |
-| Developer comments | <when-comments-are-required> | <path-or-docs> | confirmed | |
-| Member grouping and ordering | <fields-constructors-public-private-order> | <source-path> | observed | CS-003 |
-| Formatting or linting | <tool-and-command> | <config-path> | confirmed | |
-| Testing conventions | <test-naming-structure-assertions> | <test-path> | observed | |
-| Framework-specific conventions | <framework-pattern> | <source-path> | observed | |
+| File naming | <rule> | <path-or-config> | <confidence> | |
+| Formatting and indentation | <indent-size-line-length-brace-style> | <config-or-source-path> | <confidence> | CS-001 |
+| Database or SQL layout | <keyword-case-join-indent-query-layout> | <path-or-query-file> | <confidence> | CS-002 |
+| Documentation comments | <xml-doc-jsdoc-docstring-rule> | <path-or-docs> | <confidence> | |
+| Developer comments | <when-comments-are-required> | <path-or-docs> | <confidence> | |
+| Member grouping and ordering | <fields-constructors-public-private-order> | <source-path> | <confidence> | CS-003 |
+| Formatting or linting | <tool-and-command> | <config-path> | <confidence> | |
+| Testing conventions | <test-naming-structure-assertions> | <test-path> | <confidence> | |
+| Framework-specific conventions | <framework-pattern> | <source-path> | <confidence> | |
 
 ## Observed Patterns
 
@@ -28,7 +28,7 @@ Use this as a compact pattern catalog. Prefer source references plus short examp
 
 | Pattern ID | Pattern | Applies to | Rule | Evidence | Confidence | Example |
 | --- | --- | --- | --- | --- | --- | --- |
-| CS-001 | <pattern-name> | <language-framework-or-layer> | <rule-to-follow> | <source-path> | observed | CS-001 |
+| CS-001 | <pattern-name> | <language-framework-or-layer> | <rule-to-follow> | <source-path> | <confidence> | CS-001 |
 
 ## Formatting Examples
 
@@ -46,18 +46,18 @@ Source: `<source-path>`
 
 | Pattern | Avoid | Evidence | Preferred pattern | Confidence |
 | --- | --- | --- | --- | --- |
-| <anti-pattern-name> | <what-not-to-do> | <source-or-rule-path> | <preferred-pattern-id-or-rule> | observed |
+| <anti-pattern-name> | <what-not-to-do> | <source-or-rule-path> | <preferred-pattern-id-or-rule> | <confidence> |
 
 ## Cross-Cutting Expectations
 
 | Area | Expectation | Evidence | Confidence | Notes |
 | --- | --- | --- | --- | --- |
-| Style and naming | <expectation> | <path-or-rule> | confirmed | |
-| Testing | <expectation> | <path-or-rule> | confirmed | |
-| Error handling | <expectation> | <path-or-rule> | observed | |
-| Logging and observability | <expectation> | <path-or-rule> | observed | |
-| Documentation | <expectation> | <path-or-rule> | confirmed | |
-| Review | <expectation> | <path-or-rule> | confirmed | |
+| Style and naming | <expectation> | <path-or-rule> | <confidence> | |
+| Testing | <expectation> | <path-or-rule> | <confidence> | |
+| Error handling | <expectation> | <path-or-rule> | <confidence> | |
+| Logging and observability | <expectation> | <path-or-rule> | <confidence> | |
+| Documentation | <expectation> | <path-or-rule> | <confidence> | |
+| Review | <expectation> | <path-or-rule> | <confidence> | |
 
 ## Blockers Or Conflicts
 

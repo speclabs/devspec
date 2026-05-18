@@ -6,7 +6,8 @@ Use this file as resumable extraction state for architecture visuals and related
 
 | ID | Type | Subject | Evidence source | Status | Output section | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| AA-001 | architecture-diagram | <module-or-workflow> | <paths-or-docs> | proposed | TBD | Status: proposed, confirmed, generated, skipped, blocked |
+
+Add rows only when extraction identifies real architecture-diagram or user-journey candidates.
 
 ## Status Rules
 

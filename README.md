@@ -67,6 +67,7 @@ Manual upgrade ownership:
 | `.github/agents/` | framework | Replace or diff-apply |
 | `.github/prompts/` | framework | Replace or diff-apply |
 | `devspec/**/_template/` | framework | Replace or diff-apply |
+| `devspec/architecture/decisions/_template.md` | framework | Replace or diff-apply |
 | `devspec/foundation/*.md` | project | Do not overwrite; migrate or merge |
 | `devspec/architecture/*.md` | project | Do not overwrite; migrate or merge |
 | `devspec/constitution.md` | project | Do not overwrite; confirmation required |
@@ -246,7 +247,7 @@ What it does:
 - proposes updates to:
   - `devspec/constitution.md`
   - `devspec/architecture/overview.md`
-  - `devspec/foundation/*.md`
+  - live `devspec/foundation/*.md` artifacts, excluding `devspec/foundation/_template/`
 - requires explicit confirmation before writing principle-level changes to `constitution.md`
 - asks only one extraction confirmation at a time; constitution confirmation, artifact-queue approval, and Mermaid generation approval must not be asked together
 
@@ -599,11 +600,11 @@ Example:
 
 ## Command reference and step order
 
-Before using `/devspec.story` with external work-item references, validate `devspec/foundation/provider-integrations.md` for the providers and fallback behavior your repository supports.
+Before using `/devspec.story` with external work-item references, validate `devspec/foundation/provider-integrations.md` for the providers and fallback behavior your repository supports. There is no dedicated provider-integrations slash command; initialize it from `devspec/foundation/_template/provider-integrations.md` and maintain it manually when provider formats, tools, or fallback behavior change.
 
 | Step | Command | Use when | Requires | Main output | Next step |
 | --- | --- | --- | --- | --- | --- |
-| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Repository URL or local repo path. | `constitution.md`, `architecture/overview.md`, `foundation/*.md` | Refine with `/devspec.projectcontext`. |
+| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Repository URL or local repo path. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
 | 1 | `/devspec.projectcontext` | Product and business context need to be created or updated. | Product vision, users, goals, non-goals, and constraints. | `foundation/project-context.md` | `/devspec.techstack` |
 | 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Languages, frameworks, services, tooling, hosting, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
 | 3 | `/devspec.codebase-structure` | Repo layout, module boundaries, ownership seams, or multi-repo config need to be recorded. | Repository layout, integration boundaries, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
@@ -696,7 +697,7 @@ Holds project-operational context and constraints.
 - `coding-standards.md`
   Implementation expectations, testing rules, error handling, logging, documentation, and review norms.
 - `provider-integrations.md`
-  How external work-item systems such as GitHub, Jira, or Azure DevOps should be resolved.
+  Manually maintained provider intake policy for external systems such as GitHub, Jira, or Azure DevOps.
 - `rules.md`
   Hard constraints, forbidden patterns, compliance rules, governance, and delivery gates.
 
@@ -710,6 +711,8 @@ Holds broader technical architecture.
   System view, major components, integrations, data flow, and blockers.
 - `decisions/`
   ADRs for long-lived architecture decisions.
+- `decisions/_template.md`
+  Framework-owned ADR template used when creating new architecture decision records.
 
 ### `devspec/work-items/`
 
@@ -847,6 +850,7 @@ Use this setup when you want `devspec` to resolve external work items instead of
 4. Verify the integration can validate and fetch a real work item before relying on `/devspec.story`.
    The integration should be able to return core fields such as title, description, status, type or labels, and canonical links.
 5. Record the supported providers, accepted input formats, and manual fallback policy in `devspec/foundation/provider-integrations.md`.
+   If the file is missing, initialize it from `devspec/foundation/_template/provider-integrations.md`.
 6. Test one provider-backed intake example and one manual fallback example in the target repository.
 
 You should treat provider-backed intake as ready only when VS Code can reach the configured tool, authentication works, and `devspec/foundation/provider-integrations.md` matches the behavior your team expects.
