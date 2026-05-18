@@ -13,6 +13,7 @@ You create or update `devspec/foundation/codebase-structure.md`.
 
 ## Constraints
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
+- Use `../../devspec/foundation/_template/codebase-structure.md` as the section contract, but write only to `devspec/foundation/codebase-structure.md`.
 - Focus on repo and module structure, not broader system architecture.
 - Keep repository layout in selective 2-4 level tree-node format focused on file-placement decisions; include important source roots, feature/module folders, tests, scripts, config, infrastructure, docs, and routing-critical files when relevant.
 - For multi-repo input, use one heading and one tree block per repo.

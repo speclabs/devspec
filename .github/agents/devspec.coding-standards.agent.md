@@ -13,6 +13,7 @@ You create or update `devspec/foundation/coding-standards.md`.
 
 ## Constraints
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
+- Use `../../devspec/foundation/_template/coding-standards.md` as the section contract, but write only to `devspec/foundation/coding-standards.md`.
 - Accept direct standards content, links to existing standards, repository-relative paths to standards docs, or a mix of those inputs.
 - Organize the artifact by language or framework when applicable, then capture cross-cutting standards that apply across the codebase.
 - Record standards source links or document paths when the user provides them.

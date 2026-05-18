@@ -14,6 +14,8 @@ Work items: `story` -> `clarify` -> `finalize` -> `tasks` -> `implement` -> `rev
 - `../../devspec/foundation/rules.md`: bug, security, review, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
 - `../../devspec/foundation/provider-integrations.md`: provider intake and manual fallback policy.
+- `../../devspec/foundation/_template/`: framework-owned section contracts for foundation artifacts.
+- `../../devspec/architecture/_template/`: framework-owned section contracts for architecture artifacts.
 - `../../devspec/work-items/_template/`: durable work-item artifact shapes.
 
 ## Prompt Map
@@ -39,4 +41,4 @@ Work items: `story` -> `clarify` -> `finalize` -> `tasks` -> `implement` -> `rev
 - Keep agents focused on execution, tools, and handoffs.
 - Put shared mechanics in `PATTERNS.md`.
 - Put operational gates in `../../devspec/foundation/rules.md`.
-- Update the matching prompt, agent, and template together when a stage contract changes.
+- Update the matching prompt, agent, and `_template` contract together when a stage contract changes.

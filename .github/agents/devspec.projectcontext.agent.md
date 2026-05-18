@@ -13,6 +13,7 @@ You create or update `devspec/foundation/project-context.md`.
 
 ## Constraints
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
+- Use `../../devspec/foundation/_template/project-context.md` as the section contract, but write only to `devspec/foundation/project-context.md`.
 - Capture product vision, users, goals, non-goals, constraints, success metrics, and blockers when known.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).

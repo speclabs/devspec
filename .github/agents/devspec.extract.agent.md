@@ -27,6 +27,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Confirmation priority for extraction is: blocking source or repo-access questions, constitution principle changes, conflicting foundation evidence, artifact-queue candidate approval, then individual Mermaid diagram or user-journey generation.
 - Follow the [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern) when repository discovery is iterative or spans multiple surfaces.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/`.
+- Use `devspec/architecture/_template/*.md` and `devspec/foundation/_template/*.md` as section contracts only; initialize missing live files from templates, but do not overwrite existing live architecture or foundation files from templates during extraction.
 - When high-level modules or workflows are identified, record Mermaid architecture-diagram and user-journey candidates in `devspec/architecture/artifact-queue.md` as a resumable work queue.
 - Ask user confirmation before generating each diagram or user journey. Generate at most one confirmed Mermaid artifact at a time, update its queue status, then stop or ask whether to continue only if no higher-priority confirmation is pending.
 - On rerun, resume from `devspec/architecture/artifact-queue.md` before proposing duplicate candidates.

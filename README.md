@@ -58,6 +58,20 @@ Before you start:
 
 For multi-repo work, the most reliable pattern is to keep one shared workspace open and record repo configuration in `devspec/foundation/codebase-structure.md`. That keeps one source of truth for local repo paths and access requirements, so story, tasks, finalize, and implement rely on the same configured repos. Single-repo work does not need any extra repo configuration.
 
+Do not directly overwrite project-owned artifacts during manual upgrades. Framework-owned files live under `.github/`, `devspec/**/_template/`, and prompt/agent support files. Live files such as `devspec/foundation/*.md`, `devspec/architecture/*.md`, `devspec/constitution.md`, and `devspec/glossary.md` are project-owned and should be migrated or merged.
+
+Manual upgrade ownership:
+
+| Path | Owner | Upgrade action |
+| --- | --- | --- |
+| `.github/agents/` | framework | Replace or diff-apply |
+| `.github/prompts/` | framework | Replace or diff-apply |
+| `devspec/**/_template/` | framework | Replace or diff-apply |
+| `devspec/foundation/*.md` | project | Do not overwrite; migrate or merge |
+| `devspec/architecture/*.md` | project | Do not overwrite; migrate or merge |
+| `devspec/constitution.md` | project | Do not overwrite; confirmation required |
+| `devspec/glossary.md` | project | Do not overwrite; migrate or merge |
+
 Installation worked if:
 
 - the copied files are visible in the target repository under `devspec/`, `.github/prompts/`, and `.github/agents/`
@@ -104,12 +118,22 @@ your-repo/
     |-- constitution.md
     |-- glossary.md
     |-- architecture/
+    |   |-- _template/
+    |   |   |-- artifact-queue.md
+    |   |   `-- overview.md
     |   |-- artifact-queue.md
     |   |-- overview.md
     |   `-- decisions/
     |       |-- README.md
     |       `-- _template.md
     |-- foundation/
+    |   |-- _template/
+    |   |   |-- project-context.md
+    |   |   |-- tech-stack.md
+    |   |   |-- codebase-structure.md
+    |   |   |-- coding-standards.md
+    |   |   |-- provider-integrations.md
+    |   |   `-- rules.md
     |   |-- project-context.md
     |   |-- tech-stack.md
     |   |-- codebase-structure.md
@@ -142,6 +166,8 @@ For a brand-new repository with little or no existing code:
 4. Start the foundation workflow with `/devspec.projectcontext`.
 
 For a new project, you will usually skip `/devspec.extract` because there is no mature codebase to backfill yet.
+
+On first install, live project artifacts may be created from the matching `_template` files. After that, treat the live files as project-owned and update them through the slash-command workflow rather than replacing them from a newer template.
 
 ### Setup on an existing project
 
@@ -659,6 +685,8 @@ This file is intentionally harder to change. The extraction flow explicitly requ
 
 Holds project-operational context and constraints.
 
+- `_template/`
+  Framework-owned section contracts for foundation artifacts. Installers and manual upgrades may update these files, but agents should write the live files below.
 - `project-context.md`
   Product vision, intended users, goals, non-goals, constraints, and success metrics.
 - `tech-stack.md`
@@ -676,6 +704,8 @@ Holds project-operational context and constraints.
 
 Holds broader technical architecture.
 
+- `_template/`
+  Framework-owned section contracts for architecture artifacts. Use these to create or migrate live architecture files without overwriting project-specific content.
 - `overview.md`
   System view, major components, integrations, data flow, and blockers.
 - `decisions/`
@@ -726,9 +756,13 @@ This should receive observed and high-confidence architectural facts such as:
 - a resumable Mermaid work queue in `devspec/architecture/artifact-queue.md` for architecture diagrams and user journeys when high-level modules or workflows are identified
 - confirmed Mermaid diagrams and user journeys, generated one at a time after user approval and never in the same response as constitution confirmation
 
+Use `devspec/architecture/_template/overview.md` and `devspec/architecture/_template/artifact-queue.md` as section contracts. Do not replace live architecture files from templates after a project has recorded real architecture content.
+
 #### `devspec/foundation/project-context.md`
 
 This may get partial drafts from docs, but usually needs human input because product goals and intended outcomes are often not fully inferable from code.
+
+Use `devspec/foundation/_template/project-context.md` as the section contract.
 
 #### `devspec/foundation/tech-stack.md`
 
@@ -743,9 +777,13 @@ This is one of the strongest extraction targets because code and manifests usual
 - test tooling
 - CI tooling
 
+Use `devspec/foundation/_template/tech-stack.md` as the section contract.
+
 #### `devspec/foundation/codebase-structure.md`
 
 This is also a strong extraction target because folder layout and module names can usually be observed directly. Extracted layouts should be selective 2-4 level trees focused on helping agents decide where new files and folders belong. For multi-repo work, this file is also the source of truth for repo roles, local paths, workspace availability, and user-confirmed access requirements.
+
+Use `devspec/foundation/_template/codebase-structure.md` as the section contract.
 
 #### `devspec/foundation/coding-standards.md`
 
@@ -763,6 +801,8 @@ Useful extracted examples include short snippets that show the prevailing indent
 
 But the result should still be reviewed, because "what the code does today" and "what the team wants as a standard" are not always the same.
 
+Use `devspec/foundation/_template/coding-standards.md` as the section contract.
+
 #### `devspec/foundation/rules.md`
 
 This may be partially supported by:
@@ -774,6 +814,8 @@ This may be partially supported by:
 - compliance docs
 
 But project-operational rules often need human refinement after extraction.
+
+Use `devspec/foundation/_template/rules.md` as the section contract.
 
 ### Practical existing-project example
 

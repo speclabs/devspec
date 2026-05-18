@@ -35,6 +35,9 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 
 - Required user input is mandatory.
 - Ask one clarification at a time when required details are missing or ambiguous, following the Interactive Question Pattern.
+- Use the matching `devspec/foundation/_template/*.md` or `devspec/architecture/_template/*.md` file as the section contract when one exists.
+- Treat live `devspec/foundation/*.md` and `devspec/architecture/*.md` files as project-owned artifacts; update them in place and never replace them wholesale from templates.
+- If a live foundation or architecture artifact is missing, initialize it from the matching `_template` file before applying user-provided or extracted content.
 - Update the target foundation artifact in place.
 - Keep output durable, structured, concise, and usable by later work-item stages.
 
