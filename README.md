@@ -712,6 +712,7 @@ This should receive observed and high-confidence architectural facts such as:
 - system boundaries
 - external integrations
 - high-level data flow
+- concise Mermaid diagrams in Markdown when component relationships are observed or high-confidence
 
 #### `devspec/foundation/project-context.md`
 

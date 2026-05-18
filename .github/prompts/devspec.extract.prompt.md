@@ -22,6 +22,7 @@ Requirements:
 - Never finalize `devspec/constitution.md` from code inference alone. Present candidate principle changes and require explicit user confirmation before writing them.
 - Follow the [Interactive Question Pattern](PATTERNS.md#interactive-question-pattern) for confirmation and clarification, including constitution changes and conflicting coding-standard evidence.
 - Separate directly observed facts, high-confidence inferences, and candidate guidance.
+- Add concise Mermaid diagrams to `devspec/architecture/overview.md` when architecture relationships are directly observed or high-confidence; label inferred diagrams or leave a blocker instead of drawing unsupported links.
 - For coding standards, record source links or paths, language/framework-specific rules, and short evidence-backed examples when available.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/` in place.
 - Organize `tech-stack.md` by project or repo with Markdown tables that include project versions and verified current market versions when available.

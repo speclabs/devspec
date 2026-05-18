@@ -24,6 +24,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) for confirmation and clarification, including constitution changes and conflicting coding-standard evidence.
 - Follow the [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern) when repository discovery is iterative or spans multiple surfaces.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/`.
+- Add concise Mermaid diagrams to `devspec/architecture/overview.md` when architecture relationships are directly observed or high-confidence; label inferred diagrams or leave a blocker instead of drawing unsupported links.
 - Update `devspec/constitution.md` only after explicit confirmation on principle-level changes.
 - Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence.
 - For multi-repo inputs, produce a system-level view and keep per-repo provenance visible.
