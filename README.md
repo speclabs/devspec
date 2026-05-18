@@ -104,6 +104,7 @@ your-repo/
     |-- constitution.md
     |-- glossary.md
     |-- architecture/
+    |   |-- artifact-queue.md
     |   |-- overview.md
     |   `-- decisions/
     |       |-- README.md
@@ -712,7 +713,8 @@ This should receive observed and high-confidence architectural facts such as:
 - system boundaries
 - external integrations
 - high-level data flow
-- concise Mermaid diagrams in Markdown when component relationships are observed or high-confidence
+- a resumable Mermaid work queue in `devspec/architecture/artifact-queue.md` for architecture diagrams and user journeys when high-level modules or workflows are identified
+- confirmed Mermaid diagrams and user journeys, generated one at a time after user approval
 
 #### `devspec/foundation/project-context.md`
 

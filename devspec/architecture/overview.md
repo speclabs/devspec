@@ -14,14 +14,15 @@
 
 ## Architecture Diagrams
 
-Use Mermaid diagrams only when repository evidence supports the relationships. Label inferred relationships in the diagram title or notes, or leave a blocker instead of drawing unsupported links.
+Use this section for confirmed Mermaid diagrams only. Track proposed and in-progress visual artifacts in `devspec/architecture/artifact-queue.md`.
 
-### System Context
+### Generated Architecture Diagrams
 
-```mermaid
-flowchart LR
-  Placeholder["Replace with evidence-backed components"]
-```
+Add confirmed `flowchart`, `sequenceDiagram`, or other Mermaid architecture diagrams here.
+
+### Generated User Journeys
+
+Add confirmed Mermaid `journey` diagrams here for the same modules or workflows when the user approves them.
 
 ## Key Decisions
 
