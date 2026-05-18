@@ -222,6 +222,7 @@ What it does:
   - `devspec/architecture/overview.md`
   - `devspec/foundation/*.md`
 - requires explicit confirmation before writing principle-level changes to `constitution.md`
+- asks only one extraction confirmation at a time; constitution confirmation, artifact-queue approval, and Mermaid generation approval must not be asked together
 
 Use it for:
 
@@ -722,7 +723,7 @@ This should receive observed and high-confidence architectural facts such as:
 - external integrations
 - high-level data flow
 - a resumable Mermaid work queue in `devspec/architecture/artifact-queue.md` for architecture diagrams and user journeys when high-level modules or workflows are identified
-- confirmed Mermaid diagrams and user journeys, generated one at a time after user approval
+- confirmed Mermaid diagrams and user journeys, generated one at a time after user approval and never in the same response as constitution confirmation
 
 #### `devspec/foundation/project-context.md`
 

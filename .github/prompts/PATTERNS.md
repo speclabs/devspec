@@ -10,6 +10,7 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - Recommend exactly one option with a short justification.
 - Wait for the user's answer before asking the next question.
 - Do not bundle unrelated questions into one message.
+- If multiple confirmations are discovered at once, present only the highest-priority one and defer the rest until after the user answers.
 
 ## Prerequisite Validation Pattern
 

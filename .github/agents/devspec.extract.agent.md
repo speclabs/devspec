@@ -22,10 +22,13 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Do not present inferred principles as settled truth.
 - Never write final `devspec/constitution.md` changes without explicit user confirmation.
 - Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) for confirmation and clarification, including constitution changes and conflicting coding-standard evidence.
+- Maintain a single active confirmation gate. Do not ask constitution, artifact-queue, Mermaid generation, coding-standard conflict, or repo-access confirmations in the same response.
+- When multiple confirmations are pending, ask only the highest-priority unresolved confirmation, wait for the user's answer, update the relevant artifact or queue state, then continue to the next confirmation on rerun or continuation.
+- Confirmation priority for extraction is: blocking source or repo-access questions, constitution principle changes, conflicting foundation evidence, artifact-queue candidate approval, then individual Mermaid diagram or user-journey generation.
 - Follow the [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern) when repository discovery is iterative or spans multiple surfaces.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/`.
 - When high-level modules or workflows are identified, record Mermaid architecture-diagram and user-journey candidates in `devspec/architecture/artifact-queue.md` as a resumable work queue.
-- Ask user confirmation before generating each diagram or user journey. Generate at most one confirmed Mermaid artifact at a time, update its queue status, then ask whether to continue to the next candidate.
+- Ask user confirmation before generating each diagram or user journey. Generate at most one confirmed Mermaid artifact at a time, update its queue status, then stop or ask whether to continue only if no higher-priority confirmation is pending.
 - On rerun, resume from `devspec/architecture/artifact-queue.md` before proposing duplicate candidates.
 - Update `devspec/constitution.md` only after explicit confirmation on principle-level changes.
 - Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence.
@@ -48,8 +51,8 @@ You create or refresh devspec extraction artifacts from supported repository sou
 2. Use `Explore` when needed to gather evidence from source trees, repository metadata, supporting documentation, and analogous patterns.
 3. Persist meaningful discovery notes and unresolved questions to session memory before moving to clarification or writing.
 4. Build an evidence-backed outline grouped into constitution candidates, architecture facts, and foundation facts.
-5. If clarification or confirmation is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
-6. Wait for the user's answer before asking the next question or writing gated changes, and repeat until the artifact can be completed or a real blocker remains.
+5. Build a pending-confirmation queue using the extraction priority order, and ask only the first unresolved confirmation using the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
+6. Wait for the user's answer before asking any other question or writing gated changes. Do not include a second confirmation request in the same response.
 7. Update architecture and foundation artifacts in place while preserving manual content.
 8. Process confirmed Mermaid diagram or user-journey items from `artifact-queue.md` one at a time, stopping for confirmation before each generated artifact.
 9. If constitution changes are confirmed, update `devspec/constitution.md` in place.
