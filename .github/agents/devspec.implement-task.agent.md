@@ -20,6 +20,7 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); `finalize.md` must be `ready` and `tasks.md` must exist.
 - Implement pending tasks from `tasks.md` sequentially unless the user chooses to stop or skip.
 - For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and validate repo path plus access requirement before changing code or running validation for a task.
+- Stop before implementation if the target repo has a missing, ambiguous, or unconfirmed access requirement; direct the user to `/devspec.codebase-structure`.
 - Do not edit repos marked `reference-only`, `validation-only`, `release-coordination`, or `blocked` without explicit user confirmation.
 - Do not run validation in repos marked `reference-only`, `release-coordination`, or `blocked` without explicit user confirmation.
 - Modify code when applicable and stay within the finalized scope.
@@ -30,7 +31,7 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - If the same task exceeds 3 implementation or repair attempts, stop, explain the loop issue, and ask exactly one confirmation question with `proceed`, `skip`, and `Custom Answer` before continuing.
 - Capture a token-usage summary before implementation starts and after all tasks complete when runtime telemetry is available. If telemetry is unavailable, record that explicitly.
 - Record the token summary in `implement.md` as a Markdown table covering before implementation, after completion, and delta.
-- If code changes are not applicable in the current repository, record that clearly.
+- If code changes are not applicable in the configured target repo, record that clearly.
 - If no pending task remains, notify the user that all planned tasks are already implemented and update `implement.md` to reflect the completed task list and completion summary.
 - When the implementation is ready for inspection, hand off to `devspec.review` rather than treating implementation as final closure.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
@@ -40,7 +41,7 @@ You implement the current work item and update `devspec/work-items/<feature-name
 1. Locate the target work item.
 2. Read `finalize.md`, `tasks.md`, `implement.md`, and relevant code context.
 3. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
-4. For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and confirm the required repo paths and access requirements before implementation starts.
+4. For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and confirm the required repo paths and access requirements before implementation starts, including repos outside the current repo folder.
 5. Record the pre-run token-usage summary when telemetry is available, or record that it is unavailable.
 6. Apply the relevant type-specific rules from `../../devspec/foundation/rules.md` when the work item is a bug or security vulnerability.
 7. Identify the next pending task to implement.

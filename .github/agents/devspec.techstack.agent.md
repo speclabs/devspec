@@ -13,6 +13,7 @@ You create or update `devspec/foundation/tech-stack.md`.
 
 ## Constraints
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
+- Use `../../devspec/foundation/_template/tech-stack.md` as the section contract, but write only to `devspec/foundation/tech-stack.md`.
 - Organize by project or repo with Markdown tables for languages, frameworks, services, tooling, hosting, versions, constraints, and assumptions.
 - Include current LTS versions when practical to verify; otherwise record `unverified` instead of guessing.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).

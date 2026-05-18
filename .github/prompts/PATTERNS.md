@@ -10,6 +10,7 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - Recommend exactly one option with a short justification.
 - Wait for the user's answer before asking the next question.
 - Do not bundle unrelated questions into one message.
+- If multiple confirmations are discovered at once, present only the highest-priority one and defer the rest until after the user answers.
 
 ## Prerequisite Validation Pattern
 
@@ -34,7 +35,10 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 
 - Required user input is mandatory.
 - Ask one clarification at a time when required details are missing or ambiguous, following the Interactive Question Pattern.
-- Update the target foundation artifact in place.
+- Use the matching `devspec/foundation/_template/*.md` or `devspec/architecture/_template/*.md` file as the section contract when one exists.
+- Treat live `devspec/foundation/*.md` and `devspec/architecture/*.md` files as project-owned artifacts; update them in place and never replace them wholesale from templates.
+- If a live foundation or architecture artifact is missing, initialize it from the matching `_template` file before applying user-provided or extracted content.
+- Update the target live foundation or architecture artifact in place.
 - Keep output durable, structured, concise, and usable by later work-item stages.
 
 ## Work-Item Target Pattern
@@ -47,6 +51,10 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 
 - `devspec/foundation/codebase-structure.md` is the single source of truth for multi-repo configuration.
 - Validate repo role, local path, current workspace availability, and access requirement there before planning or implementation depends on a repo.
+- Treat repo location, workspace membership, and access requirement as separate facts. A repo outside the current repo folder or outside the current workspace must not be automatically classified as `reference-only`.
+- Do not infer, default, or backfill missing access requirements. In particular, do not assume `reference-only`.
+- For each repo with a missing or ambiguous access requirement, ask exactly one repo-specific multiple-choice confirmation before writing or relying on that repo configuration.
+- Access requirement confirmation options must be limited to `reference-only`, `edit`, `edit-and-test`, `validation-only`, `release-coordination`, `blocked`, and `Custom Answer`.
 - Respect access requirements: do not edit repos marked `reference-only`, `validation-only`, `release-coordination`, or `blocked` unless the user explicitly confirms a scope change.
 - Do not run validation in repos marked `reference-only`, `release-coordination`, or `blocked` unless the user explicitly confirms a scope change.
 - For multi-repo work, stop and surface a blocker instead of guessing when required repo configuration is missing, outdated, or inaccessible.

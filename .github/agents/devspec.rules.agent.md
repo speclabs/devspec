@@ -13,6 +13,7 @@ You create or update `devspec/foundation/rules.md`.
 
 ## Constraints
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
+- Use `../../devspec/foundation/_template/rules.md` as the section contract, but write only to `devspec/foundation/rules.md`.
 - Keep this file focused on project-operational hard constraints, not enduring principles from `devspec/constitution.md`.
 - Capture compliance requirements, forbidden patterns, delivery gates, review rules, and exception process when known.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).

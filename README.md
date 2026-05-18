@@ -58,6 +58,21 @@ Before you start:
 
 For multi-repo work, the most reliable pattern is to keep one shared workspace open and record repo configuration in `devspec/foundation/codebase-structure.md`. That keeps one source of truth for local repo paths and access requirements, so story, tasks, finalize, and implement rely on the same configured repos. Single-repo work does not need any extra repo configuration.
 
+Do not directly overwrite project-owned artifacts during manual upgrades. Framework-owned files live under `.github/`, `devspec/**/_template/`, and prompt/agent support files. Live files such as `devspec/foundation/*.md`, `devspec/architecture/*.md`, `devspec/constitution.md`, and `devspec/glossary.md` are project-owned and should be migrated or merged.
+
+Manual upgrade ownership:
+
+| Path | Owner | Upgrade action |
+| --- | --- | --- |
+| `.github/agents/` | framework | Replace or diff-apply |
+| `.github/prompts/` | framework | Replace or diff-apply |
+| `devspec/**/_template/` | framework | Replace or diff-apply |
+| `devspec/architecture/decisions/_template.md` | framework | Replace or diff-apply |
+| `devspec/foundation/*.md` | project | Do not overwrite; migrate or merge |
+| `devspec/architecture/*.md` | project | Do not overwrite; migrate or merge |
+| `devspec/constitution.md` | project | Do not overwrite; confirmation required |
+| `devspec/glossary.md` | project | Do not overwrite; migrate or merge |
+
 Installation worked if:
 
 - the copied files are visible in the target repository under `devspec/`, `.github/prompts/`, and `.github/agents/`
@@ -88,6 +103,7 @@ your-repo/
 |   |   `-- devspec.techstack.agent.md
 |   `-- prompts/
 |       |-- PATTERNS.md
+|       |-- README.md
 |       |-- devspec.clarify.prompt.md
 |       |-- devspec.codebase-structure.prompt.md
 |       |-- devspec.coding-standards.prompt.md
@@ -104,12 +120,22 @@ your-repo/
     |-- constitution.md
     |-- glossary.md
     |-- architecture/
+    |   |-- _template/
+    |   |   |-- artifact-queue.md
+    |   |   `-- overview.md
     |   |-- artifact-queue.md
     |   |-- overview.md
     |   `-- decisions/
     |       |-- README.md
     |       `-- _template.md
     |-- foundation/
+    |   |-- _template/
+    |   |   |-- project-context.md
+    |   |   |-- tech-stack.md
+    |   |   |-- codebase-structure.md
+    |   |   |-- coding-standards.md
+    |   |   |-- provider-integrations.md
+    |   |   `-- rules.md
     |   |-- project-context.md
     |   |-- tech-stack.md
     |   |-- codebase-structure.md
@@ -142,6 +168,8 @@ For a brand-new repository with little or no existing code:
 4. Start the foundation workflow with `/devspec.projectcontext`.
 
 For a new project, you will usually skip `/devspec.extract` because there is no mature codebase to backfill yet.
+
+On first install, live project artifacts may be created from the matching `_template` files. After that, treat the live files as project-owned and update them through the slash-command workflow rather than replacing them from a newer template.
 
 ### Setup on an existing project
 
@@ -220,8 +248,9 @@ What it does:
 - proposes updates to:
   - `devspec/constitution.md`
   - `devspec/architecture/overview.md`
-  - `devspec/foundation/*.md`
+  - live `devspec/foundation/*.md` artifacts, excluding `devspec/foundation/_template/`
 - requires explicit confirmation before writing principle-level changes to `constitution.md`
+- asks only one extraction confirmation at a time; constitution confirmation, artifact-queue approval, and Mermaid generation approval must not be asked together
 
 Use it for:
 
@@ -310,6 +339,10 @@ Use it for:
 
 For multi-repo projects, use this stage to capture each repo's role, local path, whether it is already open in the current VS Code workspace, and its access requirement such as `reference-only`, `edit`, `edit-and-test`, `validation-only`, `release-coordination`, or `blocked`.
 
+Agents must not assume `reference-only` or any other access requirement. When a repo access requirement is missing or ambiguous, the agent should ask one multiple-choice confirmation for that repo before writing or relying on the repo configuration.
+
+Repos outside the current repo folder are valid multi-repo participants. Their location should not imply `reference-only`; record the local path, workspace availability, and user-confirmed access requirement separately.
+
 The repository tree should go deep enough for file-placement decisions, usually 2-4 levels for important source roots, feature/module folders, tests, scripts, config, infrastructure, docs, and routing-critical files. Avoid exhaustive file listings.
 
 Example:
@@ -338,7 +371,8 @@ Use it for:
 - logging and observability
 - review expectations
 - links to existing coding standards docs
-- short examples for each language or framework section when available
+- evidence-backed pattern catalogs with source paths and confidence
+- short canonical examples for important style, indentation, SQL layout, member ordering, or framework patterns when available
 
 Example:
 
@@ -488,7 +522,7 @@ Important behavior:
 - marks the item `ready` or `not ready`
 - does not invent missing requirements
 - records final scope, acceptance criteria, dependencies, risks, and validation approach
-- for multi-repo work, verifies that `devspec/foundation/codebase-structure.md` contains the required repo configuration and access requirements
+- for multi-repo work, verifies that `devspec/foundation/codebase-structure.md` contains the required repo configuration and user-confirmed access requirements
 - should stay `not ready` if required multi-repo foundation configuration is missing or incomplete
 
 Example:
@@ -510,7 +544,7 @@ Important behavior:
 - must not change or expand the finalized scope
 - should create ordered, implementation-oriented tasks
 - should include validation steps and type-specific checks
-- for multi-repo work, should assign each task to a target repo and use `devspec/foundation/codebase-structure.md` as the source of truth for local repo paths and access requirements
+- for multi-repo work, should assign each task to a target repo and use `devspec/foundation/codebase-structure.md` as the source of truth for local repo paths and user-confirmed access requirements
 
 Example:
 
@@ -567,15 +601,15 @@ Example:
 
 ## Command reference and step order
 
-Before using `/devspec.story` with external work-item references, validate `devspec/foundation/provider-integrations.md` for the providers and fallback behavior your repository supports.
+Before using `/devspec.story` with external work-item references, validate `devspec/foundation/provider-integrations.md` for the providers and fallback behavior your repository supports. There is no dedicated provider-integrations slash command; initialize it from `devspec/foundation/_template/provider-integrations.md` and maintain it manually when provider formats, tools, or fallback behavior change.
 
 | Step | Command | Use when | Requires | Main output | Next step |
 | --- | --- | --- | --- | --- | --- |
-| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Repository URL or local repo path. | `constitution.md`, `architecture/overview.md`, `foundation/*.md` | Refine with `/devspec.projectcontext`. |
+| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Repository URL or local repo path. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
 | 1 | `/devspec.projectcontext` | Product and business context need to be created or updated. | Product vision, users, goals, non-goals, and constraints. | `foundation/project-context.md` | `/devspec.techstack` |
 | 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Languages, frameworks, services, tooling, hosting, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
 | 3 | `/devspec.codebase-structure` | Repo layout, module boundaries, ownership seams, or multi-repo config need to be recorded. | Repository layout, integration boundaries, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
-| 4 | `/devspec.coding-standards` | Engineering expectations need to be recorded. | Direct standards, links, or repo-relative standards docs. | `foundation/coding-standards.md` | `/devspec.rules` |
+| 4 | `/devspec.coding-standards` | Engineering expectations or observed code patterns need to be recorded. | Direct standards, links, repo-relative standards docs, or evidence-backed examples. | `foundation/coding-standards.md` | `/devspec.rules` |
 | 5 | `/devspec.rules` | Operational hard constraints and delivery gates need to be recorded. | Compliance requirements, forbidden patterns, governance rules, and gates. | `foundation/rules.md` | `/devspec.story` |
 | 6 | `/devspec.story` | A feature, bug, or security vulnerability needs intake. | Work-item reference or manual intake details. | `work-items/<feature-name>/meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
 | 7 | `/devspec.clarify` | A blocking question must be resolved. | Existing `story.md`. | `work-items/<feature-name>/clarify.md` | Repeat until unblocked, then `/devspec.finalize` |
@@ -653,6 +687,8 @@ This file is intentionally harder to change. The extraction flow explicitly requ
 
 Holds project-operational context and constraints.
 
+- `_template/`
+  Framework-owned section contracts for foundation artifacts. Installers and manual upgrades may update these files, but agents should write the live files below.
 - `project-context.md`
   Product vision, intended users, goals, non-goals, constraints, and success metrics.
 - `tech-stack.md`
@@ -662,7 +698,7 @@ Holds project-operational context and constraints.
 - `coding-standards.md`
   Implementation expectations, testing rules, error handling, logging, documentation, and review norms.
 - `provider-integrations.md`
-  How external work-item systems such as GitHub, Jira, or Azure DevOps should be resolved.
+  Manually maintained provider intake policy for external systems such as GitHub, Jira, or Azure DevOps.
 - `rules.md`
   Hard constraints, forbidden patterns, compliance rules, governance, and delivery gates.
 
@@ -670,10 +706,14 @@ Holds project-operational context and constraints.
 
 Holds broader technical architecture.
 
+- `_template/`
+  Framework-owned section contracts for architecture artifacts. Use these to create or migrate live architecture files without overwriting project-specific content.
 - `overview.md`
   System view, major components, integrations, data flow, and blockers.
 - `decisions/`
   ADRs for long-lived architecture decisions.
+- `decisions/_template.md`
+  Framework-owned ADR template used when creating new architecture decision records.
 
 ### `devspec/work-items/`
 
@@ -718,11 +758,15 @@ This should receive observed and high-confidence architectural facts such as:
 - external integrations
 - high-level data flow
 - a resumable Mermaid work queue in `devspec/architecture/artifact-queue.md` for architecture diagrams and user journeys when high-level modules or workflows are identified
-- confirmed Mermaid diagrams and user journeys, generated one at a time after user approval
+- confirmed Mermaid diagrams and user journeys, generated one at a time after user approval and never in the same response as constitution confirmation
+
+Use `devspec/architecture/_template/overview.md` and `devspec/architecture/_template/artifact-queue.md` as section contracts. Do not replace live architecture files from templates after a project has recorded real architecture content.
 
 #### `devspec/foundation/project-context.md`
 
 This may get partial drafts from docs, but usually needs human input because product goals and intended outcomes are often not fully inferable from code.
+
+Use `devspec/foundation/_template/project-context.md` as the section contract.
 
 #### `devspec/foundation/tech-stack.md`
 
@@ -737,9 +781,13 @@ This is one of the strongest extraction targets because code and manifests usual
 - test tooling
 - CI tooling
 
+Use `devspec/foundation/_template/tech-stack.md` as the section contract.
+
 #### `devspec/foundation/codebase-structure.md`
 
-This is also a strong extraction target because folder layout and module names can usually be observed directly. Extracted layouts should be selective 2-4 level trees focused on helping agents decide where new files and folders belong. For multi-repo work, this file is also the source of truth for repo roles, local paths, workspace availability, and access requirements.
+This is also a strong extraction target because folder layout and module names can usually be observed directly. Extracted layouts should be selective 2-4 level trees focused on helping agents decide where new files and folders belong. For multi-repo work, this file is also the source of truth for repo roles, local paths, workspace availability, and user-confirmed access requirements.
+
+Use `devspec/foundation/_template/codebase-structure.md` as the section contract.
 
 #### `devspec/foundation/coding-standards.md`
 
@@ -753,9 +801,11 @@ This can be partially inferred from:
 - existing conventions in the codebase
 - standards docs or style-guide links already referenced by the repository
 
-Useful extracted examples include short snippets that show the prevailing indentation or formatting pattern, especially for SQL query layout and other database code.
+Useful extracted examples include short snippets that show the prevailing indentation or formatting pattern, especially for SQL query layout and other database code. Treat this file as a pattern catalog: record the rule, source evidence, confidence, and a compact example rather than copying large code blocks.
 
 But the result should still be reviewed, because "what the code does today" and "what the team wants as a standard" are not always the same.
+
+Use `devspec/foundation/_template/coding-standards.md` as the section contract.
 
 #### `devspec/foundation/rules.md`
 
@@ -768,6 +818,8 @@ This may be partially supported by:
 - compliance docs
 
 But project-operational rules often need human refinement after extraction.
+
+Use `devspec/foundation/_template/rules.md` as the section contract.
 
 ### Practical existing-project example
 
@@ -799,6 +851,7 @@ Use this setup when you want `devspec` to resolve external work items instead of
 4. Verify the integration can validate and fetch a real work item before relying on `/devspec.story`.
    The integration should be able to return core fields such as title, description, status, type or labels, and canonical links.
 5. Record the supported providers, accepted input formats, and manual fallback policy in `devspec/foundation/provider-integrations.md`.
+   If the file is missing, initialize it from `devspec/foundation/_template/provider-integrations.md`.
 6. Test one provider-backed intake example and one manual fallback example in the target repository.
 
 You should treat provider-backed intake as ready only when VS Code can reach the configured tool, authentication works, and `devspec/foundation/provider-integrations.md` matches the behavior your team expects.

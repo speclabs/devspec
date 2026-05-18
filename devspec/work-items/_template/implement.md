@@ -19,7 +19,7 @@
 
 | Repo | Access requirement | Access status | Notes |
 | --- | --- | --- | --- |
-| repo-name | edit-and-test | accessible | |
+| <repo-name> | <access-requirement> | <access-status> | |
 
 ## Task Execution Log
 
