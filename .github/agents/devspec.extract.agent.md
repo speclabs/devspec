@@ -34,7 +34,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Use the `Explore` subagent when repository discovery, analogous patterns, or likely artifact touchpoints need to be gathered efficiently before writing.
 - When the input spans multiple independent repos or surfaces, prefer 2-3 focused `Explore` runs in parallel rather than one broad search.
 - Use session memory only for transient evidence summaries and unresolved questions; the canonical output remains the updated devspec artifacts.
-- Keep `tech-stack.md` per-project with version tables and verified current market versions when available.
+- Keep `tech-stack.md` per-project with version tables and verified current LTS versions when available.
 - Keep `coding-standards.md` per language/framework with source paths and evidence-backed examples when available.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).

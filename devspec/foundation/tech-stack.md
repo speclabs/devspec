@@ -6,36 +6,36 @@
 
 #### Languages And Runtimes
 
-| Technology | Version In Project | Current Market Version | Notes |
+| Technology | Version In Project | Current LTS Version | Notes |
 | --- | --- | --- | --- |
-| <language-or-runtime> | <version> | <market-version-if-known> | <notes> |
+| <language-or-runtime> | <version> | <lts-version-if-known> | <notes> |
 
 #### Frameworks And Libraries
 
-| Technology | Version In Project | Current Market Version | Notes |
+| Technology | Version In Project | Current LTS Version | Notes |
 | --- | --- | --- | --- |
-| <framework-or-library> | <version> | <market-version-if-known> | <notes> |
+| <framework-or-library> | <version> | <lts-version-if-known> | <notes> |
 
 #### Services And Infrastructure
 
-| Technology | Version In Project | Current Market Version | Notes |
+| Technology | Version In Project | Current LTS Version | Notes |
 | --- | --- | --- | --- |
-| <service-or-platform> | <version-or-managed-plan> | <market-version-if-known> | <notes> |
+| <service-or-platform> | <version-or-managed-plan> | <lts-version-if-known> | <notes> |
 
 #### Tooling
 
-| Tooling Area | Technology | Version In Project | Current Market Version | Notes |
+| Tooling Area | Technology | Version In Project | Current LTS Version | Notes |
 | --- | --- | --- | --- | --- |
-| Build | <tool> | <version> | <market-version-if-known> | <notes> |
-| Test | <tool> | <version> | <market-version-if-known> | <notes> |
-| Lint | <tool> | <version> | <market-version-if-known> | <notes> |
-| CI/CD | <tool> | <version> | <market-version-if-known> | <notes> |
+| Build | <tool> | <version> | <lts-version-if-known> | <notes> |
+| Test | <tool> | <version> | <lts-version-if-known> | <notes> |
+| Lint | <tool> | <version> | <lts-version-if-known> | <notes> |
+| CI/CD | <tool> | <version> | <lts-version-if-known> | <notes> |
 
 #### Hosting And Delivery Constraints
 
-| Area | Current Choice | Current Market Version | Notes |
+| Area | Current Choice | Current LTS Version | Notes |
 | --- | --- | --- | --- |
-| Hosting | <hosting-target> | <market-version-if-known> | <notes> |
+| Hosting | <hosting-target> | <lts-version-if-known> | <notes> |
 | Delivery Constraint | <constraint> | n/a | <notes> |
 
 ## Blockers

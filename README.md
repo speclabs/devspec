@@ -652,7 +652,7 @@ Holds project-operational context and constraints.
 - `project-context.md`
   Product vision, intended users, goals, non-goals, constraints, and success metrics.
 - `tech-stack.md`
-  Languages, frameworks, services, tooling, hosting, and delivery constraints.
+  Languages, frameworks, services, tooling, hosting, current LTS versions, and delivery constraints.
 - `codebase-structure.md`
   Repository layout, module boundaries, ownership seams, and integration boundaries.
 - `coding-standards.md`
@@ -728,6 +728,7 @@ This is one of the strongest extraction targets because code and manifests usual
 - runtimes
 - frameworks
 - databases
+- current LTS versions when practical to verify
 - hosting clues
 - test tooling
 - CI tooling
