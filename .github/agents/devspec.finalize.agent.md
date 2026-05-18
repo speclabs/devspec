@@ -3,7 +3,7 @@ name: "devspec.finalize"
 description: "Use when creating or updating the implementation-ready finalized brief for the current devspec work item."
 tools: [read, edit, search, vscode/askQuestions]
 user-invocable: true
-agents: []
+agents: [Explore]
 handoffs:
   - label: Return to Clarify
     agent: devspec.clarify
@@ -24,17 +24,19 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 - For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and record only the configuration status in `finalize.md`.
 - For single-repo work, do not add multi-repo configuration status.
 - Do not invent missing requirements.
+- Use the `Explore` subagent when implementation context, analogous existing behavior, or likely impact areas need quick discovery before finalizing the brief.
 - Update `finalize.md` in place.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Locate the target work item.
 2. Read the required upstream artifacts.
-3. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
-4. Merge additive guidance without changing approved scope silently.
-5. Apply type-specific readiness gates for bugs and security vulnerabilities.
-6. Write `finalize.md` with classification, readiness gates, scope, acceptance criteria, assumptions, dependencies, multi-repo configuration status when applicable, risks, mitigation, validation approach, release or advisory needs, and ready status.
-7. Report readiness status, blockers, and the recommended next step or prompt to run.
+3. Use `Explore` when needed to confirm impacted code areas, reusable patterns, dependencies, or likely blockers.
+4. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
+5. Merge additive guidance without changing approved scope silently.
+6. Apply type-specific readiness gates for bugs and security vulnerabilities.
+7. Write `finalize.md` with classification, readiness gates, scope, acceptance criteria, assumptions, dependencies, multi-repo configuration status when applicable, risks, mitigation, validation approach, release or advisory needs, and ready status.
+8. Report readiness status, blockers, and the recommended next step or prompt to run.
 
 ## Output Format
 - Work-item path updated
