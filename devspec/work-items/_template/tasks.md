@@ -3,8 +3,8 @@
 ## Ordered Tasks
 
 1. Task:
-	- Target repo:
-	- Required access:
+   - Target repo:
+   - Required access:
 
 ## Execution Context
 

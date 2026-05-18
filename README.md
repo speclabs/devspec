@@ -103,6 +103,7 @@ your-repo/
 |   |   `-- devspec.techstack.agent.md
 |   `-- prompts/
 |       |-- PATTERNS.md
+|       |-- README.md
 |       |-- devspec.clarify.prompt.md
 |       |-- devspec.codebase-structure.prompt.md
 |       |-- devspec.coding-standards.prompt.md

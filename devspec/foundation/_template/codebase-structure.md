@@ -27,7 +27,7 @@ Use this section only when multiple repos participate in delivery.
 
 | Repo | Role | Local path | In current workspace | Access requirement | Notes |
 | --- | --- | --- | --- | --- | --- |
-| <repo-name> | ui | C:\path\to\repo | yes | edit-and-test | |
+| <repo-name> | <role> | <local-path> | yes | <access-requirement> | |
 
 Do not assume access requirements. A repo outside the current repo folder is not automatically `reference-only`; repo location, workspace membership, and access requirement are separate facts. For each repo with a missing or ambiguous access requirement, ask the user to confirm one access requirement with multiple-choice options before writing or relying on the row.
 
