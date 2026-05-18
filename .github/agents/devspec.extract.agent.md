@@ -37,6 +37,8 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Keep `tech-stack.md` per-project with version tables and verified current LTS versions when available.
 - Keep `codebase-structure.md` repository layouts as selective 2-4 level trees focused on file-placement decisions, not exhaustive file listings.
 - When extraction spans multiple repos, keep `codebase-structure.md` as the source of truth for repo role, local path, workspace availability, and access requirement.
+- Treat local paths outside the current repo folder as valid extraction sources when accessible; do not classify them as `reference-only` based on path location.
+- Do not infer access requirements during extraction. Ask one repo-specific multiple-choice confirmation for each missing or ambiguous access requirement before writing multi-repo configuration.
 - Keep `coding-standards.md` per language/framework with source paths and evidence-backed examples when available.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).

@@ -47,6 +47,10 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 
 - `devspec/foundation/codebase-structure.md` is the single source of truth for multi-repo configuration.
 - Validate repo role, local path, current workspace availability, and access requirement there before planning or implementation depends on a repo.
+- Treat repo location, workspace membership, and access requirement as separate facts. A repo outside the current repo folder or outside the current workspace must not be automatically classified as `reference-only`.
+- Do not infer, default, or backfill missing access requirements. In particular, do not assume `reference-only`.
+- For each repo with a missing or ambiguous access requirement, ask exactly one repo-specific multiple-choice confirmation before writing or relying on that repo configuration.
+- Access requirement confirmation options must be limited to `reference-only`, `edit`, `edit-and-test`, `validation-only`, `release-coordination`, `blocked`, and `Custom Answer`.
 - Respect access requirements: do not edit repos marked `reference-only`, `validation-only`, `release-coordination`, or `blocked` unless the user explicitly confirms a scope change.
 - Do not run validation in repos marked `reference-only`, `release-coordination`, or `blocked` unless the user explicitly confirms a scope change.
 - For multi-repo work, stop and surface a blocker instead of guessing when required repo configuration is missing, outdated, or inaccessible.

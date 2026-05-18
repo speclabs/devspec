@@ -310,6 +310,10 @@ Use it for:
 
 For multi-repo projects, use this stage to capture each repo's role, local path, whether it is already open in the current VS Code workspace, and its access requirement such as `reference-only`, `edit`, `edit-and-test`, `validation-only`, `release-coordination`, or `blocked`.
 
+Agents must not assume `reference-only` or any other access requirement. When a repo access requirement is missing or ambiguous, the agent should ask one multiple-choice confirmation for that repo before writing or relying on the repo configuration.
+
+Repos outside the current repo folder are valid multi-repo participants. Their location should not imply `reference-only`; record the local path, workspace availability, and user-confirmed access requirement separately.
+
 The repository tree should go deep enough for file-placement decisions, usually 2-4 levels for important source roots, feature/module folders, tests, scripts, config, infrastructure, docs, and routing-critical files. Avoid exhaustive file listings.
 
 Example:
@@ -488,7 +492,7 @@ Important behavior:
 - marks the item `ready` or `not ready`
 - does not invent missing requirements
 - records final scope, acceptance criteria, dependencies, risks, and validation approach
-- for multi-repo work, verifies that `devspec/foundation/codebase-structure.md` contains the required repo configuration and access requirements
+- for multi-repo work, verifies that `devspec/foundation/codebase-structure.md` contains the required repo configuration and user-confirmed access requirements
 - should stay `not ready` if required multi-repo foundation configuration is missing or incomplete
 
 Example:
@@ -510,7 +514,7 @@ Important behavior:
 - must not change or expand the finalized scope
 - should create ordered, implementation-oriented tasks
 - should include validation steps and type-specific checks
-- for multi-repo work, should assign each task to a target repo and use `devspec/foundation/codebase-structure.md` as the source of truth for local repo paths and access requirements
+- for multi-repo work, should assign each task to a target repo and use `devspec/foundation/codebase-structure.md` as the source of truth for local repo paths and user-confirmed access requirements
 
 Example:
 
@@ -739,7 +743,7 @@ This is one of the strongest extraction targets because code and manifests usual
 
 #### `devspec/foundation/codebase-structure.md`
 
-This is also a strong extraction target because folder layout and module names can usually be observed directly. Extracted layouts should be selective 2-4 level trees focused on helping agents decide where new files and folders belong. For multi-repo work, this file is also the source of truth for repo roles, local paths, workspace availability, and access requirements.
+This is also a strong extraction target because folder layout and module names can usually be observed directly. Extracted layouts should be selective 2-4 level trees focused on helping agents decide where new files and folders belong. For multi-repo work, this file is also the source of truth for repo roles, local paths, workspace availability, and user-confirmed access requirements.
 
 #### `devspec/foundation/coding-standards.md`
 
