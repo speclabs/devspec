@@ -2,7 +2,7 @@
 
 ## Repository Layout
 
-Use a selective 2-4 level tree that helps agents decide where to create or edit files. Include important source roots, feature/module folders, tests, scripts, config, infrastructure, docs, and routing-critical files when relevant. Do not list every file.
+Use a selective 3-5 level tree that helps agents decide where to create or edit files. Include important source roots, feature/module folders, tests, scripts, config, infrastructure, docs, and routing-critical files when relevant. Do not list every file. Omit paths excluded by `devspec/foundation/discovery-exclusions.md` unless a project override marks them source-owned.
 
 ### Repo: <repo-name>
 

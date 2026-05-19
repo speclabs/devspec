@@ -1,5 +1,7 @@
 # Tech Stack
 
+Use manifests, lockfiles, framework config, CI config, and docs as version evidence. Do not inspect installed dependency folders or generated output excluded by `devspec/foundation/discovery-exclusions.md`.
+
 ## Projects
 
 ### Project: <project-name>

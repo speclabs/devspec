@@ -39,7 +39,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - When the input spans multiple independent repos or surfaces, prefer 2-3 focused `Explore` runs in parallel rather than one broad search.
 - Use session memory only for transient evidence summaries and unresolved questions; the canonical output remains the updated devspec artifacts.
 - Keep `tech-stack.md` per-project with version tables and verified current LTS versions when available.
-- Keep `codebase-structure.md` repository layouts as selective 2-4 level trees focused on file-placement decisions, not exhaustive file listings.
+- Keep `codebase-structure.md` repository layouts as selective 3-5 level trees focused on file-placement decisions, not exhaustive file listings.
 - When extraction spans multiple repos, keep `codebase-structure.md` as the source of truth for repo role, local path, workspace availability, and access requirement.
 - Treat local paths outside the current repo folder as valid extraction sources when accessible; do not classify them as `reference-only` based on path location.
 - Do not infer access requirements during extraction. Ask one repo-specific multiple-choice confirmation for each missing or ambiguous access requirement before writing multi-repo configuration.
@@ -47,19 +47,22 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - For formatting-sensitive languages or SQL/database code, capture compact canonical snippets that show indentation, grouping, and layout without copying large code blocks.
 - Limit coding-standard examples to representative snippets, usually 5-20 lines, and link to source paths for full context.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before repository search, extraction, helper scripts, or Explore runs.
+- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Parse and validate each repository URL or local path.
-2. Use `Explore` when needed to gather evidence from source trees, repository metadata, supporting documentation, and analogous patterns.
-3. Persist meaningful discovery notes and unresolved questions to session memory before moving to clarification or writing.
-4. Build an evidence-backed outline grouped into constitution candidates, architecture facts, and foundation facts.
-5. Build a pending-confirmation queue using the extraction priority order, and ask only the first unresolved confirmation using the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
-6. Wait for the user's answer before asking any other question or writing gated changes. Do not include a second confirmation request in the same response.
-7. Update architecture and foundation artifacts in place while preserving manual content.
-8. Process confirmed Mermaid diagram or user-journey items from `artifact-queue.md` one at a time, stopping for confirmation before each generated artifact.
-9. If constitution changes are confirmed, update `devspec/constitution.md` in place.
-10. Report sources processed, artifacts updated, diagram queue status, evidence confidence, blockers, and next prompt.
+2. Check `devspec/foundation/discovery-exclusions.md`, `devspec/foundation/exploration-state.md`, and session memory for exclusions plus known failed and working methods for the same source and extraction goal; use a recorded working method first and skip known failed methods unless retry conditions are met.
+3. Use `Explore` when needed to gather evidence from source trees, repository metadata, supporting documentation, and analogous patterns.
+4. Persist meaningful discovery notes, working methods, failed methods, and unresolved questions to `exploration-state.md` and session memory before moving to clarification or writing.
+5. Build an evidence-backed outline grouped into constitution candidates, architecture facts, and foundation facts.
+6. Build a pending-confirmation queue using the extraction priority order, and ask only the first unresolved confirmation using the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
+7. Wait for the user's answer before asking any other question or writing gated changes. Do not include a second confirmation request in the same response.
+8. Update architecture and foundation artifacts in place while preserving manual content.
+9. Process confirmed Mermaid diagram or user-journey items from `artifact-queue.md` one at a time, stopping for confirmation before each generated artifact.
+10. If constitution changes are confirmed, update `devspec/constitution.md` in place.
+11. Report sources processed, artifacts updated, diagram queue status, evidence confidence, blockers, skipped known failed methods, and next prompt.
 
 ## Output Format
 - Sources processed
@@ -67,5 +70,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Confirmation requested or received
 - Diagram queue status
 - Key evidence and confidence
+- Discovery exclusions applied, if material
+- Skipped known failed methods, if any
 - Questions resolved or remaining blockers
 - Recommended next step or prompt to run

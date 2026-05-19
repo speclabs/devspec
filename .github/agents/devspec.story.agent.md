@@ -34,21 +34,26 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 - Do not guess missing facts; ask targeted clarification or confirmation questions one at a time before writing the artifact.
 - Record unresolved blockers only when the user declines to answer or supporting evidence remains unavailable.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before reference discovery or repository search.
+- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before provider lookup, fallback probing, or repeated reference discovery.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Validate the incoming work item reference against supported provider formats.
-2. Resolve or normalize the incoming work item reference, or stop with correction guidance if it is invalid.
-3. If clarification or confirmation is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
-4. If manual intake is chosen, collect the external reference, manual description, and manual acceptance criteria before proceeding.
-5. Determine the work-item type and capture priority for features, or severity for bugs and security vulnerabilities, from the source or user clarification.
-6. Confirm whether the work has multi-repo dependencies and, if yes, collect all related repos and follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern).
-7. Derive a stable work-item folder name.
-8. Create or update the work-item folder artifacts.
-9. Report path updated, key changes, blockers, and next prompt.
+2. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed provider resolution methods for the same provider and input scope.
+3. Resolve or normalize the incoming work item reference, or stop with correction guidance if it is invalid.
+4. If clarification or confirmation is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
+5. If manual intake is chosen, collect the external reference, manual description, and manual acceptance criteria before proceeding.
+6. Determine the work-item type and capture priority for features, or severity for bugs and security vulnerabilities, from the source or user clarification.
+7. Confirm whether the work has multi-repo dependencies and, if yes, collect all related repos and follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern).
+8. Derive a stable work-item folder name.
+9. Create or update the work-item folder artifacts.
+10. Report path updated, key changes, blockers, skipped known failed methods, and next prompt.
 
 ## Output Format
 - Work-item path updated
 - Key changes
+- Discovery exclusions applied, if material
+- Skipped known failed methods, if any
 - Questions resolved or remaining blockers
 - Recommended next step or prompt to run
