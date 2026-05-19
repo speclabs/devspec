@@ -39,7 +39,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - When the input spans multiple independent repos or surfaces, prefer 2-3 focused `Explore` runs in parallel rather than one broad search.
 - Use session memory only for transient evidence summaries and unresolved questions; the canonical output remains the updated devspec artifacts.
 - Keep `tech-stack.md` per-project with version tables and verified current LTS versions when available.
-- Keep `codebase-structure.md` repository layouts as selective 2-4 level trees focused on file-placement decisions, not exhaustive file listings.
+- Keep `codebase-structure.md` repository layouts as selective 3-5 level trees focused on file-placement decisions, not exhaustive file listings.
 - When extraction spans multiple repos, keep `codebase-structure.md` as the source of truth for repo role, local path, workspace availability, and access requirement.
 - Treat local paths outside the current repo folder as valid extraction sources when accessible; do not classify them as `reference-only` based on path location.
 - Do not infer access requirements during extraction. Ask one repo-specific multiple-choice confirmation for each missing or ambiguous access requirement before writing multi-repo configuration.
@@ -47,12 +47,13 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - For formatting-sensitive languages or SQL/database code, capture compact canonical snippets that show indentation, grouping, and layout without copying large code blocks.
 - Limit coding-standard examples to representative snippets, usually 5-20 lines, and link to source paths for full context.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before repository search, extraction, helper scripts, or Explore runs.
 - Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Parse and validate each repository URL or local path.
-2. Check `devspec/foundation/exploration-state.md` and session memory for known failed and working methods for the same source and extraction goal; use a recorded working method first and skip known failed methods unless retry conditions are met.
+2. Check `devspec/foundation/discovery-exclusions.md`, `devspec/foundation/exploration-state.md`, and session memory for exclusions plus known failed and working methods for the same source and extraction goal; use a recorded working method first and skip known failed methods unless retry conditions are met.
 3. Use `Explore` when needed to gather evidence from source trees, repository metadata, supporting documentation, and analogous patterns.
 4. Persist meaningful discovery notes, working methods, failed methods, and unresolved questions to `exploration-state.md` and session memory before moving to clarification or writing.
 5. Build an evidence-backed outline grouped into constitution candidates, architecture facts, and foundation facts.
@@ -69,6 +70,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Confirmation requested or received
 - Diagram queue status
 - Key evidence and confidence
+- Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Questions resolved or remaining blockers
 - Recommended next step or prompt to run

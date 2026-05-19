@@ -31,10 +31,26 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - Do not duplicate content already captured in another devspec artifact. Link or name the source instead.
 - Preserve user-authored content with targeted edits instead of whole-file rewrites.
 
+## Discovery Exclusion Pattern
+
+- Before repository search, extraction, code-pattern discovery, layout mapping, validation-surface discovery, or generated helper scripts, read `devspec/foundation/discovery-exclusions.md` when present.
+- Exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output folders by default. Do not infer project conventions from installed dependency or generated output source.
+- Use manifests, lockfiles, and framework config files to understand dependencies and tooling; inspect dependency folders only when the user explicitly asks or a recorded project override permits it.
+- Respect repository ignore files such as `.gitignore` as a baseline, but still apply this pattern because search tools may not honor every generated or dependency path consistently.
+- Apply ecosystem-specific exclusions when matching manifests or config files are present:
+  - Node, Angular, React, Next, Vite: `node_modules/`, `.angular/`, `.next/`, `.turbo/`, `.vite/`, `dist/`, `build/`, `coverage/`.
+  - .NET: `bin/`, `obj/`, `TestResults/`, `artifacts/`.
+  - Java, Maven, Gradle: `target/`, `build/`, `.gradle/`, `out/`.
+  - Python: `.venv/`, `venv/`, `env/`, `__pycache__/`, `.pytest_cache/`, `.mypy_cache/`, `.ruff_cache/`, `site-packages/`.
+  - Rust: `target/`.
+  - Go: module cache and generated `vendor/` content unless the repo intentionally owns vendored source.
+- Keep source discovery focused on project-owned source roots, tests, scripts, config, infrastructure, docs, manifests, and routing-critical files.
+- Record project-specific include or exclude exceptions in `devspec/foundation/discovery-exclusions.md`, not in individual stage artifacts.
+
 ## Exploration Recovery Pattern
 
 - When `.github/skills/exploration-recovery/SKILL.md` is available, use it as the operational procedure for this pattern.
-- Before broad search, generated scripts, helper commands, provider lookup, or repeated discovery, check `devspec/foundation/exploration-state.md` and session memory for known working and failed methods in the same scope.
+- Before broad search, generated scripts, helper commands, provider lookup, or repeated discovery, follow the [Discovery Exclusion Pattern](#discovery-exclusion-pattern), then check `devspec/foundation/exploration-state.md` and session memory for known working and failed methods in the same scope.
 - Use known working methods first when the scope and goal match.
 - Skip known failed methods unless the user says the environment changed, the input changed, credentials changed, dependencies were installed, or the command was corrected.
 - Prefer built-in repository search, targeted file reads, manifest inspection, and configured provider tools before generating broad helper scripts.
@@ -73,6 +89,7 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 
 ## Explore and Memory Pattern
 
+- Follow the [Discovery Exclusion Pattern](#discovery-exclusion-pattern) before repository discovery, code search, or Explore runs.
 - Use `Explore` when repository discovery, analogous implementations, impacted areas, or likely blockers cannot be resolved cheaply from the current artifact context.
 - Persist only transient working-state summaries to `/memories/session/<stage>.md`; do not treat session memory as the canonical source of truth.
 - Keep session memory concise and structured with objective, findings, open questions, decisions, and next recommended step.

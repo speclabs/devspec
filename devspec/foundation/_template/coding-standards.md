@@ -2,6 +2,8 @@
 
 ## Standards Sources
 
+Use project-owned source, standards docs, and configuration files as evidence. Do not infer coding standards from paths excluded by `devspec/foundation/discovery-exclusions.md`, such as installed dependencies or generated output.
+
 | Source | Type | Applies to | Confidence | Notes |
 | --- | --- | --- | --- | --- |
 | <path-or-link> | formatter | <language-or-framework> | <confidence> | |

@@ -16,13 +16,14 @@ You create or update `devspec/foundation/project-context.md`.
 - Use `../../devspec/foundation/_template/project-context.md` as the section contract, but write only to `devspec/foundation/project-context.md`.
 - Capture product vision, users, goals, non-goals, constraints, success metrics, and blockers when known.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before context search or helper commands.
 - Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated context search or helper commands.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Read the existing artifact if it exists.
 2. Ask one clarification at a time if required input is incomplete or ambiguous.
-3. Check `devspec/foundation/exploration-state.md` for known working or failed context discovery methods for the same repo or product area.
+3. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed context discovery methods for the same repo or product area.
 4. Merge the required user input into a stable project-context structure.
 5. Record meaningful working and failed context discovery methods in `exploration-state.md`.
 6. Write the updated artifact.
@@ -31,6 +32,7 @@ You create or update `devspec/foundation/project-context.md`.
 ## Output Format
 - Artifact updated
 - Key changes
+- Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Questions resolved or remaining blockers
 - Recommended next step or prompt to run

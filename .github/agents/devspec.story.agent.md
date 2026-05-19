@@ -34,12 +34,13 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 - Do not guess missing facts; ask targeted clarification or confirmation questions one at a time before writing the artifact.
 - Record unresolved blockers only when the user declines to answer or supporting evidence remains unavailable.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before reference discovery or repository search.
 - Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before provider lookup, fallback probing, or repeated reference discovery.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Validate the incoming work item reference against supported provider formats.
-2. Check `devspec/foundation/exploration-state.md` for known working or failed provider resolution methods for the same provider and input scope.
+2. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed provider resolution methods for the same provider and input scope.
 3. Resolve or normalize the incoming work item reference, or stop with correction guidance if it is invalid.
 4. If clarification or confirmation is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 5. If manual intake is chosen, collect the external reference, manual description, and manual acceptance criteria before proceeding.
@@ -52,6 +53,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 ## Output Format
 - Work-item path updated
 - Key changes
+- Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Questions resolved or remaining blockers
 - Recommended next step or prompt to run

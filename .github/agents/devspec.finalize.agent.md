@@ -29,13 +29,14 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 - Use session memory only for transient discovery notes, assumptions, and open questions; `finalize.md` remains the canonical brief.
 - Update `finalize.md` in place.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before Explore runs or code/context discovery.
 - Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before Explore runs or repeated code/context discovery.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Locate the target work item.
 2. Read the required upstream artifacts.
-3. Check `devspec/foundation/exploration-state.md` for known working or failed discovery methods for the same work item, repo, or impact area.
+3. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed discovery methods for the same work item, repo, or impact area.
 4. Use `Explore` when needed to confirm impacted code areas, reusable patterns, dependencies, or likely blockers.
 5. Persist meaningful discovery notes, working methods, failed methods, and unresolved assumptions to `exploration-state.md` and session memory before asking for clarification or writing the brief.
 6. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
@@ -48,6 +49,7 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 - Work-item path updated
 - Ready status
 - Key changes
+- Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Blockers or next step
 - Recommended next step or prompt to run

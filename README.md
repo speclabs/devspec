@@ -143,6 +143,7 @@ your-repo/
     |   |   |-- tech-stack.md
     |   |   |-- codebase-structure.md
     |   |   |-- coding-standards.md
+    |   |   |-- discovery-exclusions.md
     |   |   |-- exploration-state.md
     |   |   |-- provider-integrations.md
     |   |   `-- rules.md
@@ -150,6 +151,7 @@ your-repo/
     |   |-- tech-stack.md
     |   |-- codebase-structure.md
     |   |-- coding-standards.md
+    |   |-- discovery-exclusions.md
     |   |-- exploration-state.md
     |   |-- provider-integrations.md
     |   `-- rules.md
@@ -241,6 +243,7 @@ These are core behaviors baked into the prompts and agents:
 - Clarification should happen one question at a time.
 - Clickable options with `Custom Answer` and one recommended option with a short justification are preferred whenever reasonable.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
+- Repository discovery must exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output paths by default; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
 - Discovery-heavy commands should check `devspec/foundation/exploration-state.md`, use known working methods first, and skip known failed searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
 - `/devspec.finalize` should mark a story `not ready` if blockers remain.
 - `/devspec.tasks` must not expand scope.
@@ -259,6 +262,7 @@ What it does:
 
 - validates repository URLs or local repository paths
 - reads repository layout, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
+- excludes dependency and generated folders such as `node_modules/`, `.angular/`, `dist/`, `build/`, and `coverage/` unless the project records an explicit override
 - prefers direct repository search and known working exploration methods before trying new generated scripts
 - proposes updates to:
   - `devspec/constitution.md`
@@ -290,7 +294,7 @@ Expected outcome:
 - `architecture/overview.md` gets a first-pass system view
 - `foundation/tech-stack.md` gets stack evidence
 - `foundation/codebase-structure.md` gets a repo-layout draft
-- repository layout should be a selective 2-4 level map that helps agents place new files and folders
+- repository layout should be a selective 3-5 level map that helps agents place new files and folders
 - `foundation/coding-standards.md` gets evidence-backed language-specific and framework-specific standards when the repository exposes them
 - `foundation/rules.md` gets evidence-backed candidate content
 - `constitution.md` gets only confirmed principle updates
@@ -358,7 +362,7 @@ Agents must not assume `reference-only` or any other access requirement. When a 
 
 Repos outside the current repo folder are valid multi-repo participants. Their location should not imply `reference-only`; record the local path, workspace availability, and user-confirmed access requirement separately.
 
-The repository tree should go deep enough for file-placement decisions, usually 2-4 levels for important source roots, feature/module folders, tests, scripts, config, infrastructure, docs, and routing-critical files. Avoid exhaustive file listings.
+The repository tree should go deep enough for file-placement decisions, usually 3-5 levels for important source roots, feature/module folders, tests, scripts, config, infrastructure, docs, and routing-critical files. Avoid exhaustive file listings.
 
 Example:
 
@@ -712,6 +716,8 @@ Holds project-operational context and constraints.
   Repository layout, module boundaries, ownership seams, and integration boundaries.
 - `coding-standards.md`
   Implementation expectations, testing rules, error handling, logging, documentation, and review norms.
+- `discovery-exclusions.md`
+  Default and project-specific paths agents should exclude from repository discovery, such as dependency, generated, build, cache, and coverage folders.
 - `exploration-state.md`
   Known working and failed discovery methods for searches, scripts, provider lookups, validation probes, and extraction paths.
 - `provider-integrations.md`
@@ -753,6 +759,8 @@ The extract stage is designed to inspect:
 - ADRs
 - architecture docs
 - CODEOWNERS and related ownership hints
+
+The extract stage must not search dependency, generated, cache, coverage, build-output, VCS, or tool-output folders by default. For Node.js, Angular, React, Next, and Vite projects, use `package.json`, lockfiles, `angular.json`, `tsconfig*.json`, and framework config files as evidence instead of inspecting `node_modules/` or generated output.
 
 ### Where the extracted information goes
 
@@ -802,9 +810,15 @@ Use `devspec/foundation/_template/tech-stack.md` as the section contract.
 
 #### `devspec/foundation/codebase-structure.md`
 
-This is also a strong extraction target because folder layout and module names can usually be observed directly. Extracted layouts should be selective 2-4 level trees focused on helping agents decide where new files and folders belong. For multi-repo work, this file is also the source of truth for repo roles, local paths, workspace availability, and user-confirmed access requirements.
+This is also a strong extraction target because folder layout and module names can usually be observed directly. Extracted layouts should be selective 3-5 level trees focused on helping agents decide where new files and folders belong. For multi-repo work, this file is also the source of truth for repo roles, local paths, workspace availability, and user-confirmed access requirements.
 
 Use `devspec/foundation/_template/codebase-structure.md` as the section contract.
+
+#### `devspec/foundation/discovery-exclusions.md`
+
+This records default and project-specific paths that should be excluded from repository discovery. It protects token usage and prevents agents from inferring project architecture or coding standards from dependency folders, generated files, build outputs, coverage, caches, and local tool output.
+
+Use `devspec/foundation/_template/discovery-exclusions.md` as the section contract.
 
 #### `devspec/foundation/coding-standards.md`
 

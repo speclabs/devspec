@@ -17,13 +17,14 @@ You create or update `devspec/foundation/tech-stack.md`.
 - Organize by project or repo with Markdown tables for languages, frameworks, services, tooling, hosting, versions, constraints, and assumptions.
 - Include current LTS versions when practical to verify; otherwise record `unverified` instead of guessing.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before repository search, version lookup, web checks, or helper commands.
 - Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated version lookup, web checks, repository search, or helper commands.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Read the existing artifact if it exists.
 2. Ask one clarification at a time if required input is incomplete or ambiguous.
-3. Check `devspec/foundation/exploration-state.md` for known working or failed version lookup, web-check, or repository search methods for the same technology or repo.
+3. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed version lookup, web-check, or repository search methods for the same technology or repo.
 4. Gather or confirm version details for each project, including current LTS versions when practical to verify.
 5. Record meaningful working and failed lookup methods in `exploration-state.md`.
 6. Merge the required user input into a stable per-project tech-stack structure using tables.
@@ -33,6 +34,7 @@ You create or update `devspec/foundation/tech-stack.md`.
 ## Output Format
 - Artifact updated
 - Projects covered and key table changes
+- Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Questions resolved or remaining blockers
 - Recommended next step or prompt to run

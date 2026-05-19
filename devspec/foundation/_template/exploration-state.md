@@ -4,6 +4,8 @@ Use this file to avoid repeating known failed searches, generated scripts, helpe
 
 Keep entries concise and evidence-based. Remove or update stale entries when the environment changes.
 
+Apply `devspec/foundation/discovery-exclusions.md` before recording or reusing exploration methods.
+
 ## Known Working Methods
 
 | Scope | Goal | Working method | Last verified | Notes |

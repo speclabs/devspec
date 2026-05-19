@@ -35,13 +35,14 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - If no pending task remains, notify the user that all planned tasks are already implemented and update `implement.md` to reflect the completed task list and completion summary.
 - When the implementation is ready for inspection, hand off to `devspec.review` rather than treating implementation as final closure.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before code search, repair probing, helper commands, or validation discovery.
 - Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated code search, repair probing, helper commands, or validation discovery.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Locate the target work item.
 2. Read `finalize.md`, `tasks.md`, `implement.md`, and relevant code context.
-3. Check `devspec/foundation/exploration-state.md` for known working or failed methods for the same repo, task, search goal, helper command, or validation goal.
+3. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed methods for the same repo, task, search goal, helper command, or validation goal.
 4. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 5. For multi-repo work, follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) and confirm the required repo paths and access requirements before implementation starts, including repos outside the current repo folder.
 6. Record the pre-run token-usage summary when telemetry is available, or record that it is unavailable.
@@ -65,6 +66,7 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - Implementation status
 - Changed files or areas
 - Validation outcome
+- Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Confirmation outcome
 - Next-task handoff when applicable

@@ -25,13 +25,14 @@ You create or update `devspec/work-items/<feature-name>/tasks.md`.
 - Use session memory only for transient dependency mapping, open questions, and decomposition notes; `tasks.md` remains the canonical task list.
 - Update `tasks.md` in place.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before Explore runs or impact, pattern, dependency, or verification-surface discovery.
 - Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before Explore runs or repeated impact, pattern, dependency, or verification-surface discovery.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Locate the target work item.
 2. Read `finalize.md` and relevant foundation artifacts.
-3. Check `devspec/foundation/exploration-state.md` for known working or failed discovery methods for the same work item, repo, or impacted area.
+3. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed discovery methods for the same work item, repo, or impacted area.
 4. Use `Explore` when needed to map impacted areas, find reusable implementation patterns, or separate parallelizable work from blocking dependencies.
 5. Persist meaningful discovery notes, working methods, failed methods, dependency mapping, and unresolved questions to `exploration-state.md` and session memory before asking for clarification or finalizing the task breakdown.
 6. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
@@ -43,6 +44,7 @@ You create or update `devspec/work-items/<feature-name>/tasks.md`.
 ## Output Format
 - Work-item path updated
 - Key task groups
+- Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Blockers or next step
 - Recommended next step or prompt to run

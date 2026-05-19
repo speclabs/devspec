@@ -23,13 +23,14 @@ You review the current work item and update `devspec/work-items/<feature-name>/r
 - If the work item is a bug or security vulnerability, apply the stricter review expectations from `../../devspec/foundation/rules.md`.
 - Update `review.md` in place.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before code search, validation-gap discovery, or review context probing.
 - Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated code search, validation-gap discovery, or review context probing.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Locate the target work item.
 2. Read `finalize.md`, `tasks.md` when present, `implement.md`, `review.md` when present, and relevant code context.
-3. Check `devspec/foundation/exploration-state.md` for known working or failed review/discovery methods for the same repo, work item, or code area.
+3. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed review/discovery methods for the same repo, work item, or code area.
 4. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 5. Check scope adherence, bugs, regressions, security risks, validation gaps, and missing tests.
 6. Record meaningful working and failed review discovery methods in `exploration-state.md`.
@@ -41,6 +42,7 @@ You review the current work item and update `devspec/work-items/<feature-name>/r
 - Review status
 - Top findings
 - Validation gaps
+- Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Next step or handoff
 - Recommended next step or prompt to run
