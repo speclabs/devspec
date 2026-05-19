@@ -47,19 +47,21 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - For formatting-sensitive languages or SQL/database code, capture compact canonical snippets that show indentation, grouping, and layout without copying large code blocks.
 - Limit coding-standard examples to representative snippets, usually 5-20 lines, and link to source paths for full context.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern).
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Parse and validate each repository URL or local path.
-2. Use `Explore` when needed to gather evidence from source trees, repository metadata, supporting documentation, and analogous patterns.
-3. Persist meaningful discovery notes and unresolved questions to session memory before moving to clarification or writing.
-4. Build an evidence-backed outline grouped into constitution candidates, architecture facts, and foundation facts.
-5. Build a pending-confirmation queue using the extraction priority order, and ask only the first unresolved confirmation using the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
-6. Wait for the user's answer before asking any other question or writing gated changes. Do not include a second confirmation request in the same response.
-7. Update architecture and foundation artifacts in place while preserving manual content.
-8. Process confirmed Mermaid diagram or user-journey items from `artifact-queue.md` one at a time, stopping for confirmation before each generated artifact.
-9. If constitution changes are confirmed, update `devspec/constitution.md` in place.
-10. Report sources processed, artifacts updated, diagram queue status, evidence confidence, blockers, and next prompt.
+2. Check `devspec/foundation/exploration-state.md` and session memory for known failed and working methods for the same source and extraction goal; use a recorded working method first and skip known failed methods unless retry conditions are met.
+3. Use `Explore` when needed to gather evidence from source trees, repository metadata, supporting documentation, and analogous patterns.
+4. Persist meaningful discovery notes, working methods, failed methods, and unresolved questions to `exploration-state.md` and session memory before moving to clarification or writing.
+5. Build an evidence-backed outline grouped into constitution candidates, architecture facts, and foundation facts.
+6. Build a pending-confirmation queue using the extraction priority order, and ask only the first unresolved confirmation using the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
+7. Wait for the user's answer before asking any other question or writing gated changes. Do not include a second confirmation request in the same response.
+8. Update architecture and foundation artifacts in place while preserving manual content.
+9. Process confirmed Mermaid diagram or user-journey items from `artifact-queue.md` one at a time, stopping for confirmation before each generated artifact.
+10. If constitution changes are confirmed, update `devspec/constitution.md` in place.
+11. Report sources processed, artifacts updated, diagram queue status, evidence confidence, blockers, skipped known failed methods, and next prompt.
 
 ## Output Format
 - Sources processed
@@ -67,5 +69,6 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Confirmation requested or received
 - Diagram queue status
 - Key evidence and confidence
+- Skipped known failed methods, if any
 - Questions resolved or remaining blockers
 - Recommended next step or prompt to run

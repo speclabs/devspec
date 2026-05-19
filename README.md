@@ -12,13 +12,16 @@ In short: `devspec` helps teams define the spec before coding, keep implementati
 
 ## What devspec adds to a repository
 
-When installed into a project, `devspec` adds two kinds of assets:
+When installed into a project, `devspec` adds three kinds of assets:
 
 1. `devspec/`
    This is the canonical source of truth for project context, architecture, rules, and work-item artifacts.
 
 2. `.github/prompts/` and `.github/agents/`
    These power the GitHub Copilot Chat slash-command workflow such as `/devspec.extract`, `/devspec.projectcontext`, and `/devspec.story`.
+
+3. `.github/skills/`
+   Optional reusable GitHub-hosted skills for agent behaviors that should travel across repositories, such as exploration recovery.
 
 ## How devspec works
 
@@ -55,6 +58,7 @@ Before you start:
 - for multi-repo work, open a VS Code multi-root workspace that includes every repo you expect to inspect, edit, test, or coordinate
 - make sure GitHub Copilot Chat is available in that workspace
 - copy both `.github/prompts/` and `.github/agents/` along with `devspec/`, because the slash-command workflow depends on all three
+- optionally copy `.github/skills/` when you want agents to reuse the bundled skills directly
 
 For multi-repo work, the most reliable pattern is to keep one shared workspace open and record repo configuration in `devspec/foundation/codebase-structure.md`. That keeps one source of truth for local repo paths and access requirements, so story, tasks, finalize, and implement rely on the same configured repos. Single-repo work does not need any extra repo configuration.
 
@@ -64,6 +68,7 @@ Manual upgrade ownership:
 
 | Path | Owner | Upgrade action |
 | --- | --- | --- |
+| `.github/skills/` | framework | Replace or diff-apply |
 | `.github/agents/` | framework | Replace or diff-apply |
 | `.github/prompts/` | framework | Replace or diff-apply |
 | `devspec/**/_template/` | framework | Replace or diff-apply |
@@ -76,6 +81,7 @@ Manual upgrade ownership:
 Installation worked if:
 
 - the copied files are visible in the target repository under `devspec/`, `.github/prompts/`, and `.github/agents/`
+- if copied, `.github/skills/exploration-recovery/SKILL.md` is visible in the target repository
 - `.github/prompts/PATTERNS.md` is present, because every prompt and agent relies on the shared patterns there
 - GitHub Copilot Chat in that repository recognizes `/devspec` commands such as `/devspec.projectcontext` or `/devspec.story`
 
@@ -101,21 +107,24 @@ your-repo/
 |   |   |-- devspec.story.agent.md
 |   |   |-- devspec.tasks.agent.md
 |   |   `-- devspec.techstack.agent.md
-|   `-- prompts/
-|       |-- PATTERNS.md
-|       |-- README.md
-|       |-- devspec.clarify.prompt.md
-|       |-- devspec.codebase-structure.prompt.md
-|       |-- devspec.coding-standards.prompt.md
-|       |-- devspec.extract.prompt.md
-|       |-- devspec.finalize.prompt.md
-|       |-- devspec.implement.prompt.md
-|       |-- devspec.projectcontext.prompt.md
-|       |-- devspec.review.prompt.md
-|       |-- devspec.rules.prompt.md
-|       |-- devspec.story.prompt.md
-|       |-- devspec.tasks.prompt.md
-|       `-- devspec.techstack.prompt.md
+|   |-- prompts/
+|   |   |-- PATTERNS.md
+|   |   |-- README.md
+|   |   |-- devspec.clarify.prompt.md
+|   |   |-- devspec.codebase-structure.prompt.md
+|   |   |-- devspec.coding-standards.prompt.md
+|   |   |-- devspec.extract.prompt.md
+|   |   |-- devspec.finalize.prompt.md
+|   |   |-- devspec.implement.prompt.md
+|   |   |-- devspec.projectcontext.prompt.md
+|   |   |-- devspec.review.prompt.md
+|   |   |-- devspec.rules.prompt.md
+|   |   |-- devspec.story.prompt.md
+|   |   |-- devspec.tasks.prompt.md
+|   |   `-- devspec.techstack.prompt.md
+|   `-- skills/
+|       `-- exploration-recovery/
+|           `-- SKILL.md
 `-- devspec/
     |-- constitution.md
     |-- glossary.md
@@ -134,12 +143,14 @@ your-repo/
     |   |   |-- tech-stack.md
     |   |   |-- codebase-structure.md
     |   |   |-- coding-standards.md
+    |   |   |-- exploration-state.md
     |   |   |-- provider-integrations.md
     |   |   `-- rules.md
     |   |-- project-context.md
     |   |-- tech-stack.md
     |   |-- codebase-structure.md
     |   |-- coding-standards.md
+    |   |-- exploration-state.md
     |   |-- provider-integrations.md
     |   `-- rules.md
     `-- work-items/
@@ -163,6 +174,7 @@ For a brand-new repository with little or no existing code:
    - `devspec/`
    - `.github/prompts/`
    - `.github/agents/`
+   - `.github/skills/` when you want reusable agent skills
 2. Commit the copied files.
 3. Open the repository in GitHub Copilot Chat.
 4. Start the foundation workflow with `/devspec.projectcontext`.
@@ -179,6 +191,7 @@ For an existing application or monorepo:
    - `devspec/`
    - `.github/prompts/`
    - `.github/agents/`
+   - `.github/skills/` when you want reusable agent skills
 2. Commit the copied files.
 3. Open the repository in GitHub Copilot Chat.
 4. Start with `/devspec.extract` and point it at the current repository path or repository URL.
@@ -228,6 +241,7 @@ These are core behaviors baked into the prompts and agents:
 - Clarification should happen one question at a time.
 - Clickable options with `Custom Answer` and one recommended option with a short justification are preferred whenever reasonable.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
+- Discovery-heavy commands should check `devspec/foundation/exploration-state.md`, use known working methods first, and skip known failed searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
 - `/devspec.finalize` should mark a story `not ready` if blockers remain.
 - `/devspec.tasks` must not expand scope.
 - `/devspec.implement` should implement pending tasks sequentially, asking whether to proceed after each task.
@@ -245,6 +259,7 @@ What it does:
 
 - validates repository URLs or local repository paths
 - reads repository layout, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
+- prefers direct repository search and known working exploration methods before trying new generated scripts
 - proposes updates to:
   - `devspec/constitution.md`
   - `devspec/architecture/overview.md`
@@ -697,6 +712,8 @@ Holds project-operational context and constraints.
   Repository layout, module boundaries, ownership seams, and integration boundaries.
 - `coding-standards.md`
   Implementation expectations, testing rules, error handling, logging, documentation, and review norms.
+- `exploration-state.md`
+  Known working and failed discovery methods for searches, scripts, provider lookups, validation probes, and extraction paths.
 - `provider-integrations.md`
   Manually maintained provider intake policy for external systems such as GitHub, Jira, or Azure DevOps.
 - `rules.md`

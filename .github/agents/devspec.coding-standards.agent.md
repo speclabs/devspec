@@ -24,17 +24,21 @@ You create or update `devspec/foundation/coding-standards.md`.
 - Link to real source files or standards docs for full context instead of copying large files.
 - Ask one clarification at a time when evidence conflicts or a detected pattern should become a rule.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated standards-doc lookup, code-pattern search, or helper commands.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Read the existing artifact if it exists.
 2. Ask one clarification at a time if required input is incomplete or ambiguous.
-3. Merge the required user input into a stable coding-standards pattern catalog, preserving language-specific sections, standards sources, evidence, confidence, and short examples when applicable.
-4. Write the updated artifact.
-5. Report key changes, blockers, and next prompt.
+3. Check `devspec/foundation/exploration-state.md` for known working or failed standards lookup or code-pattern search methods for the same repo, language, or framework.
+4. Merge the required user input into a stable coding-standards pattern catalog, preserving language-specific sections, standards sources, evidence, confidence, and short examples when applicable.
+5. Record meaningful working and failed lookup methods in `exploration-state.md`.
+6. Write the updated artifact.
+7. Report key changes, blockers, skipped known failed methods, and next prompt.
 
 ## Output Format
 - Artifact updated
 - Key changes
+- Skipped known failed methods, if any
 - Questions resolved or remaining blockers
 - Recommended next step or prompt to run

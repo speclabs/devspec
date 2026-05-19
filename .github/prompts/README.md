@@ -10,10 +10,12 @@ Work items: `story` -> `clarify` -> `finalize` -> `tasks` -> `implement` -> `rev
 
 ## Shared References
 
-- `PATTERNS.md`: shared interaction, prerequisite, token, output, foundation, work-item, memory, and multi-repo rules.
+- `PATTERNS.md`: shared interaction, prerequisite, token, output, foundation, work-item, memory, exploration recovery, and multi-repo rules.
 - `../../devspec/foundation/rules.md`: bug, security, review, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
+- `../../devspec/foundation/exploration-state.md`: durable record of known working and failed discovery methods.
 - `../../devspec/foundation/provider-integrations.md`: manually maintained provider intake and manual fallback policy.
+- `../skills/exploration-recovery/SKILL.md`: reusable GitHub skill for avoiding repeated failed exploration paths.
 - `../../devspec/foundation/_template/`: framework-owned section contracts for foundation artifacts.
 - `../../devspec/architecture/_template/`: framework-owned section contracts for architecture artifacts.
 - `../../devspec/architecture/decisions/_template.md`: framework-owned ADR section contract.

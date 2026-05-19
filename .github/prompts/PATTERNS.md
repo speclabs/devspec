@@ -31,6 +31,17 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - Do not duplicate content already captured in another devspec artifact. Link or name the source instead.
 - Preserve user-authored content with targeted edits instead of whole-file rewrites.
 
+## Exploration Recovery Pattern
+
+- When `.github/skills/exploration-recovery/SKILL.md` is available, use it as the operational procedure for this pattern.
+- Before broad search, generated scripts, helper commands, provider lookup, or repeated discovery, check `devspec/foundation/exploration-state.md` and session memory for known working and failed methods in the same scope.
+- Use known working methods first when the scope and goal match.
+- Skip known failed methods unless the user says the environment changed, the input changed, credentials changed, dependencies were installed, or the command was corrected.
+- Prefer built-in repository search, targeted file reads, manifest inspection, and configured provider tools before generating broad helper scripts.
+- Limit probing to one new generated script, helper command, provider lookup path, or expensive search strategy per source or goal before falling back to direct search/read evidence gathering.
+- When a fallback succeeds after a failed method, record the scope, goal, failed method, failure reason, working method, and retry condition in `devspec/foundation/exploration-state.md`; optionally mirror a concise transient summary in `/memories/session/<stage>.md`.
+- On rerun, use the recorded working method first and mention skipped known failures in the output.
+
 ## Foundation Update Pattern
 
 - Required user input is mandatory.

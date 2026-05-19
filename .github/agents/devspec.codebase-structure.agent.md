@@ -22,17 +22,21 @@ You create or update `devspec/foundation/codebase-structure.md`.
 - Never assume `reference-only` or any other access requirement. If a repo access requirement is missing or ambiguous, ask one repo-specific multiple-choice confirmation before writing that row.
 - Follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) when the input spans multiple repos.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
+- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated repository layout search or helper commands.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
 1. Read the existing artifact if it exists.
 2. Ask one clarification at a time if required input is incomplete or ambiguous, including one multiple-choice access requirement confirmation per repo when needed.
-3. Merge the required user input into a stable codebase-structure document, keeping repository layout sections in selective 2-4 level tree-node format with one heading per repo and user-confirmed access requirements for multi-repo configuration.
-4. Write the updated artifact.
-5. Report key changes, blockers, and next prompt.
+3. Check `devspec/foundation/exploration-state.md` for known working or failed repository layout discovery methods for the same repo.
+4. Merge the required user input into a stable codebase-structure document, keeping repository layout sections in selective 2-4 level tree-node format with one heading per repo and user-confirmed access requirements for multi-repo configuration.
+5. Record meaningful working and failed layout discovery methods in `exploration-state.md`.
+6. Write the updated artifact.
+7. Report key changes, blockers, skipped known failed methods, and next prompt.
 
 ## Output Format
 - Artifact updated
 - Key changes, including repo headings and tree sections updated
+- Skipped known failed methods, if any
 - Questions resolved or remaining blockers
 - Recommended next step or prompt to run
