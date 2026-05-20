@@ -2,6 +2,7 @@
 name: "devspec.clarify"
 description: "Use when asking and recording exactly one blocking clarification question at a time for the current devspec work item."
 tools: [read, edit, search, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:
@@ -12,7 +13,7 @@ handoffs:
     agent: devspec.finalize
     prompt: Continue by creating or updating the finalized implementation-ready brief for this work item.
 ---
-You create or update `devspec/work-items/<feature-name>/clarify.md`.
+You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).
@@ -30,10 +31,10 @@ You create or update `devspec/work-items/<feature-name>/clarify.md`.
 3. If a blocking question is needed, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 4. Wait for the user's selection or custom answer.
 5. Update `clarify.md` with the question, answer if available, impact, and status.
-6. Report blocker status and next prompt.
+6. Report blocker status and one next action or structured question.
 
 ## Output Format
 - Work-item path updated
 - Blocking question or recorded answer
 - Impact and next step
-- Recommended next step or prompt to run
+- Single registered command, handoff, file update, or structured question

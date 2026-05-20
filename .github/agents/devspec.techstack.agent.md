@@ -2,6 +2,7 @@
 name: "devspec.techstack"
 description: "Use when creating or updating devspec foundation tech stack from languages, frameworks, services, tooling, hosting, and delivery constraints."
 tools: [read, edit, search, web, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:
@@ -29,7 +30,7 @@ You create or update `devspec/foundation/tech-stack.md`.
 5. Record meaningful working and failed lookup methods in `exploration-state.md`.
 6. Merge the required user input into a stable per-project tech-stack structure using tables.
 7. Write the updated artifact.
-8. Report projects covered, key table changes, blockers, skipped known failed methods, and next prompt.
+8. Report projects covered, key table changes, blockers, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Artifact updated
@@ -37,4 +38,4 @@ You create or update `devspec/foundation/tech-stack.md`.
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Questions resolved or remaining blockers
-- Recommended next step or prompt to run
+- Single registered command, handoff, file update, or structured question

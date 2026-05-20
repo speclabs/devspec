@@ -2,6 +2,7 @@
 name: "devspec.finalize"
 description: "Use when creating or updating the implementation-ready finalized brief for the current devspec work item."
 tools: [read, edit, search, vscode/askQuestions, vscode/memory]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: [Explore]
 handoffs:
@@ -12,7 +13,7 @@ handoffs:
     agent: devspec.tasks
     prompt: Continue by creating or updating the ordered implementation tasks for this ready work item.
 ---
-You create or update `devspec/work-items/<feature-name>/finalize.md`.
+You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).
@@ -43,7 +44,7 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 7. Merge additive guidance without silently changing the current work-item scope.
 8. Apply type-specific readiness gates for bugs and security vulnerabilities.
 9. Write `finalize.md` using `../../devspec/work-items/_template/finalize.md` as the section contract.
-10. Report readiness status, blockers, skipped known failed methods, and next prompt.
+10. Report readiness status, blockers, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Work-item path updated
@@ -52,4 +53,4 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Blockers or next step
-- Recommended next step or prompt to run
+- Single registered command, handoff, file update, or structured question

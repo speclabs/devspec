@@ -2,6 +2,7 @@
 name: "devspec.coding-standards"
 description: "Use when creating or updating devspec foundation coding standards for language-specific or framework-specific standards, engineering practices, or links to existing standards."
 tools: [read, edit, search, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:
@@ -35,7 +36,7 @@ You create or update `devspec/foundation/coding-standards.md`.
 4. Merge the required user input into a stable coding-standards pattern catalog, preserving language-specific sections, standards sources, evidence, confidence, and short examples when applicable.
 5. Record meaningful working and failed lookup methods in `exploration-state.md`.
 6. Write the updated artifact.
-7. Report key changes, blockers, skipped known failed methods, and next prompt.
+7. Report key changes, blockers, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Artifact updated
@@ -43,4 +44,4 @@ You create or update `devspec/foundation/coding-standards.md`.
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Questions resolved or remaining blockers
-- Recommended next step or prompt to run
+- Single registered command, handoff, file update, or structured question

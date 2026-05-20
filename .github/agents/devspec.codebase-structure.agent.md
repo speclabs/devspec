@@ -2,6 +2,7 @@
 name: "devspec.codebase-structure"
 description: "Use when creating or updating devspec foundation codebase structure for repository layout, module boundaries, ownership seams, and integration boundaries."
 tools: [read, edit, search, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:
@@ -33,7 +34,7 @@ You create or update `devspec/foundation/codebase-structure.md`.
 4. Merge the required user input into a stable codebase-structure document, keeping repository layout sections in selective 3-5 level tree-node format with one heading per repo and user-confirmed access requirements for multi-repo configuration.
 5. Record meaningful working and failed layout discovery methods in `exploration-state.md`.
 6. Write the updated artifact.
-7. Report key changes, blockers, skipped known failed methods, and next prompt.
+7. Report key changes, blockers, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Artifact updated
@@ -41,4 +42,4 @@ You create or update `devspec/foundation/codebase-structure.md`.
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Questions resolved or remaining blockers
-- Recommended next step or prompt to run
+- Single registered command, handoff, file update, or structured question

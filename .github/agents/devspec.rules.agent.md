@@ -2,6 +2,7 @@
 name: "devspec.rules"
 description: "Use when creating or updating devspec foundation rules for hard constraints, compliance requirements, forbidden patterns, governance rules, and delivery gates."
 tools: [read, edit, search, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:
@@ -28,7 +29,7 @@ You create or update `devspec/foundation/rules.md`.
 4. Merge the required user input into a stable rules document.
 5. Record meaningful working and failed discovery methods in `exploration-state.md`.
 6. Write the updated artifact.
-7. Report key changes, blockers, skipped known failed methods, and next prompt.
+7. Report key changes, blockers, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Artifact updated
@@ -36,4 +37,4 @@ You create or update `devspec/foundation/rules.md`.
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Questions resolved or remaining blockers
-- Recommended next step or prompt to run
+- Single registered command, handoff, file update, or structured question

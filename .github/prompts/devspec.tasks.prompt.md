@@ -5,7 +5,7 @@ argument-hint: "Optional: add additive guidance for task decomposition"
 agent: "devspec.tasks"
 ---
 
-Create or update `devspec/work-items/<feature-name>/tasks.md` for the current work item.
+Create or update `devspec/work-items/<work-item-folder>/tasks.md` for the current work item.
 
 Optional user input:
 ${input:tasksInput:Optional: add additive guidance for task decomposition}

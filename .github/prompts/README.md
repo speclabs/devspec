@@ -8,9 +8,28 @@ Foundation: `extract` -> `projectcontext` -> `techstack` -> `codebase-structure`
 
 Work items: `story` -> `clarify` -> `finalize` -> `tasks` -> `implement` -> `review`
 
+## Registered Slash Commands
+
+The registered devspec slash commands are:
+
+- `/devspec.extract`
+- `/devspec.projectcontext`
+- `/devspec.techstack`
+- `/devspec.codebase-structure`
+- `/devspec.coding-standards`
+- `/devspec.rules`
+- `/devspec.story`
+- `/devspec.clarify`
+- `/devspec.finalize`
+- `/devspec.tasks`
+- `/devspec.implement`
+- `/devspec.review`
+
+Recommendation behavior is defined by `PATTERNS.md#registered-command-recommendation-pattern`.
+
 ## Shared References
 
-- `PATTERNS.md`: shared interaction, prerequisite, token, output, foundation, work-item, memory, discovery exclusion, exploration recovery, and multi-repo rules.
+- `PATTERNS.md`: shared interaction, next-action selection, prerequisite, token, output, foundation, work-item, memory, discovery exclusion, exploration recovery, and multi-repo rules.
 - `../../devspec/foundation/rules.md`: bug, security, review, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
 - `../../devspec/foundation/discovery-exclusions.md`: default and project-specific paths to exclude from repository discovery.
@@ -21,6 +40,10 @@ Work items: `story` -> `clarify` -> `finalize` -> `tasks` -> `implement` -> `rev
 - `../../devspec/architecture/_template/`: framework-owned section contracts for architecture artifacts.
 - `../../devspec/architecture/decisions/_template.md`: framework-owned ADR section contract.
 - `../../devspec/work-items/_template/`: durable work-item artifact shapes.
+
+## Model Policy
+
+See [Model recommendations](../../README.md#model-recommendations). Agent frontmatter owns model fallback order; VS Code model-picker settings own thinking effort.
 
 ## Prompt Map
 

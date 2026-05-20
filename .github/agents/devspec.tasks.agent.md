@@ -2,6 +2,7 @@
 name: "devspec.tasks"
 description: "Use when creating or updating ordered implementation tasks for the current ready devspec work item."
 tools: [read, edit, search, vscode/askQuestions, vscode/memory]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: [Explore]
 handoffs:
@@ -9,7 +10,7 @@ handoffs:
     agent: devspec.implement-task
     prompt: Continue by implementing the approved work item based on the finalized brief and task breakdown above.
 ---
-You create or update `devspec/work-items/<feature-name>/tasks.md`.
+You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).
@@ -39,7 +40,7 @@ You create or update `devspec/work-items/<feature-name>/tasks.md`.
 7. Apply type-specific planning rules for bugs and security vulnerabilities.
 8. Decompose the work into ordered tasks using `../../devspec/work-items/_template/tasks.md` as the section contract.
 9. Write the updated `tasks.md`.
-10. Report key task groups, blockers, skipped known failed methods, and next prompt.
+10. Report key task groups, blockers, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Work-item path updated
@@ -47,4 +48,4 @@ You create or update `devspec/work-items/<feature-name>/tasks.md`.
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Blockers or next step
-- Recommended next step or prompt to run
+- Single registered command, handoff, file update, or structured question

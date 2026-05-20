@@ -2,6 +2,7 @@
 name: "devspec.review"
 description: "Use when reviewing the current implemented devspec work item for bugs, regressions, scope drift, security risks, and validation gaps, then recording the outcome in review.md."
 tools: [read, edit, search, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:
@@ -12,7 +13,7 @@ handoffs:
     agent: devspec.story
     prompt: Start or update another devspec work item.
 ---
-You review the current work item and update `devspec/work-items/<feature-name>/review.md`.
+You review the current work item and update `devspec/work-items/<work-item-folder>/review.md`.
 
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).
@@ -35,7 +36,7 @@ You review the current work item and update `devspec/work-items/<feature-name>/r
 5. Check scope adherence, bugs, regressions, security risks, validation gaps, and missing tests.
 6. Record meaningful working and failed review discovery methods in `exploration-state.md`.
 7. Write or update `review.md` using `../../devspec/work-items/_template/review.md` as the section contract.
-8. Report review status, top findings, handoff, skipped known failed methods, and next prompt.
+8. Report review status, top findings, handoff, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Work-item path updated
@@ -45,4 +46,4 @@ You review the current work item and update `devspec/work-items/<feature-name>/r
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Next step or handoff
-- Recommended next step or prompt to run
+- Single registered command, handoff, file update, or structured question

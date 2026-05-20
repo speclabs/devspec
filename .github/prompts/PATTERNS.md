@@ -5,12 +5,35 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 ## Interactive Question Pattern
 
 - Ask exactly one blocking clarification, confirmation, or selection question at a time.
-- Use clickable multiple-choice options whenever reasonable.
+- Use clickable multiple-choice options whenever reasonable; for confirmations and workflow decisions, explicit options are required.
 - Always include a `Custom Answer` option.
 - Recommend exactly one option with a short justification.
+- Do not ask open-ended confirmation questions such as "Do you want..." or "Would you like..." without explicit selectable options.
+- Use `Yes`, `No`, and `Custom Answer` for binary confirmations.
+- Use `Proceed`, `Skip`, and `Custom Answer` for workflow continuation, queue processing, task continuation, generated artifact approval, or retry decisions.
+- Use domain-specific option sets only when the stage defines them, such as provider intake actions or multi-repo access requirement values.
 - Wait for the user's answer before asking the next question.
 - Do not bundle unrelated questions into one message.
 - If multiple confirmations are discovered at once, present only the highest-priority one and defer the rest until after the user answers.
+
+## Next Action Selection Pattern
+
+- The recommended next step must be singular.
+- Do not output multiple next prompts, alternative command lists, or peer next-action bullets when any clarification, confirmation, queue item, handoff, retry, or fallback decision is pending.
+- When multiple next actions are possible, pick the highest-priority unresolved action for the current stage and ask exactly one structured question using the [Interactive Question Pattern](#interactive-question-pattern).
+- If no confirmation or selection is pending, provide exactly one recommended registered slash command, handoff, file update, or structured question.
+- For queues, select the next unresolved item by the queue order and status unless the stage defines a stricter priority; do not ask the user to choose among multiple queued items unless the queue order is ambiguous.
+- A final response may summarize completed work, but its action close must be one next action or one structured question.
+
+## Registered Command Recommendation Pattern
+
+- Use `.github/prompts/README.md#registered-slash-commands` as the canonical command registry.
+- Agents must recommend only slash commands listed in the canonical command registry.
+- Do not invent slash commands from natural workflow names, artifact names, queue names, or agent names.
+- Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.architecture`, `/devspec.provider-integrations`, `/devspec.queue`, or `/devspec.decisions`.
+- Before outputting a slash command recommendation, verify that it is in the registered command list and that the matching `.github/prompts/devspec.<command>.prompt.md` file exists.
+- If no registered command fits, recommend a concrete file update, a configured handoff, or a structured question instead of a slash command.
+- Map common workflow labels to registered commands when appropriate: planning maps to `/devspec.tasks`, implementation maps to `/devspec.implement`, review maps to `/devspec.review`, and provider integration changes map to manual updates in `devspec/foundation/provider-integrations.md`.
 
 ## Prerequisite Validation Pattern
 
@@ -21,8 +44,11 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 
 ## Output Closure Pattern
 
-- End with a recommended next step or next prompt to run.
-- Summarize only the artifact or work-item path updated, the key outcome, blockers or open questions, and the recommended next step.
+- Follow the [Next Action Selection Pattern](#next-action-selection-pattern).
+- Follow the [Registered Command Recommendation Pattern](#registered-command-recommendation-pattern) before recommending any slash command.
+- End with exactly one registered command, handoff, file update, or structured question.
+- If the next step requires user confirmation, selection, retry approval, queue approval, or workflow continuation, ask one structured question with explicit options instead of listing possible next prompts.
+- Summarize only the artifact or work-item path updated, the key outcome, blockers or open questions, and the single next action.
 
 ## Token Stewardship Pattern
 
@@ -71,8 +97,20 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 ## Work-Item Target Pattern
 
 - Use the current work item when clear; otherwise ask the user to select one, following the Interactive Question Pattern.
+- Work-item folders must follow the [Work-Item Folder Naming Pattern](#work-item-folder-naming-pattern) when created by `/devspec.story`.
 - Treat optional user input as additive guidance only.
 - Update the target work-item artifact in place and stay within the current stage scope; after finalization, stay within the finalized scope.
+
+## Work-Item Folder Naming Pattern
+
+- New work-item folders must use `<provider-prefix-optional>-<story-number>-<kebab-case-title>`.
+- Validate new folder names with `^(?:[A-Z]{3,5}-)?[0-9]+-[a-z0-9]+(?:-[a-z0-9]+)*$`.
+- Provider prefix is optional. When present, it must be 3-5 uppercase letters. Use known mappings where available: GitHub -> `GHUB`, Azure DevOps -> `ADO`, Jira -> `JIRA`.
+- Story number must be numeric and should come from the resolved provider item, issue number, work item id, or manually supplied external reference.
+- Title slug must be lowercase kebab-case from the resolved provider title or manually supplied title. Remove punctuation, replace separators with hyphens, collapse repeated hyphens, and trim leading or trailing hyphens.
+- If provider prefix, numeric story number, or title slug is missing or ambiguous, ask exactly one structured question before creating the folder.
+- Do not create or rename a work-item folder until the generated folder name is valid or the user confirms a custom valid name.
+- Do not automatically rename existing work-item folders. Treat non-matching existing folders as legacy and continue using them unless the user explicitly asks to rename.
 
 ## Multi-Repo Validation Pattern
 
