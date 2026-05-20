@@ -1,5 +1,20 @@
 # Finalize
 
+## Resume State
+
+- Current stage: finalize
+- Current command: `/devspec.finalize`
+- Current agent: devspec.finalize
+- Run status: active | waiting-for-user | paused | stopped | blocked | complete
+- Current item:
+- Last completed step:
+- Next required action:
+- Pending user question:
+- Recommended option:
+- Resume command: `/devspec.finalize`
+- Resume notes:
+- Updated:
+
 ## Work-Item Classification
 
 - Type:

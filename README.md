@@ -248,10 +248,40 @@ These are core behaviors baked into the prompts and agents:
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
 - Repository discovery must exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output paths by default; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
 - Discovery-heavy commands should check `devspec/foundation/exploration-state.md`, use known working methods first, and skip known failed searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
+- Work-item commands should recover from Git-tracked `devspec` artifacts first. Session memory and chat history are transient helpers, not the source of truth.
+- Work items are the orchestration boundary. Tasks, target repos, target areas, and attempts are execution checkpoints inside the work item.
+- A paused run should continue from the recorded current task or question. A stopped run should ask one structured continuation question before changing code.
 - `/devspec.finalize` should mark a story `not ready` if blockers remain.
 - `/devspec.tasks` must not expand scope.
 - `/devspec.implement` should implement pending tasks sequentially, then ask one structured `Proceed`, `Skip`, or `Custom Answer` question after each task.
 - `/devspec.review` should review against the finalized brief, not re-plan the story.
+
+## Session recovery and continuation
+
+Copilot and agent sessions can lose context. `devspec` handles that by making the repository, not the chat session, the durable source of truth.
+
+Recommended enterprise model:
+
+- Use the work item as the audit, scope, and orchestration boundary.
+- Use tasks as repo-aware execution checkpoints inside the work item.
+- Store current stage, current task, pending question, next action, and resume command in `Resume State`.
+- Store implementation progress, attempts, changed files, validation, blockers, and rollback or roll-forward notes in `implement.md`.
+- Store reusable discovery successes and failures in `devspec/foundation/exploration-state.md`.
+
+This works for both monoliths and multi-repo systems. In a monolith, tasks usually share the same target repo and differ by module, layer, or validation surface. In multi-repo work, each executable task must name its target repo and required access, while the work item still owns the end-to-end business intent.
+
+Run statuses:
+
+| Status | Meaning | Resume behavior |
+| --- | --- | --- |
+| `active` | Work is in progress. | Continue from the current item. |
+| `waiting-for-user` | A question or confirmation is pending. | Ask or preserve the recorded question. |
+| `paused` | User intends to continue from the same point. | Resume directly when prerequisites still hold. |
+| `stopped` | User intentionally ended the run. | Ask one `Continue`, `Pause`, `Skip`, or `Custom Answer` question before changing code. |
+| `blocked` | Required evidence, access, or prerequisites are missing. | Continue only after the recorded blocker condition is resolved. |
+| `complete` | The stage is done. | Hand off to the next registered command or agent. |
+
+Retry handling is intentionally bounded. If an implementation or repair task exceeds three attempts, the agent records the failed method, failure reason, retry condition, and next safer method, then asks one structured continuation question instead of looping.
 
 ## Model recommendations
 
@@ -628,12 +658,14 @@ Important behavior:
 - requires `finalize.md` to be `ready`
 - requires `tasks.md`
 - implements pending tasks sequentially until the work is completed or the user chooses to stop or skip
+- resumes from `implement.md` and `meta.md` when a prior session was paused, stopped, blocked, or waiting for user input
 - for multi-repo work, uses the repo configuration in `devspec/foundation/codebase-structure.md` as the single source of truth for which physical repo path to change and what access is allowed
 - validates required repo paths and access requirements before making code changes or running validation, and surfaces missing repo access as a blocker
+- records task state by target repo, target area, status, attempt count, and last checkpoint
 - after each task, reports completed and pending counts and asks one structured question with `Proceed`, `Skip`, and `Custom Answer`
 - once all tasks are implemented, records the completed task list and completion summary
-- if the same task needs more than 3 attempts, explains the blocker before asking whether to proceed, skip, or provide custom direction
-- updates the execution log and next-task handoff
+- if the same task exceeds three attempts, explains the blocker before asking whether to proceed, skip, or provide custom direction
+- updates the execution log, last safe checkpoint, and next-task handoff
 - for bug fixes, records focused before-and-after code snippets in `implement.md` when useful for review or audit
 
 Example:
@@ -788,6 +820,8 @@ Holds broader technical architecture.
 ### `devspec/work-items/`
 
 Holds one folder per story, feature, bug, or security issue. Each work item carries its own staged artifacts from intake through review.
+
+Each work-item artifact can include `Resume State`, which lets a new Copilot or agent session recover the current stage, pending question, next safe action, and resume command from Git-tracked files. Implementation also records task-level checkpoints in `implement.md` so monolith and multi-repo work can continue by target repo, target area, and task status.
 
 ## Advanced: extracting information from an existing project
 

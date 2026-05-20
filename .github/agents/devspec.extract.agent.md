@@ -14,6 +14,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 
 ## Constraints
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); required user input is mandatory for this stage.
+- Follow the [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern) for confirmation gates, retry decisions, and resumable artifact queues.
 - Accept only GitHub, Azure DevOps, or GitLab repository URLs, or local repository folder paths.
 - Treat remote inputs as repository URLs only. Reject issue, pull request, merge request, work item, wiki, release, and pipeline URLs.
 - Support a single repo, a monorepo root, or multiple related repos.

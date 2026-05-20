@@ -1,5 +1,20 @@
 # Story
 
+## Resume State
+
+- Current stage: story
+- Current command: `/devspec.story`
+- Current agent: devspec.story
+- Run status: active | waiting-for-user | paused | stopped | blocked | complete
+- Current item:
+- Last completed step:
+- Next required action:
+- Pending user question:
+- Recommended option:
+- Resume command: `/devspec.story`
+- Resume notes:
+- Updated:
+
 ## Metadata
 
 - Title:

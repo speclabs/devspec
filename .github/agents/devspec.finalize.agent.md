@@ -17,6 +17,7 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).
+- Follow the [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern).
 - Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern) when clarification, selection, or confirmation is required.
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); required upstream artifacts must exist before finalization.
 - If blockers remain, mark the brief as `not ready`.
@@ -29,6 +30,7 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 - Use the `Explore` subagent when implementation context, analogous existing behavior, or likely impact areas need quick discovery before finalizing the brief.
 - Use session memory only for transient discovery notes, assumptions, and open questions; `finalize.md` remains the canonical brief.
 - Update `finalize.md` in place.
+- Update `Resume State` in `meta.md` and `finalize.md` before recording `not ready`, asking for clarification, or handing off to task planning.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before Explore runs or code/context discovery.
 - Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before Explore runs or repeated code/context discovery.
@@ -36,15 +38,16 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 
 ## Approach
 1. Locate the target work item.
-2. Read the required upstream artifacts.
-3. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed discovery methods for the same work item, repo, or impact area.
-4. Use `Explore` when needed to confirm impacted code areas, reusable patterns, dependencies, or likely blockers.
-5. Persist meaningful discovery notes, working methods, failed methods, and unresolved assumptions to `exploration-state.md` and session memory before asking for clarification or writing the brief.
-6. If target selection or blocker clarification is required, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
-7. Merge additive guidance without silently changing the current work-item scope.
-8. Apply type-specific readiness gates for bugs and security vulnerabilities.
-9. Write `finalize.md` using `../../devspec/work-items/_template/finalize.md` as the section contract.
-10. Report readiness status, blockers, skipped known failed methods, and one next action or structured question.
+2. Read `meta.md` when present and the required upstream artifacts.
+3. Reconcile `Resume State` before discovery or writing.
+4. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed discovery methods for the same work item, repo, or impact area.
+5. Use `Explore` when needed to confirm impacted code areas, reusable patterns, dependencies, or likely blockers.
+6. Persist meaningful discovery notes, working methods, failed methods, and unresolved assumptions to `exploration-state.md` and session memory before asking for clarification or writing the brief.
+7. If target selection or blocker clarification is required, update `Resume State` and follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
+8. Merge additive guidance without silently changing the current work-item scope.
+9. Apply type-specific readiness gates for bugs and security vulnerabilities.
+10. Write `finalize.md` using `../../devspec/work-items/_template/finalize.md` as the section contract.
+11. Report readiness status, blockers, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Work-item path updated

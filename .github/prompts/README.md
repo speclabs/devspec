@@ -29,7 +29,7 @@ Recommendation behavior is defined by `PATTERNS.md#registered-command-recommenda
 
 ## Shared References
 
-- `PATTERNS.md`: shared interaction, next-action selection, prerequisite, token, output, foundation, work-item, memory, discovery exclusion, exploration recovery, and multi-repo rules.
+- `PATTERNS.md`: shared interaction, next-action selection, prerequisite, session recovery, token, output, foundation, work-item, memory, discovery exclusion, exploration recovery, and multi-repo rules.
 - `../../devspec/foundation/rules.md`: bug, security, review, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
 - `../../devspec/foundation/discovery-exclusions.md`: default and project-specific paths to exclude from repository discovery.
