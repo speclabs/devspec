@@ -53,8 +53,8 @@ You generate or update one diagram artifact for a requested architecture, module
 11. Generate one concise Mermaid diagram with evidence notes and assumptions.
 12. Write the generated diagram to the selected target artifact and update `overview.md` with a link only when the target is a detailed architecture diagram file.
 13. Mark the queue row `generated`, `skipped`, or `blocked`.
-14. Record meaningful working or failed discovery methods in `exploration-state.md`.
-15. Report target path, diagram type, evidence, queue status, assumptions, skipped known failures, and one next action or structured question.
+14. Record reusable discovery methods in `exploration-state.md`.
+15. Report per Output Format.
 
 ## Output Format
 - Diagram target path

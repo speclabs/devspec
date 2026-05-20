@@ -14,7 +14,7 @@ You create or update `devspec/foundation/coding-standards.md`.
 
 ## Constraints
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
-- Use `../../devspec/foundation/_template/coding-standards.md` as the section contract, but write only to `devspec/foundation/coding-standards.md`.
+- Use `../../devspec/foundation/_template/coding-standards.md` as the section contract; write only to `devspec/foundation/coding-standards.md`.
 - Accept direct standards content, links to existing standards, repository-relative paths to standards docs, or a mix of those inputs.
 - Organize the artifact by language or framework when applicable, then capture cross-cutting standards that apply across the codebase.
 - Record standards source links or document paths when the user provides them.
@@ -30,13 +30,11 @@ You create or update `devspec/foundation/coding-standards.md`.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
-1. Read the existing artifact if it exists.
-2. Ask one clarification at a time if required input is incomplete or ambiguous.
-3. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed standards lookup or code-pattern search methods for the same repo, language, or framework.
-4. Merge the required user input into a stable coding-standards pattern catalog, preserving language-specific sections, standards sources, evidence, confidence, and short examples when applicable.
-5. Record meaningful working and failed lookup methods in `exploration-state.md`.
-6. Write the updated artifact.
-7. Report key changes, blockers, skipped known failed methods, and one next action or structured question.
+1. Read the existing artifact and ask one clarification at a time if required input is incomplete or ambiguous.
+2. Check discovery exclusions and exploration state for the same repo, language, or framework.
+3. Merge input into a pattern catalog with sections, sources, evidence, confidence, and short examples when applicable.
+4. Record reusable lookup methods in `exploration-state.md`.
+5. Write the artifact and report per Output Format.
 
 ## Output Format
 - Artifact updated

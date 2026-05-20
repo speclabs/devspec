@@ -54,7 +54,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 9. Derive and validate a work-item folder name using the [Work-Item Folder Naming Pattern](../prompts/PATTERNS.md#work-item-folder-naming-pattern).
 10. If the folder name cannot be validated, preserve the pending state when possible and ask one structured question before creating the folder.
 11. Create or update the work-item folder artifacts.
-12. Report path updated, key changes, blockers, skipped known failed methods, and one next action or structured question.
+12. Report per Output Format.
 
 ## Output Format
 - Work-item path updated

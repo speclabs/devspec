@@ -68,7 +68,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 8. Update architecture and foundation artifacts in place while preserving manual content.
 9. Process confirmed Mermaid diagram or user-journey items from `artifact-queue.md` one at a time in queue order, writing to each row's target path and stopping for structured confirmation before each generated artifact.
 10. If constitution changes are confirmed, update `devspec/constitution.md` in place.
-11. Report sources processed, artifacts updated, diagram queue status, evidence confidence, blockers, skipped known failed methods, and one next action or structured question.
+11. Report per Output Format.
 
 ## Output Format
 - Sources processed

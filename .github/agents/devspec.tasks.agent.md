@@ -26,7 +26,6 @@ You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 - Apply the relevant bug and security planning rules in `../../devspec/foundation/rules.md`.
 - Use the `Explore` subagent when you need quick discovery of impacted code paths, analogous implementations, or likely verification surfaces before decomposing tasks.
 - Use session memory only for transient dependency mapping, open questions, and decomposition notes; `tasks.md` remains the canonical task list.
-- Update `tasks.md` in place.
 - Update `Resume State` in `meta.md` and `tasks.md` before recording a blocker, asking for clarification, or handing off to implementation.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before Explore runs or impact, pattern, dependency, or verification-surface discovery.
@@ -44,7 +43,7 @@ You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 8. Apply type-specific planning rules for bugs and security vulnerabilities.
 9. Decompose the work into ordered repo-aware tasks using `../../devspec/work-items/_template/tasks.md` as the section contract.
 10. Write the updated `tasks.md`.
-11. Report key task groups, blockers, skipped known failed methods, and one next action or structured question.
+11. Report per Output Format.
 
 ## Output Format
 - Work-item path updated

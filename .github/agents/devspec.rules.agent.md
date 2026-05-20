@@ -14,7 +14,7 @@ You create or update `devspec/foundation/rules.md`.
 
 ## Constraints
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
-- Use `../../devspec/foundation/_template/rules.md` as the section contract, but write only to `devspec/foundation/rules.md`.
+- Use `../../devspec/foundation/_template/rules.md` as the section contract; write only to `devspec/foundation/rules.md`.
 - Keep this file focused on project-operational hard constraints, not enduring principles from `devspec/constitution.md`.
 - Capture compliance requirements, forbidden patterns, delivery gates, review rules, and exception process when known.
 - Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
@@ -23,13 +23,11 @@ You create or update `devspec/foundation/rules.md`.
 - Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 
 ## Approach
-1. Read the existing artifact if it exists.
-2. Ask one clarification at a time if required input is incomplete or ambiguous.
-3. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed rule, compliance, or repository-policy discovery methods for the same repo or policy area.
-4. Merge the required user input into a stable rules document.
-5. Record meaningful working and failed discovery methods in `exploration-state.md`.
-6. Write the updated artifact.
-7. Report key changes, blockers, skipped known failed methods, and one next action or structured question.
+1. Read the existing artifact and ask one clarification at a time if required input is incomplete or ambiguous.
+2. Check discovery exclusions and exploration state for the same repo or policy area.
+3. Merge the required user input into a stable rules document.
+4. Record reusable discovery methods in `exploration-state.md`.
+5. Write the artifact and report per Output Format.
 
 ## Output Format
 - Artifact updated
