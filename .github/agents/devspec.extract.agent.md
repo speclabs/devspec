@@ -2,6 +2,7 @@
 name: "devspec.extract"
 description: "Use when extracting or refreshing devspec constitution, architecture, and foundation artifacts from GitHub, Azure DevOps, or GitLab repository URLs, or from local repository folder paths."
 tools: [read, edit, search, execute, web, vscode/askQuestions, vscode/memory]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: [Explore]
 handoffs:

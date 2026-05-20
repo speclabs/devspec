@@ -41,6 +41,10 @@ Recommendation behavior is defined by `PATTERNS.md#registered-command-recommenda
 - `../../devspec/architecture/decisions/_template.md`: framework-owned ADR section contract.
 - `../../devspec/work-items/_template/`: durable work-item artifact shapes.
 
+## Model Policy
+
+See [Model recommendations](../../README.md#model-recommendations). Agent frontmatter owns model fallback order; VS Code model-picker settings own thinking effort.
+
 ## Prompt Map
 
 | Prompt | Purpose | Produces |

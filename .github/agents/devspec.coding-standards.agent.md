@@ -2,6 +2,7 @@
 name: "devspec.coding-standards"
 description: "Use when creating or updating devspec foundation coding standards for language-specific or framework-specific standards, engineering practices, or links to existing standards."
 tools: [read, edit, search, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:

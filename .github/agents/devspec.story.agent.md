@@ -2,6 +2,7 @@
 name: "devspec.story"
 description: "Use when creating or updating a devspec work item from a GitHub issue, Azure DevOps work item, Jira item, bug, issue, task, or PBI reference."
 tools: [read, edit, search, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:

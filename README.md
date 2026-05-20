@@ -253,6 +253,27 @@ These are core behaviors baked into the prompts and agents:
 - `/devspec.implement` should implement pending tasks sequentially, then ask one structured `Proceed`, `Skip`, or `Custom Answer` question after each task.
 - `/devspec.review` should review against the finalized brief, not re-plan the story.
 
+## Model recommendations
+
+Agent files pin this fallback order: `GPT-5.4`, `GPT-5.3-Codex`, `Claude Sonnet 4.6`, then `Claude Haiku 4.5`.
+
+Prefer **High** thinking effort for best quality. If cost or latency is constrained, use **Medium** thinking effort. Do not use Low for devspec agents.
+
+| Agent | Recommended effort |
+| --- | --- |
+| `devspec.extract` | High |
+| `devspec.projectcontext` | Medium |
+| `devspec.techstack` | High |
+| `devspec.codebase-structure` | High |
+| `devspec.coding-standards` | High |
+| `devspec.rules` | Medium |
+| `devspec.story` | Medium |
+| `devspec.clarify` | Medium |
+| `devspec.finalize` | High |
+| `devspec.tasks` | High |
+| `devspec.implement-task` | High |
+| `devspec.review` | High |
+
 ## Foundation workflow
 
 These commands establish the project-wide spec that all stories must follow.

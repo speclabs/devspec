@@ -2,6 +2,7 @@
 name: "devspec.techstack"
 description: "Use when creating or updating devspec foundation tech stack from languages, frameworks, services, tooling, hosting, and delivery constraints."
 tools: [read, edit, search, web, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:

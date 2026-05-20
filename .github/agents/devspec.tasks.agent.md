@@ -2,6 +2,7 @@
 name: "devspec.tasks"
 description: "Use when creating or updating ordered implementation tasks for the current ready devspec work item."
 tools: [read, edit, search, vscode/askQuestions, vscode/memory]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: [Explore]
 handoffs:

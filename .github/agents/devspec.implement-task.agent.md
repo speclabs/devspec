@@ -2,6 +2,7 @@
 name: "devspec.implement-task"
 description: "Use when implementing pending tasks for the current ready devspec work item, confirming whether to proceed after each task, and recording progress, validation, and completion summaries in implement.md."
 tools: [read, edit, search, execute, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:

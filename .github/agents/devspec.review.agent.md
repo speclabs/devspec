@@ -2,6 +2,7 @@
 name: "devspec.review"
 description: "Use when reviewing the current implemented devspec work item for bugs, regressions, scope drift, security risks, and validation gaps, then recording the outcome in review.md."
 tools: [read, edit, search, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:

@@ -2,6 +2,7 @@
 name: "devspec.codebase-structure"
 description: "Use when creating or updating devspec foundation codebase structure for repository layout, module boundaries, ownership seams, and integration boundaries."
 tools: [read, edit, search, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:

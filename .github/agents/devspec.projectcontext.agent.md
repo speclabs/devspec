@@ -2,6 +2,7 @@
 name: "devspec.projectcontext"
 description: "Use when creating or updating devspec foundation project context from product vision, users, goals, non-goals, and business constraints."
 tools: [read, edit, search, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:

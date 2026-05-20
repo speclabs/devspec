@@ -2,6 +2,7 @@
 name: "devspec.rules"
 description: "Use when creating or updating devspec foundation rules for hard constraints, compliance requirements, forbidden patterns, governance rules, and delivery gates."
 tools: [read, edit, search, vscode/askQuestions]
+model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
 agents: []
 handoffs:
