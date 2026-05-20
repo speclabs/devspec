@@ -759,7 +759,7 @@ Holds project-operational context and constraints.
 - `project-context.md`
   Product vision, intended users, goals, non-goals, constraints, and success metrics.
 - `tech-stack.md`
-  Languages, frameworks, services, tooling, hosting, current LTS versions, and delivery constraints.
+  Languages, frameworks, services, tooling, hosting, current LTS or support status, verification dates, and delivery constraints.
 - `codebase-structure.md`
   Repository layout, module boundaries, ownership seams, and integration boundaries.
 - `coding-standards.md`
@@ -849,12 +849,15 @@ This is one of the strongest extraction targets because code and manifests usual
 - runtimes
 - frameworks
 - databases
-- current LTS versions when practical to verify
+- current LTS or support status from official release, lifecycle, or support pages when practical to verify
+- verification dates for each recorded LTS or support status
 - hosting clues
 - test tooling
 - CI tooling
 
 Use `devspec/foundation/_template/tech-stack.md` as the section contract.
+
+For technologies without an official LTS channel, record `no LTS channel` or the relevant support status instead of `n/a`. If lookup is not possible, record `unknown - needs lookup` and leave a note. Maintain the LTS lookup-source table with official endpoints; users may update those sources for their selected vendor or distribution.
 
 #### `devspec/foundation/codebase-structure.md`
 
