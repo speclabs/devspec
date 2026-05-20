@@ -674,7 +674,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 | --- | --- | --- | --- | --- | --- |
 | 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Repository URL or local repo path. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
 | 1 | `/devspec.projectcontext` | Product and business context need to be created or updated. | Product vision, users, goals, non-goals, and constraints. | `foundation/project-context.md` | `/devspec.techstack` |
-| 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Languages, frameworks, services, tooling, hosting, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
+| 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Stack evidence, support status, hosting, tooling, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
 | 3 | `/devspec.codebase-structure` | Repo layout, module boundaries, ownership seams, or multi-repo config need to be recorded. | Repository layout, integration boundaries, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
 | 4 | `/devspec.coding-standards` | Engineering expectations or observed code patterns need to be recorded. | Direct standards, links, repo-relative standards docs, or evidence-backed examples. | `foundation/coding-standards.md` | `/devspec.rules` |
 | 5 | `/devspec.rules` | Operational hard constraints and delivery gates need to be recorded. | Compliance requirements, forbidden patterns, governance rules, and gates. | `foundation/rules.md` | `/devspec.story` |
@@ -845,19 +845,18 @@ Use `devspec/foundation/_template/project-context.md` as the section contract.
 
 This is one of the strongest extraction targets because code and manifests usually reveal:
 
-- languages
-- runtimes
-- frameworks
-- databases
+- languages, runtimes, frameworks, databases, services, and tooling
+- hosting and delivery constraints
 - current LTS or support status from official release, lifecycle, or support pages when practical to verify
 - verification dates for each recorded LTS or support status
-- hosting clues
-- test tooling
-- CI tooling
 
 Use `devspec/foundation/_template/tech-stack.md` as the section contract.
 
-For technologies without an official LTS channel, record `no LTS channel` or the relevant support status instead of `n/a`. If lookup is not possible, record `unknown - needs lookup` and leave a note. Maintain the LTS lookup-source table with official endpoints; users may update those sources for their selected vendor or distribution.
+Use one table per repo or deployable unit.
+
+For technologies without an official LTS channel, record `no LTS channel` or the relevant support status instead of `n/a`.
+
+If lookup is not possible, record `unknown - needs lookup` and leave a note. Maintain the LTS lookup-source table with official endpoints; users may update those sources for their selected vendor or distribution.
 
 #### `devspec/foundation/codebase-structure.md`
 

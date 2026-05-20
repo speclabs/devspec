@@ -1,48 +1,25 @@
 # Tech Stack
 
-Use manifests, lockfiles, framework config, CI config, and docs as version evidence. Do not inspect installed dependency folders or generated output excluded by `devspec/foundation/discovery-exclusions.md`.
+## Recording Rules
 
-For `Current LTS Version`, record an official LTS version when one exists. Otherwise record the support status: `no LTS channel` when the technology has releases but no official LTS designation, `managed service` for hosted services without a user-selected version, or `unknown - needs lookup` when verification was not possible.
-
-Use `n/a` only when version support does not apply. Fill `Verified As Of` with the date the value or status was checked.
+- Use manifests, lockfiles, framework config, CI config, and docs as version evidence.
+- Do not inspect dependency folders, generated output, or excluded paths listed in `devspec/foundation/discovery-exclusions.md`.
+- Use one project table per repo or deployable unit.
+- Use clear categories such as `Language`, `Runtime`, `Framework`, `Library`, `Database`, `Service`, `Tooling`, `Hosting`, or `Delivery Constraint`.
+- Record `Current LTS/Support` from official release, lifecycle, or support pages when practical.
+- Use `no LTS channel`, `managed service`, or `unknown - needs lookup` instead of defaulting to `n/a`.
+- Use `n/a` only when version support does not apply.
+- Fill `Verified As Of` with the date the version or support status was checked.
 
 ## Projects
 
 ### Project: <project-name>
 
-#### Languages And Runtimes
-
-| Technology | Version In Project | Current LTS Version | Verified As Of | Notes |
-| --- | --- | --- | --- | --- |
-| <language-or-runtime> | <version> | <lts-version-or-status> | <yyyy-mm-dd> | <notes> |
-
-#### Frameworks And Libraries
-
-| Technology | Version In Project | Current LTS Version | Verified As Of | Notes |
-| --- | --- | --- | --- | --- |
-| <framework-or-library> | <version> | <lts-version-or-status> | <yyyy-mm-dd> | <notes> |
-
-#### Services And Infrastructure
-
-| Technology | Version In Project | Current LTS Version | Verified As Of | Notes |
-| --- | --- | --- | --- | --- |
-| <service-or-platform> | <version-or-managed-plan> | <lts-version-or-status> | <yyyy-mm-dd> | <notes> |
-
-#### Tooling
-
-| Tooling Area | Technology | Version In Project | Current LTS Version | Verified As Of | Notes |
+| Category | Technology | Version In Project | Current LTS/Support | Verified As Of | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Build | <tool> | <version> | <lts-version-or-status> | <yyyy-mm-dd> | <notes> |
-| Test | <tool> | <version> | <lts-version-or-status> | <yyyy-mm-dd> | <notes> |
-| Lint | <tool> | <version> | <lts-version-or-status> | <yyyy-mm-dd> | <notes> |
-| CI/CD | <tool> | <version> | <lts-version-or-status> | <yyyy-mm-dd> | <notes> |
-
-#### Hosting And Delivery Constraints
-
-| Area | Current Choice | Current LTS Version | Verified As Of | Notes |
-| --- | --- | --- | --- | --- |
-| Hosting | <hosting-target> | <lts-version-or-status> | <yyyy-mm-dd> | <notes> |
-| Delivery Constraint | <constraint> | n/a | <yyyy-mm-dd> | <notes> |
+| Runtime | <runtime> | <version> | <lts-version-or-status> | <yyyy-mm-dd> | <evidence-or-notes> |
+| Framework | <framework> | <version> | <lts-version-or-status> | <yyyy-mm-dd> | <evidence-or-notes> |
+| Service | <service-or-platform> | <version-or-managed-plan> | <lts-version-or-status> | <yyyy-mm-dd> | <evidence-or-notes> |
 
 ## LTS Lookup Sources
 
