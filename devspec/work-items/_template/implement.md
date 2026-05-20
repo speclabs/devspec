@@ -52,9 +52,9 @@
 - Bug handling notes:
 - Security handling notes:
 
-## Loop Escalations
+## Attempt Escalations
 
-- Escalation 1:
+- Attempt escalation 1:
 
 ## Next-Task Handoff
 

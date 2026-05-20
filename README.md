@@ -634,7 +634,7 @@ Important behavior:
 - once all tasks are implemented, records the completed task list and completion summary
 - if the same task needs more than 3 attempts, explains the blocker before asking whether to proceed, skip, or provide custom direction
 - updates the execution log and next-task handoff
-- for bug fixes, records focused before-fix and after-fix code snippets in `implement.md` for audit purposes only
+- for bug fixes, records focused before-and-after code snippets in `implement.md` when useful for review or audit
 
 Example:
 
@@ -855,7 +855,7 @@ Use one table per repo or deployable unit.
 
 For technologies without an official LTS channel, record `no LTS channel` or the relevant support status instead of `n/a`.
 
-If lookup is not possible, record `unknown - needs lookup` and leave a note. Maintain the LTS lookup-source table with official endpoints; users may update those sources for their selected vendor or distribution.
+If lookup is not possible, record `unknown - needs lookup` and leave a note. Maintain the LTS lookup source table with official endpoints; users may update those sources for their selected vendor or distribution.
 
 #### `devspec/foundation/codebase-structure.md`
 

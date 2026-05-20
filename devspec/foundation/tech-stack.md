@@ -6,7 +6,7 @@
 - Do not inspect dependency folders, generated output, or excluded paths listed in `devspec/foundation/discovery-exclusions.md`.
 - Use one project table per repo or deployable unit.
 - Use clear categories such as `Language`, `Runtime`, `Framework`, `Library`, `Database`, `Service`, `Tooling`, `Hosting`, or `Delivery Constraint`.
-- Record `Current LTS/Support` from official release, lifecycle, or support pages when practical.
+- Record `Current LTS/Support` from official release, lifecycle, or support pages when practical to verify.
 - Use `no LTS channel`, `managed service`, or `unknown - needs lookup` instead of defaulting to `n/a`.
 - Use `n/a` only when version support does not apply.
 - Fill `Verified As Of` with the date the version or support status was checked.
