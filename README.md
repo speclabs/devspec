@@ -60,9 +60,9 @@ After the foundation exists, use this work-item flow:
 
 Use `/devspec.diagram` whenever you need an additional architecture, module, feature workflow, user journey, sequence, or state diagram after the relevant context exists.
 
-## What Gets Installed
+## What gets installed
 
-`devspec` adds three groups of files to a repository:
+`devspec` adds these file groups to a repository:
 
 | Path | Purpose |
 | --- | --- |
@@ -91,7 +91,7 @@ The workflow has two layers.
 | Project foundation | Define stable project context every future story should follow. | `/devspec.extract`, `/devspec.projectcontext`, `/devspec.techstack`, `/devspec.codebase-structure`, `/devspec.coding-standards`, `/devspec.rules` |
 | Work-item execution | Move one feature, bug, or security issue from intake to review. | `/devspec.story`, `/devspec.clarify`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, `/devspec.review` |
 
-### Workflow At A Glance
+### Workflow at a glance
 
 ```mermaid
 flowchart TD
@@ -139,64 +139,35 @@ flowchart TD
     WorkItem -.-> Diagram
 ```
 
-The command order is:
-
-1. `/devspec.extract` for existing projects only
-2. `/devspec.projectcontext`
-3. `/devspec.techstack`
-4. `/devspec.codebase-structure`
-5. `/devspec.coding-standards`
-6. `/devspec.rules`
-7. `/devspec.story`
-8. `/devspec.clarify`
-9. `/devspec.finalize`
-10. `/devspec.tasks`
-11. `/devspec.implement`
-12. `/devspec.review`
-
 ## Setup
 
-### Prerequisites
+Before setup, confirm:
 
 - VS Code with GitHub Copilot Chat enabled
 - the target repository open as the active workspace
 - for multi-repo work, a VS Code multi-root workspace that includes every repository you expect agents to inspect, edit, test, or coordinate
 - Git access to commit the copied framework files and later `devspec` artifacts
 
-For multi-repo work, the most reliable pattern is to keep one shared workspace open and record repo configuration in `devspec/foundation/codebase-structure.md`. That keeps one source of truth for local repo paths and access requirements, so story, tasks, finalize, and implement rely on the same configured repos. Single-repo work does not need any extra repo configuration.
+### Install into a target repository
 
-### Setup on a new project
-
-For a brand-new repository with little or no existing code:
-
-1. Copy these folders into the target repo:
+1. Copy these folders into the target repository root:
    - `devspec/`
    - `.github/prompts/`
    - `.github/agents/`
-   - `.github/skills/` when you want reusable agent skills
+   - `.github/skills/` when you want the bundled reusable skills
 2. Commit the copied files.
-3. Open the repository in GitHub Copilot Chat.
-4. Start the foundation workflow with `/devspec.projectcontext`.
+3. Reopen the repository in VS Code if Copilot Chat does not immediately detect the new `/devspec` commands.
 
-For a new project, you will usually skip `/devspec.extract` because there is no mature codebase to backfill yet.
+Choose the first foundation command based on the project:
 
-On first install, live project artifacts may be created from the matching `_template` files. After that, treat the live files as project-owned and update them through the slash-command workflow rather than replacing them from a newer template.
+| Project state | Start with | Why |
+| --- | --- | --- |
+| New project with little or no code | `/devspec.projectcontext` | There is no mature codebase to extract from yet. |
+| Existing application or monorepo | `/devspec.extract <path-or-url>` | Source code, docs, manifests, CI, and architecture clues can seed the foundation. |
 
-### Setup on an existing project
+On first install, live project artifacts may be created from matching `_template` files. After that, treat live files as project-owned and update them through the slash-command workflow rather than replacing them from newer templates.
 
-For an existing application or monorepo:
-
-1. Copy these folders into the target repo:
-   - `devspec/`
-   - `.github/prompts/`
-   - `.github/agents/`
-   - `.github/skills/` when you want reusable agent skills
-2. Commit the copied files.
-3. Open the repository in GitHub Copilot Chat.
-4. Start with `/devspec.extract` and point it at the current repository path or repository URL.
-5. Refine the extracted foundation using the remaining foundation commands.
-
-This path is best when you already have source code, docs, manifests, CI config, or architecture clues that can be mined into `devspec`.
+For multi-repo work, keep one shared VS Code multi-root workspace open and record repo configuration in `devspec/foundation/codebase-structure.md`. That file is the source of truth for local repo paths and access requirements used by story, finalize, tasks, and implement.
 
 ### Manual upgrades
 
@@ -214,38 +185,6 @@ Do not directly overwrite project-owned artifacts during manual upgrades. Framew
 | `devspec/architecture/diagrams/*.md` | project | Do not overwrite; migrate or merge |
 | `devspec/constitution.md` | project | Do not overwrite; confirmation required |
 | `devspec/glossary.md` | project | Do not overwrite; migrate or merge |
-
-## Recommended foundation sequences
-
-### New project sequence
-
-For a new project with little code, use:
-
-1. `/devspec.projectcontext`
-2. `/devspec.techstack`
-3. `/devspec.codebase-structure`
-4. `/devspec.coding-standards`
-5. `/devspec.rules`
-
-You can then manually refine:
-
-- `devspec/constitution.md`
-- `devspec/architecture/overview.md`
-
-Or let those evolve as the project becomes more concrete.
-
-### Existing project sequence
-
-For an existing project, use:
-
-1. `/devspec.extract`
-2. `/devspec.projectcontext`
-3. `/devspec.techstack`
-4. `/devspec.codebase-structure`
-5. `/devspec.coding-standards`
-6. `/devspec.rules`
-
-This gives you evidence-backed foundation docs first, then lets you refine them with business and operational context that source code alone cannot supply.
 
 ## Important workflow rules
 
@@ -300,9 +239,11 @@ Retry handling is intentionally bounded. If an implementation or repair task exc
 
 ## Model recommendations
 
-Agent files pin this fallback order: `GPT-5.4`, `GPT-5.3-Codex`, `Claude Sonnet 4.6`, then `Claude Haiku 4.5`.
+Agent frontmatter is the source of truth for model fallback order. At the time of writing, agents use this order: `GPT-5.4`, `GPT-5.3-Codex`, `Claude Sonnet 4.6`, then `Claude Haiku 4.5`.
 
-Prefer **High** thinking effort for best quality. If cost or latency is constrained, use **Medium** thinking effort. Do not use Low for devspec agents.
+Set thinking effort in the VS Code model picker. Prefer **High** for best quality. Use **Medium** when cost or latency matters. Avoid Low for devspec agents.
+
+`/devspec.implement` delegates to the `devspec.implement-task` agent, so that agent appears in the table below.
 
 | Agent | Recommended effort |
 | --- | --- |
@@ -312,13 +253,15 @@ Prefer **High** thinking effort for best quality. If cost or latency is constrai
 | `devspec.codebase-structure` | High |
 | `devspec.coding-standards` | High |
 | `devspec.rules` | Medium |
-| `devspec.story` | Medium |
-| `devspec.clarify` | Medium |
+| `devspec.story` | High |
+| `devspec.clarify` | High |
 | `devspec.finalize` | High |
 | `devspec.tasks` | High |
 | `devspec.implement-task` | High |
 | `devspec.review` | High |
 | `devspec.diagram` | High |
+
+Use Medium for `devspec.story` or `devspec.clarify` only for simple single-repo projects with low coordination risk.
 
 ## Foundation workflow
 
@@ -501,20 +444,11 @@ Example:
 
 ## How to start a user story
 
-Once the project foundation exists, use the work-item commands.
+Once the project foundation exists, start work with `/devspec.story`, then move through clarify, finalize, tasks, implement, and review as needed.
 
-If you want `/devspec.story` to resolve GitHub, Jira, or Azure DevOps references, review and update `devspec/foundation/provider-integrations.md` first so the accepted provider formats, access model, and manual fallback are explicit for your repository.
+If you want `/devspec.story` to resolve GitHub, Jira, or Azure DevOps references, first confirm `devspec/foundation/provider-integrations.md` reflects your configured providers, accepted formats, access model, and manual fallback.
 
-The work-item flow is:
-
-1. `/devspec.story`
-2. `/devspec.clarify`
-3. `/devspec.finalize`
-4. `/devspec.tasks`
-5. `/devspec.implement`
-6. `/devspec.review`
-
-Use `/devspec.diagram` alongside this flow when a feature workflow, user journey, sequence, or state diagram would clarify the work item. Prefer architecture-level diagram files and reference them from the work item.
+Use `/devspec.diagram` alongside the flow when a feature workflow, user journey, sequence, or state diagram would clarify the work item.
 
 ### 1. `/devspec.story`
 
@@ -522,15 +456,13 @@ Use this to start or update a work item.
 
 What it does:
 
-- resolves a provider item when possible
-- or supports manual intake when provider lookup is unavailable
+- resolves a provider item when possible, or supports manual intake when provider lookup is unavailable
 - creates the work-item folder
 - writes `meta.md` and `story.md`
 - initializes `decisions.md` and `notes.md` if the folder is new
 - for features, records priority instead of severity
 - confirms multi-repo dependencies and records all related repos when applicable
-- does not store local repo paths
-- if the work is multi-repo, requires multi-repo foundation configuration in `devspec/foundation/codebase-structure.md` before story intake can continue
+- requires multi-repo foundation configuration in `devspec/foundation/codebase-structure.md` before multi-repo story intake can continue
 - leaves local paths and repo access requirements in the foundation artifact rather than duplicating them into story artifacts
 
 Supported inputs:
@@ -539,8 +471,6 @@ Supported inputs:
 - Jira issue key or URL
 - Azure DevOps work item URL
 - issue, task, bug, or PBI reference when the provider can be resolved clearly
-
-Before relying on those external references, confirm that `devspec/foundation/provider-integrations.md` reflects your configured providers and fallback path. If it does not, use manual intake until that file is updated.
 
 Example with an external reference:
 
@@ -577,12 +507,6 @@ devspec/work-items/568912-new-report-for-daily-stock/
 ```
 
 The optional provider prefix is 3-5 uppercase letters, such as `GHUB`, `ADO`, or `JIRA`. The story number must be numeric, and the title must be lowercase kebab-case.
-
-Example:
-
-```text
-devspec/work-items/GHUB-1842-document-upload-virus-scan/
-```
 
 During story intake, the command writes:
 
@@ -742,8 +666,6 @@ Example:
 
 ## Command reference and step order
 
-Before using `/devspec.story` with external work-item references, validate `devspec/foundation/provider-integrations.md` for the providers and fallback behavior your repository supports. There is no dedicated provider-integrations slash command; initialize it from `devspec/foundation/_template/provider-integrations.md` and maintain it manually when provider formats, tools, or fallback behavior change.
-
 Registered devspec slash commands are limited to `/devspec.extract`, `/devspec.projectcontext`, `/devspec.techstack`, `/devspec.codebase-structure`, `/devspec.coding-standards`, `/devspec.rules`, `/devspec.story`, `/devspec.clarify`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, `/devspec.review`, and `/devspec.diagram`.
 
 Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.architecture`, `/devspec.provider-integrations`, `/devspec.queue`, or `/devspec.decisions`. If no registered command fits, recommend a concrete file update, handoff, or structured question.
@@ -875,131 +797,27 @@ Reusable feature workflows, user journeys, sequence diagrams, and state diagrams
 
 ## Advanced: extracting information from an existing project
 
-If you are adopting `devspec` into a working codebase, this is the most important setup flow.
+Use `/devspec.extract` when source code, docs, manifests, CI, infrastructure config, ADRs, CODEOWNERS, or contribution docs can seed the foundation.
 
-### What `/devspec.extract` pulls from
+Extraction should avoid dependency, generated, cache, coverage, build-output, VCS, and tool-output folders. For Node.js, Angular, React, Next, and Vite projects, use manifests and framework config as evidence instead of inspecting `node_modules/` or generated output.
 
-The extract stage is designed to inspect:
+Review extracted artifacts before relying on them:
 
-- repository layout
-- dependency manifests
-- runtime and configuration surfaces
-- CI/CD files
-- infrastructure config
-- contribution docs
-- ADRs
-- architecture docs
-- CODEOWNERS and related ownership hints
+| Artifact | Review focus |
+| --- | --- |
+| `devspec/constitution.md` | Durable principles only; principle-level changes require confirmation. |
+| `devspec/architecture/overview.md` | Major components, system boundaries, integrations, high-level data flow, and links to detailed diagrams. |
+| `devspec/foundation/project-context.md` | Product goals and user outcomes, because code rarely tells the whole story. |
+| `devspec/foundation/tech-stack.md` | Languages, runtimes, frameworks, services, tooling, hosting, support status, and verification dates. |
+| `devspec/foundation/codebase-structure.md` | Selective 3-5 level layout, module boundaries, multi-repo roles, local paths, workspace availability, and access requirements. |
+| `devspec/foundation/discovery-exclusions.md` | Default and project-specific paths agents should skip during discovery. |
+| `devspec/foundation/coding-standards.md` | Evidence-backed conventions, source paths, confidence, and compact examples for important patterns. |
+| `devspec/foundation/rules.md` | Compliance, security, deployment, approval, and production-readiness constraints. |
 
-The extract stage must not search dependency, generated, cache, coverage, build-output, VCS, or tool-output folders by default. For Node.js, Angular, React, Next, and Vite projects, use `package.json`, lockfiles, `angular.json`, `tsconfig*.json`, and framework config files as evidence instead of inspecting `node_modules/` or generated output.
-
-### Where the extracted information goes
-
-#### `devspec/constitution.md`
-
-This should contain durable principles, not just observations. Extraction can propose principle-level content, but it should not finalize it without user confirmation.
-
-Good extracted candidates:
-
-- "Prefer small, reversible changes over broad rewrites"
-- "Validation is required before work is considered complete"
-- "Do not weaken security controls without explicit approval"
-
-#### `devspec/architecture/overview.md`
-
-This should receive observed and high-confidence architectural facts such as:
-
-- major components
-- system boundaries
-- external integrations
-- high-level data flow
-- a resumable Mermaid work queue in `devspec/architecture/artifact-queue.md` for architecture diagrams, feature workflows, module workflows, and user journeys when real candidates are identified
-- high-level confirmed Mermaid diagrams and user journeys, generated one at a time after user approval and never in the same response as constitution confirmation
-- links to detailed diagrams stored under `devspec/architecture/diagrams/`
-
-Use `devspec/architecture/_template/overview.md`, `devspec/architecture/_template/artifact-queue.md`, and `devspec/architecture/_template/diagram.md` as section contracts. Do not replace live architecture files from templates after a project has recorded real architecture content.
-
-Use `/devspec.diagram` for additional diagrams requested after extraction. Store reusable diagrams under `devspec/architecture/diagrams/`; use `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary story-specific context.
-
-#### `devspec/foundation/project-context.md`
-
-This may get partial drafts from docs, but usually needs human input because product goals and intended outcomes are often not fully inferable from code.
-
-Use `devspec/foundation/_template/project-context.md` as the section contract.
-
-#### `devspec/foundation/tech-stack.md`
-
-This is one of the strongest extraction targets because code and manifests usually reveal:
-
-- languages, runtimes, frameworks, databases, services, and tooling
-- hosting and delivery constraints
-- current LTS or support status from official release, lifecycle, or support pages when practical to verify
-- verification dates for each recorded LTS or support status
-
-Use `devspec/foundation/_template/tech-stack.md` as the section contract.
-
-Use one table per repo or deployable unit.
-
-For technologies without an official LTS channel, record `no LTS channel` or the relevant support status instead of `n/a`.
-
-If lookup is not possible, record `unknown - needs lookup` and leave a note. Maintain the LTS lookup source table with official endpoints; users may update those sources for their selected vendor or distribution.
-
-#### `devspec/foundation/codebase-structure.md`
-
-This is also a strong extraction target because folder layout and module names can usually be observed directly. Extracted layouts should be selective 3-5 level trees focused on helping agents decide where new files and folders belong. For multi-repo work, this file is also the source of truth for repo roles, local paths, workspace availability, and user-confirmed access requirements.
-
-Use `devspec/foundation/_template/codebase-structure.md` as the section contract.
-
-#### `devspec/foundation/discovery-exclusions.md`
-
-This records default and project-specific paths that should be excluded from repository discovery. It protects token usage and prevents agents from inferring project architecture or coding standards from dependency folders, generated files, build outputs, coverage, caches, and local tool output.
-
-Use `devspec/foundation/_template/discovery-exclusions.md` as the section contract.
-
-#### `devspec/foundation/coding-standards.md`
-
-This can be partially inferred from:
-
-- lint config
-- formatting config
-- language-specific style config such as `.editorconfig`, StyleCop, ESLint, Prettier, Ruff, Black, Checkstyle, Spotless, or clang-format
-- test patterns
-- logging libraries
-- existing conventions in the codebase
-- standards docs or style-guide links already referenced by the repository
-
-Useful extracted examples include short snippets that show the prevailing indentation or formatting pattern, especially for SQL query layout and other database code. Treat this file as a pattern catalog: record the rule, source evidence, confidence, and a compact example rather than copying large code blocks.
-
-But the result should still be reviewed, because "what the code does today" and "what the team wants as a standard" are not always the same.
-
-Use `devspec/foundation/_template/coding-standards.md` as the section contract.
-
-#### `devspec/foundation/rules.md`
-
-This may be partially supported by:
-
-- CI checks
-- branch policies
-- security scanning
-- deployment gates
-- compliance docs
-
-But project-operational rules often need human refinement after extraction.
-
-Use `devspec/foundation/_template/rules.md` as the section contract.
-
-### Practical existing-project example
-
-Example sequence in Copilot Chat:
+After extraction, refine the foundation with human context:
 
 ```text
-/devspec.extract D:\work\customer-portal
-```
-
-Then refine what the code could not fully tell you:
-
-```text
-/devspec.projectcontext Customer portal for insurance members to view claims, upload documents, and track approvals. Primary users are policyholders and support agents. Goals are self-service and lower support volume. Non-goals include broker onboarding. Constraints include HIPAA-adjacent privacy expectations and mobile-first usage.
+/devspec.projectcontext Customer portal for insurance members to view claims, upload documents, and track approvals. Primary users are policyholders and support agents. Goals are self-service and lower support volume. Non-goals include broker onboarding.
 ```
 
 ```text
@@ -1033,12 +851,6 @@ If you are introducing `devspec` to a team, this usually works well:
 4. Start one real bug story.
 5. If relevant, run one security-vulnerability story.
 6. Adjust the foundation docs after learning from those first runs.
-
-## Current limitation
-
-Setup is currently copy-based. There is no `npm`, package-manager, or installer-based bootstrap flow yet.
-
-That is a reasonable future enhancement, but the current framework expects `devspec/`, `.github/prompts/`, and `.github/agents/` to exist directly in the target repository.
 
 ## License
 
