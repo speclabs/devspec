@@ -9,6 +9,3 @@ Create or update `devspec/foundation/rules.md`.
 
 Required user input:
 ${input:rulesInput:Describe the hard constraints, compliance requirements, forbidden patterns, governance rules, and delivery gates}
-
-Execution:
-- Pass the required input to `devspec.rules`; the agent owns validation, artifact updates, clarification, rules scoping, and handoff behavior.

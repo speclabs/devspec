@@ -9,6 +9,3 @@ Create or update `devspec/work-items/<work-item-folder>/finalize.md` for the cur
 
 Optional user input:
 ${input:finalizeInput:Optional: add reviewer notes, constraints, or additive guidance for finalization}
-
-Execution:
-- Pass optional finalization guidance to `devspec.finalize`; the agent owns target selection, prerequisite validation, readiness gates, discovery, artifact updates, and handoff behavior.

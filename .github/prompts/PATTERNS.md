@@ -8,13 +8,11 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - Use clickable multiple-choice options whenever reasonable; for confirmations and workflow decisions, explicit options are required.
 - Always include a `Custom Answer` option.
 - Recommend exactly one option with a short justification.
-- Do not ask open-ended confirmation questions such as "Do you want..." or "Would you like..." without explicit selectable options.
 - Use `Yes`, `No`, and `Custom Answer` for binary confirmations.
 - Use `Proceed`, `Skip`, and `Custom Answer` for workflow continuation, queue processing, task continuation, generated artifact approval, or retry decisions.
 - Use `Continue`, `Pause`, `Skip`, and `Custom Answer` when resuming a run from `stopped` or ambiguous state.
 - Use domain-specific option sets only when the stage defines them, such as provider intake actions or multi-repo access requirement values.
-- Wait for the user's answer before asking the next question.
-- Do not bundle unrelated questions into one message.
+- Wait for the user's answer before asking another question.
 - If multiple confirmations are discovered at once, present only the highest-priority one and defer the rest until after the user answers.
 
 ## Next Action Selection Pattern
@@ -29,8 +27,7 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 ## Registered Command Recommendation Pattern
 
 - Use `.github/prompts/README.md#registered-slash-commands` as the canonical command registry.
-- Agents must recommend only slash commands listed in the canonical command registry.
-- Do not invent slash commands from natural workflow names, artifact names, queue names, or agent names.
+- Recommend only registered slash commands. Do not invent commands from workflow names, artifact names, queue names, or agent names.
 - Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.architecture`, `/devspec.provider-integrations`, `/devspec.queue`, or `/devspec.decisions`.
 - Before outputting a slash command recommendation, verify that it is in the registered command list and that the matching `.github/prompts/devspec.<command>.prompt.md` file exists.
 - If no registered command fits, recommend a concrete file update, a configured handoff, or a structured question instead of a slash command.
@@ -92,11 +89,11 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 
 - When `.github/skills/exploration-recovery/SKILL.md` is available, use it as the operational procedure for this pattern.
 - Before broad search, generated scripts, helper commands, provider lookup, or repeated discovery, follow the [Discovery Exclusion Pattern](#discovery-exclusion-pattern), then check `devspec/foundation/exploration-state.md` and session memory for known working and failed methods in the same scope.
-- Use known working methods first when the scope and goal match.
-- Skip known failed methods unless the user says the environment changed, the input changed, credentials changed, dependencies were installed, or the command was corrected.
+- Use known working methods first when scope and goal match.
+- Skip known failed methods unless input, environment, credentials, dependencies, access, path, or command changed.
 - Prefer built-in repository search, targeted file reads, manifest inspection, and configured provider tools before generating broad helper scripts.
 - Limit probing to one new generated script, helper command, provider lookup path, or expensive search strategy per source or goal before falling back to direct search/read evidence gathering.
-- When a fallback succeeds after a failed method, record the scope, goal, failed method, failure reason, working method, and retry condition in `devspec/foundation/exploration-state.md`; optionally mirror a concise transient summary in `/memories/session/<stage>.md`.
+- When a fallback succeeds after a failed method, record scope, goal, failed method, failure reason, working method, and retry condition in `devspec/foundation/exploration-state.md`; optionally mirror a concise transient summary in `/memories/session/<stage>.md`.
 - On rerun, use the recorded working method first and mention skipped known failures in the output.
 
 ## Foundation Update Pattern
@@ -104,9 +101,8 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - Required user input is mandatory.
 - Ask one clarification at a time when required details are missing or ambiguous, following the Interactive Question Pattern.
 - Use the matching `devspec/foundation/_template/*.md` or `devspec/architecture/_template/*.md` file as the section contract when one exists.
-- Treat live `devspec/foundation/*.md` and `devspec/architecture/*.md` files as project-owned artifacts; update them in place and never replace them wholesale from templates.
+- Treat live `devspec/foundation/*.md` and `devspec/architecture/*.md` files as project-owned; update them in place and never replace them wholesale from templates.
 - If a live foundation or architecture artifact is missing, initialize it from the matching `_template` file before applying user-provided or extracted content.
-- Update the target live foundation or architecture artifact in place.
 - Keep output durable, structured, concise, and usable by later work-item stages.
 
 ## Work-Item Target Pattern
@@ -114,7 +110,7 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - Use the current work item when clear; otherwise ask the user to select one, following the Interactive Question Pattern.
 - Work-item folders must follow the [Work-Item Folder Naming Pattern](#work-item-folder-naming-pattern) when created by `/devspec.story`.
 - Treat optional user input as additive guidance only.
-- Update the target work-item artifact in place and stay within the current stage scope; after finalization, stay within the finalized scope.
+- Update the target work-item artifact in place. Stay within the current stage scope, and after finalization, within finalized scope.
 
 ## Work-Item Folder Naming Pattern
 

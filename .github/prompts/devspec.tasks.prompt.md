@@ -9,6 +9,3 @@ Create or update `devspec/work-items/<work-item-folder>/tasks.md` for the curren
 
 Optional user input:
 ${input:tasksInput:Optional: add additive guidance for task decomposition}
-
-Execution:
-- Pass optional task-planning guidance to `devspec.tasks`; the agent owns target selection, prerequisite validation, discovery, task decomposition, multi-repo handling, type-specific planning, and handoff behavior.

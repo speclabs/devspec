@@ -9,6 +9,3 @@ Create or update `devspec/foundation/codebase-structure.md`.
 
 Required user input:
 ${input:codebaseStructureInput:Describe the repository layout, module boundaries, ownership seams, and integration boundaries}
-
-Execution:
-- Pass the required input to `devspec.codebase-structure`; the agent owns validation, artifact updates, clarification, multi-repo handling, and handoff behavior.
