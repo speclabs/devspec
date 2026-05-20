@@ -56,14 +56,6 @@
 
 - Escalation 1:
 
-## Token Usage Summary
-
-| Checkpoint | Token summary | Availability | Notes |
-| --- | --- | --- | --- |
-| Before implementation | unavailable | telemetry unavailable by default | |
-| After completion | unavailable | telemetry unavailable by default | |
-| Delta | unavailable | telemetry unavailable by default | |
-
 ## Next-Task Handoff
 
 - Next task:

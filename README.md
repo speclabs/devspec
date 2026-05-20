@@ -632,8 +632,7 @@ Important behavior:
 - validates required repo paths and access requirements before making code changes or running validation, and surfaces missing repo access as a blocker
 - after each task, reports completed and pending counts and asks one structured question with `Proceed`, `Skip`, and `Custom Answer`
 - once all tasks are implemented, records the completed task list and completion summary
-- if the same task loops more than 3 times, explains the issue and asks one structured question with `Proceed`, `Skip`, and `Custom Answer`
-- captures token-usage summary before implementation and after completion when runtime telemetry is available, and records when it is unavailable
+- if the same task needs more than 3 attempts, explains the blocker before asking whether to proceed, skip, or provide custom direction
 - updates the execution log and next-task handoff
 - for bug fixes, records focused before-fix and after-fix code snippets in `implement.md` for audit purposes only
 
