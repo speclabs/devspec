@@ -29,12 +29,8 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 - Do not invent missing requirements.
 - Use the `Explore` subagent when implementation context, analogous existing behavior, or likely impact areas need quick discovery before finalizing the brief.
 - Use session memory only for transient discovery notes, assumptions, and open questions; `finalize.md` remains the canonical brief.
-- Update `finalize.md` in place.
 - Update `Resume State` in `meta.md` and `finalize.md` before recording `not ready`, asking for clarification, or handing off to task planning.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before Explore runs or code/context discovery.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before Explore runs or repeated code/context discovery.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Locate the target work item.
@@ -47,7 +43,7 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 8. Merge additive guidance without silently changing the current work-item scope.
 9. Apply type-specific readiness gates for bugs and security vulnerabilities.
 10. Write `finalize.md` using `../../devspec/work-items/_template/finalize.md` as the section contract.
-11. Report readiness status, blockers, skipped known failed methods, and one next action or structured question.
+11. Report per Output Format.
 
 ## Output Format
 - Work-item path updated

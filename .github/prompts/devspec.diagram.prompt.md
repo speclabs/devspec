@@ -9,6 +9,3 @@ Generate or update one diagram artifact for the requested subject.
 
 Required user input:
 ${input:diagramInput:Describe the diagram subject, scope, type, or related work item}
-
-Execution:
-- Pass the diagram request to `devspec.diagram`; the agent owns scope classification, target selection, evidence discovery, queue updates, Mermaid generation, artifact updates, and handoff behavior.

@@ -34,17 +34,13 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - After each completed task, report completed and pending counts and ask exactly one structured confirmation question with `Proceed`, `Skip`, and `Custom Answer` before continuing.
 - If the same task exceeds three implementation or repair attempts, stop, explain the loop issue, and ask exactly one structured confirmation question with `Proceed`, `Skip`, and `Custom Answer` before continuing.
 - Record task attempt failures with failed method, failure reason, retry condition, and next safer method. Retry only when the condition is met, the method changed, or the user gives custom direction.
-- Capture a token-usage summary before implementation starts and after all tasks complete when runtime telemetry is available. If telemetry is unavailable, record that explicitly.
-- Record the token summary in `implement.md` as a Markdown table covering before implementation, after completion, and delta.
+- Record token telemetry in `implement.md` before implementation and after completion when available; otherwise record that telemetry is unavailable.
 - If code changes are not applicable in the configured target repo, record that clearly.
 - If no pending task remains, notify the user that all planned tasks are already implemented and update `implement.md` to reflect the completed task list and completion summary.
 - Keep `Task State` and `Last Safe Checkpoint` current after each task, validation run, blocker, pause, stop, or retry escalation.
 - Update `Resume State` in `meta.md` and `implement.md` before asking a continuation question or ending the run.
 - When the implementation is ready for inspection, hand off to `devspec.review` rather than treating implementation as final closure.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before code search, repair probing, helper commands, or validation discovery.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated code search, repair probing, helper commands, or validation discovery.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Locate the target work item.
@@ -60,7 +56,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 11. If all tasks are already implemented or skipped, update `implement.md` with completed status, completed task summary, no next task, and notify the user.
 12. Otherwise, implement the selected task when applicable.
 13. Run appropriate validation for that task when available.
-14. Record meaningful working and failed search, helper-command, repair, or validation methods in `exploration-state.md`.
+14. Record reusable search, helper-command, repair, or validation methods in `exploration-state.md`.
 15. Update `implement.md` with repo access status, task state, last safe checkpoint, a task log entry, changed files, validation, blockers, type-specific handling notes, completed and pending counts, and confirmation outcome.
 16. If the task exceeded three implementation attempts, mark the run `blocked` or `waiting-for-user`, record the retry condition, and ask one structured question with `Proceed`, `Skip`, and `Custom Answer`.
 17. Otherwise, ask one structured question with `Proceed`, `Skip`, and `Custom Answer` for the next task or remaining work.

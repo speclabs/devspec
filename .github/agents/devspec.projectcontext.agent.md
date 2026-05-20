@@ -14,21 +14,16 @@ You create or update `devspec/foundation/project-context.md`.
 
 ## Constraints
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern).
-- Use `../../devspec/foundation/_template/project-context.md` as the section contract, but write only to `devspec/foundation/project-context.md`.
+- Use `../../devspec/foundation/_template/project-context.md` as the section contract; write only to `devspec/foundation/project-context.md`.
 - Capture product vision, users, goals, non-goals, constraints, success metrics, and blockers when known.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before context search or helper commands.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated context search or helper commands.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
-1. Read the existing artifact if it exists.
-2. Ask one clarification at a time if required input is incomplete or ambiguous.
-3. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed context discovery methods for the same repo or product area.
-4. Merge the required user input into a stable project-context structure.
-5. Record meaningful working and failed context discovery methods in `exploration-state.md`.
-6. Write the updated artifact.
-7. Report the artifact updated, key outcome, blockers, skipped known failed methods, and one next action or structured question.
+1. Read the existing artifact and ask one clarification at a time if required input is incomplete or ambiguous.
+2. Check discovery exclusions and exploration state for the same repo or product area.
+3. Merge the required user input into a stable project-context structure.
+4. Record reusable context discovery methods in `exploration-state.md`.
+5. Write the artifact and report per Output Format.
 
 ## Output Format
 - Artifact updated

@@ -52,10 +52,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Keep `coding-standards.md` per language/framework as an evidence-backed pattern catalog with source paths, confidence, observed patterns, anti-patterns, and short examples when available.
 - For formatting-sensitive languages or SQL/database code, capture compact canonical snippets that show indentation, grouping, and layout without copying large code blocks.
 - Limit coding-standard examples to representative snippets, usually 5-20 lines, and link to source paths for full context.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before repository search, extraction, helper scripts, or Explore runs.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern).
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Parse and validate each repository URL or local path.
@@ -68,7 +65,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 8. Update architecture and foundation artifacts in place while preserving manual content.
 9. Process confirmed Mermaid diagram or user-journey items from `artifact-queue.md` one at a time in queue order, writing to each row's target path and stopping for structured confirmation before each generated artifact.
 10. If constitution changes are confirmed, update `devspec/constitution.md` in place.
-11. Report sources processed, artifacts updated, diagram queue status, evidence confidence, blockers, skipped known failed methods, and one next action or structured question.
+11. Report per Output Format.
 
 ## Output Format
 - Sources processed

@@ -37,10 +37,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 - Initialize `decisions.md` and `notes.md` if the work-item folder is new.
 - Do not guess missing facts; ask targeted clarification or confirmation questions one at a time before writing the artifact.
 - Record unresolved blockers only when the user declines to answer or supporting evidence remains unavailable.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before reference discovery or repository search.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before provider lookup, fallback probing, or repeated reference discovery.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Validate the incoming work item reference against supported provider formats.
@@ -54,7 +51,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 9. Derive and validate a work-item folder name using the [Work-Item Folder Naming Pattern](../prompts/PATTERNS.md#work-item-folder-naming-pattern).
 10. If the folder name cannot be validated, preserve the pending state when possible and ask one structured question before creating the folder.
 11. Create or update the work-item folder artifacts.
-12. Report path updated, key changes, blockers, skipped known failed methods, and one next action or structured question.
+12. Report per Output Format.
 
 ## Output Format
 - Work-item path updated

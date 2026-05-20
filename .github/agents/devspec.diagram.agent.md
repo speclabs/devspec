@@ -33,11 +33,8 @@ You generate or update one diagram artifact for a requested architecture, module
 - Update queue rows before asking for confirmation, after generation, or when blocking evidence is missing.
 - Use `../../devspec/architecture/_template/diagram.md` as the section contract when creating a detailed architecture diagram file.
 - Use `../../devspec/work-items/_template/diagrams.md` as the section contract only for explicit or clearly temporary work-item diagrams.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Prefer existing devspec artifacts, queue rows, manifests, and targeted source reads before broad repository search or Explore runs.
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before code search, diagram evidence discovery, or Explore runs.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated diagram evidence discovery.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Parse the requested diagram subject, scope, intended audience, and any requested Mermaid type.
@@ -53,8 +50,8 @@ You generate or update one diagram artifact for a requested architecture, module
 11. Generate one concise Mermaid diagram with evidence notes and assumptions.
 12. Write the generated diagram to the selected target artifact and update `overview.md` with a link only when the target is a detailed architecture diagram file.
 13. Mark the queue row `generated`, `skipped`, or `blocked`.
-14. Record meaningful working or failed discovery methods in `exploration-state.md`.
-15. Report target path, diagram type, evidence, queue status, assumptions, skipped known failures, and one next action or structured question.
+14. Record reusable discovery methods in `exploration-state.md`.
+15. Report per Output Format.
 
 ## Output Format
 - Diagram target path

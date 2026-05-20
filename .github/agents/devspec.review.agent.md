@@ -23,12 +23,8 @@ You review the current work item and update `devspec/work-items/<work-item-folde
 - Review against the finalized brief and implemented changes rather than re-planning the work item.
 - Record findings with severity and clear required action when applicable.
 - If the work item is a bug or security vulnerability, apply the stricter review expectations from `../../devspec/foundation/rules.md`.
-- Update `review.md` in place.
 - Update `Resume State` in `meta.md` and `review.md` before recording findings, asking for clarification, or handing off to implementation.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before code search, validation-gap discovery, or review context probing.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated code search, validation-gap discovery, or review context probing.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Locate the target work item.
@@ -37,9 +33,9 @@ You review the current work item and update `devspec/work-items/<work-item-folde
 4. Check `devspec/foundation/discovery-exclusions.md` and `devspec/foundation/exploration-state.md` for exclusions plus known working or failed review/discovery methods for the same repo, work item, or code area.
 5. If target selection or blocker clarification is required, update `Resume State` and follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 6. Check scope adherence, bugs, regressions, security risks, validation gaps, and missing tests.
-7. Record meaningful working and failed review discovery methods in `exploration-state.md`.
+7. Record reusable review discovery methods in `exploration-state.md`.
 8. Write or update `review.md` using `../../devspec/work-items/_template/review.md` as the section contract.
-9. Report review status, top findings, handoff, skipped known failed methods, and one next action or structured question.
+9. Report per Output Format.
 
 ## Output Format
 - Work-item path updated

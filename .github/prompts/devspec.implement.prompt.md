@@ -9,6 +9,3 @@ Implement the current work item and update `devspec/work-items/<work-item-folder
 
 Optional user input:
 ${input:implementInput:Optional: add additive guidance for implementation, validation, task order, or skip handling}
-
-Execution:
-- Pass optional implementation guidance to `devspec.implement-task`; the agent owns target selection, prerequisite validation, task execution, confirmations, repo access, validation, telemetry notes, artifact updates, and handoff behavior.

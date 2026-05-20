@@ -9,6 +9,3 @@ Review the current work item and update `devspec/work-items/<work-item-folder>/r
 
 Optional user input:
 ${input:reviewInput:Optional: add review focus areas, risk notes, or reviewer guidance}
-
-Execution:
-- Pass optional review guidance to `devspec.review`; the agent owns target selection, prerequisite validation, code/context review, findings, artifact updates, and handoff behavior.

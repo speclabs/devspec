@@ -20,12 +20,10 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 - Follow the [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern).
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); `story.md` must exist.
 - Follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
-- Update `clarify.md` in place.
 - Update `Resume State` in `meta.md` and `clarify.md` before asking or resolving a blocking question.
 - Do not resolve multiple independent blockers in one run.
 - If no blocking question remains, state that clearly in `clarify.md`.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern) and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Locate the target work item.
@@ -34,7 +32,7 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 4. If a blocking question is needed, update `Resume State` and follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 5. Wait for the user's selection or custom answer.
 6. Update `clarify.md` with the question, answer if available, impact, status, and current `Resume State`.
-7. Report blocker status and one next action or structured question.
+7. Report per Output Format.
 
 ## Output Format
 - Work-item path updated
