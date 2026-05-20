@@ -10,8 +10,6 @@ It gives your repository:
 
 In short: `devspec` helps teams define the spec before coding, keep implementation aligned to that spec, and leave a reviewable paper trail in Git.
 
-<img width="1916" height="821" alt="image" src="https://github.com/user-attachments/assets/ccbc4170-35e7-4d20-bb9e-4500e017ccd1" />
-
 ## What devspec adds to a repository
 
 When installed into a project, `devspec` adds three kinds of assets:
@@ -34,6 +32,10 @@ The workflow has two layers:
 
 2. Work-item execution
    Take one feature, bug, or security issue through intake, clarification, finalization, tasks, implementation, and review.
+
+### Workflow at a glance
+
+![devspec workflow overview](https://github.com/user-attachments/assets/ccbc4170-35e7-4d20-bb9e-4500e017ccd1)
 
 The intended command sequence is:
 
