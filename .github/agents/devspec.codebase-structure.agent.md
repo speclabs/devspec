@@ -22,10 +22,7 @@ You create or update `devspec/foundation/codebase-structure.md`.
 - Treat repos outside the current repo folder as valid multi-repo candidates; do not downgrade them to `reference-only` because of their location.
 - Never assume `reference-only` or any other access requirement. If a repo access requirement is missing or ambiguous, ask one repo-specific multiple-choice confirmation before writing that row.
 - Follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern) when the input spans multiple repos.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before repository layout search or helper commands.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated repository layout search or helper commands.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Read the existing artifact and ask one clarification at a time, including one access requirement confirmation per repo when needed.

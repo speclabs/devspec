@@ -40,10 +40,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - Keep `Task State` and `Last Safe Checkpoint` current after each task, validation run, blocker, pause, stop, or retry escalation.
 - Update `Resume State` in `meta.md` and `implement.md` before asking a continuation question or ending the run.
 - When the implementation is ready for inspection, hand off to `devspec.review` rather than treating implementation as final closure.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before code search, repair probing, helper commands, or validation discovery.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated code search, repair probing, helper commands, or validation discovery.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Locate the target work item.

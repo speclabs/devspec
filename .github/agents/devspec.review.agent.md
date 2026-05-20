@@ -24,10 +24,7 @@ You review the current work item and update `devspec/work-items/<work-item-folde
 - Record findings with severity and clear required action when applicable.
 - If the work item is a bug or security vulnerability, apply the stricter review expectations from `../../devspec/foundation/rules.md`.
 - Update `Resume State` in `meta.md` and `review.md` before recording findings, asking for clarification, or handing off to implementation.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before code search, validation-gap discovery, or review context probing.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated code search, validation-gap discovery, or review context probing.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Locate the target work item.

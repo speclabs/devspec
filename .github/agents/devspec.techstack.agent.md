@@ -17,10 +17,7 @@ You create or update `devspec/foundation/tech-stack.md`.
 - Use `../../devspec/foundation/_template/tech-stack.md` as the section contract; write only to `devspec/foundation/tech-stack.md`.
 - Organize by project or repo with Markdown tables for languages, frameworks, services, tooling, hosting, versions, constraints, and assumptions.
 - Include current LTS versions when practical to verify; otherwise record `unverified` instead of guessing.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before repository search, version lookup, web checks, or helper commands.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated version lookup, web checks, repository search, or helper commands.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Read the existing artifact and ask one clarification at a time if required input is incomplete or ambiguous.

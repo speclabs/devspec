@@ -17,10 +17,7 @@ You create or update `devspec/foundation/rules.md`.
 - Use `../../devspec/foundation/_template/rules.md` as the section contract; write only to `devspec/foundation/rules.md`.
 - Keep this file focused on project-operational hard constraints, not enduring principles from `devspec/constitution.md`.
 - Capture compliance requirements, forbidden patterns, delivery gates, review rules, and exception process when known.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before rule, compliance, or repository-policy discovery.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated rule, compliance, or repository-policy discovery.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Read the existing artifact and ask one clarification at a time if required input is incomplete or ambiguous.

@@ -33,11 +33,8 @@ You generate or update one diagram artifact for a requested architecture, module
 - Update queue rows before asking for confirmation, after generation, or when blocking evidence is missing.
 - Use `../../devspec/architecture/_template/diagram.md` as the section contract when creating a detailed architecture diagram file.
 - Use `../../devspec/work-items/_template/diagrams.md` as the section contract only for explicit or clearly temporary work-item diagrams.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
 - Prefer existing devspec artifacts, queue rows, manifests, and targeted source reads before broad repository search or Explore runs.
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before code search, diagram evidence discovery, or Explore runs.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated diagram evidence discovery.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Parse the requested diagram subject, scope, intended audience, and any requested Mermaid type.

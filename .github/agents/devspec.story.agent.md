@@ -37,10 +37,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 - Initialize `decisions.md` and `notes.md` if the work-item folder is new.
 - Do not guess missing facts; ask targeted clarification or confirmation questions one at a time before writing the artifact.
 - Record unresolved blockers only when the user declines to answer or supporting evidence remains unavailable.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before reference discovery or repository search.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before provider lookup, fallback probing, or repeated reference discovery.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Validate the incoming work item reference against supported provider formats.

@@ -24,10 +24,7 @@ You create or update `devspec/foundation/coding-standards.md`.
 - Prefer short canonical examples over long snippets. Use 5-20 lines when possible, only enough to show style, indentation, naming, grouping, SQL layout, or the reusable pattern.
 - Link to real source files or standards docs for full context instead of copying large files.
 - Ask one clarification at a time when evidence conflicts or a detected pattern should become a rule.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern) before standards-doc lookup, code-pattern search, or helper commands.
-- Follow the [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern) before repeated standards-doc lookup, code-pattern search, or helper commands.
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Read the existing artifact and ask one clarification at a time if required input is incomplete or ambiguous.

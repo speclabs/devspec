@@ -23,8 +23,7 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 - Update `Resume State` in `meta.md` and `clarify.md` before asking or resolving a blocking question.
 - Do not resolve multiple independent blockers in one run.
 - If no blocking question remains, state that clearly in `clarify.md`.
-- Follow the [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern).
-- Follow the [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Token Stewardship](../prompts/PATTERNS.md#token-stewardship-pattern) and [Output Closure](../prompts/PATTERNS.md#output-closure-pattern) patterns.
 
 ## Approach
 1. Locate the target work item.
