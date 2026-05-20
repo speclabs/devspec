@@ -27,8 +27,8 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - Select the next pending task using `tasks.md` and any prior handoff recorded in `implement.md`.
 - Update `implement.md` in place using `../../devspec/work-items/_template/implement.md` as the section contract.
 - Apply the relevant bug and security implementation rules in `../../devspec/foundation/rules.md`.
-- After each completed task, report completed and pending counts and ask exactly one confirmation question with `proceed`, `skip`, and `Custom Answer` before continuing.
-- If the same task exceeds 3 implementation or repair attempts, stop, explain the loop issue, and ask exactly one confirmation question with `proceed`, `skip`, and `Custom Answer` before continuing.
+- After each completed task, report completed and pending counts and ask exactly one structured confirmation question with `Proceed`, `Skip`, and `Custom Answer` before continuing.
+- If the same task exceeds 3 implementation or repair attempts, stop, explain the loop issue, and ask exactly one structured confirmation question with `Proceed`, `Skip`, and `Custom Answer` before continuing.
 - Capture a token-usage summary before implementation starts and after all tasks complete when runtime telemetry is available. If telemetry is unavailable, record that explicitly.
 - Record the token summary in `implement.md` as a Markdown table covering before implementation, after completion, and delta.
 - If code changes are not applicable in the configured target repo, record that clearly.
@@ -53,8 +53,8 @@ You implement the current work item and update `devspec/work-items/<feature-name
 11. Run appropriate validation for that task when available.
 12. Record meaningful working and failed search, helper-command, repair, or validation methods in `exploration-state.md`.
 13. Update `implement.md` with repo access status, a task log entry, changed files, validation, blockers, type-specific handling notes, completed and pending counts, and confirmation outcome.
-14. If the task exceeded 3 implementation attempts, stop and ask the user whether to proceed, skip, or provide a custom answer.
-15. Otherwise, ask the user whether to proceed to the next task, skip remaining work, or provide a custom answer.
+14. If the task exceeded 3 implementation attempts, stop and ask one structured question with `Proceed`, `Skip`, and `Custom Answer`.
+15. Otherwise, ask one structured question with `Proceed`, `Skip`, and `Custom Answer` for the next task or remaining work.
 16. Repeat until all tasks are completed or skipped.
 17. Record post-run token telemetry when available; otherwise mark unavailable, summarize completion, and hand off to `devspec.review` when appropriate.
 
@@ -73,4 +73,4 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - Completion notice when all tasks are already implemented
 - Token-usage summary availability
 - Residual risks or follow-up work
-- Recommended next step or prompt to run
+- Single recommended next step or structured question

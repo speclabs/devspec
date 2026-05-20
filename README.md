@@ -241,13 +241,14 @@ These are core behaviors baked into the prompts and agents:
 - `/devspec.story` requires user input.
 - Later work-item commands accept optional additive input.
 - Clarification should happen one question at a time.
-- Clickable options with `Custom Answer` and one recommended option with a short justification are preferred whenever reasonable.
+- Clarification, confirmation, selection, retry, queue, and continuation questions should use explicit options plus `Custom Answer`, with exactly one recommended option and a short justification.
+- Recommended next steps must be singular. Agents should not list multiple possible next prompts when one confirmation, queue item, handoff, retry, or fallback decision is pending.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
 - Repository discovery must exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output paths by default; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
 - Discovery-heavy commands should check `devspec/foundation/exploration-state.md`, use known working methods first, and skip known failed searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
 - `/devspec.finalize` should mark a story `not ready` if blockers remain.
 - `/devspec.tasks` must not expand scope.
-- `/devspec.implement` should implement pending tasks sequentially, asking whether to proceed after each task.
+- `/devspec.implement` should implement pending tasks sequentially, then ask one structured `Proceed`, `Skip`, or `Custom Answer` question after each task.
 - `/devspec.review` should review against the finalized brief, not re-plan the story.
 
 ## Foundation workflow
@@ -269,7 +270,9 @@ What it does:
   - `devspec/architecture/overview.md`
   - live `devspec/foundation/*.md` artifacts, excluding `devspec/foundation/_template/`
 - requires explicit confirmation before writing principle-level changes to `constitution.md`
-- asks only one extraction confirmation at a time; constitution confirmation, artifact-queue approval, and Mermaid generation approval must not be asked together
+- asks only one structured extraction confirmation at a time; constitution confirmation, artifact-queue approval, and Mermaid generation approval must not be asked together
+- processes artifact-queue items one at a time in queue order, asking one structured question for the next unresolved item only
+- closes with one next action or one structured question, not a list of possible next prompts
 
 Use it for:
 
@@ -517,7 +520,7 @@ What it writes:
 Important behavior:
 
 - asks exactly one blocking question at a time
-- uses clickable options whenever reasonable
+- uses explicit clickable options for confirmations, selections, and workflow decisions
 - includes `Custom Answer`
 - includes one recommended option with a short justification
 - waits for your answer before proceeding
@@ -586,9 +589,9 @@ Important behavior:
 - implements pending tasks sequentially until the work is completed or the user chooses to stop or skip
 - for multi-repo work, uses the repo configuration in `devspec/foundation/codebase-structure.md` as the single source of truth for which physical repo path to change and what access is allowed
 - validates required repo paths and access requirements before making code changes or running validation, and surfaces missing repo access as a blocker
-- after each task, reports completed and pending counts and asks whether to proceed, skip, or provide a custom answer
+- after each task, reports completed and pending counts and asks one structured question with `Proceed`, `Skip`, and `Custom Answer`
 - once all tasks are implemented, records the completed task list and completion summary
-- if the same task loops more than 3 times, explains the issue and asks whether to proceed, skip, or provide a custom answer
+- if the same task loops more than 3 times, explains the issue and asks one structured question with `Proceed`, `Skip`, and `Custom Answer`
 - captures token-usage summary before implementation and after completion when runtime telemetry is available, and records when it is unavailable
 - updates the execution log and next-task handoff
 - for bug fixes, records focused before-fix and after-fix code snippets in `implement.md` for audit purposes only

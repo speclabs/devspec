@@ -48,7 +48,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 7. Confirm whether the work has multi-repo dependencies and, if yes, collect all related repos and follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern).
 8. Derive a stable work-item folder name.
 9. Create or update the work-item folder artifacts.
-10. Report path updated, key changes, blockers, skipped known failed methods, and next prompt.
+10. Report path updated, key changes, blockers, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Work-item path updated
@@ -56,4 +56,4 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Questions resolved or remaining blockers
-- Recommended next step or prompt to run
+- Single recommended next step or structured question

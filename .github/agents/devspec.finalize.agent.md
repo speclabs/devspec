@@ -43,7 +43,7 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 7. Merge additive guidance without silently changing the current work-item scope.
 8. Apply type-specific readiness gates for bugs and security vulnerabilities.
 9. Write `finalize.md` using `../../devspec/work-items/_template/finalize.md` as the section contract.
-10. Report readiness status, blockers, skipped known failed methods, and next prompt.
+10. Report readiness status, blockers, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Work-item path updated
@@ -52,4 +52,4 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Blockers or next step
-- Recommended next step or prompt to run
+- Single recommended next step or structured question

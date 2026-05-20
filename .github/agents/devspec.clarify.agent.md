@@ -30,10 +30,10 @@ You create or update `devspec/work-items/<feature-name>/clarify.md`.
 3. If a blocking question is needed, follow the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 4. Wait for the user's selection or custom answer.
 5. Update `clarify.md` with the question, answer if available, impact, and status.
-6. Report blocker status and next prompt.
+6. Report blocker status and one next action or structured question.
 
 ## Output Format
 - Work-item path updated
 - Blocking question or recorded answer
 - Impact and next step
-- Recommended next step or prompt to run
+- Single recommended next step or structured question

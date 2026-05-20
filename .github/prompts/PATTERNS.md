@@ -5,12 +5,25 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 ## Interactive Question Pattern
 
 - Ask exactly one blocking clarification, confirmation, or selection question at a time.
-- Use clickable multiple-choice options whenever reasonable.
+- Use clickable multiple-choice options whenever reasonable; for confirmations and workflow decisions, explicit options are required.
 - Always include a `Custom Answer` option.
 - Recommend exactly one option with a short justification.
+- Do not ask open-ended confirmation questions such as "Do you want..." or "Would you like..." without explicit selectable options.
+- Use `Yes`, `No`, and `Custom Answer` for binary confirmations.
+- Use `Proceed`, `Skip`, and `Custom Answer` for workflow continuation, queue processing, task continuation, generated artifact approval, or retry decisions.
+- Use domain-specific option sets only when the stage defines them, such as provider intake actions or multi-repo access requirement values.
 - Wait for the user's answer before asking the next question.
 - Do not bundle unrelated questions into one message.
 - If multiple confirmations are discovered at once, present only the highest-priority one and defer the rest until after the user answers.
+
+## Next Action Selection Pattern
+
+- The recommended next step must be singular.
+- Do not output multiple next prompts, alternative command lists, or peer next-action bullets when any clarification, confirmation, queue item, handoff, retry, or fallback decision is pending.
+- When multiple next actions are possible, pick the highest-priority unresolved action for the current stage and ask exactly one structured question using the [Interactive Question Pattern](#interactive-question-pattern).
+- If no confirmation or selection is pending, provide exactly one recommended next command or handoff.
+- For queues, select the next unresolved item by the queue order and status unless the stage defines a stricter priority; do not ask the user to choose among multiple queued items unless the queue order is ambiguous.
+- A final response may summarize completed work, but its action close must be one next action or one structured question.
 
 ## Prerequisite Validation Pattern
 
@@ -21,8 +34,10 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 
 ## Output Closure Pattern
 
-- End with a recommended next step or next prompt to run.
-- Summarize only the artifact or work-item path updated, the key outcome, blockers or open questions, and the recommended next step.
+- Follow the [Next Action Selection Pattern](#next-action-selection-pattern).
+- End with exactly one recommended next step, handoff, or structured question.
+- If the next step requires user confirmation, selection, retry approval, queue approval, or workflow continuation, ask one structured question with explicit options instead of listing possible next prompts.
+- Summarize only the artifact or work-item path updated, the key outcome, blockers or open questions, and the single next action.
 
 ## Token Stewardship Pattern
 

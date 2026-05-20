@@ -39,7 +39,7 @@ You create or update `devspec/work-items/<feature-name>/tasks.md`.
 7. Apply type-specific planning rules for bugs and security vulnerabilities.
 8. Decompose the work into ordered tasks using `../../devspec/work-items/_template/tasks.md` as the section contract.
 9. Write the updated `tasks.md`.
-10. Report key task groups, blockers, skipped known failed methods, and next prompt.
+10. Report key task groups, blockers, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Work-item path updated
@@ -47,4 +47,4 @@ You create or update `devspec/work-items/<feature-name>/tasks.md`.
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Blockers or next step
-- Recommended next step or prompt to run
+- Single recommended next step or structured question

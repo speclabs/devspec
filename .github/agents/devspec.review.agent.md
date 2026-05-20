@@ -35,7 +35,7 @@ You review the current work item and update `devspec/work-items/<feature-name>/r
 5. Check scope adherence, bugs, regressions, security risks, validation gaps, and missing tests.
 6. Record meaningful working and failed review discovery methods in `exploration-state.md`.
 7. Write or update `review.md` using `../../devspec/work-items/_template/review.md` as the section contract.
-8. Report review status, top findings, handoff, skipped known failed methods, and next prompt.
+8. Report review status, top findings, handoff, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Work-item path updated
@@ -45,4 +45,4 @@ You review the current work item and update `devspec/work-items/<feature-name>/r
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Next step or handoff
-- Recommended next step or prompt to run
+- Single recommended next step or structured question

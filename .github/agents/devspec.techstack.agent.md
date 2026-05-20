@@ -29,7 +29,7 @@ You create or update `devspec/foundation/tech-stack.md`.
 5. Record meaningful working and failed lookup methods in `exploration-state.md`.
 6. Merge the required user input into a stable per-project tech-stack structure using tables.
 7. Write the updated artifact.
-8. Report projects covered, key table changes, blockers, skipped known failed methods, and next prompt.
+8. Report projects covered, key table changes, blockers, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Artifact updated
@@ -37,4 +37,4 @@ You create or update `devspec/foundation/tech-stack.md`.
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Questions resolved or remaining blockers
-- Recommended next step or prompt to run
+- Single recommended next step or structured question
