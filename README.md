@@ -2,46 +2,146 @@
 
 `devspec` is a spec-driven development framework for developers using GitHub Copilot Chat.
 
-It gives your repository:
+It helps teams define the spec before coding, keep implementation aligned to that spec, and leave a reviewable paper trail in Git.
 
-- a canonical place for project principles, architecture, and engineering rules
-- a repeatable command flow for turning work items into implementation-ready specs
-- durable artifacts for story intake, clarification, finalization, task planning, implementation, and review
+Use it when you want Copilot Chat to follow a consistent workflow for:
 
-In short: `devspec` helps teams define the spec before coding, keep implementation aligned to that spec, and leave a reviewable paper trail in Git.
+- project context, architecture, engineering rules, and coding standards
+- feature, bug, or security work-item intake
+- clarification, finalization, task planning, implementation, and review
+- session recovery through Git-tracked artifacts instead of chat memory
 
-## What devspec adds to a repository
+## Quick start
 
-When installed into a project, `devspec` adds three kinds of assets:
+`devspec` is currently installed by copying files into the target repository. There is no package-manager or CLI installer yet.
 
-1. `devspec/`
-   This is the canonical source of truth for project context, architecture, rules, and work-item artifacts.
+1. Open the target repository in VS Code.
+2. Make sure GitHub Copilot Chat is available in that workspace.
+3. Copy these folders from this repository into the target repository root:
+   - `devspec/`
+   - `.github/prompts/`
+   - `.github/agents/`
+   - `.github/skills/` when you want the bundled reusable skills
+4. Commit the copied files.
+5. Run the foundation commands in Copilot Chat.
+6. Start the first work item with `/devspec.story`.
 
-2. `.github/prompts/` and `.github/agents/`
-   These power the GitHub Copilot Chat slash-command workflow such as `/devspec.extract`, `/devspec.projectcontext`, and `/devspec.story`.
+For a new project, start here:
 
-3. `.github/skills/`
-   Optional reusable GitHub-hosted skills for agent behaviors that should travel across repositories, such as exploration recovery.
+```text
+/devspec.projectcontext
+/devspec.techstack
+/devspec.codebase-structure
+/devspec.coding-standards
+/devspec.rules
+```
+
+For an existing project, backfill from the repository first:
+
+```text
+/devspec.extract D:\path\to\existing-repo
+/devspec.projectcontext
+/devspec.techstack
+/devspec.codebase-structure
+/devspec.coding-standards
+/devspec.rules
+```
+
+After the foundation exists, use this work-item flow:
+
+```text
+/devspec.story
+/devspec.clarify
+/devspec.finalize
+/devspec.tasks
+/devspec.implement
+/devspec.review
+```
+
+Use `/devspec.diagram` whenever you need an additional architecture, module, feature workflow, user journey, sequence, or state diagram after the relevant context exists.
+
+## What Gets Installed
+
+`devspec` adds three groups of files to a repository:
+
+| Path | Purpose |
+| --- | --- |
+| `devspec/` | Project context, architecture, rules, templates, and work-item artifacts. |
+| `.github/prompts/` | Slash-command prompts such as `/devspec.story` and `/devspec.review`. |
+| `.github/agents/` | Copilot agent definitions used by the slash-command workflow. |
+| `.github/skills/` | Optional reusable skills, such as exploration recovery. |
+
+The prompt and agent folders are required. The skills folder is optional but recommended when teams want the bundled agent behaviors to travel with the repository.
+
+Installation worked when:
+
+- `devspec/`, `.github/prompts/`, and `.github/agents/` exist in the target repository root
+- `.github/prompts/PATTERNS.md` exists
+- Copilot Chat recognizes `/devspec` commands such as `/devspec.projectcontext` or `/devspec.story`
+- `.github/skills/exploration-recovery/SKILL.md` exists if you copied the optional skills folder
+
+If the commands do not appear, reopen the repository workspace in VS Code and confirm the files were copied to the target repository root rather than a nested folder.
 
 ## How devspec works
 
-The workflow has two layers:
+The workflow has two layers.
 
-1. Project foundation
-   Define the stable project context that every future story should follow.
+| Layer | Goal | Commands |
+| --- | --- | --- |
+| Project foundation | Define stable project context every future story should follow. | `/devspec.extract`, `/devspec.projectcontext`, `/devspec.techstack`, `/devspec.codebase-structure`, `/devspec.coding-standards`, `/devspec.rules` |
+| Work-item execution | Move one feature, bug, or security issue from intake to review. | `/devspec.story`, `/devspec.clarify`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, `/devspec.review` |
 
-2. Work-item execution
-   Take one feature, bug, or security issue through intake, clarification, finalization, tasks, implementation, and review.
+### Workflow At A Glance
 
-### Workflow at a glance
+```mermaid
+flowchart TD
+    Start["Start in Copilot Chat"] --> ProjectType{"Project type?"}
 
-![devspec workflow overview](https://github.com/user-attachments/assets/ccbc4170-35e7-4d20-bb9e-4500e017ccd1)
+    subgraph Foundation["Project foundation"]
+        Extract["/devspec.extract<br/>existing projects only"]
+        ProjectContext["/devspec.projectcontext"]
+        TechStack["/devspec.techstack"]
+        Structure["/devspec.codebase-structure"]
+        Standards["/devspec.coding-standards"]
+        Rules["/devspec.rules"]
 
-![devspec workflow overview](https://github.com/user-attachments/assets/1eb9e2b3-8ba4-4bb5-8fd4-da2d35404f0d)
+        Extract --> ProjectContext
+        ProjectContext --> TechStack
+        TechStack --> Structure
+        Structure --> Standards
+        Standards --> Rules
+    end
 
-The intended command sequence is:
+    subgraph WorkItem["Work-item execution"]
+        Story["/devspec.story"]
+        Clarify{"Blocked by ambiguity?"}
+        ClarifyCommand["/devspec.clarify"]
+        Finalize["/devspec.finalize"]
+        Tasks["/devspec.tasks"]
+        Implement["/devspec.implement"]
+        Review["/devspec.review"]
 
-1. `/devspec.extract` for existing projects only, or when backfilling from an existing repo
+        Story --> Clarify
+        Clarify -- "yes" --> ClarifyCommand
+        ClarifyCommand --> Clarify
+        Clarify -- "no" --> Finalize
+        Finalize --> Tasks
+        Tasks --> Implement
+        Implement --> Review
+    end
+
+    ProjectType -- "new project" --> ProjectContext
+    ProjectType -- "existing project" --> Extract
+    Rules --> Story
+
+    Diagram["/devspec.diagram<br/>when a diagram would clarify context"]
+    Foundation -.-> Diagram
+    WorkItem -.-> Diagram
+```
+
+The command order is:
+
+1. `/devspec.extract` for existing projects only
 2. `/devspec.projectcontext`
 3. `/devspec.techstack`
 4. `/devspec.codebase-structure`
@@ -54,134 +154,16 @@ The intended command sequence is:
 11. `/devspec.implement`
 12. `/devspec.review`
 
-Use `/devspec.diagram` whenever you need an additional architecture, module, feature workflow, user journey, sequence, or state diagram after the relevant context exists.
-
 ## Setup
 
-Right now, the recommended setup is file-copy based. Package-based install can be added later, but the current workflow assumes these files live inside the target repository.
+### Prerequisites
 
-Before you start:
-
-- open the target repository as a workspace in VS Code
-- for multi-repo work, open a VS Code multi-root workspace that includes every repo you expect to inspect, edit, test, or coordinate
-- make sure GitHub Copilot Chat is available in that workspace
-- copy both `.github/prompts/` and `.github/agents/` along with `devspec/`, because the slash-command workflow depends on all three
-- optionally copy `.github/skills/` when you want agents to reuse the bundled skills directly
+- VS Code with GitHub Copilot Chat enabled
+- the target repository open as the active workspace
+- for multi-repo work, a VS Code multi-root workspace that includes every repository you expect agents to inspect, edit, test, or coordinate
+- Git access to commit the copied framework files and later `devspec` artifacts
 
 For multi-repo work, the most reliable pattern is to keep one shared workspace open and record repo configuration in `devspec/foundation/codebase-structure.md`. That keeps one source of truth for local repo paths and access requirements, so story, tasks, finalize, and implement rely on the same configured repos. Single-repo work does not need any extra repo configuration.
-
-Do not directly overwrite project-owned artifacts during manual upgrades. Framework-owned files live under `.github/`, `devspec/**/_template/`, and prompt/agent support files. Live files such as `devspec/foundation/*.md`, `devspec/architecture/*.md`, `devspec/constitution.md`, and `devspec/glossary.md` are project-owned and should be migrated or merged.
-
-Manual upgrade ownership:
-
-| Path | Owner | Upgrade action |
-| --- | --- | --- |
-| `.github/skills/` | framework | Replace or diff-apply |
-| `.github/agents/` | framework | Replace or diff-apply |
-| `.github/prompts/` | framework | Replace or diff-apply |
-| `devspec/**/_template/` | framework | Replace or diff-apply |
-| `devspec/architecture/decisions/_template.md` | framework | Replace or diff-apply |
-| `devspec/foundation/*.md` | project | Do not overwrite; migrate or merge |
-| `devspec/architecture/*.md` | project | Do not overwrite; migrate or merge |
-| `devspec/architecture/diagrams/*.md` | project | Do not overwrite; migrate or merge |
-| `devspec/constitution.md` | project | Do not overwrite; confirmation required |
-| `devspec/glossary.md` | project | Do not overwrite; migrate or merge |
-
-Installation worked if:
-
-- the copied files are visible in the target repository under `devspec/`, `.github/prompts/`, and `.github/agents/`
-- if copied, `.github/skills/exploration-recovery/SKILL.md` is visible in the target repository
-- `.github/prompts/PATTERNS.md` is present, because every prompt and agent relies on the shared patterns there
-- GitHub Copilot Chat in that repository recognizes `/devspec` commands such as `/devspec.projectcontext` or `/devspec.story`
-
-If the commands do not appear, reopen the repository workspace in VS Code and confirm the prompt and agent files were copied into the target repository root rather than a nested folder.
-
-### What to copy into the target repo
-
-Use this minimal working structure:
-
-```text
-your-repo/
-|-- .github/
-|   |-- agents/
-|   |   |-- devspec.clarify.agent.md
-|   |   |-- devspec.codebase-structure.agent.md
-|   |   |-- devspec.coding-standards.agent.md
-|   |   |-- devspec.diagram.agent.md
-|   |   |-- devspec.extract.agent.md
-|   |   |-- devspec.finalize.agent.md
-|   |   |-- devspec.implement-task.agent.md
-|   |   |-- devspec.projectcontext.agent.md
-|   |   |-- devspec.review.agent.md
-|   |   |-- devspec.rules.agent.md
-|   |   |-- devspec.story.agent.md
-|   |   |-- devspec.tasks.agent.md
-|   |   `-- devspec.techstack.agent.md
-|   |-- prompts/
-|   |   |-- PATTERNS.md
-|   |   |-- README.md
-|   |   |-- devspec.clarify.prompt.md
-|   |   |-- devspec.codebase-structure.prompt.md
-|   |   |-- devspec.coding-standards.prompt.md
-|   |   |-- devspec.diagram.prompt.md
-|   |   |-- devspec.extract.prompt.md
-|   |   |-- devspec.finalize.prompt.md
-|   |   |-- devspec.implement.prompt.md
-|   |   |-- devspec.projectcontext.prompt.md
-|   |   |-- devspec.review.prompt.md
-|   |   |-- devspec.rules.prompt.md
-|   |   |-- devspec.story.prompt.md
-|   |   |-- devspec.tasks.prompt.md
-|   |   `-- devspec.techstack.prompt.md
-|   `-- skills/
-|       `-- exploration-recovery/
-|           `-- SKILL.md
-`-- devspec/
-    |-- constitution.md
-    |-- glossary.md
-    |-- architecture/
-    |   |-- _template/
-    |   |   |-- artifact-queue.md
-    |   |   |-- diagram.md
-    |   |   `-- overview.md
-    |   |-- artifact-queue.md
-    |   |-- diagrams/
-    |   |   `-- README.md
-    |   |-- overview.md
-    |   `-- decisions/
-    |       |-- README.md
-    |       `-- _template.md
-    |-- foundation/
-    |   |-- _template/
-    |   |   |-- project-context.md
-    |   |   |-- tech-stack.md
-    |   |   |-- codebase-structure.md
-    |   |   |-- coding-standards.md
-    |   |   |-- discovery-exclusions.md
-    |   |   |-- exploration-state.md
-    |   |   |-- provider-integrations.md
-    |   |   `-- rules.md
-    |   |-- project-context.md
-    |   |-- tech-stack.md
-    |   |-- codebase-structure.md
-    |   |-- coding-standards.md
-    |   |-- discovery-exclusions.md
-    |   |-- exploration-state.md
-    |   |-- provider-integrations.md
-    |   `-- rules.md
-    `-- work-items/
-        `-- _template/
-            |-- meta.md
-            |-- story.md
-            |-- clarify.md
-            |-- finalize.md
-            |-- tasks.md
-            |-- implement.md
-            |-- review.md
-            |-- decisions.md
-            |-- diagrams.md
-            `-- notes.md
-```
 
 ### Setup on a new project
 
@@ -215,6 +197,23 @@ For an existing application or monorepo:
 5. Refine the extracted foundation using the remaining foundation commands.
 
 This path is best when you already have source code, docs, manifests, CI config, or architecture clues that can be mined into `devspec`.
+
+### Manual upgrades
+
+Do not directly overwrite project-owned artifacts during manual upgrades. Framework-owned files live under `.github/`, `devspec/**/_template/`, and prompt or agent support files. Live files such as `devspec/foundation/*.md`, `devspec/architecture/*.md`, `devspec/constitution.md`, and `devspec/glossary.md` are project-owned and should be migrated or merged.
+
+| Path | Owner | Upgrade action |
+| --- | --- | --- |
+| `.github/skills/` | framework | Replace or diff-apply |
+| `.github/agents/` | framework | Replace or diff-apply |
+| `.github/prompts/` | framework | Replace or diff-apply |
+| `devspec/**/_template/` | framework | Replace or diff-apply |
+| `devspec/architecture/decisions/_template.md` | framework | Replace or diff-apply |
+| `devspec/foundation/*.md` | project | Do not overwrite; migrate or merge |
+| `devspec/architecture/*.md` | project | Do not overwrite; migrate or merge |
+| `devspec/architecture/diagrams/*.md` | project | Do not overwrite; migrate or merge |
+| `devspec/constitution.md` | project | Do not overwrite; confirmation required |
+| `devspec/glossary.md` | project | Do not overwrite; migrate or merge |
 
 ## Recommended foundation sequences
 
