@@ -32,7 +32,8 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Follow the [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern) when repository discovery is iterative or spans multiple surfaces.
 - Write or update `devspec/architecture/overview.md` and the relevant files under `devspec/foundation/`.
 - Use `devspec/architecture/_template/*.md` and `devspec/foundation/_template/*.md` as section contracts only; initialize missing live files from templates, but do not overwrite existing live architecture or foundation files from templates during extraction.
-- When high-level modules or workflows are identified, record Mermaid architecture-diagram and user-journey candidates in `devspec/architecture/artifact-queue.md` as a resumable work queue.
+- When high-level modules or workflows are identified, record Mermaid architecture-diagram, feature-workflow, module-workflow, and user-journey candidates in `devspec/architecture/artifact-queue.md` as a resumable work queue.
+- Treat `/devspec.extract` as discovery-time seeding for diagram candidates. For user-requested diagrams after extraction, recommend `/devspec.diagram`.
 - Ask user confirmation before generating each diagram or user journey using `Proceed`, `Skip`, and `Custom Answer`. Generate at most one confirmed Mermaid artifact at a time, update its queue status, then stop or ask one structured continuation question only if no higher-priority confirmation is pending.
 - On rerun, resume from `devspec/architecture/artifact-queue.md` before proposing duplicate candidates.
 - When multiple artifact-queue items are pending, select the next unresolved row by queue order and ask one structured question for that item only. Do not list multiple queue items as possible next prompts.
@@ -65,7 +66,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 6. Build a pending-confirmation queue using the extraction priority order, and ask only the first unresolved confirmation using the [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern).
 7. Wait for the user's answer before asking any other question or writing gated changes. Do not include a second confirmation request in the same response.
 8. Update architecture and foundation artifacts in place while preserving manual content.
-9. Process confirmed Mermaid diagram or user-journey items from `artifact-queue.md` one at a time in queue order, stopping for structured confirmation before each generated artifact.
+9. Process confirmed Mermaid diagram or user-journey items from `artifact-queue.md` one at a time in queue order, writing to each row's target path and stopping for structured confirmation before each generated artifact.
 10. If constitution changes are confirmed, update `devspec/constitution.md` in place.
 11. Report sources processed, artifacts updated, diagram queue status, evidence confidence, blockers, skipped known failed methods, and one next action or structured question.
 

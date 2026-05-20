@@ -34,7 +34,7 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.architecture`, `/devspec.provider-integrations`, `/devspec.queue`, or `/devspec.decisions`.
 - Before outputting a slash command recommendation, verify that it is in the registered command list and that the matching `.github/prompts/devspec.<command>.prompt.md` file exists.
 - If no registered command fits, recommend a concrete file update, a configured handoff, or a structured question instead of a slash command.
-- Map common workflow labels to registered commands when appropriate: planning maps to `/devspec.tasks`, implementation maps to `/devspec.implement`, review maps to `/devspec.review`, and provider integration changes map to manual updates in `devspec/foundation/provider-integrations.md`.
+- Map common workflow labels to registered commands when appropriate: planning maps to `/devspec.tasks`, implementation maps to `/devspec.implement`, review maps to `/devspec.review`, diagram generation maps to `/devspec.diagram`, and provider integration changes map to manual updates in `devspec/foundation/provider-integrations.md`.
 
 ## Prerequisite Validation Pattern
 
