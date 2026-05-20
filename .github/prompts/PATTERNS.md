@@ -11,6 +11,7 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - Do not ask open-ended confirmation questions such as "Do you want..." or "Would you like..." without explicit selectable options.
 - Use `Yes`, `No`, and `Custom Answer` for binary confirmations.
 - Use `Proceed`, `Skip`, and `Custom Answer` for workflow continuation, queue processing, task continuation, generated artifact approval, or retry decisions.
+- Use `Continue`, `Pause`, `Skip`, and `Custom Answer` when resuming a run from `stopped` or ambiguous state.
 - Use domain-specific option sets only when the stage defines them, such as provider intake actions or multi-repo access requirement values.
 - Wait for the user's answer before asking the next question.
 - Do not bundle unrelated questions into one message.
@@ -33,7 +34,7 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.architecture`, `/devspec.provider-integrations`, `/devspec.queue`, or `/devspec.decisions`.
 - Before outputting a slash command recommendation, verify that it is in the registered command list and that the matching `.github/prompts/devspec.<command>.prompt.md` file exists.
 - If no registered command fits, recommend a concrete file update, a configured handoff, or a structured question instead of a slash command.
-- Map common workflow labels to registered commands when appropriate: planning maps to `/devspec.tasks`, implementation maps to `/devspec.implement`, review maps to `/devspec.review`, and provider integration changes map to manual updates in `devspec/foundation/provider-integrations.md`.
+- Map common workflow labels to registered commands when appropriate: planning maps to `/devspec.tasks`, implementation maps to `/devspec.implement`, review maps to `/devspec.review`, diagram generation maps to `/devspec.diagram`, and provider integration changes map to manual updates in `devspec/foundation/provider-integrations.md`.
 
 ## Prerequisite Validation Pattern
 
@@ -41,6 +42,20 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - If a required prerequisite is missing, invalid, ambiguous, or not ready, stop immediately, explain the blocker, and direct the user to the correct recovery step.
 - Record unresolved blockers only when the user declines to answer or the evidence remains unavailable.
 - Treat optional user input as additive guidance only unless the stage explicitly requires user input.
+
+## Session Recovery Pattern
+
+- Treat Git-tracked `devspec` artifacts as the source of truth. Chat history and session memory are helpful but not canonical.
+- At the start of every applicable command, read the target artifact and durable state files when present, then reconcile any `Resume State` sections before acting.
+- Use work-item folders as the orchestration boundary. Use tasks, target repos, target areas, and attempts as execution checkpoints inside the work item.
+- For monorepos, record the target repo once and distinguish tasks by module, layer, or area. For multi-repo work, every executable task must name the target repo and required access.
+- Keep `Run status` values limited to `active`, `waiting-for-user`, `paused`, `stopped`, `blocked`, and `complete`.
+- Use `paused` when the user expects to continue from the same task or question. Use `stopped` when the run was intentionally ended and should ask one continuation question before work resumes.
+- Use `blocked` only when evidence, access, or prerequisites are insufficient. Record the blocker and the concrete condition that would allow continuation.
+- Before asking any blocking question, writing a handoff, stopping after a retry loop, or ending a run, update `Resume State` with the current stage, current item, last completed step, pending question, recommended option, resume command, and next required action.
+- On rerun, resume a `paused` item directly from the recorded current item when prerequisites still hold. For `stopped` or ambiguous state, ask one structured continuation question before doing more work.
+- Retry only when the recorded retry condition is met, the user gives custom direction, or the method has materially changed. Do not replay known failed methods just because the session changed.
+- When all tasks or queue items for the stage are complete, mark the stage `complete` and hand off to the next registered command or configured agent.
 
 ## Output Closure Pattern
 

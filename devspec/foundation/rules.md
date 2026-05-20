@@ -28,7 +28,7 @@ This file holds project-operational hard constraints, governance rules, and deli
 - Intake and readiness must capture expected behavior, actual behavior, reproduction steps, user or customer impact, and regression context unless a documented blocker prevents it.
 - Planning should usually include reproduce, fix, and regression-validation work.
 - Implementation must record regression validation appropriate to the affected area.
-- When bug fixes change code, implementation records should keep focused before-fix and after-fix snippets for audit purposes only.
+- When bug fixes change code, implementation records should include focused before-and-after snippets when useful for review or audit.
 - Bugs with meaningful regression risk should receive review before closure.
 
 ## Security Vulnerability Rules

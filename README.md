@@ -33,6 +33,10 @@ The workflow has two layers:
 2. Work-item execution
    Take one feature, bug, or security issue through intake, clarification, finalization, tasks, implementation, and review.
 
+### Workflow at a glance
+
+![devspec workflow overview](https://github.com/user-attachments/assets/ccbc4170-35e7-4d20-bb9e-4500e017ccd1)
+
 The intended command sequence is:
 
 1. `/devspec.extract` for existing projects only, or when backfilling from an existing repo
@@ -47,6 +51,8 @@ The intended command sequence is:
 10. `/devspec.tasks`
 11. `/devspec.implement`
 12. `/devspec.review`
+
+Use `/devspec.diagram` whenever you need an additional architecture, module, feature workflow, user journey, sequence, or state diagram after the relevant context exists.
 
 ## Setup
 
@@ -75,6 +81,7 @@ Manual upgrade ownership:
 | `devspec/architecture/decisions/_template.md` | framework | Replace or diff-apply |
 | `devspec/foundation/*.md` | project | Do not overwrite; migrate or merge |
 | `devspec/architecture/*.md` | project | Do not overwrite; migrate or merge |
+| `devspec/architecture/diagrams/*.md` | project | Do not overwrite; migrate or merge |
 | `devspec/constitution.md` | project | Do not overwrite; confirmation required |
 | `devspec/glossary.md` | project | Do not overwrite; migrate or merge |
 
@@ -98,6 +105,7 @@ your-repo/
 |   |   |-- devspec.clarify.agent.md
 |   |   |-- devspec.codebase-structure.agent.md
 |   |   |-- devspec.coding-standards.agent.md
+|   |   |-- devspec.diagram.agent.md
 |   |   |-- devspec.extract.agent.md
 |   |   |-- devspec.finalize.agent.md
 |   |   |-- devspec.implement-task.agent.md
@@ -113,6 +121,7 @@ your-repo/
 |   |   |-- devspec.clarify.prompt.md
 |   |   |-- devspec.codebase-structure.prompt.md
 |   |   |-- devspec.coding-standards.prompt.md
+|   |   |-- devspec.diagram.prompt.md
 |   |   |-- devspec.extract.prompt.md
 |   |   |-- devspec.finalize.prompt.md
 |   |   |-- devspec.implement.prompt.md
@@ -131,8 +140,11 @@ your-repo/
     |-- architecture/
     |   |-- _template/
     |   |   |-- artifact-queue.md
+    |   |   |-- diagram.md
     |   |   `-- overview.md
     |   |-- artifact-queue.md
+    |   |-- diagrams/
+    |   |   `-- README.md
     |   |-- overview.md
     |   `-- decisions/
     |       |-- README.md
@@ -165,6 +177,7 @@ your-repo/
             |-- implement.md
             |-- review.md
             |-- decisions.md
+            |-- diagrams.md
             `-- notes.md
 ```
 
@@ -248,10 +261,41 @@ These are core behaviors baked into the prompts and agents:
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
 - Repository discovery must exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output paths by default; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
 - Discovery-heavy commands should check `devspec/foundation/exploration-state.md`, use known working methods first, and skip known failed searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
+- Work-item commands should recover from Git-tracked `devspec` artifacts first. Session memory and chat history are transient helpers, not the source of truth.
+- Work items are the orchestration boundary. Tasks, target repos, target areas, and attempts are execution checkpoints inside the work item.
+- A paused run should continue from the recorded current task or question. A stopped run should ask one structured continuation question before changing code.
+- `/devspec.diagram` should generate one evidence-backed Mermaid diagram at a time. Architecture-level diagram files are the default; work-item diagrams are only for explicit or clearly temporary story-specific context.
 - `/devspec.finalize` should mark a story `not ready` if blockers remain.
 - `/devspec.tasks` must not expand scope.
 - `/devspec.implement` should implement pending tasks sequentially, then ask one structured `Proceed`, `Skip`, or `Custom Answer` question after each task.
 - `/devspec.review` should review against the finalized brief, not re-plan the story.
+
+## Session recovery and continuation
+
+Copilot and agent sessions can lose context. `devspec` handles that by making the repository, not the chat session, the durable source of truth.
+
+Recommended enterprise model:
+
+- Use the work item as the audit, scope, and orchestration boundary.
+- Use tasks as repo-aware execution checkpoints inside the work item.
+- Store current stage, current task, pending question, next action, and resume command in `Resume State`.
+- Store implementation progress, attempts, changed files, validation, blockers, and rollback or roll-forward notes in `implement.md`.
+- Store reusable discovery successes and failures in `devspec/foundation/exploration-state.md`.
+
+This works for both monoliths and multi-repo systems. In a monolith, tasks usually share the same target repo and differ by module, layer, or validation surface. In multi-repo work, each executable task must name its target repo and required access, while the work item still owns the end-to-end business intent.
+
+Run statuses:
+
+| Status | Meaning | Resume behavior |
+| --- | --- | --- |
+| `active` | Work is in progress. | Continue from the current item. |
+| `waiting-for-user` | A question or confirmation is pending. | Ask or preserve the recorded question. |
+| `paused` | User intends to continue from the same point. | Resume directly when prerequisites still hold. |
+| `stopped` | User intentionally ended the run. | Ask one `Continue`, `Pause`, `Skip`, or `Custom Answer` question before changing code. |
+| `blocked` | Required evidence, access, or prerequisites are missing. | Continue only after the recorded blocker condition is resolved. |
+| `complete` | The stage is done. | Hand off to the next registered command or agent. |
+
+Retry handling is intentionally bounded. If an implementation or repair task exceeds three attempts, the agent records the failed method, failure reason, retry condition, and next safer method, then asks one structured continuation question instead of looping.
 
 ## Model recommendations
 
@@ -273,6 +317,7 @@ Prefer **High** thinking effort for best quality. If cost or latency is constrai
 | `devspec.tasks` | High |
 | `devspec.implement-task` | High |
 | `devspec.review` | High |
+| `devspec.diagram` | High |
 
 ## Foundation workflow
 
@@ -295,6 +340,7 @@ What it does:
 - requires explicit confirmation before writing principle-level changes to `constitution.md`
 - asks only one structured extraction confirmation at a time; constitution confirmation, artifact-queue approval, and Mermaid generation approval must not be asked together
 - processes artifact-queue items one at a time in queue order, asking one structured question for the next unresolved item only
+- seeds diagram candidates from repository evidence; later user-requested diagrams should use `/devspec.diagram`
 - closes with one next action or one structured question, not a list of possible next prompts
 
 Use it for:
@@ -467,6 +513,8 @@ The work-item flow is:
 5. `/devspec.implement`
 6. `/devspec.review`
 
+Use `/devspec.diagram` alongside this flow when a feature workflow, user journey, sequence, or state diagram would clarify the work item. Prefer architecture-level diagram files and reference them from the work item.
+
 ### 1. `/devspec.story`
 
 Use this to start or update a work item.
@@ -549,6 +597,7 @@ Later workflow stages add or update:
 - `tasks.md`
 - `implement.md`
 - `review.md`
+- `diagrams.md` only when `/devspec.diagram` is used for explicit or clearly temporary work-item-specific context
 
 ### 2. `/devspec.clarify`
 
@@ -628,14 +677,15 @@ Important behavior:
 - requires `finalize.md` to be `ready`
 - requires `tasks.md`
 - implements pending tasks sequentially until the work is completed or the user chooses to stop or skip
+- resumes from `implement.md` and `meta.md` when a prior session was paused, stopped, blocked, or waiting for user input
 - for multi-repo work, uses the repo configuration in `devspec/foundation/codebase-structure.md` as the single source of truth for which physical repo path to change and what access is allowed
 - validates required repo paths and access requirements before making code changes or running validation, and surfaces missing repo access as a blocker
+- records task state by target repo, target area, status, attempt count, and last checkpoint
 - after each task, reports completed and pending counts and asks one structured question with `Proceed`, `Skip`, and `Custom Answer`
 - once all tasks are implemented, records the completed task list and completion summary
-- if the same task loops more than 3 times, explains the issue and asks one structured question with `Proceed`, `Skip`, and `Custom Answer`
-- captures token-usage summary before implementation and after completion when runtime telemetry is available, and records when it is unavailable
-- updates the execution log and next-task handoff
-- for bug fixes, records focused before-fix and after-fix code snippets in `implement.md` for audit purposes only
+- if the same task exceeds three attempts, explains the blocker before asking whether to proceed, skip, or provide custom direction
+- updates the execution log, last safe checkpoint, and next-task handoff
+- for bug fixes, records focused before-and-after code snippets in `implement.md` when useful for review or audit
 
 Example:
 
@@ -662,11 +712,38 @@ Example:
 /devspec.review Pay extra attention to regression risk around existing file upload flows.
 ```
 
+### Optional: `/devspec.diagram`
+
+Use this when you want one additional evidence-backed Mermaid diagram for an architecture area, module, feature workflow, user journey, sequence, or state.
+
+What it writes:
+
+- `devspec/architecture/diagrams/<subject-slug>.md` by default for durable architecture, module, feature workflow, user journey, sequence, or state diagrams
+- `devspec/architecture/overview.md` only for high-level system diagrams or links to detailed diagram files
+- `devspec/architecture/artifact-queue.md` for resumable proposed, confirmed, generated, skipped, or blocked diagram work
+- `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment
+
+Important behavior:
+
+- requires a diagram subject or related work item
+- generates exactly one diagram per run unless you explicitly continue through the queue
+- chooses Mermaid type from evidence or asks one structured question when ambiguous
+- checks for an equivalent existing diagram before creating another one
+- separates evidence-backed facts from assumptions
+- keeps feature and module workflow diagrams out of `overview.md` unless they are truly high-level system views
+- defaults to `devspec/architecture/diagrams/` even when the request mentions a work item, unless the diagram is explicit or clearly temporary story-specific context
+
+Example:
+
+```text
+/devspec.diagram Create a workflow diagram for payment retry handling in the billing module.
+```
+
 ## Command reference and step order
 
 Before using `/devspec.story` with external work-item references, validate `devspec/foundation/provider-integrations.md` for the providers and fallback behavior your repository supports. There is no dedicated provider-integrations slash command; initialize it from `devspec/foundation/_template/provider-integrations.md` and maintain it manually when provider formats, tools, or fallback behavior change.
 
-Registered devspec slash commands are limited to `/devspec.extract`, `/devspec.projectcontext`, `/devspec.techstack`, `/devspec.codebase-structure`, `/devspec.coding-standards`, `/devspec.rules`, `/devspec.story`, `/devspec.clarify`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, and `/devspec.review`.
+Registered devspec slash commands are limited to `/devspec.extract`, `/devspec.projectcontext`, `/devspec.techstack`, `/devspec.codebase-structure`, `/devspec.coding-standards`, `/devspec.rules`, `/devspec.story`, `/devspec.clarify`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, `/devspec.review`, and `/devspec.diagram`.
 
 Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.architecture`, `/devspec.provider-integrations`, `/devspec.queue`, or `/devspec.decisions`. If no registered command fits, recommend a concrete file update, handoff, or structured question.
 
@@ -674,7 +751,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 | --- | --- | --- | --- | --- | --- |
 | 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Repository URL or local repo path. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
 | 1 | `/devspec.projectcontext` | Product and business context need to be created or updated. | Product vision, users, goals, non-goals, and constraints. | `foundation/project-context.md` | `/devspec.techstack` |
-| 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Languages, frameworks, services, tooling, hosting, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
+| 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Stack evidence, support status, hosting, tooling, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
 | 3 | `/devspec.codebase-structure` | Repo layout, module boundaries, ownership seams, or multi-repo config need to be recorded. | Repository layout, integration boundaries, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
 | 4 | `/devspec.coding-standards` | Engineering expectations or observed code patterns need to be recorded. | Direct standards, links, repo-relative standards docs, or evidence-backed examples. | `foundation/coding-standards.md` | `/devspec.rules` |
 | 5 | `/devspec.rules` | Operational hard constraints and delivery gates need to be recorded. | Compliance requirements, forbidden patterns, governance rules, and gates. | `foundation/rules.md` | `/devspec.story` |
@@ -684,6 +761,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 | 9 | `/devspec.tasks` | A ready brief needs ordered implementation tasks. | `finalize.md` marked `ready`. | `work-items/<work-item-folder>/tasks.md` | `/devspec.implement` |
 | 10 | `/devspec.implement` | Pending tasks should be implemented. | `finalize.md` marked `ready` and `tasks.md`. | `work-items/<work-item-folder>/implement.md` and code changes when applicable. | `/devspec.review` |
 | 11 | `/devspec.review` | Implemented work needs review against the finalized brief. | `finalize.md` and `implement.md`. | `work-items/<work-item-folder>/review.md` | Return to implementation for changes, or close the work item |
+| Optional | `/devspec.diagram` | A requested architecture, module, feature workflow, user journey, sequence, or state diagram is needed. | Diagram subject or related work item. | `architecture/diagrams/*.md` by default, `architecture/overview.md` for high-level system diagrams, `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams, and `architecture/artifact-queue.md` as applicable. | Continue the current workflow |
 
 ## End-to-end examples
 
@@ -759,7 +837,7 @@ Holds project-operational context and constraints.
 - `project-context.md`
   Product vision, intended users, goals, non-goals, constraints, and success metrics.
 - `tech-stack.md`
-  Languages, frameworks, services, tooling, hosting, current LTS versions, and delivery constraints.
+  Languages, frameworks, services, tooling, hosting, current LTS or support status, verification dates, and delivery constraints.
 - `codebase-structure.md`
   Repository layout, module boundaries, ownership seams, and integration boundaries.
 - `coding-standards.md`
@@ -789,6 +867,10 @@ Holds broader technical architecture.
 ### `devspec/work-items/`
 
 Holds one folder per story, feature, bug, or security issue. Each work item carries its own staged artifacts from intake through review.
+
+Each work-item artifact can include `Resume State`, which lets a new Copilot or agent session recover the current stage, pending question, next safe action, and resume command from Git-tracked files. Implementation also records task-level checkpoints in `implement.md` so monolith and multi-repo work can continue by target repo, target area, and task status.
+
+Reusable feature workflows, user journeys, sequence diagrams, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Use work-item `diagrams.md` only for explicit or clearly temporary story-specific context, such as a bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment.
 
 ## Advanced: extracting information from an existing project
 
@@ -830,10 +912,13 @@ This should receive observed and high-confidence architectural facts such as:
 - system boundaries
 - external integrations
 - high-level data flow
-- a resumable Mermaid work queue in `devspec/architecture/artifact-queue.md` for architecture diagrams and user journeys when high-level modules or workflows are identified
-- confirmed Mermaid diagrams and user journeys, generated one at a time after user approval and never in the same response as constitution confirmation
+- a resumable Mermaid work queue in `devspec/architecture/artifact-queue.md` for architecture diagrams, feature workflows, module workflows, and user journeys when real candidates are identified
+- high-level confirmed Mermaid diagrams and user journeys, generated one at a time after user approval and never in the same response as constitution confirmation
+- links to detailed diagrams stored under `devspec/architecture/diagrams/`
 
-Use `devspec/architecture/_template/overview.md` and `devspec/architecture/_template/artifact-queue.md` as section contracts. Do not replace live architecture files from templates after a project has recorded real architecture content.
+Use `devspec/architecture/_template/overview.md`, `devspec/architecture/_template/artifact-queue.md`, and `devspec/architecture/_template/diagram.md` as section contracts. Do not replace live architecture files from templates after a project has recorded real architecture content.
+
+Use `/devspec.diagram` for additional diagrams requested after extraction. Store reusable diagrams under `devspec/architecture/diagrams/`; use `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary story-specific context.
 
 #### `devspec/foundation/project-context.md`
 
@@ -845,16 +930,18 @@ Use `devspec/foundation/_template/project-context.md` as the section contract.
 
 This is one of the strongest extraction targets because code and manifests usually reveal:
 
-- languages
-- runtimes
-- frameworks
-- databases
-- current LTS versions when practical to verify
-- hosting clues
-- test tooling
-- CI tooling
+- languages, runtimes, frameworks, databases, services, and tooling
+- hosting and delivery constraints
+- current LTS or support status from official release, lifecycle, or support pages when practical to verify
+- verification dates for each recorded LTS or support status
 
 Use `devspec/foundation/_template/tech-stack.md` as the section contract.
+
+Use one table per repo or deployable unit.
+
+For technologies without an official LTS channel, record `no LTS channel` or the relevant support status instead of `n/a`.
+
+If lookup is not possible, record `unknown - needs lookup` and leave a note. Maintain the LTS lookup source table with official endpoints; users may update those sources for their selected vendor or distribution.
 
 #### `devspec/foundation/codebase-structure.md`
 

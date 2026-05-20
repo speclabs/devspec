@@ -8,6 +8,8 @@ Foundation: `extract` -> `projectcontext` -> `techstack` -> `codebase-structure`
 
 Work items: `story` -> `clarify` -> `finalize` -> `tasks` -> `implement` -> `review`
 
+Supporting: `diagram`
+
 ## Registered Slash Commands
 
 The registered devspec slash commands are:
@@ -24,12 +26,13 @@ The registered devspec slash commands are:
 - `/devspec.tasks`
 - `/devspec.implement`
 - `/devspec.review`
+- `/devspec.diagram`
 
 Recommendation behavior is defined by `PATTERNS.md#registered-command-recommendation-pattern`.
 
 ## Shared References
 
-- `PATTERNS.md`: shared interaction, next-action selection, prerequisite, token, output, foundation, work-item, memory, discovery exclusion, exploration recovery, and multi-repo rules.
+- `PATTERNS.md`: shared interaction, next-action selection, prerequisite, session recovery, token, output, foundation, work-item, memory, discovery exclusion, exploration recovery, and multi-repo rules.
 - `../../devspec/foundation/rules.md`: bug, security, review, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
 - `../../devspec/foundation/discovery-exclusions.md`: default and project-specific paths to exclude from repository discovery.
@@ -61,6 +64,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 | `devspec.tasks.prompt.md` | Break a ready brief into ordered implementation tasks. | `tasks.md` |
 | `devspec.implement.prompt.md` | Implement pending tasks and record progress. | `implement.md`, code changes |
 | `devspec.review.prompt.md` | Review implemented work against the finalized brief. | `review.md` |
+| `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram. | `architecture/diagrams/*.md` by default, `architecture/overview.md` for high-level system diagrams, or `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams |
 
 ## Maintenance
 

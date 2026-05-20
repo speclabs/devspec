@@ -21,9 +21,24 @@
 
 ## Status
 
-- Work item status:
+- Work item status: intake | clarifying | finalized-not-ready | finalized-ready | tasks-planned | implementing | paused | stopped | blocked | implemented | reviewing | reviewed
 - Ready status:
 - Review status:
+
+## Resume State
+
+- Current stage:
+- Current command:
+- Current agent:
+- Run status: active | waiting-for-user | paused | stopped | blocked | complete
+- Current item:
+- Last completed step:
+- Next required action:
+- Pending user question:
+- Recommended option:
+- Resume command:
+- Resume notes:
+- Updated:
 
 ## Source Reference
 
