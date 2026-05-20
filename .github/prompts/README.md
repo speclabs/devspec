@@ -10,7 +10,7 @@ Work items: `story` -> `clarify` -> `finalize` -> `tasks` -> `implement` -> `rev
 
 ## Registered Slash Commands
 
-Agents must recommend only these devspec slash commands:
+The registered devspec slash commands are:
 
 - `/devspec.extract`
 - `/devspec.projectcontext`
@@ -25,7 +25,7 @@ Agents must recommend only these devspec slash commands:
 - `/devspec.implement`
 - `/devspec.review`
 
-Do not recommend inferred or unregistered commands such as `/devspec.plan`, `/devspec.architecture`, `/devspec.provider-integrations`, `/devspec.queue`, or `/devspec.decisions`. If no registered command fits, recommend a file update, handoff, or structured question instead.
+Recommendation behavior is defined by `PATTERNS.md#registered-command-recommendation-pattern`.
 
 ## Shared References
 

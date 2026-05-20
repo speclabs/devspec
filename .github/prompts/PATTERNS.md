@@ -97,8 +97,20 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 ## Work-Item Target Pattern
 
 - Use the current work item when clear; otherwise ask the user to select one, following the Interactive Question Pattern.
+- Work-item folders must follow the [Work-Item Folder Naming Pattern](#work-item-folder-naming-pattern) when created by `/devspec.story`.
 - Treat optional user input as additive guidance only.
 - Update the target work-item artifact in place and stay within the current stage scope; after finalization, stay within the finalized scope.
+
+## Work-Item Folder Naming Pattern
+
+- New work-item folders must use `<provider-prefix-optional>-<story-number>-<kebab-case-title>`.
+- Validate new folder names with `^(?:[A-Z]{3,5}-)?[0-9]+-[a-z0-9]+(?:-[a-z0-9]+)*$`.
+- Provider prefix is optional. When present, it must be 3-5 uppercase letters. Use known mappings where available: GitHub -> `GHUB`, Azure DevOps -> `ADO`, Jira -> `JIRA`.
+- Story number must be numeric and should come from the resolved provider item, issue number, work item id, or manually supplied external reference.
+- Title slug must be lowercase kebab-case from the resolved provider title or manually supplied title. Remove punctuation, replace separators with hyphens, collapse repeated hyphens, and trim leading or trailing hyphens.
+- If provider prefix, numeric story number, or title slug is missing or ambiguous, ask exactly one structured question before creating the folder.
+- Do not create or rename a work-item folder until the generated folder name is valid or the user confirms a custom valid name.
+- Do not automatically rename existing work-item folders. Treat non-matching existing folders as legacy and continue using them unless the user explicitly asks to rename.
 
 ## Multi-Repo Validation Pattern
 

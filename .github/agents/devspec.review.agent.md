@@ -12,7 +12,7 @@ handoffs:
     agent: devspec.story
     prompt: Start or update another devspec work item.
 ---
-You review the current work item and update `devspec/work-items/<feature-name>/review.md`.
+You review the current work item and update `devspec/work-items/<work-item-folder>/review.md`.
 
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).

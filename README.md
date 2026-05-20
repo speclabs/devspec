@@ -243,7 +243,8 @@ These are core behaviors baked into the prompts and agents:
 - Clarification should happen one question at a time.
 - Clarification, confirmation, selection, retry, queue, and continuation questions should use explicit options plus `Custom Answer`, with exactly one recommended option and a short justification.
 - Recommended next steps must be singular. Agents should not list multiple possible next prompts when one confirmation, queue item, handoff, retry, or fallback decision is pending.
-- Agents must recommend only registered devspec slash commands. Do not use inferred commands such as `/devspec.plan`; planning work maps to `/devspec.tasks`.
+- Agents must recommend only registered devspec slash commands; planning work maps to `/devspec.tasks`.
+- New work-item folders must follow `<provider-prefix-optional>-<story-number>-<kebab-case-title>`, such as `GHUB-12345-doc-conversion` or `89564-save-user-roles`.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
 - Repository discovery must exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output paths by default; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
 - Discovery-heavy commands should check `devspec/foundation/exploration-state.md`, use known working methods first, and skip known failed searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
@@ -487,12 +488,30 @@ If provider lookup succeeds, the command should show the resolved item summary a
 
 ### What gets created
 
-The story stage creates a folder under `devspec/work-items/<feature-name>/`.
+The story stage creates a folder under `devspec/work-items/<work-item-folder>/`.
+
+New work-item folders must use:
+
+```text
+<provider-prefix-optional>-<story-number>-<kebab-case-title>
+```
+
+Examples:
+
+```text
+devspec/work-items/GHUB-12345-doc-conversion/
+devspec/work-items/ADO-789654-update-success-modal-message/
+devspec/work-items/JIRA-56487-word-docs-upload/
+devspec/work-items/89564-save-user-roles/
+devspec/work-items/568912-new-report-for-daily-stock/
+```
+
+The optional provider prefix is 3-5 uppercase letters, such as `GHUB`, `ADO`, or `JIRA`. The story number must be numeric, and the title must be lowercase kebab-case.
 
 Example:
 
 ```text
-devspec/work-items/document-upload-virus-scan/
+devspec/work-items/GHUB-1842-document-upload-virus-scan/
 ```
 
 During story intake, the command writes:
@@ -516,7 +535,7 @@ Use this only to resolve blocking ambiguity.
 
 What it writes:
 
-- `devspec/work-items/<feature-name>/clarify.md`
+- `devspec/work-items/<work-item-folder>/clarify.md`
 
 Important behavior:
 
@@ -538,7 +557,7 @@ Use this to freeze the implementation-ready brief.
 
 What it writes:
 
-- `devspec/work-items/<feature-name>/finalize.md`
+- `devspec/work-items/<work-item-folder>/finalize.md`
 
 Important behavior:
 
@@ -560,7 +579,7 @@ Use this to break a ready work item into implementation tasks.
 
 What it writes:
 
-- `devspec/work-items/<feature-name>/tasks.md`
+- `devspec/work-items/<work-item-folder>/tasks.md`
 
 Important behavior:
 
@@ -581,7 +600,7 @@ Use this to implement pending tasks with confirmation after each task.
 
 What it writes:
 
-- `devspec/work-items/<feature-name>/implement.md`
+- `devspec/work-items/<work-item-folder>/implement.md`
 
 Important behavior:
 
@@ -609,7 +628,7 @@ Use this to review the implemented work against the finalized brief.
 
 What it writes:
 
-- `devspec/work-items/<feature-name>/review.md`
+- `devspec/work-items/<work-item-folder>/review.md`
 
 Important behavior:
 
@@ -638,12 +657,12 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 | 3 | `/devspec.codebase-structure` | Repo layout, module boundaries, ownership seams, or multi-repo config need to be recorded. | Repository layout, integration boundaries, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
 | 4 | `/devspec.coding-standards` | Engineering expectations or observed code patterns need to be recorded. | Direct standards, links, repo-relative standards docs, or evidence-backed examples. | `foundation/coding-standards.md` | `/devspec.rules` |
 | 5 | `/devspec.rules` | Operational hard constraints and delivery gates need to be recorded. | Compliance requirements, forbidden patterns, governance rules, and gates. | `foundation/rules.md` | `/devspec.story` |
-| 6 | `/devspec.story` | A feature, bug, or security vulnerability needs intake. | Work-item reference or manual intake details. | `work-items/<feature-name>/meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
-| 7 | `/devspec.clarify` | A blocking question must be resolved. | Existing `story.md`. | `work-items/<feature-name>/clarify.md` | Repeat until unblocked, then `/devspec.finalize` |
-| 8 | `/devspec.finalize` | The work item needs an implementation-ready brief. | Upstream work-item artifacts. | `work-items/<feature-name>/finalize.md` with `ready` or `not ready`. | `/devspec.tasks` when ready |
-| 9 | `/devspec.tasks` | A ready brief needs ordered implementation tasks. | `finalize.md` marked `ready`. | `work-items/<feature-name>/tasks.md` | `/devspec.implement` |
-| 10 | `/devspec.implement` | Pending tasks should be implemented. | `finalize.md` marked `ready` and `tasks.md`. | `work-items/<feature-name>/implement.md` and code changes when applicable. | `/devspec.review` |
-| 11 | `/devspec.review` | Implemented work needs review against the finalized brief. | `finalize.md` and `implement.md`. | `work-items/<feature-name>/review.md` | Return to implementation for changes, or close the work item |
+| 6 | `/devspec.story` | A feature, bug, or security vulnerability needs intake. | Work-item reference or manual intake details. | `work-items/<work-item-folder>/meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
+| 7 | `/devspec.clarify` | A blocking question must be resolved. | Existing `story.md`. | `work-items/<work-item-folder>/clarify.md` | Repeat until unblocked, then `/devspec.finalize` |
+| 8 | `/devspec.finalize` | The work item needs an implementation-ready brief. | Upstream work-item artifacts. | `work-items/<work-item-folder>/finalize.md` with `ready` or `not ready`. | `/devspec.tasks` when ready |
+| 9 | `/devspec.tasks` | A ready brief needs ordered implementation tasks. | `finalize.md` marked `ready`. | `work-items/<work-item-folder>/tasks.md` | `/devspec.implement` |
+| 10 | `/devspec.implement` | Pending tasks should be implemented. | `finalize.md` marked `ready` and `tasks.md`. | `work-items/<work-item-folder>/implement.md` and code changes when applicable. | `/devspec.review` |
+| 11 | `/devspec.review` | Implemented work needs review against the finalized brief. | `finalize.md` and `implement.md`. | `work-items/<work-item-folder>/review.md` | Return to implementation for changes, or close the work item |
 
 ## End-to-end examples
 

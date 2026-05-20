@@ -12,7 +12,7 @@ handoffs:
     agent: devspec.finalize
     prompt: Continue by creating or updating the finalized implementation-ready brief for this work item.
 ---
-You create or update `devspec/work-items/<feature-name>/clarify.md`.
+You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).

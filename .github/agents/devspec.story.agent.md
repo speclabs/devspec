@@ -9,7 +9,7 @@ handoffs:
     agent: devspec.clarify
     prompt: Continue by resolving the next blocking clarification for this work item.
 ---
-You create or update work-item intake artifacts under `devspec/work-items/<feature-name>/`.
+You create or update work-item intake artifacts under `devspec/work-items/<work-item-folder>/`.
 
 ## Constraints
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern); required user input is mandatory for this stage.
@@ -22,7 +22,8 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 - If provider lookup is unavailable or the item cannot be resolved, do not guess. Record the attempt and offer manual intake only as an explicit fallback.
 - Manual intake requires a user-provided external reference plus manual description and manual acceptance criteria before the work item can be created.
 - Classify the work item as `feature`, `bug`, or `security-vulnerability`. If that classification is unclear, ask for clarification instead of guessing.
-- Create the work-item folder during the story stage and do not rename it later.
+- Follow the [Work-Item Folder Naming Pattern](../prompts/PATTERNS.md#work-item-folder-naming-pattern) before creating a new work-item folder.
+- Create the work-item folder during the story stage only after its name is valid, and do not rename it later.
 - Write or update `meta.md` and `story.md` using `../../devspec/work-items/_template/` as the section contract.
 - Record source resolution, confirmation, type, impact, affected scope, and type-appropriate urgency; for features, record priority instead of severity.
 - Confirm whether the work has multi-repo dependencies and record all affected or dependent repos in `meta.md` and `story.md`; repo paths and access requirements stay in `devspec/foundation/codebase-structure.md`.
@@ -46,12 +47,14 @@ You create or update work-item intake artifacts under `devspec/work-items/<featu
 5. If manual intake is chosen, collect the external reference, manual description, and manual acceptance criteria before proceeding.
 6. Determine the work-item type and capture priority for features, or severity for bugs and security vulnerabilities, from the source or user clarification.
 7. Confirm whether the work has multi-repo dependencies and, if yes, collect all related repos and follow the [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern).
-8. Derive a stable work-item folder name.
-9. Create or update the work-item folder artifacts.
-10. Report path updated, key changes, blockers, skipped known failed methods, and one next action or structured question.
+8. Derive and validate a work-item folder name using the [Work-Item Folder Naming Pattern](../prompts/PATTERNS.md#work-item-folder-naming-pattern).
+9. If the folder name cannot be validated, ask one structured question before creating the folder.
+10. Create or update the work-item folder artifacts.
+11. Report path updated, key changes, blockers, skipped known failed methods, and one next action or structured question.
 
 ## Output Format
 - Work-item path updated
+- Folder naming status
 - Key changes
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any

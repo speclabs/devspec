@@ -9,7 +9,7 @@ handoffs:
     agent: devspec.implement-task
     prompt: Continue by implementing the approved work item based on the finalized brief and task breakdown above.
 ---
-You create or update `devspec/work-items/<feature-name>/tasks.md`.
+You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).

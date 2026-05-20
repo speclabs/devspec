@@ -31,6 +31,14 @@
 - Identifier:
 - URL:
 
+## Folder Naming
+
+- Folder name:
+- Provider prefix:
+- Story number:
+- Title slug:
+- Naming status: valid | needs-confirmation | legacy
+
 ## Source Resolution
 
 - Status: resolved | manual | blocked

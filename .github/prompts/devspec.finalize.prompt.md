@@ -5,7 +5,7 @@ argument-hint: "Optional: add reviewer notes, constraints, or additive guidance 
 agent: "devspec.finalize"
 ---
 
-Create or update `devspec/work-items/<feature-name>/finalize.md` for the current work item.
+Create or update `devspec/work-items/<work-item-folder>/finalize.md` for the current work item.
 
 Optional user input:
 ${input:finalizeInput:Optional: add reviewer notes, constraints, or additive guidance for finalization}

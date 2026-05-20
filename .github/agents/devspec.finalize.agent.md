@@ -12,7 +12,7 @@ handoffs:
     agent: devspec.tasks
     prompt: Continue by creating or updating the ordered implementation tasks for this ready work item.
 ---
-You create or update `devspec/work-items/<feature-name>/finalize.md`.
+You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern).

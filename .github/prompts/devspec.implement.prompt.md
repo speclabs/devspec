@@ -5,7 +5,7 @@ argument-hint: "Optional: add additive guidance for implementation, validation, 
 agent: "devspec.implement-task"
 ---
 
-Implement the current work item and update `devspec/work-items/<feature-name>/implement.md`.
+Implement the current work item and update `devspec/work-items/<work-item-folder>/implement.md`.
 
 Optional user input:
 ${input:implementInput:Optional: add additive guidance for implementation, validation, task order, or skip handling}
