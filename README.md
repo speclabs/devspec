@@ -37,6 +37,8 @@ The workflow has two layers:
 
 ![devspec workflow overview](https://github.com/user-attachments/assets/ccbc4170-35e7-4d20-bb9e-4500e017ccd1)
 
+![devspec workflow overview](https://github.com/user-attachments/assets/1eb9e2b3-8ba4-4bb5-8fd4-da2d35404f0d)
+
 The intended command sequence is:
 
 1. `/devspec.extract` for existing projects only, or when backfilling from an existing repo
