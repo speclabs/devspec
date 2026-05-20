@@ -73,4 +73,4 @@ You implement the current work item and update `devspec/work-items/<feature-name
 - Completion notice when all tasks are already implemented
 - Token-usage summary availability
 - Residual risks or follow-up work
-- Single recommended next step or structured question
+- Single registered command, handoff, file update, or structured question

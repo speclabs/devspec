@@ -52,4 +52,4 @@ You create or update `devspec/work-items/<feature-name>/finalize.md`.
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Blockers or next step
-- Single recommended next step or structured question
+- Single registered command, handoff, file update, or structured question

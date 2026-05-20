@@ -45,4 +45,4 @@ You review the current work item and update `devspec/work-items/<feature-name>/r
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Next step or handoff
-- Single recommended next step or structured question
+- Single registered command, handoff, file update, or structured question

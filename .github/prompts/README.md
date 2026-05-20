@@ -8,6 +8,25 @@ Foundation: `extract` -> `projectcontext` -> `techstack` -> `codebase-structure`
 
 Work items: `story` -> `clarify` -> `finalize` -> `tasks` -> `implement` -> `review`
 
+## Registered Slash Commands
+
+Agents must recommend only these devspec slash commands:
+
+- `/devspec.extract`
+- `/devspec.projectcontext`
+- `/devspec.techstack`
+- `/devspec.codebase-structure`
+- `/devspec.coding-standards`
+- `/devspec.rules`
+- `/devspec.story`
+- `/devspec.clarify`
+- `/devspec.finalize`
+- `/devspec.tasks`
+- `/devspec.implement`
+- `/devspec.review`
+
+Do not recommend inferred or unregistered commands such as `/devspec.plan`, `/devspec.architecture`, `/devspec.provider-integrations`, `/devspec.queue`, or `/devspec.decisions`. If no registered command fits, recommend a file update, handoff, or structured question instead.
+
 ## Shared References
 
 - `PATTERNS.md`: shared interaction, next-action selection, prerequisite, token, output, foundation, work-item, memory, discovery exclusion, exploration recovery, and multi-repo rules.

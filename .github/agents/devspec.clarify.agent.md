@@ -36,4 +36,4 @@ You create or update `devspec/work-items/<feature-name>/clarify.md`.
 - Work-item path updated
 - Blocking question or recorded answer
 - Impact and next step
-- Single recommended next step or structured question
+- Single registered command, handoff, file update, or structured question

@@ -76,4 +76,4 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Discovery exclusions applied, if material
 - Skipped known failed methods, if any
 - Questions resolved or remaining blockers
-- Single recommended next step or structured question
+- Single registered command, handoff, file update, or structured question

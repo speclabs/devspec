@@ -21,9 +21,19 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 - The recommended next step must be singular.
 - Do not output multiple next prompts, alternative command lists, or peer next-action bullets when any clarification, confirmation, queue item, handoff, retry, or fallback decision is pending.
 - When multiple next actions are possible, pick the highest-priority unresolved action for the current stage and ask exactly one structured question using the [Interactive Question Pattern](#interactive-question-pattern).
-- If no confirmation or selection is pending, provide exactly one recommended next command or handoff.
+- If no confirmation or selection is pending, provide exactly one recommended registered slash command, handoff, file update, or structured question.
 - For queues, select the next unresolved item by the queue order and status unless the stage defines a stricter priority; do not ask the user to choose among multiple queued items unless the queue order is ambiguous.
 - A final response may summarize completed work, but its action close must be one next action or one structured question.
+
+## Registered Command Recommendation Pattern
+
+- Use `.github/prompts/README.md#registered-slash-commands` as the canonical command registry.
+- Agents must recommend only slash commands listed in the canonical command registry.
+- Do not invent slash commands from natural workflow names, artifact names, queue names, or agent names.
+- Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.architecture`, `/devspec.provider-integrations`, `/devspec.queue`, or `/devspec.decisions`.
+- Before outputting a slash command recommendation, verify that it is in the registered command list and that the matching `.github/prompts/devspec.<command>.prompt.md` file exists.
+- If no registered command fits, recommend a concrete file update, a configured handoff, or a structured question instead of a slash command.
+- Map common workflow labels to registered commands when appropriate: planning maps to `/devspec.tasks`, implementation maps to `/devspec.implement`, review maps to `/devspec.review`, and provider integration changes map to manual updates in `devspec/foundation/provider-integrations.md`.
 
 ## Prerequisite Validation Pattern
 
@@ -35,7 +45,8 @@ Use this file to keep repeated workflow behavior out of individual prompt and ag
 ## Output Closure Pattern
 
 - Follow the [Next Action Selection Pattern](#next-action-selection-pattern).
-- End with exactly one recommended next step, handoff, or structured question.
+- Follow the [Registered Command Recommendation Pattern](#registered-command-recommendation-pattern) before recommending any slash command.
+- End with exactly one registered command, handoff, file update, or structured question.
 - If the next step requires user confirmation, selection, retry approval, queue approval, or workflow continuation, ask one structured question with explicit options instead of listing possible next prompts.
 - Summarize only the artifact or work-item path updated, the key outcome, blockers or open questions, and the single next action.
 
