@@ -42,4 +42,6 @@ Maintain this lookup with official release, lifecycle, or support pages. Users m
 
 ## Blockers
 
-- Blocker 1:
+| Blocker | Impact | Status |
+| --- | --- | --- |
+|  |  | open |

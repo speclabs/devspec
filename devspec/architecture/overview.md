@@ -14,24 +14,34 @@
 
 ## Architecture Diagrams
 
-Use this section for high-level confirmed Mermaid diagrams and links to detailed diagram files. Track proposed and in-progress visual artifacts in `devspec/architecture/artifact-queue.md`.
+Use this section for confirmed diagrams and links. Track proposed or in-progress artifacts in `devspec/architecture/artifact-queue.md`.
 
 ### Generated Architecture Diagrams
 
-Add high-level confirmed `flowchart`, `sequenceDiagram`, or other Mermaid architecture diagrams here.
+| ID | Type | Subject | Status | Link or section | Notes |
+| --- | --- | --- | --- | --- | --- |
+|  |  |  | generated |  |  |
 
 ### Generated User Journeys
 
-Add high-level confirmed Mermaid `journey` diagrams here when they describe product-wide or cross-module journeys.
+| ID | Subject | Status | Link or section | Notes |
+| --- | --- | --- | --- | --- |
+|  |  | generated |  |  |
 
 ### Detailed Diagram Index
 
-Link durable module, feature workflow, user journey, sequence, and state diagrams stored under `devspec/architecture/diagrams/`.
+| Subject | Type | Path | Status | Notes |
+| --- | --- | --- | --- | --- |
+|  |  | `devspec/architecture/diagrams/<subject-slug>.md` | generated |  |
 
 ## Key Decisions
 
-- Decision reference:
+| Decision | Reference | Status |
+| --- | --- | --- |
+|  |  | proposed |
 
 ## Blockers
 
-- Blocker 1:
+| Blocker | Impact | Status |
+| --- | --- | --- |
+|  |  | open |

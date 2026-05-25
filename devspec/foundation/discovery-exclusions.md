@@ -1,10 +1,8 @@
 # Discovery Exclusions
 
-Use this file to keep repository discovery focused on project-owned source and configuration.
+Use this file to keep discovery focused on project-owned source, configuration, tests, scripts, and docs.
 
-Agents must exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output paths by default. Use manifests, lockfiles, framework config files, CI config, docs, source roots, tests, and scripts to understand dependencies and tooling.
-
-Exclusions are defaults, not absolute bans. If a project intentionally owns a normally excluded generated, vendor, or tool-output path, record the exception in `Project Overrides` before relying on it.
+Exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output paths by default. Record intentional exceptions in `Project Overrides` before relying on them.
 
 ## Global Exclusions
 
@@ -49,7 +47,9 @@ Use this table only when a project intentionally owns a normally excluded path o
 
 ## Notes
 
-- Do not inspect dependency folders to infer coding standards, architecture, or ownership.
-- Do inspect manifests and lockfiles as dependency and tooling evidence.
-- Respect repository ignore files as a baseline, but keep these exclusions explicit because search tools may not honor every ignore rule.
-- Keep repository layout maps selective and omit excluded folders unless an override includes them.
+| Rule | Note |
+| --- | --- |
+| Dependency and generated paths | Do not inspect them to infer coding standards, architecture, or ownership. |
+| Manifests and lockfiles | Inspect them as dependency and tooling evidence. |
+| Ignore files | Respect them as a baseline; keep these exclusions explicit for tools that do not honor every ignore rule. |
+| Layout maps | Keep them selective and omit excluded folders unless an override includes them. |

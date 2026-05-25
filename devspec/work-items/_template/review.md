@@ -2,49 +2,58 @@
 
 ## Resume State
 
-- Current stage: review
-- Current command: `/devspec.review`
-- Current agent: devspec.review
-- Run status: active | waiting-for-user | paused | stopped | blocked | complete
-- Current item:
-- Last completed step:
-- Next required action:
-- Pending user question:
-- Recommended option:
-- Resume command: `/devspec.review`
-- Resume notes:
-- Updated:
+| Field | Value |
+| --- | --- |
+| Current stage | review |
+| Current command | `/devspec.review` |
+| Current agent | devspec.review |
+| Run status | See `devspec/glossary.md#run-status-values` |
+| Current item | |
+| Last completed step | |
+| Next required action | |
+| Pending user question | |
+| Recommended option | |
+| Resume command | `/devspec.review` |
+| Resume notes | |
+| Updated | |
 
 ## Review Status
 
-- Status: approved | approved-with-follow-ups | changes-requested
-- Reviewer:
-- Date:
+| Field | Value |
+| --- | --- |
+| Status | See `devspec/glossary.md#review-and-readiness-status-values` |
+| Reviewer | |
+| Date | |
 
 ## Summary
 
-- Summary:
+| Field | Value |
+| --- | --- |
+| Summary | |
 
 ## Review Notes
 
-- Finalized scope alignment:
-- Scope drift found:
-- Follow-up 1:
+| Topic | Finding | Status |
+| --- | --- | --- |
+| Finalized scope alignment |  | pending |
+| Scope drift found |  | pending |
+| Follow-up |  | open |
 
 ## Findings
 
-### Finding 1
-
-- Severity: critical | high | medium | low
-- Category: bug | regression | security | validation | scope | maintainability
-- Details:
-- Required action:
+| ID | Severity | Category | Details | Required action | Status |
+| --- | --- | --- | --- | --- | --- |
+| F-001 | critical, high, medium, low | bug, regression, security, validation, scope, maintainability |  |  | open |
 
 ## Validation Gaps
 
-- Gap 1:
+| Gap | Impact | Status |
+| --- | --- | --- |
+|  |  | open |
 
 ## Type-Specific Review Notes
 
-- Bug review notes:
-- Security review notes:
+| Type | Note |
+| --- | --- |
+| Bug review notes | |
+| Security review notes | |

@@ -1,6 +1,6 @@
 # Rules
 
-This file holds project-operational hard constraints, governance rules, and delivery gates.
+This file holds project-operational constraints, governance rules, and delivery gates.
 
 ## Scope Reminder
 
@@ -25,25 +25,32 @@ This file holds project-operational hard constraints, governance rules, and deli
 
 ## Bug Handling Rules
 
-- Intake and readiness must capture expected behavior, actual behavior, reproduction steps, user or customer impact, and regression context unless a documented blocker prevents it.
-- Planning should usually include reproduce, fix, and regression-validation work.
-- Implementation must record regression validation appropriate to the affected area.
-- When bug fixes change code, implementation records should include focused before-and-after snippets when useful for review or audit.
-- Bugs with meaningful regression risk should receive review before closure.
+| Stage | Requirement |
+| --- | --- |
+| Intake and readiness | Capture expected behavior, actual behavior, reproduction steps, impact, and regression context unless blocked. |
+| Planning | Include reproduce, fix, and regression-validation work when practical. |
+| Implementation | Record regression validation and useful before-and-after snippets for code fixes. |
+| Review | Review bugs with meaningful regression risk before closure. |
 
 ## Security Vulnerability Rules
 
-- Intake and readiness must capture severity, affected scope, attack surface, exploitability, disclosure status, and a containment or remediation plan before the item is marked ready.
-- Sensitive exploit details should be minimized or redacted in shared artifacts when broader repository visibility makes full disclosure unsafe.
-- Planning should include impact confirmation, remediation, verification across affected supported versions, and backport, release, or advisory follow-up when applicable.
-- Implementation must verify remediation across affected supported versions and record backport, release, or advisory follow-up when applicable.
-- Security vulnerabilities must receive review before closure.
+| Stage | Requirement |
+| --- | --- |
+| Intake and readiness | Capture severity, affected scope, attack surface, exploitability, disclosure status, and containment or remediation plan. |
+| Shared artifacts | Minimize or redact sensitive exploit details when full disclosure is unsafe. |
+| Planning | Include impact confirmation, remediation, supported-version verification, and follow-up needs when applicable. |
+| Implementation | Verify remediation across affected supported versions and record backport, release, or advisory follow-up. |
+| Review | Review security vulnerabilities before closure. |
 
 ## Review Rules
 
-- Code review should check scope adherence, bugs, regressions, missing validation, and rule violations against the finalized brief.
-- Review findings marked `changes-requested` must route the work item back to implementation before the item is considered complete.
+| Rule | Requirement |
+| --- | --- |
+| Review focus | Check scope adherence, bugs, regressions, missing validation, and rule violations against the finalized brief. |
+| Changes requested | Route the work item back to implementation before marking it complete. |
 
 ## Exceptions
 
-- Exception process:
+| Exception | Process | Status |
+| --- | --- | --- |
+|  |  | open |

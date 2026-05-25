@@ -2,28 +2,32 @@
 
 ## Resume State
 
-- Current stage: diagram
-- Current command: `/devspec.diagram`
-- Current agent: devspec.diagram
-- Run status: active | waiting-for-user | paused | stopped | blocked | complete
-- Current item:
-- Last completed step:
-- Next required action:
-- Pending user question:
-- Recommended option:
-- Resume command: `/devspec.diagram`
-- Resume notes:
-- Updated:
+| Field | Value |
+| --- | --- |
+| Current stage | diagram |
+| Current command | `/devspec.diagram` |
+| Current agent | devspec.diagram |
+| Run status | See `devspec/glossary.md#run-status-values` |
+| Current item | |
+| Last completed step | |
+| Next required action | |
+| Pending user question | |
+| Recommended option | |
+| Resume command | `/devspec.diagram` |
+| Resume notes | |
+| Updated | |
 
 ## Metadata
 
-- ID:
-- Scope: architecture | module | feature | workflow | user-journey
-- Type: flowchart | sequenceDiagram | journey | stateDiagram | classDiagram
-- Subject:
-- Status: proposed | confirmed | generated | skipped | blocked
-- Evidence source:
-- Queue source: `devspec/architecture/artifact-queue.md`
+| Field | Value |
+| --- | --- |
+| ID | |
+| Scope | architecture, module, feature, workflow, user-journey |
+| Type | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram |
+| Subject | |
+| Status | See `devspec/glossary.md#artifact-status-values` |
+| Evidence source | |
+| Queue source | `devspec/architecture/artifact-queue.md` |
 
 ## Diagram
 
@@ -33,12 +37,18 @@ flowchart TD
 
 ## Evidence
 
-- Source 1:
+| Source | Notes |
+| --- | --- |
+|  |  |
 
 ## Assumptions
 
-- Assumption 1:
+| Assumption | Status |
+| --- | --- |
+|  | open |
 
 ## Notes
 
-- Note 1:
+| Note | Status |
+| --- | --- |
+|  | open |

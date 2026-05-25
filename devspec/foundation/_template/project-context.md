@@ -29,4 +29,6 @@
 
 ## Blockers
 
-- Blocker 1:
+| Blocker | Impact | Status |
+| --- | --- | --- |
+|  |  | open |

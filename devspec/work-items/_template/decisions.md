@@ -2,10 +2,6 @@
 
 ## Decision Log
 
-### DEC-001
-
-- Status:
-- Summary:
-- Rationale:
-- Impact:
-- Related artifacts:
+| ID | Status | Summary | Rationale | Impact | Related artifacts |
+| --- | --- | --- | --- | --- | --- |
+| DEC-001 | proposed |  |  |  |  |

@@ -2,7 +2,9 @@
 
 ## Status
 
-- Proposed | Accepted | Superseded
+| Field | Value |
+| --- | --- |
+| Status | Proposed, Accepted, Superseded |
 
 ## Context
 
