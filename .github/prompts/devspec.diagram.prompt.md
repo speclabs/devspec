@@ -1,6 +1,6 @@
 ---
 name: "devspec.diagram"
-description: "Generate or update one evidence-backed Mermaid diagram for architecture, workflows, journeys, sequences, or states."
+description: "Generate or update one evidence-backed Mermaid diagram for architecture, workflows, journeys, sequences, states, or stable domain structures."
 argument-hint: "Describe the diagram subject, scope, type, or related work item"
 agent: "devspec.diagram"
 ---

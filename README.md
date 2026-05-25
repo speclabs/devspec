@@ -61,7 +61,7 @@ After the foundation exists, use this work-item flow:
 
 Use `/devspec.clarify` only when story intake or finalization records a blocking question.
 
-Use `/devspec.diagram` whenever you need an additional architecture, module, feature workflow, user journey, sequence, or state diagram after the relevant context exists.
+Use `/devspec.diagram` whenever you need an additional architecture, module, feature workflow, user journey, sequence, state, or class/domain diagram after the relevant context exists.
 
 ## What gets installed
 
@@ -275,7 +275,7 @@ What it does:
 
 - validates the confirmed current project root, repository URLs, local repository paths, or named multi-repo paths
 - asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction` when no source is provided
-- reads repository layout, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
+- reads repository layout, routes, modules, workflows, states, services, integrations, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
 - applies the default exclusions in `devspec/foundation/discovery-exclusions.md` unless the project records an explicit override
 - prefers direct repository search and known working exploration methods before trying new generated scripts
 - proposes updates to:
@@ -285,7 +285,8 @@ What it does:
 - requires explicit confirmation before writing principle-level changes to `constitution.md`
 - asks only one structured extraction confirmation at a time; constitution confirmation, artifact-queue approval, and Mermaid generation approval must not be asked together
 - processes artifact-queue items one at a time in queue order, asking one structured question for the next unresolved item only
-- seeds diagram candidates from repository evidence; later user-requested diagrams should use `/devspec.diagram`
+- seeds consistent diagram candidates from repository evidence with ID, scope, type, subject, target path, evidence source, confidence, status, output section, and notes
+- treats extraction as queue-first diagram discovery; `/devspec.diagram` is the normal follow-up for generating one confirmed diagram
 - closes with one next action or one structured question, not a list of possible next prompts
 
 Use it for:
@@ -331,6 +332,7 @@ Functions - D:\code\payments-functions
 Expected outcome:
 
 - `architecture/overview.md` gets a first-pass system view
+- `architecture/artifact-queue.md` gets evidence-backed diagram candidates when durable diagrams would clarify the system
 - `foundation/tech-stack.md` gets stack evidence
 - `foundation/codebase-structure.md` gets a repo-layout draft
 - repository layout should be a selective 3-5 level map that helps agents place new files and folders
@@ -471,7 +473,7 @@ Once the project foundation exists, start work with `/devspec.story`, then move 
 
 If you want `/devspec.story` to resolve GitHub, Jira, or Azure DevOps references, first confirm `devspec/foundation/provider-integrations.md` reflects your configured providers, accepted formats, access model, and manual fallback.
 
-Use `/devspec.diagram` alongside the flow when a feature workflow, user journey, sequence, or state diagram would clarify the work item.
+Use `/devspec.diagram` alongside the flow when a feature workflow, user journey, sequence, state, or class/domain diagram would clarify the work item.
 
 ### 1. `/devspec.story`
 
@@ -662,22 +664,25 @@ Example:
 
 ### Optional: `/devspec.diagram`
 
-Use this when you want one additional evidence-backed Mermaid diagram for an architecture area, module, feature workflow, user journey, sequence, or state.
+Use this when you want one additional evidence-backed Mermaid diagram for an architecture area, module, feature workflow, user journey, sequence, state, or stable domain structure.
 
 What it writes:
 
-- `devspec/architecture/diagrams/<subject-slug>.md` by default for durable architecture, module, feature workflow, user journey, sequence, or state diagrams
+- `devspec/architecture/diagrams/<subject-slug>.md` by default for durable architecture, module, feature workflow, user journey, sequence, state, or class/domain diagrams
 - `devspec/architecture/overview.md` only for high-level system diagrams or links to detailed diagram files
-- `devspec/architecture/artifact-queue.md` for resumable proposed, confirmed, generated, skipped, or blocked diagram work
+- `devspec/architecture/artifact-queue.md` for resumable proposed, confirmed, generated, skipped, or blocked diagram work with evidence and confidence
 - `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment
 
 Important behavior:
 
 - requires a diagram subject or related work item
 - generates exactly one diagram per run unless you explicitly continue through the queue
+- reuses matching artifact-queue metadata instead of reclassifying the same subject from scratch
 - chooses Mermaid type from evidence or asks one structured question when ambiguous
+- supports `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, and `classDiagram`
 - checks for an equivalent existing diagram before creating another one
 - separates evidence-backed facts from assumptions
+- uses confidence values consistently: `observed`, `high-confidence`, or `low-confidence`
 - keeps feature and module workflow diagrams out of `overview.md` unless they are truly high-level system views
 - defaults to `devspec/architecture/diagrams/` even when the request mentions a work item, unless the diagram is explicit or clearly temporary story-specific context
 
@@ -707,7 +712,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 | 9 | `/devspec.tasks` | A ready brief needs ordered implementation tasks. | `finalize.md` marked `ready`. | `work-items/<work-item-folder>/tasks.md` | `/devspec.implement` |
 | 10 | `/devspec.implement` | Pending tasks should be implemented. | `finalize.md` marked `ready` and `tasks.md`. | `work-items/<work-item-folder>/implement.md` and code changes when applicable. | `/devspec.review` |
 | 11 | `/devspec.review` | Implemented work needs review against the finalized brief. | `finalize.md` and `implement.md`. | `work-items/<work-item-folder>/review.md` | Return to implementation for changes, or close the work item |
-| Optional | `/devspec.diagram` | A requested architecture, module, feature workflow, user journey, sequence, or state diagram is needed. | Diagram subject or related work item. | `architecture/diagrams/*.md` by default, `architecture/overview.md` for high-level system diagrams, `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams, and `architecture/artifact-queue.md` as applicable. | Continue the current workflow |
+| Optional | `/devspec.diagram` | A requested architecture, module, feature workflow, user journey, sequence, state, or class/domain diagram is needed. | Diagram subject or related work item. | `architecture/diagrams/*.md` by default, `architecture/overview.md` for high-level system diagrams, `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams, and `architecture/artifact-queue.md` as applicable. | Continue the current workflow |
 
 ## End-to-end examples
 
@@ -830,6 +835,7 @@ Review extracted artifacts before relying on them:
 | --- | --- |
 | `devspec/constitution.md` | Durable principles only; principle-level changes require confirmation. |
 | `devspec/architecture/overview.md` | Major components, system boundaries, integrations, high-level data flow, and links to detailed diagrams. |
+| `devspec/architecture/artifact-queue.md` | Diagram candidates with scope, type, target path, evidence, confidence, status, and duplicate-check notes. |
 | `devspec/foundation/project-context.md` | Product goals and user outcomes, because code rarely tells the whole story. |
 | `devspec/foundation/tech-stack.md` | Languages, runtimes, frameworks, services, tooling, hosting, support status, and verification dates. |
 | `devspec/foundation/codebase-structure.md` | Selective 3-5 level layout, module boundaries, multi-repo roles, local paths, workspace availability, and access requirements. |

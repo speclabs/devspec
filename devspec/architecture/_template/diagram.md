@@ -27,6 +27,7 @@
 | Subject | |
 | Status | See `devspec/glossary.md#artifact-status-values` |
 | Evidence source | |
+| Confidence | observed, high-confidence, low-confidence |
 | Queue source | `devspec/architecture/artifact-queue.md` |
 
 ## Diagram
@@ -40,6 +41,10 @@ flowchart TD
 | Source | Notes |
 | --- | --- |
 |  |  |
+
+## Confidence Guidance
+
+Use `observed` for directly supported code, docs, config, or ADR evidence; `high-confidence` for inference from multiple local evidence points; and `low-confidence` only when assumptions are recorded before generation.
 
 ## Assumptions
 

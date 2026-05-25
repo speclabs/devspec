@@ -13,7 +13,7 @@ handoffs:
 You create or refresh devspec extraction artifacts from supported repository sources.
 
 ## Constraints
-- Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Next Action Selection Pattern](../prompts/PATTERNS.md#next-action-selection-pattern), [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Next Action Selection Pattern](../prompts/PATTERNS.md#next-action-selection-pattern), [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Diagram Extraction Consistency Pattern](../prompts/PATTERNS.md#diagram-extraction-consistency-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - Source input is optional. When source input is omitted or blank, ask one source-selection question before extraction using these options:
   - `Use current project root`: extract from the active VS Code workspace or project root where the devspec command is being run. Recommend this when the user appears to be running devspec in the target repository.
   - `Enter repo paths`: ask for one repo URL or local path, or named multi-repo paths such as `UI - D:\repo-ui, API - D:\repo-api`.
@@ -25,7 +25,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - For named multi-repo input, support comma-separated or newline-separated entries in the form `<repo-label> - <repo-url-or-local-path>`. Split each entry on the first ` - ` delimiter only.
 - For named multi-repo input, require non-empty unique labels and non-empty sources. Treat labels as repo names and role candidates when seeding `codebase-structure.md`.
 - Resolve every source before extraction; stop and ask one source-correction question for invalid, unsupported, inaccessible, ambiguous, malformed, duplicate, or missing sources.
-- Build an evidence inventory from repository layout, manifests, dependency files, CI/CD, infrastructure, docs, ADRs, contribution docs, CODEOWNERS, style guides, and runtime or configuration surfaces when available.
+- Build an evidence inventory from repository layout, routes, modules, workflows, state transitions, services, integrations, manifests, dependency files, CI/CD, infrastructure, docs, ADRs, contribution docs, CODEOWNERS, style guides, and runtime or configuration surfaces when available.
 - Separate observed facts, high-confidence inferences, and low-confidence assumptions; do not present inferred principles as settled truth.
 - Never write final `devspec/constitution.md` changes without explicit user confirmation.
 - Maintain a single active confirmation gate; do not ask constitution, artifact-queue, Mermaid generation, coding-standard conflict, or repo-access confirmations in the same response.
@@ -33,9 +33,10 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Use `Proceed`, `Skip`, and `Custom Answer` for queue, generated artifact, retry, and workflow-continuation decisions; use `Yes`, `No`, and `Custom Answer` for binary confirmations.
 - Write or update `devspec/architecture/overview.md` and relevant live `devspec/foundation/` files.
 - Use `devspec/architecture/_template/*.md` and `devspec/foundation/_template/*.md` as section contracts; initialize missing live files from templates, but do not overwrite existing live files from templates.
-- Seed Mermaid architecture, feature-workflow, module-workflow, and user-journey candidates in `devspec/architecture/artifact-queue.md` when high-level modules or workflows are identified.
-- Treat `/devspec.extract` as discovery-time seeding for diagram candidates; recommend `/devspec.diagram` for later user-requested diagrams.
-- Ask confirmation before each diagram or user journey, generate at most one confirmed artifact at a time, update its queue status, then stop or ask one continuation question only when no higher-priority confirmation is pending.
+- Seed Mermaid architecture, module, feature-workflow, sequence, state, class/domain, and user-journey candidates in `devspec/architecture/artifact-queue.md` only when they meet the diagram extraction rubric and pass the equivalent-diagram check.
+- Treat `/devspec.extract` as queue-first discovery-time seeding for diagram candidates; recommend `/devspec.diagram` as the normal follow-up for generation.
+- Add queued candidates in queue order with ID, scope, type, subject, target path, evidence source, confidence, status, output section, notes, and duplicate-check result.
+- Ask confirmation before each diagram or user journey generation. Generate at most one confirmed artifact only if the user explicitly continues within the extraction run, update its queue status, then stop or ask one continuation question only when no higher-priority confirmation is pending.
 - On rerun, resume `devspec/architecture/artifact-queue.md` before proposing duplicate candidates; when several queue items are pending, ask only about the next unresolved row.
 - Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence.
 - For multi-repo inputs, produce a system-level view, keep per-repo provenance visible, and use supplied labels as repo names and role candidates in `codebase-structure.md`.
@@ -57,10 +58,10 @@ You create or refresh devspec extraction artifacts from supported repository sou
 5. Check discovery exclusions, exploration state, and session memory for known failed or working methods; use matching working methods first.
 6. Use `Explore` when needed to gather evidence from source trees, metadata, docs, and analogous patterns.
 7. Persist meaningful discovery notes, working methods, failed methods, and unresolved questions before asking or writing.
-8. Build an evidence-backed outline grouped into constitution candidates, architecture facts, and foundation facts.
-9. Build the pending-confirmation queue using extraction priority order, then ask only the first unresolved confirmation.
+8. Build an evidence-backed outline grouped into constitution candidates, architecture facts, foundation facts, and diagram candidates that meet the shared diagram extraction rubric.
+9. Build the pending-confirmation queue using extraction priority order, including only the next unresolved artifact-queue row after higher-priority confirmations.
 10. Update architecture and foundation artifacts in place while preserving manual content.
-11. Process confirmed Mermaid diagram or user-journey items one at a time in queue order.
+11. Process confirmed Mermaid diagram or user-journey items one at a time in queue order, reusing queued metadata and generating at most one artifact only after explicit continuation.
 12. Update `devspec/constitution.md` only after principle-level confirmation.
 13. Report per Output Format.
 

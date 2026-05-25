@@ -6,8 +6,8 @@ Store high-level diagrams in `devspec/architecture/overview.md`, durable detaile
 
 ## Queue
 
-| ID | Scope | Type | Subject | Target path | Evidence source | Status | Output section | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ID | Scope | Type | Subject | Target path | Evidence source | Confidence | Status | Output section | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
 Add rows only when extraction or `/devspec.diagram` identifies real diagram candidates.
 
@@ -31,6 +31,14 @@ Add rows only when extraction or `/devspec.diagram` identifies real diagram cand
 | `journey` | User-facing experience flow. |
 | `stateDiagram` | Lifecycle, status, or transition behavior. |
 | `classDiagram` | Stable domain or structural relationships when useful. |
+
+## Confidence Values
+
+| Confidence | Meaning |
+| --- | --- |
+| `observed` | Directly supported by code, docs, config, or ADR evidence. |
+| `high-confidence` | Inferred from multiple local evidence points. |
+| `low-confidence` | Useful but incomplete evidence; record assumptions before generation. |
 
 ## Artifact Status Values
 
