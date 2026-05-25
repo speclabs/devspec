@@ -2,35 +2,36 @@
 
 ## Resume State
 
-- Current stage: clarify
-- Current command: `/devspec.clarify`
-- Current agent: devspec.clarify
-- Run status: active | waiting-for-user | paused | stopped | blocked | complete
-- Current item:
-- Last completed step:
-- Next required action:
-- Pending user question:
-- Recommended option:
-- Resume command: `/devspec.clarify`
-- Resume notes:
-- Updated:
+| Field | Value |
+| --- | --- |
+| Current stage | clarify |
+| Current command | `/devspec.clarify` |
+| Current agent | devspec.clarify |
+| Run status | See `devspec/glossary.md#run-status-values` |
+| Current item | |
+| Last completed step | |
+| Next required action | |
+| Pending user question | |
+| Recommended option | |
+| Resume command | `/devspec.clarify` |
+| Resume notes | |
+| Updated | |
 
 ## Clarification Log
 
-### Entry 1
-
-- Date:
-- Question:
-- Recommended option and justification:
-- User answer:
-- Impact:
-- Status: open | resolved
+| Date | Question | Recommended option and justification | User answer | Impact | Status |
+| --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  | open |
 
 ## Current Blocking Question
 
-- Question:
+| Field | Value |
+| --- | --- |
+| Question | |
 
-## Current Status
+## Clarification Status
 
-- Blocking:
-- Next step:
+| Field | Value |
+| --- | --- |
+| Blocking | yes, no |
+| Next step | |

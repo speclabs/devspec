@@ -2,48 +2,52 @@
 
 ## Resume State
 
-- Current stage: tasks
-- Current command: `/devspec.tasks`
-- Current agent: devspec.tasks
-- Run status: active | waiting-for-user | paused | stopped | blocked | complete
-- Current item:
-- Last completed step:
-- Next required action:
-- Pending user question:
-- Recommended option:
-- Resume command: `/devspec.tasks`
-- Resume notes:
-- Updated:
+| Field | Value |
+| --- | --- |
+| Current stage | tasks |
+| Current command | `/devspec.tasks` |
+| Current agent | devspec.tasks |
+| Run status | See `devspec/glossary.md#run-status-values` |
+| Current item | |
+| Last completed step | |
+| Next required action | |
+| Pending user question | |
+| Recommended option | |
+| Resume command | `/devspec.tasks` |
+| Resume notes | |
+| Updated | |
 
 ## Ordered Tasks
 
-1. Task:
-   - Target repo:
-   - Target area:
-   - Required access:
-   - Depends on:
-   - Status: pending | active | paused | blocked | complete | skipped
-   - Attempt count:
-   - Last checkpoint:
-   - Validation:
+| ID | Task | Target repo | Target area | Required access | Depends on | Status | Attempt count | Last checkpoint | Validation |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| T-001 |  |  |  | See `devspec/glossary.md#access-requirement-values` |  | pending | 0 |  |  |
 
 ## Execution Context
 
-- Multi-repo dependency: yes | no
-- Related repos:
-- Dependency 1:
-- Repo path source:
-- Access requirement source: `devspec/foundation/codebase-structure.md`
-- Type-specific rule source: `devspec/foundation/rules.md`
+| Field | Value |
+| --- | --- |
+| Multi-repo dependency | yes, no |
+| Related repos | |
+| Dependency | |
+| Repo path source | |
+| Access requirement source | `devspec/foundation/codebase-structure.md` |
+| Type-specific rule source | `devspec/foundation/rules.md` |
 
 ## Impacted Files Or Areas
 
-- File or area 1:
+| File or area | Reason | Status |
+| --- | --- | --- |
+|  |  | planned |
 
 ## Validation Steps
 
-- Validation 1:
+| ID | Validation | Status |
+| --- | --- | --- |
+| V-001 |  | pending |
 
 ## Definition Of Done
 
-- Done means:
+| Requirement | Status |
+| --- | --- |
+|  | pending |

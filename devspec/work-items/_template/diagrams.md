@@ -6,18 +6,20 @@ Reusable feature workflows, module workflows, user journeys, sequences, and stat
 
 ## Resume State
 
-- Current stage: diagram
-- Current command: `/devspec.diagram`
-- Current agent: devspec.diagram
-- Run status: active | waiting-for-user | paused | stopped | blocked | complete
-- Current item:
-- Last completed step:
-- Next required action:
-- Pending user question:
-- Recommended option:
-- Resume command: `/devspec.diagram`
-- Resume notes:
-- Updated:
+| Field | Value |
+| --- | --- |
+| Current stage | diagram |
+| Current command | `/devspec.diagram` |
+| Current agent | devspec.diagram |
+| Run status | See `devspec/glossary.md#run-status-values` |
+| Current item | |
+| Last completed step | |
+| Next required action | |
+| Pending user question | |
+| Recommended option | |
+| Resume command | `/devspec.diagram` |
+| Resume notes | |
+| Updated | |
 
 ## Diagram Index
 
@@ -29,10 +31,12 @@ Reusable feature workflows, module workflows, user journeys, sequences, and stat
 
 ### Diagram 1
 
-- Type:
-- Subject:
-- Evidence:
-- Assumptions:
+| Field | Value |
+| --- | --- |
+| Type | |
+| Subject | |
+| Evidence | |
+| Assumptions | |
 
 ```mermaid
 flowchart TD

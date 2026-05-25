@@ -1,6 +1,6 @@
 ---
 name: "devspec.clarify"
-description: "Ask and record exactly one blocking clarification question at a time for the current devspec work item, then update clarify.md."
+description: "Ask and record one blocking clarification question at a time for the current devspec work item."
 argument-hint: "Optional: answer the current blocking question or add clarifying notes"
 agent: "devspec.clarify"
 ---

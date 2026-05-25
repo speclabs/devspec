@@ -25,20 +25,13 @@ Use a selective 3-5 level tree that helps agents decide where to create or edit 
 
 Use this section only when multiple repos participate in delivery.
 
+Rows may be seeded from named `/devspec.extract` input such as `UI - D:\repo-ui, API - D:\repo-api`. Use the supplied label as the initial repo name and role candidate, then refine it with evidence or user confirmation.
+
 | Repo | Role | Local path | In current workspace | Access requirement | Notes |
 | --- | --- | --- | --- | --- | --- |
 | <repo-name> | <role> | <local-path> | yes | <access-requirement> | |
 
-Do not assume access requirements. A repo outside the current repo folder is not automatically `reference-only`; repo location, workspace membership, and access requirement are separate facts. For each repo with a missing or ambiguous access requirement, ask the user to confirm one access requirement with multiple-choice options before writing or relying on the row.
-
-Access requirement values:
-
-- `reference-only`: inspect for context only; do not edit or run project validation.
-- `edit`: code or documentation changes are expected.
-- `edit-and-test`: code or documentation changes and validation are expected.
-- `validation-only`: run validation only; do not edit.
-- `release-coordination`: track delivery dependency; edits require separate user confirmation.
-- `blocked`: required repo is unavailable or inaccessible.
+Do not infer access from repo location. For missing or ambiguous access requirements, ask the user to confirm one value from `devspec/glossary.md#access-requirement-values` before relying on the row.
 
 ## Modules And Boundaries
 
@@ -46,7 +39,7 @@ Access requirement values:
 | --- | --- | --- | --- | --- | --- |
 | repo:<repo-name> | <module-name> | <primary responsibility> | <path-or-pattern> | <allowed dependencies or ownership boundary> | |
 
-## Ownership Seams
+## Ownership Boundaries
 
 | Scope | Area | Owner or team | Responsibility | Review or escalation path | Notes |
 | --- | --- | --- | --- | --- | --- |
@@ -66,4 +59,6 @@ Access requirement values:
 
 ## Blockers
 
-- Blocker 1:
+| Blocker | Impact | Status |
+| --- | --- | --- |
+|  |  | open |

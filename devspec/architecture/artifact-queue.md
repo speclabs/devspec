@@ -1,39 +1,51 @@
 # Architecture Artifact Queue
 
-Use this file as resumable state for architecture visuals, module diagrams, feature workflows, user journeys, and related generated artifacts.
+Use this file as resumable state for proposed and generated architecture visuals.
 
-Keep high-level system diagrams in `devspec/architecture/overview.md` and detailed architecture, module, feature workflow, user journey, sequence, and state diagrams in `devspec/architecture/diagrams/<subject-slug>.md`.
-
-Use `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment.
+Store high-level diagrams in `devspec/architecture/overview.md`, durable detailed diagrams in `devspec/architecture/diagrams/<subject-slug>.md`, and temporary work-item diagrams in `devspec/work-items/<work-item-folder>/diagrams.md`.
 
 ## Queue
 
-| ID | Scope | Type | Subject | Target path | Evidence source | Status | Output section | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ID | Scope | Type | Subject | Target path | Evidence source | Confidence | Status | Output section | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
 Add rows only when extraction or `/devspec.diagram` identifies real diagram candidates.
 
-## Scope Rules
+## Scope Values
 
-- `architecture`: stable system-level structure or cross-system flow.
-- `module`: durable module or bounded-context behavior.
-- `feature`: reusable feature-level behavior not tied to a single work item.
-- `workflow`: process flow across modules, services, or users.
-- `user-journey`: user-facing path through product behavior.
-- `work-item`: explicit or clearly temporary diagram specific to one story, bug, or security issue.
+| Scope | Meaning |
+| --- | --- |
+| `architecture` | Stable system-level structure or cross-system flow. |
+| `module` | Durable module or bounded-context behavior. |
+| `feature` | Reusable feature-level behavior not tied to a single work item. |
+| `workflow` | Process flow across modules, services, or users. |
+| `user-journey` | User-facing path through product behavior. |
+| `work-item` | Explicit or temporary diagram specific to one story, bug, or security issue. |
 
-## Type Rules
+## Diagram Type Values
 
-- `flowchart`: feature, module, or process workflow.
-- `sequenceDiagram`: service, actor, or system interaction over time.
-- `journey`: user-facing experience flow.
-- `stateDiagram`: lifecycle, status, or transition behavior.
-- `classDiagram`: stable domain or structural relationships when useful.
+| Type | Meaning |
+| --- | --- |
+| `flowchart` | Feature, module, or process workflow. |
+| `sequenceDiagram` | Service, actor, or system interaction over time. |
+| `journey` | User-facing experience flow. |
+| `stateDiagram` | Lifecycle, status, or transition behavior. |
+| `classDiagram` | Stable domain or structural relationships when useful. |
 
-## Status Rules
+## Confidence Values
 
-- `proposed`: candidate identified from evidence, waiting for user confirmation.
-- `confirmed`: user approved generation, not yet generated.
-- `generated`: artifact was added to the target path.
-- `skipped`: user declined generation.
-- `blocked`: evidence or context is insufficient.
+| Confidence | Meaning |
+| --- | --- |
+| `observed` | Directly supported by code, docs, config, or ADR evidence. |
+| `high-confidence` | Inferred from multiple local evidence points. |
+| `low-confidence` | Useful but incomplete evidence; record assumptions before generation. |
+
+## Artifact Status Values
+
+| Status | Meaning |
+| --- | --- |
+| `proposed` | Candidate identified from evidence. |
+| `confirmed` | User approved generation, not yet generated. |
+| `generated` | Artifact was added to the target path. |
+| `skipped` | User declined generation. |
+| `blocked` | Evidence or context is insufficient. |

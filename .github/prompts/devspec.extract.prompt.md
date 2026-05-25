@@ -1,11 +1,11 @@
 ---
 name: "devspec.extract"
-description: "Create or refresh devspec constitution, architecture, and foundation artifacts from one or more GitHub, Azure DevOps, or GitLab repository URLs, or from local repository folder paths."
-argument-hint: "Paste one or more supported repo URLs or local repo folder paths"
+description: "Create or refresh devspec constitution, architecture, and foundation artifacts from current root, repo URLs, local repo paths, or named multi-repo sources."
+argument-hint: "Optional: leave blank for current root, paste one repo URL/path, or use Name - path pairs"
 agent: "devspec.extract"
 ---
 
-Create or refresh `devspec/constitution.md`, `devspec/architecture/overview.md`, and the relevant live `devspec/foundation/*.md` artifacts from supported repository sources.
+Create or refresh `devspec/constitution.md`, `devspec/architecture/overview.md`, and relevant live `devspec/foundation/*.md` artifacts from supported repository sources.
 
-Required user input:
-${input:extractSources:Paste one or more supported repo URLs or local repo folder paths}
+Optional user input:
+${input:extractSources:Optional: leave blank for current root, paste one repo URL/path, or use Name - path pairs}

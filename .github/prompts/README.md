@@ -1,14 +1,18 @@
 # Devspec Prompt Index
 
-Slash-command prompts live here. Use this file as an index only; behavior belongs in `PATTERNS.md`, matching agents, or canonical devspec artifacts.
+Slash-command prompts live here. Keep behavior in `PATTERNS.md`, matching agents, or canonical devspec artifacts.
 
 ## Workflow
 
 Foundation: `extract` -> `projectcontext` -> `techstack` -> `codebase-structure` -> `coding-standards` -> `rules`
 
-Work items: `story` -> `clarify` -> `finalize` -> `tasks` -> `implement` -> `review`
+Work items: `story` -> `finalize` -> `tasks` -> `implement` -> `review`
+
+Use `clarify` only when story intake or finalization records a blocking question.
 
 Supporting: `diagram`
+
+`/devspec.extract` can be run with blank input to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction`; it also accepts one repo URL or local path, or named multi-repo input such as `UI - D:\repo-ui, API - D:\repo-api`.
 
 ## Registered Slash Commands
 
@@ -30,9 +34,12 @@ The registered devspec slash commands are:
 
 Recommendation behavior is defined by `PATTERNS.md#registered-command-recommendation-pattern`.
 
+Developers invoke registered slash commands from this directory. Agent names are workflow targets and may be internal handoff details; do not recommend an agent name as a slash command unless the matching prompt is registered here.
+
 ## Shared References
 
-- `PATTERNS.md`: shared interaction, next-action selection, prerequisite, session recovery, token, output, foundation, work-item, memory, discovery exclusion, exploration recovery, and multi-repo rules.
+- `PATTERNS.md`: shared workflow, recovery, output, discovery, foundation, work-item, memory, and multi-repo rules.
+- `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, evidence, confidence, dedupe, and queue rules.
 - `../../devspec/foundation/rules.md`: bug, security, review, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
 - `../../devspec/foundation/discovery-exclusions.md`: default and project-specific paths to exclude from repository discovery.
@@ -52,7 +59,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 
 | Prompt | Purpose | Produces |
 | --- | --- | --- |
-| `devspec.extract.prompt.md` | Derive constitution candidates, architecture context, and live foundation facts from repos. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` |
+| `devspec.extract.prompt.md` | Derive constitution candidates, architecture context, and live foundation facts from current root, repo URLs, local paths, or named multi-repo input. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` |
 | `devspec.projectcontext.prompt.md` | Capture product vision, users, goals, non-goals, constraints, and metrics. | `foundation/project-context.md` |
 | `devspec.techstack.prompt.md` | Capture languages, frameworks, services, tooling, hosting, and versions. | `foundation/tech-stack.md` |
 | `devspec.codebase-structure.prompt.md` | Capture repo layout, module boundaries, ownership seams, and multi-repo config. | `foundation/codebase-structure.md` |
@@ -64,7 +71,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 | `devspec.tasks.prompt.md` | Break a ready brief into ordered implementation tasks. | `tasks.md` |
 | `devspec.implement.prompt.md` | Implement pending tasks and record progress. | `implement.md`, code changes |
 | `devspec.review.prompt.md` | Review implemented work against the finalized brief. | `review.md` |
-| `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram. | `architecture/diagrams/*.md` by default, `architecture/overview.md` for high-level system diagrams, or `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams |
+| `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram. | `architecture/diagrams/*.md` by default; `architecture/overview.md` for high-level system diagrams; work-item `diagrams.md` for explicit or temporary work-item diagrams |
 
 ## Maintenance
 

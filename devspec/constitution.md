@@ -1,6 +1,6 @@
 # Constitution
 
-This file holds enduring project principles that apply across all work items and all agents.
+This file holds enduring principles that apply across work items and agents.
 
 ## Engineering Principles
 
@@ -26,10 +26,5 @@ This file holds enduring project principles that apply across all work items and
 
 ## Amendment Notes
 
-- Update this file only for durable principles.
-- Project-operational constraints belong in `devspec/foundation/rules.md`.
-
-## Scope Reminder
-
-- Use this file for enduring principles that rarely change.
-- Do not place project-operational delivery gates or evolving compliance rules here.
+- Update this file only for durable principles that rarely change.
+- Put operational delivery gates and evolving compliance rules in `devspec/foundation/rules.md`.

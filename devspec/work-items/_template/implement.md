@@ -2,31 +2,37 @@
 
 ## Resume State
 
-- Current stage: implement
-- Current command: `/devspec.implement`
-- Current agent: devspec.implement-task
-- Run status: active | waiting-for-user | paused | stopped | blocked | complete
-- Current item:
-- Last completed step:
-- Next required action:
-- Pending user question:
-- Recommended option:
-- Resume command: `/devspec.implement`
-- Resume notes:
-- Updated:
+| Field | Value |
+| --- | --- |
+| Current stage | implement |
+| Current command | `/devspec.implement` |
+| Current agent | devspec.implement-task |
+| Run status | See `devspec/glossary.md#run-status-values` |
+| Current item | |
+| Last completed step | |
+| Next required action | |
+| Pending user question | |
+| Recommended option | |
+| Resume command | `/devspec.implement` |
+| Resume notes | |
+| Updated | |
 
 ## Implementation Status
 
-- Status:
-- Current task:
-- Completion note:
+| Field | Value |
+| --- | --- |
+| Status | See `devspec/glossary.md#task-status-values` |
+| Current task | |
+| Completion note | |
 
 ## Progress Summary
 
-- Completed tasks count:
-- Pending tasks count:
-- Skipped tasks count:
-- Last confirmation outcome: proceed | continue | pause | skip | custom
+| Metric | Value |
+| --- | --- |
+| Completed tasks count | |
+| Pending tasks count | |
+| Skipped tasks count | |
+| Last confirmation outcome | proceed, continue, pause, skip, custom |
 
 ## Repo Access Validation
 
@@ -44,55 +50,56 @@
 
 ## Last Safe Checkpoint
 
-- Last completed task:
-- Current task:
-- Files changed:
-- Validation last run:
-- Known good state:
-- Roll-forward notes:
+| Field | Value |
+| --- | --- |
+| Last completed task | |
+| Current task | |
+| Validation last run | |
+| Known good state | |
+| Roll-forward notes | |
+
+## Changed Files
+
+| File | Change summary | Status | Validation |
+| --- | --- | --- | --- |
+|  |  | modified |  |
 
 ## Task Execution Log
 
-### Entry 1
-
-- Task:
-- Target repo:
-- Target area:
-- Attempt count:
-- Status:
-- Summary:
-- Files changed:
-- Validation:
-- Blockers:
-- Failed method:
-- Failure reason:
-- Retry condition:
-- Next safer method:
-- Confirmation after task:
-- Date:
+| Date | Task | Target repo | Target area | Attempt count | Status | Summary | Files changed | Validation | Blockers | Failed method | Failure reason | Retry condition | Next safer method | Confirmation after task |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  | 0 | pending |  |  |  |  |  |  |  |  |  |
 
 ## Execution Summary
 
-- Current task outcome:
-- Completed task 1:
-- Overall completed summary:
-- Pending task 1:
-- Skipped task 1:
-- Residual risk 1:
-- Follow-up 1:
+| Type | Item | Status |
+| --- | --- | --- |
+| Current task outcome |  | pending |
+| Completed task |  | complete |
+| Overall completed summary |  |  |
+| Pending task |  | pending |
+| Skipped task |  | skipped |
+| Residual risk |  | open |
+| Follow-up |  | open |
 
 ## Type-Specific Handling
 
-- Rule source: `devspec/foundation/rules.md`
-- Bug handling notes:
-- Security handling notes:
+| Type | Note |
+| --- | --- |
+| Rule source | `devspec/foundation/rules.md` |
+| Bug handling notes | |
+| Security handling notes | |
 
 ## Attempt Escalations
 
-- Attempt escalation 1:
+| Attempt | Reason | Escalation | Status |
+| --- | --- | --- | --- |
+| 1 |  |  | pending |
 
-## Next-Task Handoff
+## Next Task Handoff
 
-- Next task:
-- Preconditions:
-- Notes for next implementation pass:
+| Field | Value |
+| --- | --- |
+| Next task | |
+| Preconditions | |
+| Notes for next implementation pass | |

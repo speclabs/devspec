@@ -2,64 +2,82 @@
 
 ## Resume State
 
-- Current stage: finalize
-- Current command: `/devspec.finalize`
-- Current agent: devspec.finalize
-- Run status: active | waiting-for-user | paused | stopped | blocked | complete
-- Current item:
-- Last completed step:
-- Next required action:
-- Pending user question:
-- Recommended option:
-- Resume command: `/devspec.finalize`
-- Resume notes:
-- Updated:
+| Field | Value |
+| --- | --- |
+| Current stage | finalize |
+| Current command | `/devspec.finalize` |
+| Current agent | devspec.finalize |
+| Run status | See `devspec/glossary.md#run-status-values` |
+| Current item | |
+| Last completed step | |
+| Next required action | |
+| Pending user question | |
+| Recommended option | |
+| Resume command | `/devspec.finalize` |
+| Resume notes | |
+| Updated | |
 
 ## Work-Item Classification
 
-- Type:
-- Severity: bugs and security vulnerabilities only
-- Priority: features should record priority
+| Field | Value |
+| --- | --- |
+| Type | feature, bug, security-vulnerability |
+| Severity | bugs and security vulnerabilities only |
+| Priority | features should record priority |
 
-## Ready Status
+## Readiness Status
 
-- Status: ready | not ready
+| Field | Value |
+| --- | --- |
+| Status | See `devspec/glossary.md#review-and-readiness-status-values` |
 
 ## Readiness Gates
 
-- Core readiness:
-- Type-specific readiness:
-- Outstanding blocker:
+| Gate | Status | Notes |
+| --- | --- | --- |
+| Core readiness | pending | |
+| Type-specific readiness | pending | |
+| Outstanding blocker |  | |
 
 ## Final Scope
 
-- In scope:
-- Out of scope:
+| Scope | Details |
+| --- | --- |
+| In scope | |
+| Out of scope | |
 
 ## Acceptance Criteria
 
-- Criterion 1:
+| ID | Criterion | Status |
+| --- | --- | --- |
+| AC-001 |  | pending |
 
 ## Context Notes
 
-- Assumption 1:
-- Multi-repo dependency: yes | no
-- Related repos:
-- Dependency 1:
+| Type | Note |
+| --- | --- |
+| Assumption | |
+| Multi-repo dependency | yes, no |
+| Related repos | |
+| Dependency | |
 
-## Foundation Multi-Repo Configuration
+## Multi-Repo Configuration
 
 Use this section only when `Multi-repo dependency` is `yes`.
 
-- Config source: `devspec/foundation/codebase-structure.md`
-- Configuration status: configured | missing
-- Access requirement status: confirmed | missing | blocked
-- Missing configuration blocker:
+| Field | Value |
+| --- | --- |
+| Config source | `devspec/foundation/codebase-structure.md` |
+| Configuration status | configured, missing |
+| Access requirement status | confirmed, missing, blocked |
+| Missing configuration blocker | |
 
 ## Delivery Notes
 
-- Risk:
-- Mitigation:
-- Validation 1:
-- Backport or patch scope:
-- Release note or advisory:
+| Type | Note | Status |
+| --- | --- | --- |
+| Risk |  | open |
+| Mitigation |  | pending |
+| Validation |  | pending |
+| Backport or patch scope |  | pending |
+| Release note or advisory |  | pending |

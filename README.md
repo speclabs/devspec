@@ -39,7 +39,7 @@ For a new project, start here:
 For an existing project, backfill from the repository first:
 
 ```text
-/devspec.extract D:\path\to\existing-repo
+/devspec.extract
 /devspec.projectcontext
 /devspec.techstack
 /devspec.codebase-structure
@@ -47,18 +47,21 @@ For an existing project, backfill from the repository first:
 /devspec.rules
 ```
 
+When run without a source, `/devspec.extract` asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction`. To extract another repository or multiple repos immediately, pass explicit sources such as `D:\path\to\repo` or `UI - D:\repo-ui, API - D:\repo-api`.
+
 After the foundation exists, use this work-item flow:
 
 ```text
 /devspec.story
-/devspec.clarify
 /devspec.finalize
 /devspec.tasks
 /devspec.implement
 /devspec.review
 ```
 
-Use `/devspec.diagram` whenever you need an additional architecture, module, feature workflow, user journey, sequence, or state diagram after the relevant context exists.
+Use `/devspec.clarify` only when story intake or finalization records a blocking question.
+
+Use `/devspec.diagram` whenever you need an additional architecture, module, feature workflow, user journey, sequence, state, or class/domain diagram after the relevant context exists.
 
 ## What gets installed
 
@@ -89,55 +92,51 @@ The workflow has two layers.
 | Layer | Goal | Commands |
 | --- | --- | --- |
 | Project foundation | Define stable project context every future story should follow. | `/devspec.extract`, `/devspec.projectcontext`, `/devspec.techstack`, `/devspec.codebase-structure`, `/devspec.coding-standards`, `/devspec.rules` |
-| Work-item execution | Move one feature, bug, or security issue from intake to review. | `/devspec.story`, `/devspec.clarify`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, `/devspec.review` |
+| Work-item execution | Move one feature, bug, or security issue from intake to review. | `/devspec.story`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, `/devspec.review`; use `/devspec.clarify` only when blocked |
 
 ### Workflow at a glance
 
 ```mermaid
 flowchart TD
-    Start["Start in Copilot Chat"] --> ProjectType{"Project type?"}
+    Start["Start in Copilot Chat"] --> ProjectType{"Project state?"}
+    ProjectType -- "new project" --> ProjectContext["/devspec.projectcontext"]
+    ProjectType -- "existing project" --> Extract["/devspec.extract"]
 
-    subgraph Foundation["Project foundation"]
-        Extract["/devspec.extract<br/>existing projects only"]
-        ProjectContext["/devspec.projectcontext"]
-        TechStack["/devspec.techstack"]
-        Structure["/devspec.codebase-structure"]
-        Standards["/devspec.coding-standards"]
-        Rules["/devspec.rules"]
+    Extract --> ProjectContext
+    ProjectContext --> TechStack["/devspec.techstack"]
+    TechStack --> Structure["/devspec.codebase-structure"]
+    Structure --> Standards["/devspec.coding-standards"]
+    Standards --> Rules["/devspec.rules"]
 
-        Extract --> ProjectContext
-        ProjectContext --> TechStack
-        TechStack --> Structure
-        Structure --> Standards
-        Standards --> Rules
-    end
+    Rules --> Story["/devspec.story"]
+    Story --> Blocked{"Blocking ambiguity?"}
+    Blocked -- "yes" --> Clarify["/devspec.clarify"]
+    Clarify --> Blocked
+    Blocked -- "no" --> Finalize["/devspec.finalize"]
 
-    subgraph WorkItem["Work-item execution"]
-        Story["/devspec.story"]
-        Clarify{"Blocked by ambiguity?"}
-        ClarifyCommand["/devspec.clarify"]
-        Finalize["/devspec.finalize"]
-        Tasks["/devspec.tasks"]
-        Implement["/devspec.implement"]
-        Review["/devspec.review"]
+    Finalize --> Ready{"Ready?"}
+    Ready -- "not ready" --> Clarify
+    Ready -- "ready" --> Tasks["/devspec.tasks"]
+    Tasks --> Implement["/devspec.implement"]
+    Implement --> Review["/devspec.review"]
+    Review --> ReviewStatus{"Review status?"}
+    ReviewStatus -- "changes requested" --> Implement
+    ReviewStatus -- "approved" --> Done["Close work item"]
 
-        Story --> Clarify
-        Clarify -- "yes" --> ClarifyCommand
-        ClarifyCommand --> Clarify
-        Clarify -- "no" --> Finalize
-        Finalize --> Tasks
-        Tasks --> Implement
-        Implement --> Review
-    end
-
-    ProjectType -- "new project" --> ProjectContext
-    ProjectType -- "existing project" --> Extract
-    Rules --> Story
-
-    Diagram["/devspec.diagram<br/>when a diagram would clarify context"]
-    Foundation -.-> Diagram
-    WorkItem -.-> Diagram
+    Diagram["/devspec.diagram"]
+    Rules -.->|optional context| Diagram
+    Story -.->|optional context| Diagram
+    Diagram -.->|return to current workflow| Story
 ```
+
+### Command boundaries
+
+- Developers invoke registered `/devspec.*` slash commands from `.github/prompts/`; agent names are workflow targets and may be internal handoff details.
+- `/devspec.extract` seeds foundation artifacts from existing repositories; the foundation commands refine and confirm those artifacts.
+- `/devspec.coding-standards` records how code should be written; `/devspec.rules` records hard constraints, governance rules, and delivery gates.
+- `/devspec.finalize` freezes the implementation-ready scope; `/devspec.tasks` turns that ready scope into ordered implementation tasks.
+- `/devspec.implement` executes pending tasks; `/devspec.review` inspects the result and may send the work item back to implementation.
+- Planning work maps to `/devspec.tasks`; do not use unregistered aliases such as `/devspec.plan`.
 
 ## Setup
 
@@ -163,7 +162,7 @@ Choose the first foundation command based on the project:
 | Project state | Start with | Why |
 | --- | --- | --- |
 | New project with little or no code | `/devspec.projectcontext` | There is no mature codebase to extract from yet. |
-| Existing application or monorepo | `/devspec.extract <path-or-url>` | Source code, docs, manifests, CI, and architecture clues can seed the foundation. |
+| Existing application or monorepo | `/devspec.extract` | Source code, docs, manifests, CI, and architecture clues can seed the foundation. |
 
 On first install, live project artifacts may be created from matching `_template` files. After that, treat live files as project-owned and update them through the slash-command workflow rather than replacing them from newer templates.
 
@@ -190,13 +189,14 @@ Do not directly overwrite project-owned artifacts during manual upgrades. Framew
 
 These are core behaviors baked into the prompts and agents:
 
-- Foundation commands require user input.
+- Foundation commands require user input or explicit confirmation when a command supports a default.
 - `/devspec.story` requires user input.
 - Later work-item commands accept optional additive input.
 - Clarification should happen one question at a time.
 - Clarification, confirmation, selection, retry, queue, and continuation questions should use explicit options plus `Custom Answer`, with exactly one recommended option and a short justification.
 - Recommended next steps must be singular. Agents should not list multiple possible next prompts when one confirmation, queue item, handoff, retry, or fallback decision is pending.
 - Agents must recommend only registered devspec slash commands; planning work maps to `/devspec.tasks`.
+- Developers should run registered slash commands. Internal agents such as `devspec.implement-task` are handoff targets, not additional slash commands.
 - New work-item folders must follow `<provider-prefix-optional>-<story-number>-<kebab-case-title>`, such as `GHUB-12345-doc-conversion` or `89564-save-user-roles`.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
 - Repository discovery must exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output paths by default; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
@@ -273,9 +273,10 @@ Use this when you already have a repository and want Copilot to backfill `devspe
 
 What it does:
 
-- validates repository URLs or local repository paths
-- reads repository layout, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
-- excludes dependency and generated folders such as `node_modules/`, `.angular/`, `dist/`, `build/`, and `coverage/` unless the project records an explicit override
+- validates the confirmed current project root, repository URLs, local repository paths, or named multi-repo paths
+- asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction` when no source is provided
+- reads repository layout, routes, modules, workflows, states, services, integrations, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
+- applies the default exclusions in `devspec/foundation/discovery-exclusions.md` unless the project records an explicit override
 - prefers direct repository search and known working exploration methods before trying new generated scripts
 - proposes updates to:
   - `devspec/constitution.md`
@@ -284,11 +285,13 @@ What it does:
 - requires explicit confirmation before writing principle-level changes to `constitution.md`
 - asks only one structured extraction confirmation at a time; constitution confirmation, artifact-queue approval, and Mermaid generation approval must not be asked together
 - processes artifact-queue items one at a time in queue order, asking one structured question for the next unresolved item only
-- seeds diagram candidates from repository evidence; later user-requested diagrams should use `/devspec.diagram`
+- seeds consistent diagram candidates from repository evidence with ID, scope, type, subject, target path, evidence source, confidence, status, output section, and notes
+- treats extraction as queue-first diagram discovery; `/devspec.diagram` is the normal follow-up for generating one confirmed diagram
 - closes with one next action or one structured question, not a list of possible next prompts
 
 Use it for:
 
+- extracting from the current repository open in VS Code
 - existing products
 - monorepos
 - migrations where architecture and standards already exist but are undocumented
@@ -296,18 +299,40 @@ Use it for:
 Example:
 
 ```text
+/devspec.extract
+```
+
+Explicit local path example:
+
+```text
 /devspec.extract D:\code\payments-platform
 ```
 
-Another example:
+Repository URL example:
 
 ```text
 /devspec.extract https://github.com/acme/payments-platform
 ```
 
+Named multi-repo example:
+
+```text
+/devspec.extract UI - D:\code\payments-ui, API - D:\code\payments-api, DB - D:\code\payments-db, Functions - D:\code\payments-functions
+```
+
+Named multi-repo input may also be newline-separated:
+
+```text
+/devspec.extract UI - D:\code\payments-ui
+API - D:\code\payments-api
+DB - D:\code\payments-db
+Functions - D:\code\payments-functions
+```
+
 Expected outcome:
 
 - `architecture/overview.md` gets a first-pass system view
+- `architecture/artifact-queue.md` gets evidence-backed diagram candidates when durable diagrams would clarify the system
 - `foundation/tech-stack.md` gets stack evidence
 - `foundation/codebase-structure.md` gets a repo-layout draft
 - repository layout should be a selective 3-5 level map that helps agents place new files and folders
@@ -444,11 +469,11 @@ Example:
 
 ## How to start a user story
 
-Once the project foundation exists, start work with `/devspec.story`, then move through clarify, finalize, tasks, implement, and review as needed.
+Once the project foundation exists, start work with `/devspec.story`, then move through finalize, tasks, implement, and review. Use `/devspec.clarify` only when a blocking question is recorded.
 
 If you want `/devspec.story` to resolve GitHub, Jira, or Azure DevOps references, first confirm `devspec/foundation/provider-integrations.md` reflects your configured providers, accepted formats, access model, and manual fallback.
 
-Use `/devspec.diagram` alongside the flow when a feature workflow, user journey, sequence, or state diagram would clarify the work item.
+Use `/devspec.diagram` alongside the flow when a feature workflow, user journey, sequence, state, or class/domain diagram would clarify the work item.
 
 ### 1. `/devspec.story`
 
@@ -639,22 +664,25 @@ Example:
 
 ### Optional: `/devspec.diagram`
 
-Use this when you want one additional evidence-backed Mermaid diagram for an architecture area, module, feature workflow, user journey, sequence, or state.
+Use this when you want one additional evidence-backed Mermaid diagram for an architecture area, module, feature workflow, user journey, sequence, state, or stable domain structure.
 
 What it writes:
 
-- `devspec/architecture/diagrams/<subject-slug>.md` by default for durable architecture, module, feature workflow, user journey, sequence, or state diagrams
+- `devspec/architecture/diagrams/<subject-slug>.md` by default for durable architecture, module, feature workflow, user journey, sequence, state, or class/domain diagrams
 - `devspec/architecture/overview.md` only for high-level system diagrams or links to detailed diagram files
-- `devspec/architecture/artifact-queue.md` for resumable proposed, confirmed, generated, skipped, or blocked diagram work
+- `devspec/architecture/artifact-queue.md` for resumable proposed, confirmed, generated, skipped, or blocked diagram work with evidence and confidence
 - `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment
 
 Important behavior:
 
 - requires a diagram subject or related work item
 - generates exactly one diagram per run unless you explicitly continue through the queue
+- reuses matching artifact-queue metadata instead of reclassifying the same subject from scratch
 - chooses Mermaid type from evidence or asks one structured question when ambiguous
+- supports `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, and `classDiagram`
 - checks for an equivalent existing diagram before creating another one
 - separates evidence-backed facts from assumptions
+- uses confidence values consistently: `observed`, `high-confidence`, or `low-confidence`
 - keeps feature and module workflow diagrams out of `overview.md` unless they are truly high-level system views
 - defaults to `devspec/architecture/diagrams/` even when the request mentions a work item, unless the diagram is explicit or clearly temporary story-specific context
 
@@ -672,7 +700,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 
 | Step | Command | Use when | Requires | Main output | Next step |
 | --- | --- | --- | --- | --- | --- |
-| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Repository URL or local repo path. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
+| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Optional: blank for current root confirmation, one repo URL or local path, or named `Name - path` multi-repo entries. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
 | 1 | `/devspec.projectcontext` | Product and business context need to be created or updated. | Product vision, users, goals, non-goals, and constraints. | `foundation/project-context.md` | `/devspec.techstack` |
 | 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Stack evidence, support status, hosting, tooling, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
 | 3 | `/devspec.codebase-structure` | Repo layout, module boundaries, ownership seams, or multi-repo config need to be recorded. | Repository layout, integration boundaries, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
@@ -684,7 +712,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 | 9 | `/devspec.tasks` | A ready brief needs ordered implementation tasks. | `finalize.md` marked `ready`. | `work-items/<work-item-folder>/tasks.md` | `/devspec.implement` |
 | 10 | `/devspec.implement` | Pending tasks should be implemented. | `finalize.md` marked `ready` and `tasks.md`. | `work-items/<work-item-folder>/implement.md` and code changes when applicable. | `/devspec.review` |
 | 11 | `/devspec.review` | Implemented work needs review against the finalized brief. | `finalize.md` and `implement.md`. | `work-items/<work-item-folder>/review.md` | Return to implementation for changes, or close the work item |
-| Optional | `/devspec.diagram` | A requested architecture, module, feature workflow, user journey, sequence, or state diagram is needed. | Diagram subject or related work item. | `architecture/diagrams/*.md` by default, `architecture/overview.md` for high-level system diagrams, `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams, and `architecture/artifact-queue.md` as applicable. | Continue the current workflow |
+| Optional | `/devspec.diagram` | A requested architecture, module, feature workflow, user journey, sequence, state, or class/domain diagram is needed. | Diagram subject or related work item. | `architecture/diagrams/*.md` by default, `architecture/overview.md` for high-level system diagrams, `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams, and `architecture/artifact-queue.md` as applicable. | Continue the current workflow |
 
 ## End-to-end examples
 
@@ -719,7 +747,7 @@ Then start the first work item:
 ### Example: existing project
 
 ```text
-/devspec.extract D:\repos\warehouse-suite
+/devspec.extract
 ```
 
 ```text
@@ -799,7 +827,7 @@ Reusable feature workflows, user journeys, sequence diagrams, and state diagrams
 
 Use `/devspec.extract` when source code, docs, manifests, CI, infrastructure config, ADRs, CODEOWNERS, or contribution docs can seed the foundation.
 
-Extraction should avoid dependency, generated, cache, coverage, build-output, VCS, and tool-output folders. For Node.js, Angular, React, Next, and Vite projects, use manifests and framework config as evidence instead of inspecting `node_modules/` or generated output.
+Extraction should apply `devspec/foundation/discovery-exclusions.md` to avoid dependency, generated, cache, coverage, build-output, VCS, and tool-output folders. Use manifests, lockfiles, framework config, CI config, docs, source roots, tests, and scripts as evidence instead.
 
 Review extracted artifacts before relying on them:
 
@@ -807,6 +835,7 @@ Review extracted artifacts before relying on them:
 | --- | --- |
 | `devspec/constitution.md` | Durable principles only; principle-level changes require confirmation. |
 | `devspec/architecture/overview.md` | Major components, system boundaries, integrations, high-level data flow, and links to detailed diagrams. |
+| `devspec/architecture/artifact-queue.md` | Diagram candidates with scope, type, target path, evidence, confidence, status, and duplicate-check notes. |
 | `devspec/foundation/project-context.md` | Product goals and user outcomes, because code rarely tells the whole story. |
 | `devspec/foundation/tech-stack.md` | Languages, runtimes, frameworks, services, tooling, hosting, support status, and verification dates. |
 | `devspec/foundation/codebase-structure.md` | Selective 3-5 level layout, module boundaries, multi-repo roles, local paths, workspace availability, and access requirements. |
