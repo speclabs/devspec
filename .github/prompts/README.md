@@ -6,7 +6,9 @@ Slash-command prompts live here. Keep behavior in `PATTERNS.md`, matching agents
 
 Foundation: `extract` -> `projectcontext` -> `techstack` -> `codebase-structure` -> `coding-standards` -> `rules`
 
-Work items: `story` -> `clarify` -> `finalize` -> `tasks` -> `implement` -> `review`
+Work items: `story` -> `finalize` -> `tasks` -> `implement` -> `review`
+
+Use `clarify` only when story intake or finalization records a blocking question.
 
 Supporting: `diagram`
 
@@ -29,6 +31,8 @@ The registered devspec slash commands are:
 - `/devspec.diagram`
 
 Recommendation behavior is defined by `PATTERNS.md#registered-command-recommendation-pattern`.
+
+Developers invoke registered slash commands from this directory. Agent names are workflow targets and may be internal handoff details; do not recommend an agent name as a slash command unless the matching prompt is registered here.
 
 ## Shared References
 

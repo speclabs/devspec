@@ -3,7 +3,7 @@ name: "devspec.implement-task"
 description: "Use to implement pending tasks, confirm after each task, and record progress in implement.md."
 tools: [read, edit, search, execute, vscode/askQuestions]
 model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
-user-invocable: true
+user-invocable: false
 agents: []
 handoffs:
   - label: Continue to Review

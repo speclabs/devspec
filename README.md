@@ -51,12 +51,13 @@ After the foundation exists, use this work-item flow:
 
 ```text
 /devspec.story
-/devspec.clarify
 /devspec.finalize
 /devspec.tasks
 /devspec.implement
 /devspec.review
 ```
+
+Use `/devspec.clarify` only when story intake or finalization records a blocking question.
 
 Use `/devspec.diagram` whenever you need an additional architecture, module, feature workflow, user journey, sequence, or state diagram after the relevant context exists.
 
@@ -89,55 +90,51 @@ The workflow has two layers.
 | Layer | Goal | Commands |
 | --- | --- | --- |
 | Project foundation | Define stable project context every future story should follow. | `/devspec.extract`, `/devspec.projectcontext`, `/devspec.techstack`, `/devspec.codebase-structure`, `/devspec.coding-standards`, `/devspec.rules` |
-| Work-item execution | Move one feature, bug, or security issue from intake to review. | `/devspec.story`, `/devspec.clarify`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, `/devspec.review` |
+| Work-item execution | Move one feature, bug, or security issue from intake to review. | `/devspec.story`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, `/devspec.review`; use `/devspec.clarify` only when blocked |
 
 ### Workflow at a glance
 
 ```mermaid
 flowchart TD
-    Start["Start in Copilot Chat"] --> ProjectType{"Project type?"}
+    Start["Start in Copilot Chat"] --> ProjectType{"Project state?"}
+    ProjectType -- "new project" --> ProjectContext["/devspec.projectcontext"]
+    ProjectType -- "existing project" --> Extract["/devspec.extract"]
 
-    subgraph Foundation["Project foundation"]
-        Extract["/devspec.extract<br/>existing projects only"]
-        ProjectContext["/devspec.projectcontext"]
-        TechStack["/devspec.techstack"]
-        Structure["/devspec.codebase-structure"]
-        Standards["/devspec.coding-standards"]
-        Rules["/devspec.rules"]
+    Extract --> ProjectContext
+    ProjectContext --> TechStack["/devspec.techstack"]
+    TechStack --> Structure["/devspec.codebase-structure"]
+    Structure --> Standards["/devspec.coding-standards"]
+    Standards --> Rules["/devspec.rules"]
 
-        Extract --> ProjectContext
-        ProjectContext --> TechStack
-        TechStack --> Structure
-        Structure --> Standards
-        Standards --> Rules
-    end
+    Rules --> Story["/devspec.story"]
+    Story --> Blocked{"Blocking ambiguity?"}
+    Blocked -- "yes" --> Clarify["/devspec.clarify"]
+    Clarify --> Blocked
+    Blocked -- "no" --> Finalize["/devspec.finalize"]
 
-    subgraph WorkItem["Work-item execution"]
-        Story["/devspec.story"]
-        Clarify{"Blocked by ambiguity?"}
-        ClarifyCommand["/devspec.clarify"]
-        Finalize["/devspec.finalize"]
-        Tasks["/devspec.tasks"]
-        Implement["/devspec.implement"]
-        Review["/devspec.review"]
+    Finalize --> Ready{"Ready?"}
+    Ready -- "not ready" --> Clarify
+    Ready -- "ready" --> Tasks["/devspec.tasks"]
+    Tasks --> Implement["/devspec.implement"]
+    Implement --> Review["/devspec.review"]
+    Review --> ReviewStatus{"Review status?"}
+    ReviewStatus -- "changes requested" --> Implement
+    ReviewStatus -- "approved" --> Done["Close work item"]
 
-        Story --> Clarify
-        Clarify -- "yes" --> ClarifyCommand
-        ClarifyCommand --> Clarify
-        Clarify -- "no" --> Finalize
-        Finalize --> Tasks
-        Tasks --> Implement
-        Implement --> Review
-    end
-
-    ProjectType -- "new project" --> ProjectContext
-    ProjectType -- "existing project" --> Extract
-    Rules --> Story
-
-    Diagram["/devspec.diagram<br/>when a diagram would clarify context"]
-    Foundation -.-> Diagram
-    WorkItem -.-> Diagram
+    Diagram["/devspec.diagram"]
+    Rules -.->|optional context| Diagram
+    Story -.->|optional context| Diagram
+    Diagram -.->|return to current workflow| Story
 ```
+
+### Command boundaries
+
+- Developers invoke registered `/devspec.*` slash commands from `.github/prompts/`; agent names are workflow targets and may be internal handoff details.
+- `/devspec.extract` seeds foundation artifacts from existing repositories; the foundation commands refine and confirm those artifacts.
+- `/devspec.coding-standards` records how code should be written; `/devspec.rules` records hard constraints, governance rules, and delivery gates.
+- `/devspec.finalize` freezes the implementation-ready scope; `/devspec.tasks` turns that ready scope into ordered implementation tasks.
+- `/devspec.implement` executes pending tasks; `/devspec.review` inspects the result and may send the work item back to implementation.
+- Planning work maps to `/devspec.tasks`; do not use unregistered aliases such as `/devspec.plan`.
 
 ## Setup
 
@@ -197,6 +194,7 @@ These are core behaviors baked into the prompts and agents:
 - Clarification, confirmation, selection, retry, queue, and continuation questions should use explicit options plus `Custom Answer`, with exactly one recommended option and a short justification.
 - Recommended next steps must be singular. Agents should not list multiple possible next prompts when one confirmation, queue item, handoff, retry, or fallback decision is pending.
 - Agents must recommend only registered devspec slash commands; planning work maps to `/devspec.tasks`.
+- Developers should run registered slash commands. Internal agents such as `devspec.implement-task` are handoff targets, not additional slash commands.
 - New work-item folders must follow `<provider-prefix-optional>-<story-number>-<kebab-case-title>`, such as `GHUB-12345-doc-conversion` or `89564-save-user-roles`.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
 - Repository discovery must exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output paths by default; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
@@ -444,7 +442,7 @@ Example:
 
 ## How to start a user story
 
-Once the project foundation exists, start work with `/devspec.story`, then move through clarify, finalize, tasks, implement, and review as needed.
+Once the project foundation exists, start work with `/devspec.story`, then move through finalize, tasks, implement, and review. Use `/devspec.clarify` only when a blocking question is recorded.
 
 If you want `/devspec.story` to resolve GitHub, Jira, or Azure DevOps references, first confirm `devspec/foundation/provider-integrations.md` reflects your configured providers, accepted formats, access model, and manual fallback.
 
