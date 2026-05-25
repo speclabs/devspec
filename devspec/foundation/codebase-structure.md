@@ -25,6 +25,8 @@ Use a selective 3-5 level tree that helps agents decide where to create or edit 
 
 Use this section only when multiple repos participate in delivery.
 
+Rows may be seeded from named `/devspec.extract` input such as `UI - D:\repo-ui, API - D:\repo-api`. Use the supplied label as the initial repo name and role candidate, then refine it with evidence or user confirmation.
+
 | Repo | Role | Local path | In current workspace | Access requirement | Notes |
 | --- | --- | --- | --- | --- | --- |
 | <repo-name> | <role> | <local-path> | yes | <access-requirement> | |

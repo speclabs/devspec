@@ -39,13 +39,15 @@ For a new project, start here:
 For an existing project, backfill from the repository first:
 
 ```text
-/devspec.extract D:\path\to\existing-repo
+/devspec.extract
 /devspec.projectcontext
 /devspec.techstack
 /devspec.codebase-structure
 /devspec.coding-standards
 /devspec.rules
 ```
+
+When run without a source, `/devspec.extract` asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction`. To extract another repository or multiple repos immediately, pass explicit sources such as `D:\path\to\repo` or `UI - D:\repo-ui, API - D:\repo-api`.
 
 After the foundation exists, use this work-item flow:
 
@@ -160,7 +162,7 @@ Choose the first foundation command based on the project:
 | Project state | Start with | Why |
 | --- | --- | --- |
 | New project with little or no code | `/devspec.projectcontext` | There is no mature codebase to extract from yet. |
-| Existing application or monorepo | `/devspec.extract <path-or-url>` | Source code, docs, manifests, CI, and architecture clues can seed the foundation. |
+| Existing application or monorepo | `/devspec.extract` | Source code, docs, manifests, CI, and architecture clues can seed the foundation. |
 
 On first install, live project artifacts may be created from matching `_template` files. After that, treat live files as project-owned and update them through the slash-command workflow rather than replacing them from newer templates.
 
@@ -187,7 +189,7 @@ Do not directly overwrite project-owned artifacts during manual upgrades. Framew
 
 These are core behaviors baked into the prompts and agents:
 
-- Foundation commands require user input.
+- Foundation commands require user input or explicit confirmation when a command supports a default.
 - `/devspec.story` requires user input.
 - Later work-item commands accept optional additive input.
 - Clarification should happen one question at a time.
@@ -271,7 +273,8 @@ Use this when you already have a repository and want Copilot to backfill `devspe
 
 What it does:
 
-- validates repository URLs or local repository paths
+- validates the confirmed current project root, repository URLs, local repository paths, or named multi-repo paths
+- asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction` when no source is provided
 - reads repository layout, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
 - excludes dependency and generated folders such as `node_modules/`, `.angular/`, `dist/`, `build/`, and `coverage/` unless the project records an explicit override
 - prefers direct repository search and known working exploration methods before trying new generated scripts
@@ -287,6 +290,7 @@ What it does:
 
 Use it for:
 
+- extracting from the current repository open in VS Code
 - existing products
 - monorepos
 - migrations where architecture and standards already exist but are undocumented
@@ -294,13 +298,34 @@ Use it for:
 Example:
 
 ```text
+/devspec.extract
+```
+
+Explicit local path example:
+
+```text
 /devspec.extract D:\code\payments-platform
 ```
 
-Another example:
+Repository URL example:
 
 ```text
 /devspec.extract https://github.com/acme/payments-platform
+```
+
+Named multi-repo example:
+
+```text
+/devspec.extract UI - D:\code\payments-ui, API - D:\code\payments-api, DB - D:\code\payments-db, Functions - D:\code\payments-functions
+```
+
+Named multi-repo input may also be newline-separated:
+
+```text
+/devspec.extract UI - D:\code\payments-ui
+API - D:\code\payments-api
+DB - D:\code\payments-db
+Functions - D:\code\payments-functions
 ```
 
 Expected outcome:
@@ -670,7 +695,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 
 | Step | Command | Use when | Requires | Main output | Next step |
 | --- | --- | --- | --- | --- | --- |
-| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Repository URL or local repo path. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
+| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Optional: blank for current root confirmation, one repo URL or local path, or named `Name - path` multi-repo entries. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
 | 1 | `/devspec.projectcontext` | Product and business context need to be created or updated. | Product vision, users, goals, non-goals, and constraints. | `foundation/project-context.md` | `/devspec.techstack` |
 | 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Stack evidence, support status, hosting, tooling, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
 | 3 | `/devspec.codebase-structure` | Repo layout, module boundaries, ownership seams, or multi-repo config need to be recorded. | Repository layout, integration boundaries, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
@@ -717,7 +742,7 @@ Then start the first work item:
 ### Example: existing project
 
 ```text
-/devspec.extract D:\repos\warehouse-suite
+/devspec.extract
 ```
 
 ```text

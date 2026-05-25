@@ -12,6 +12,8 @@ Use `clarify` only when story intake or finalization records a blocking question
 
 Supporting: `diagram`
 
+`/devspec.extract` can be run with blank input to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction`; it also accepts one repo URL or local path, or named multi-repo input such as `UI - D:\repo-ui, API - D:\repo-api`.
+
 ## Registered Slash Commands
 
 The registered devspec slash commands are:
@@ -56,7 +58,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 
 | Prompt | Purpose | Produces |
 | --- | --- | --- |
-| `devspec.extract.prompt.md` | Derive constitution candidates, architecture context, and live foundation facts from repos. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` |
+| `devspec.extract.prompt.md` | Derive constitution candidates, architecture context, and live foundation facts from current root, repo URLs, local paths, or named multi-repo input. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` |
 | `devspec.projectcontext.prompt.md` | Capture product vision, users, goals, non-goals, constraints, and metrics. | `foundation/project-context.md` |
 | `devspec.techstack.prompt.md` | Capture languages, frameworks, services, tooling, hosting, and versions. | `foundation/tech-stack.md` |
 | `devspec.codebase-structure.prompt.md` | Capture repo layout, module boundaries, ownership seams, and multi-repo config. | `foundation/codebase-structure.md` |
