@@ -76,13 +76,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output folders by default. Do not infer project conventions from installed dependency or generated output source.
 - Use manifests, lockfiles, and framework config files for dependencies and tooling; inspect dependency folders only when the user asks or a project override permits it.
 - Respect repository ignore files as a baseline, while still applying this pattern.
-- Apply ecosystem exclusions when matching manifests or config files are present:
-  - Node, Angular, React, Next, Vite: `node_modules/`, `.angular/`, `.next/`, `.turbo/`, `.vite/`, `dist/`, `build/`, `coverage/`.
-  - .NET: `bin/`, `obj/`, `TestResults/`, `artifacts/`.
-  - Java, Maven, Gradle: `target/`, `build/`, `.gradle/`, `out/`.
-  - Python: `.venv/`, `venv/`, `env/`, `__pycache__/`, `.pytest_cache/`, `.mypy_cache/`, `.ruff_cache/`, `site-packages/`.
-  - Rust: `target/`.
-  - Go: module cache and generated `vendor/` content unless the repo intentionally owns vendored source.
+- Apply ecosystem and framework exclusions from `devspec/foundation/discovery-exclusions.md`; initialize it from `devspec/foundation/_template/discovery-exclusions.md` when missing.
 - Keep source discovery focused on owned source roots, tests, scripts, config, infrastructure, docs, manifests, and routing-critical files.
 - Record project-specific include or exclude exceptions in `devspec/foundation/discovery-exclusions.md`, not individual stage artifacts.
 

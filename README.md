@@ -276,7 +276,7 @@ What it does:
 - validates the confirmed current project root, repository URLs, local repository paths, or named multi-repo paths
 - asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction` when no source is provided
 - reads repository layout, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
-- excludes dependency and generated folders such as `node_modules/`, `.angular/`, `dist/`, `build/`, and `coverage/` unless the project records an explicit override
+- applies the default exclusions in `devspec/foundation/discovery-exclusions.md` unless the project records an explicit override
 - prefers direct repository search and known working exploration methods before trying new generated scripts
 - proposes updates to:
   - `devspec/constitution.md`
@@ -822,7 +822,7 @@ Reusable feature workflows, user journeys, sequence diagrams, and state diagrams
 
 Use `/devspec.extract` when source code, docs, manifests, CI, infrastructure config, ADRs, CODEOWNERS, or contribution docs can seed the foundation.
 
-Extraction should avoid dependency, generated, cache, coverage, build-output, VCS, and tool-output folders. For Node.js, Angular, React, Next, and Vite projects, use manifests and framework config as evidence instead of inspecting `node_modules/` or generated output.
+Extraction should apply `devspec/foundation/discovery-exclusions.md` to avoid dependency, generated, cache, coverage, build-output, VCS, and tool-output folders. Use manifests, lockfiles, framework config, CI config, docs, source roots, tests, and scripts as evidence instead.
 
 Review extracted artifacts before relying on them:
 
