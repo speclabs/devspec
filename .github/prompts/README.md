@@ -1,6 +1,6 @@
 # Devspec Prompt Index
 
-Slash-command prompts live here. Use this file as an index only; behavior belongs in `PATTERNS.md`, matching agents, or canonical devspec artifacts.
+Slash-command prompts live here. Keep behavior in `PATTERNS.md`, matching agents, or canonical devspec artifacts.
 
 ## Workflow
 
@@ -32,7 +32,7 @@ Recommendation behavior is defined by `PATTERNS.md#registered-command-recommenda
 
 ## Shared References
 
-- `PATTERNS.md`: shared interaction, next-action selection, prerequisite, session recovery, token, output, foundation, work-item, memory, discovery exclusion, exploration recovery, and multi-repo rules.
+- `PATTERNS.md`: shared workflow, recovery, output, discovery, foundation, work-item, memory, and multi-repo rules.
 - `../../devspec/foundation/rules.md`: bug, security, review, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
 - `../../devspec/foundation/discovery-exclusions.md`: default and project-specific paths to exclude from repository discovery.
@@ -64,7 +64,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 | `devspec.tasks.prompt.md` | Break a ready brief into ordered implementation tasks. | `tasks.md` |
 | `devspec.implement.prompt.md` | Implement pending tasks and record progress. | `implement.md`, code changes |
 | `devspec.review.prompt.md` | Review implemented work against the finalized brief. | `review.md` |
-| `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram. | `architecture/diagrams/*.md` by default, `architecture/overview.md` for high-level system diagrams, or `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams |
+| `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram. | `architecture/diagrams/*.md` by default; `architecture/overview.md` for high-level system diagrams; work-item `diagrams.md` for explicit or temporary work-item diagrams |
 
 ## Maintenance
 
