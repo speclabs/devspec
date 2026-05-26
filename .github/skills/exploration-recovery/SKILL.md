@@ -16,7 +16,7 @@ Use this skill to keep repository and provider discovery focused, cheap, and rec
 2. Apply discovery exclusions before broad search, Explore runs, generated scripts, or helper commands.
    - Read `devspec/foundation/discovery-exclusions.md` when present.
    - If it is missing, use `devspec/foundation/_template/discovery-exclusions.md` as the section contract before creating or updating the live artifact.
-   - Exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output paths unless the user asks or a project override includes them.
+   - Apply baseline exclusions and ecosystem discovery rules unless the user asks or a project override includes a normally excluded path.
    - Prefer manifests, lockfiles, framework config, scripts, docs, tests, and owned source roots as evidence.
 
 3. Check reusable exploration state before new probing.

@@ -199,7 +199,7 @@ These are core behaviors baked into the prompts and agents:
 - Developers should run registered slash commands. Internal agents such as `devspec.implement-task` are handoff targets, not additional slash commands.
 - New work-item folders must follow `<provider-prefix-optional>-<story-number>-<kebab-case-title>`, such as `GHUB-12345-doc-conversion` or `89564-save-user-roles`.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
-- Repository discovery must exclude dependency, generated, cache, coverage, build-output, VCS, and tool-output paths by default; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
+- Repository discovery must apply baseline exclusions for dependency installs, generated output, caches, coverage output, VCS internals, local tool metadata, and temporary output; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
 - Discovery-heavy commands should check `devspec/foundation/exploration-state.md`, use known working methods first, and skip known failed searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
 - Work-item commands should recover from Git-tracked `devspec` artifacts first. Session memory and chat history are transient helpers, not the source of truth.
 - Work items are the orchestration boundary. Tasks, target repos, target areas, and attempts are execution checkpoints inside the work item.
@@ -269,7 +269,7 @@ What it does:
 - validates the confirmed current project root, repository URLs, local repository paths, or named multi-repo paths
 - asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction` when no source is provided
 - reads repository layout, routes, modules, workflows, states, services, integrations, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
-- applies the default exclusions in `devspec/foundation/discovery-exclusions.md` unless the project records an explicit override
+- applies baseline and ecosystem discovery rules in `devspec/foundation/discovery-exclusions.md` unless the project records an explicit override
 - prefers direct repository search and known working exploration methods before trying new generated scripts
 - records practical foundation details with source evidence, confidence, scope, and required guidance
 - avoids broad theory and omits optional sections that have no extracted, confirmed, inferred, or blocked content
@@ -801,7 +801,7 @@ Holds project-operational context and constraints.
 - `coding-standards.md`
   Implementation expectations, testing rules, error handling, logging, documentation, and review norms.
 - `discovery-exclusions.md`
-  Default and project-specific paths agents should exclude from repository discovery, such as dependency, generated, build, cache, and coverage folders.
+  Baseline exclusions, ecosystem discovery rules, and project-specific overrides for repository discovery.
 - `exploration-state.md`
   Known working and failed discovery methods for searches, scripts, provider lookups, validation probes, and extraction paths.
 - `provider-integrations.md`
@@ -834,7 +834,7 @@ Reusable feature workflows, user journeys, sequence diagrams, and state diagrams
 
 Use `/devspec.extract` when source code, docs, manifests, CI, infrastructure config, ADRs, CODEOWNERS, or contribution docs can seed the foundation.
 
-Extraction should apply `devspec/foundation/discovery-exclusions.md` to avoid dependency, generated, cache, coverage, build-output, VCS, and tool-output folders. Use manifests, lockfiles, framework config, CI config, docs, source roots, tests, and scripts as evidence instead.
+Extraction should apply `devspec/foundation/discovery-exclusions.md` to avoid dependency installs, generated output, caches, coverage output, VCS internals, local tool metadata, and temporary output. Use manifests, lockfiles, framework config, CI config, docs, source roots, tests, and scripts as evidence instead.
 
 Review extracted artifacts before relying on them:
 
@@ -846,7 +846,7 @@ Review extracted artifacts before relying on them:
 | `devspec/foundation/project-context.md` | Product goals and user outcomes, because code rarely tells the whole story. |
 | `devspec/foundation/tech-stack.md` | Languages, runtimes, frameworks, services, tooling, hosting, support status, and verification dates. |
 | `devspec/foundation/codebase-structure.md` | Selective 4-5 level layout, work areas and boundaries, integration contracts, multi-repo roles, local paths, workspace availability, and access requirements. |
-| `devspec/foundation/discovery-exclusions.md` | Default and project-specific paths agents should skip during discovery. |
+| `devspec/foundation/discovery-exclusions.md` | Baseline exclusions, ecosystem discovery rules, and project-specific overrides agents should apply during discovery. |
 | `devspec/foundation/coding-standards.md` | Evidence-backed standards catalog, scoped guidance, source paths, confidence, anti-patterns, and compact examples for important patterns. |
 | `devspec/foundation/rules.md` | Compliance, security, deployment, approval, and production-readiness constraints. |
 
