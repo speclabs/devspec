@@ -51,7 +51,7 @@ Developers invoke registered slash commands from this directory. Agent names are
 - `../skills/exploration-recovery/SKILL.md`: reusable GitHub skill for avoiding repeated failed exploration paths.
 - `../../devspec/foundation/_template/`: framework-owned section contracts for foundation artifacts.
 - `../../devspec/architecture/_template/`: framework-owned section contracts for architecture artifacts.
-- `../../devspec/architecture/decisions/_template.md`: framework-owned ADR section contract.
+- `../../devspec/architecture/_template/decision.md`: framework-owned ADR section contract; create `../../devspec/architecture/decisions/` only when an ADR is needed.
 - `../../devspec/work-items/_template/`: durable work-item artifact shapes.
 
 ## Model Policy

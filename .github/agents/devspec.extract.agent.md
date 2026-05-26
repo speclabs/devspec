@@ -41,7 +41,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Add queued candidates in queue order with ID, scope, diagram type, subject, target location, evidence, confidence, status, and next action or notes that include the duplicate-check result.
 - Ask confirmation before each diagram or user journey generation. Generate at most one confirmed artifact only if the user explicitly continues within the extraction run, update its queue status, then stop or ask one continuation question only when no higher-priority confirmation is pending.
 - On rerun, resume `devspec/architecture/artifact-queue.md` before proposing duplicate candidates; when several queue items are pending, ask only about the next unresolved row.
-- Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence.
+- Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence. When an ADR is needed, initialize it from `devspec/architecture/_template/decision.md` and create `devspec/architecture/decisions/` on demand.
 - For multi-repo inputs, produce a system-level view, keep per-repo provenance visible, and use supplied labels as repo names and role candidates in `codebase-structure.md`.
 - Do not infer access requirements during extraction; ask one repo-specific multiple-choice confirmation for each missing or ambiguous access requirement.
 - Keep `codebase-structure.md` as the source of truth for repo role, local path, workspace availability, and access requirement.

@@ -1,6 +1,6 @@
 # Architecture Overview
 
-Use this artifact for confirmed high-level architecture context, durable diagram references, architecture decision references, and unresolved architecture gaps. Keep detailed repository layout in `devspec/foundation/codebase-structure.md`, integration contracts in `devspec/foundation/codebase-structure.md#integration-contracts`, proposed diagram lifecycle in `devspec/architecture/artifact-queue.md`, and full ADR content in `devspec/architecture/decisions/`.
+Use this artifact for confirmed high-level architecture context, durable diagram references, architecture decision references, and unresolved architecture gaps. Keep detailed repository layout in `devspec/foundation/codebase-structure.md`, integration contracts in `devspec/foundation/codebase-structure.md#integration-contracts`, proposed diagram lifecycle in `devspec/architecture/artifact-queue.md`, and full ADR content in ADR files created under `devspec/architecture/decisions/` when needed.
 
 ## Architecture Context
 
