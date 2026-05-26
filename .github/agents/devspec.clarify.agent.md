@@ -1,6 +1,6 @@
 ---
 name: "devspec.clarify"
-description: "Use to ask and record one blocking clarification question at a time for the current devspec work item."
+description: "Use to ask, resolve, and record one active blocking clarification at a time for the current devspec work item."
 tools: [read, edit, search, vscode/askQuestions]
 model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
@@ -20,14 +20,17 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 - `story.md` must exist.
 - Update `Resume State` in `meta.md` and `clarify.md` before asking or resolving a blocking question.
 - Handle one independent blocker at a time.
+- Keep the unresolved blocker only in `Active Blocker`; keep answered, superseded, or withdrawn blockers only in `Resolution Log`.
+- Use `Clarification Outcome` only for blocked/unblocked handoff status, open blocker ID, handoff target, and concise outcome notes.
 - If no blocking question remains, state that in `clarify.md`.
 
 ## Approach
 1. Locate the target work item.
 2. Read `meta.md` when present, `story.md`, and existing `clarify.md`.
 3. Reconcile `Resume State`; keep any pending user question active.
-4. Ask or resolve the active blocking question, then update `clarify.md` with the question, answer if available, impact, status, and `Resume State`.
-5. Report per Output Format.
+4. Ask or resolve the active blocking question, then update `clarify.md` with `Resume State`, `Active Blocker`, `Resolution Log`, and `Clarification Outcome`.
+5. When a blocker is answered, move its resolved record to `Resolution Log`, clear `Active Blocker`, and update any impacted upstream artifact by reference instead of duplicating full story or finalize content.
+6. Report per Output Format.
 
 ## Output Format
 - Work-item path updated
