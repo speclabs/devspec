@@ -8,13 +8,13 @@
 | Problem |  |  |  |
 | Target outcome |  |  |  |
 
-## Audiences And Stakeholders
+## Audiences and Stakeholders
 
 | Group | Category | Need or responsibility | Source | Confidence |
 | --- | --- | --- | --- | --- |
 |  |  |  |  |  |
 
-## Outcomes And Scope
+## Outcomes and Scope
 
 Use this section for product goals, explicit scope exclusions, and measurable success signals. Keep operational rules and delivery gates in `rules.md`.
 

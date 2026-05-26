@@ -22,14 +22,14 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 - Set `Readiness` status to `ready` only when every required readiness gate is `ready` or `not applicable`; otherwise set it to `not ready`.
 - Mark the brief `not ready` while blockers remain or required repo access is missing, ambiguous, or unconfirmed.
 - Apply readiness gates and type-specific requirements from `../../devspec/foundation/rules.md`.
-- For multi-repo work, record only repo readiness summary in `Implementation Brief`, including required repos and whether access is confirmed, missing, or blocked; keep local paths and access requirement values in `../../devspec/foundation/codebase-structure.md`.
+- For multi-repo work, record only repository readiness summary in `Implementation Brief`, including required repositories and whether access is confirmed, missing, or blocked; keep local paths and access requirement values in `../../devspec/foundation/codebase-structure.md`.
 - Do not invent missing requirements or silently change scope.
 - Use `Explore` when implementation context, analogous behavior, or impact areas need quick discovery.
 - Use session memory only for transient notes; `finalize.md` remains canonical.
 - Update `Workflow State` in `meta.md` and `Resume State` in `finalize.md` before marking `not ready`, asking for clarification, or handing off.
 - Keep `finalize.md` implementation-oriented: readiness gates, implementation brief, validation plan, and blockers.
-- Evaluate readiness gates as specific checks for scope, acceptance criteria, dependencies or repo readiness, type-specific requirements, and validation or delivery risk. Record the blocker and next action in `Readiness` when any gate is not ready.
-- Use `Implementation Brief` as the single source for implementation scope, acceptance criteria, assumptions, constraints, dependencies, target-area facts, repo readiness summaries, type-specific requirements, delivery risks, and handoff follow-ups.
+- Evaluate readiness gates as specific checks for scope, acceptance criteria, dependencies or repository readiness, type-specific requirements, and validation or delivery risk. Record the blocker and next action in `Readiness` when any gate is not ready.
+- Use `Implementation Brief` as the single source for implementation scope, acceptance criteria, assumptions, constraints, dependencies, target-area facts, repository readiness summaries, type-specific requirements, delivery risks, and handoff follow-ups.
 - Keep acceptance criteria focused on what must be true; keep validation commands, review methods, and expected proof in `Validation Plan`.
 - Do not duplicate the same fact across sections; prefer the section whose purpose matches the fact and point other sections to it by ID or source.
 - Omit optional sections when they do not affect implementation, validation, or handoff.

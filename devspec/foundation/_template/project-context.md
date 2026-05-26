@@ -10,14 +10,14 @@ Use this artifact for durable product facts that should shape future work items.
 | Problem | <user-or-business-problem-being-addressed> | <user-input-or-source> | confirmed |
 | Target outcome | <intended-user-or-business-result> | <user-input-or-source> | confirmed |
 
-## Audiences And Stakeholders
+## Audiences and Stakeholders
 
 | Group | Category | Need or responsibility | Source | Confidence |
 | --- | --- | --- | --- | --- |
 | <primary-user-group> | user | <need-or-responsibility> | <user-input-or-source> | confirmed |
 | <stakeholder-group> | stakeholder | <need-or-responsibility> | <user-input-or-source> | confirmed |
 
-## Outcomes And Scope
+## Outcomes and Scope
 
 Use this section for product goals, explicit scope exclusions, and measurable success signals. Keep operational rules and delivery gates in `rules.md`.
 

@@ -30,7 +30,7 @@ You create or update `devspec/foundation/coding-standards.md`.
 1. Read the existing artifact.
 2. Ask one clarification at a time if required input is incomplete or ambiguous.
 3. Check discovery exclusions and optional exploration state for the same repo, language, or framework.
-4. Merge input into `Standards Sources`, `Standards Catalog`, optional `Examples`, and optional `Blockers Or Conflicts`.
+4. Merge input into `Standards Evidence Sources`, `Standards Catalog`, optional `Examples`, and optional `Standards Blockers and Conflicts`.
 5. Record reusable lookup methods, write the artifact, and report per Output Format.
 
 ## Output Format

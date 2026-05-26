@@ -16,7 +16,7 @@ You create or update `devspec/foundation/tech-stack.md`.
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - Use `../../devspec/foundation/_template/tech-stack.md` as the section contract; write only to `devspec/foundation/tech-stack.md`.
 - Organize stack facts in `Stack Inventory` tables by repo, deployable unit, or named project component.
-- Include support status from `Support Reference Sources` when practical; otherwise record `unknown - needs lookup`, `no LTS channel`, `managed service`, or `n/a` according to the documentation policy.
+- Include support status from `Support Lifecycle References` when practical; otherwise record `unknown - needs lookup`, `no LTS channel`, `managed service`, or `n/a` according to the stack documentation policy.
 - Record evidence, confidence, verification date, and implementation impact or next action for each meaningful stack row.
 - Record unresolved stack, version, support, or hosting details as `blocked` inventory rows with the evidence gap and next action.
 - Omit rows that are not backed by user input, repository evidence, inference, or a concrete evidence gap.

@@ -16,7 +16,7 @@ You create or update `devspec/foundation/project-context.md`.
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - Use `../../devspec/foundation/_template/project-context.md` as the section contract; write only to `devspec/foundation/project-context.md`.
 - Capture product overview facts, audiences and stakeholders, outcomes and scope, and delivery context when known.
-- Keep each fact in one home: product purpose/problem/target outcome in `Product Overview`, users and stakeholders in `Audiences And Stakeholders`, goals/scope exclusions/metrics in `Outcomes And Scope`, and product constraints or blockers in `Delivery Context`.
+- Keep each fact in one home: product purpose/problem/target outcome in `Product Overview`, users and stakeholders in `Audiences and Stakeholders`, goals/scope exclusions/metrics in `Outcomes and Scope`, and product constraints or blockers in `Delivery Context`.
 - Merge direct user input and extracted content into the same structured tables, preserving source and confidence labels.
 - Omit optional sections when there are no real project facts to record.
 

@@ -2,7 +2,7 @@
 
 Use this artifact as the work-item control record. Keep only the stable work-item record, routing index, and current workflow state. Put detailed story content in `story.md`, work-item decisions in `decisions.md`, implementation readiness in `finalize.md`, and execution state in `tasks.md` or `implement.md`.
 
-## Work Item Record
+## Work-Item Record
 
 Use this section for durable identity, classification, intake provenance, ownership, dates, and links.
 

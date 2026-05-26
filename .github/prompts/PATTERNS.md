@@ -73,7 +73,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 ## Artifact Content Pattern
 
 - Write artifacts for developers who need to plan, implement, review, or recover work. Every captured item should make clear what is true, where it applies, what evidence or source supports it, and what a developer should do with it.
-- Prefer Markdown tables for matrix data, including stack details, source evidence, repo configuration, work-area boundaries, integration contracts, rules, readiness, tasks, validations, and comparison-style decisions.
+- Prefer Markdown tables for matrix data, including stack details, source evidence, repository configuration, work-area boundaries, integration contracts, rules, readiness, tasks, validations, and comparison-style decisions.
 - Prefer bullets for direct facts, rules, assumptions, blockers, and concise developer guidance.
 - Prefer ordered lists only for workflows, procedures, reproduction steps, migration steps, or task sequences where order changes the result.
 - Avoid theory, generic explanations, restated prompt policy, and broad background that does not change a developer's next action.
@@ -104,7 +104,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Do not queue vague subjects, candidates without source evidence, duplicate or equivalent existing diagrams, or temporary work-item diagrams without an explicit request.
 - Use `blocked` when a diagram idea is useful but evidence is insufficient; use `skipped` only after the user declines generation.
 - Before queueing or writing, check `devspec/architecture/artifact-queue.md`, `devspec/architecture/overview.md`, `devspec/architecture/diagrams/*.md`, and relevant work-item `diagrams.md` files for equivalent subject, scope, type, or target path.
-- Avoid duplicate overview diagrams unless `devspec/architecture/overview.md` lacks a confirmed high-level system view.
+- Avoid duplicate overview diagrams unless `devspec/architecture/overview.md` lacks a confirmed high-level system context or diagram index entry.
 - During `/devspec.extract`, seed candidates in `devspec/architecture/artifact-queue.md` and ask about only the next unresolved candidate after higher-priority confirmations. Generate diagrams later through `/devspec.diagram` unless the user explicitly continues through the confirmed queue.
 - During `/devspec.diagram`, reuse matching queue metadata instead of reclassifying the same subject from scratch, then generate exactly one evidence-backed Mermaid artifact per run.
 
@@ -159,7 +159,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Access requirement confirmation options must be limited to the values in `devspec/glossary.md#access-requirement-values` plus `Custom Answer`.
 - Respect access requirements: do not edit repos marked `reference-only`, `validation-only`, `release-coordination`, or `unavailable` unless the user explicitly confirms a scope change.
 - Do not run validation in repos marked `reference-only`, `release-coordination`, or `unavailable` unless the user explicitly confirms a scope change.
-- For multi-repo work, stop and surface a blocker instead of guessing when required repo configuration is missing, outdated, or inaccessible.
+- For multi-repo work, stop and surface a blocker instead of guessing when required repository configuration is missing, outdated, or inaccessible.
 - For single-repo work, do not require multi-repo configuration.
 
 ## Explore and Memory Pattern

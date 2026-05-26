@@ -21,7 +21,7 @@ Use for the current command or agent run in a `Resume State` or `Workflow State`
 | `blocked` | Required evidence, access, or context is missing. |
 | `complete` | The stage or run is finished. |
 
-### Work Item Status Values
+### Work-Item Status Values
 
 Use for the durable lifecycle of a work item in `meta.md`. Readiness, review outcomes, blockers, and run interruptions are recorded in their own fields or artifacts, not encoded into the work-item status.
 

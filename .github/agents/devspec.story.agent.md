@@ -23,7 +23,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 - Classify the work item as `feature`, `bug`, or `security-vulnerability`; ask if unclear.
 - Create the work-item folder only during story intake and only after its name is valid.
 - Write or update `meta.md` and `story.md` using `../../devspec/work-items/_template/` as the section contract.
-- Keep `meta.md` as the work-item control record: `Work Item Record`, `Triage Index`, and `Workflow State`.
+- Keep `meta.md` as the work-item control record: `Work-Item Record`, `Triage Index`, and `Workflow State`.
 - Keep source confirmation and manual intake details in `story.md#intake-source`; keep problem, outcome, and impact in `story.md#story-brief`; keep dependencies, type-specific notes, acceptance criteria, assumptions, constraints, risks, and blockers in `story.md#story-details`; keep work-item decision records in `decisions.md`; do not duplicate those details in `meta.md`.
 - Update `Workflow State` in `meta.md` and `Resume State` in `story.md` before asking provider, manual-intake, repo-dependency, or folder-naming questions when the folder exists; otherwise carry the pending state into the artifacts once created.
 - Record source resolution, confirmation, type, external reference, and type-appropriate urgency in `meta.md`; for features, record priority instead of severity.

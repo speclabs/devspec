@@ -2,7 +2,7 @@
 
 Use this artifact as a compact, evidence-backed catalog for how developers should write, test, document, and review code. Prefer source references and short rules over copied prose. Omit optional rows or sections with no real standards or evidence.
 
-## Standards Sources
+## Standards Evidence Sources
 
 Use this section only for source documents, configuration files, or representative code that support one or more catalog rows. Do not infer coding standards from paths excluded by `devspec/foundation/discovery-exclusions.md`, such as installed dependencies or generated output.
 
@@ -37,7 +37,7 @@ Source: `<source-path>`
 <short representative snippet>
 ```
 
-## Blockers Or Conflicts
+## Standards Blockers and Conflicts
 
 Use this section only when standards evidence conflicts, required source evidence is missing, or a project decision is needed before agents can apply a standard.
 

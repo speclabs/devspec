@@ -2,7 +2,7 @@
 
 Use this artifact for technology, version, support, hosting, and delivery facts that affect implementation or validation decisions.
 
-## Documentation Policy
+## Stack Documentation Policy
 
 | Policy area | Requirement |
 | --- | --- |
@@ -29,7 +29,7 @@ Use this artifact for technology, version, support, hosting, and delivery facts 
 | Service | <service-or-platform> | <version-or-managed-plan> | <managed-service-or-support-status> | <config-or-doc-path> | observed | <yyyy-mm-dd> | <implementation-or-validation-impact> |
 | Delivery Constraint | <blocked-or-unknown-stack-fact> | unknown | unknown - needs lookup | <missing-or-inconclusive-evidence> | blocked | <yyyy-mm-dd> | <next-action-needed> |
 
-## Support Reference Sources
+## Support Lifecycle References
 
 Maintain this lookup with official release, lifecycle, or support pages. Update these sources when a project uses a different vendor distribution or a better official endpoint becomes available.
 

@@ -21,7 +21,7 @@ Use this policy for external work-item resolution during `devspec.story`. Keep p
 | Jira | Full issue URL | Issue key such as `ABC-123` | Reject malformed keys or keys outside configured project patterns. |
 | Azure DevOps | Full work item URL | Numeric id only with configured organization and project context | Reject numeric ids when organization or project context is missing. |
 
-## Resolution Flow And Outcomes
+## Resolution Flow and Outcomes
 
 Resolve inputs in this order:
 
@@ -67,7 +67,7 @@ Offer only these confirmation actions:
 | Cancel | Stop intake. |
 | Custom Answer | Route to clarification; do not create or update the work-item folder until resolved. |
 
-## Integration Tooling And Access
+## Integration Tooling and Access
 
 | Area | Requirement |
 | --- | --- |

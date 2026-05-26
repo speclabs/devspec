@@ -1,10 +1,10 @@
 # Codebase Structure
 
-Use this artifact to help developers and agents decide where work belongs, which repos are usable, and which boundaries must be preserved. Keep repository trees selective and keep optional tables only when they contain real project facts or unresolved blockers.
+Use this artifact to help developers and agents decide where work belongs, which repositories are usable, and which boundaries must be preserved. Keep repository trees selective and keep optional tables only when they contain real project facts or unresolved blockers.
 
-## Repository Layout
+## Repository Layouts
 
-Use this section for selective repo trees, up to a maximum of 4-5 levels, that help agents decide where to create, edit, or inspect files. Include important source roots, feature or module folders, tests, scripts, config, infrastructure, docs, and routing-critical files when relevant. Do not list every file. When deeper detail is needed for placement, capture the specific path or rule in `Work Areas And Boundaries` instead of expanding the tree. Omit paths excluded by `devspec/foundation/discovery-exclusions.md` unless a project override marks them source-owned.
+Use this section for selective repository trees, up to a maximum of 4-5 levels, that help agents decide where to create, edit, or inspect files. Include important source roots, feature or module folders, tests, scripts, config, infrastructure, docs, and routing-critical files when relevant. Do not list every file. When deeper detail is needed for placement, capture the specific path or rule in `Work Areas and Boundaries` instead of expanding the tree. Omit paths excluded by `devspec/foundation/discovery-exclusions.md` unless a project override marks them source-owned.
 
 Use one `### Repo: <repo-name>` subsection per repo when multiple repos participate.
 
@@ -25,7 +25,7 @@ Use one `### Repo: <repo-name>` subsection per repo when multiple repos particip
 `-- <routing-or-package-file>
 ```
 
-## Repo Configuration
+## Repository Configuration
 
 Use this section only when multiple repos participate in delivery, or when a non-default repo path or access limit affects work. Do not omit it for multi-repo sources or dependencies; record missing role, workspace, path, or access facts as blockers instead of dropping the section.
 
@@ -37,7 +37,7 @@ Rows may be seeded from named `/devspec.extract` input such as `UI - D:\repo-ui,
 
 Do not infer access from repo location. For missing or ambiguous access requirements, ask the user to confirm one value from `devspec/glossary.md#access-requirement-values` before relying on the row.
 
-## Work Areas And Boundaries
+## Work Areas and Boundaries
 
 Use this section for internal file-placement decisions: modules, bounded contexts, layers, shared packages, ownership or review routing, and cross-cutting code placement. Put a fact here only when it tells future work where code belongs, who owns it, what must not cross a boundary, or how related code should be grouped. Put external service, API, event, database, or cross-repo contracts in `Integration Contracts` instead.
 
@@ -55,10 +55,10 @@ Use this section for boundaries between repos, modules, services, users, data st
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | repo:<repo-name> | <target-system> | <api-event-db-package-or-user-contract> | inbound, outbound, bidirectional | <data-shape-or-protocol> | <what to preserve-or-validate> | <source-path-or-input> | confirmed, observed, inferred, blocked |
 
-## Blockers
+## Structure Blockers
 
 Use this section only for missing or conflicting facts that prevent reliable repo selection, file placement, access validation, ownership routing, or integration handling. Do not duplicate normal open risks from work-item artifacts.
 
 | Blocker | Affected section | Impact | Needed resolution | Status |
 | --- | --- | --- | --- | --- |
-| <missing-or-conflicting-fact> | Repo Configuration, Work Areas And Boundaries, Integration Contracts, or Repository Layout | <why agents cannot proceed safely> | <question-evidence-or-access-needed> | open |
+| <missing-or-conflicting-fact> | Repository Configuration, Work Areas and Boundaries, Integration Contracts, or Repository Layouts | <why agents cannot proceed safely> | <question-evidence-or-access-needed> | open |

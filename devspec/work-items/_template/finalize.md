@@ -38,13 +38,13 @@ Use readiness gates only for checks that decide whether task planning may procee
 | --- | --- | --- | --- | --- | --- |
 | RG-001 | Scope boundary | Implementation Brief | In-scope and out-of-scope boundaries are explicit and do not expand the story. | See `devspec/glossary.md#readiness-status-values` | |
 | RG-002 | Acceptance criteria | Implementation Brief | Criteria are observable or testable enough for task planning and validation. | See `devspec/glossary.md#readiness-status-values` | |
-| RG-003 | Dependencies and repo readiness | Implementation Brief; `devspec/foundation/codebase-structure.md` | Dependencies are captured and required repo configuration or access is confirmed or not applicable. | See `devspec/glossary.md#readiness-status-values` | |
+| RG-003 | Dependencies and repository readiness | Implementation Brief; `devspec/foundation/codebase-structure.md` | Dependencies are captured and required repository configuration or access is confirmed or not applicable. | See `devspec/glossary.md#readiness-status-values` | |
 | RG-004 | Type-specific facts | Implementation Brief; `devspec/foundation/rules.md` | Feature priority, bug facts, or security-vulnerability facts required by project rules are captured or explicitly blocked. | See `devspec/glossary.md#readiness-status-values` | |
 | RG-005 | Validation and delivery risk | Implementation Brief; Validation Plan | Validation expectations and material delivery risks are known enough to plan tasks, or marked not applicable. | See `devspec/glossary.md#readiness-status-values` | |
 
 ## Implementation Brief
 
-Use this as the single task-planning input table. Include only facts that affect scope, acceptance criteria, task decomposition, repo readiness, type-specific requirements, delivery risk, or handoff. For multi-repo work, summarize readiness here and keep local paths and access requirement values in `devspec/foundation/codebase-structure.md`. Put validation methods in `Validation Plan`.
+Use this as the single task-planning input table. Include only facts that affect scope, acceptance criteria, task decomposition, repository readiness, type-specific requirements, delivery risk, or handoff. For multi-repo work, summarize readiness here and keep local paths and access requirement values in `devspec/foundation/codebase-structure.md`. Put validation methods in `Validation Plan`.
 
 | Type | ID | Item | Source | Task-planning or delivery effect | Status |
 | --- | --- | --- | --- | --- | --- |
@@ -52,7 +52,7 @@ Use this as the single task-planning input table. Include only facts that affect
 | Scope: out | SCOPE-OUT-001 | <explicit-non-goal> | <story-clarify-decision-or-user-input> | Tasks must not be created for this work. | confirmed |
 | Acceptance criterion | AC-001 | <observable-outcome> | <story-clarify-decision-or-user-input> | Drives implementation tasks and validation coverage. | pending |
 | Planning input | PI-001 | <assumption-constraint-dependency-or-target-area> | <foundation-story-clarify-decision-or-discovery-source> | <how tasks should account for it> | pending |
-| Repo readiness | MR-001 | <required-repos-and-access-confirmation-summary-or-not-applicable> | `devspec/foundation/codebase-structure.md` | Missing or blocked repo readiness prevents task planning. | pending |
+| Repository readiness | MR-001 | <required-repositories-and-access-confirmation-summary-or-not-applicable> | `devspec/foundation/codebase-structure.md` | Missing or blocked repository readiness prevents task planning. | pending |
 | Type-specific requirement | TS-001 | <bug-security-or-rule-required-fact> | <story-clarify-decision-or-rule-source> | Required for task planning, validation, or release handling. | pending |
 | Risk or follow-up | RISK-001 | <risk-mitigation-backport-release-note-advisory-or-handoff-item> | <story-clarify-decision-or-discovery-source> | <delivery-or-handoff-effect> | open |
 

@@ -2,7 +2,7 @@
 
 Use this artifact for project-operational rules that affect planning, implementation, review, or release. Keep enduring principles in `devspec/constitution.md`; keep product goals and scope boundaries in `project-context.md`.
 
-## Policy Boundary
+## Rule Governance
 
 | Boundary | Guidance |
 | --- | --- |
@@ -25,11 +25,11 @@ Use this section for hard constraints, compliance requirements, and forbidden pa
 | --- | --- | --- | --- | --- | --- |
 |  |  |  |  |  |  |
 
-## Work Item Handling Rules
+## Work-Item Handling Rules
 
 Use this section for rules that vary by work-item type or workflow stage. These defaults apply unless a stricter project-specific rule or delivery gate supersedes them.
 
-| Work item type | Stage | Requirement |
+| Work-item type | Stage | Requirement |
 | --- | --- | --- |
 | bug | Intake and readiness | Capture expected behavior, actual behavior, reproduction steps, impact, and regression context unless blocked. |
 | bug | Planning | Include reproduce, fix, and regression-validation work when practical. |
@@ -43,7 +43,7 @@ Use this section for rules that vary by work-item type or workflow stage. These 
 | all | Review | Check scope adherence, bugs, regressions, missing validation, and rule violations against the finalized brief. |
 | all | Changes requested | Route the work item back to implementation before marking it complete. |
 
-## Exception Management
+## Exceptions and Waivers
 
 Include this section only when exception handling differs from the normal rules or gates.
 
