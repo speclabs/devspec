@@ -1,34 +1,37 @@
 # Project Context
 
-## Summary
+Use this artifact for durable product facts that should shape future work items. Keep it concise and developer-facing. Omit optional rows or sections with no project content.
 
-- Purpose:
-- Problem:
-- Intended outcome:
+## Product Overview
 
-## Users And Stakeholders
+| Field | Description | Source | Confidence |
+| --- | --- | --- | --- |
+| Purpose | <why the product exists> | <user-input-or-source> | confirmed |
+| Problem | <user-or-business-problem-being-addressed> | <user-input-or-source> | confirmed |
+| Target outcome | <intended-user-or-business-result> | <user-input-or-source> | confirmed |
 
-- Primary users:
-- Stakeholders:
+## Audiences and Stakeholders
 
-## Goals
+| Group | Category | Need or responsibility | Source | Confidence |
+| --- | --- | --- | --- | --- |
+| <primary-user-group> | user | <need-or-responsibility> | <user-input-or-source> | confirmed |
+| <stakeholder-group> | stakeholder | <need-or-responsibility> | <user-input-or-source> | confirmed |
 
-- Goal 1:
+## Outcomes and Scope
 
-## Non-Goals
+Use this section for product goals, explicit scope exclusions, and measurable success signals. Keep operational rules and delivery gates in `rules.md`.
 
-- Non-goal 1:
+| Type | Outcome, boundary, or metric | Implementation implication | Source | Confidence |
+| --- | --- | --- | --- | --- |
+| goal | <desired-product-result> | <how-this-should-shape-implementation-decisions> | <user-input-or-source> | confirmed |
+| scope exclusion | <explicit-exclusion> | <what-not-to-build-or-optimize-for> | <user-input-or-source> | confirmed |
+| success metric | <target-or-signal> | <what to instrument, preserve, or optimize> | <user-input-or-source> | confirmed |
 
-## Constraints
+## Delivery Context
 
-- Constraint 1:
+Use this section for product or business constraints and unresolved blockers that affect implementation planning. Keep repository location, access, ownership, and path facts in `codebase-structure.md`.
 
-## Success Metrics
-
-- Metric 1:
-
-## Blockers
-
-| Blocker | Impact | Status |
-| --- | --- | --- |
-|  |  | open |
+| Type | Context item | Scope | Required handling or next step | Source | Confidence | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| constraint | <product-or-business-constraint> | <affected-scope> | <required-action-or-limit> | <user-input-or-source> | confirmed | active |
+| blocker | <unresolved-blocker-or-question> | <affected-scope> | <next-action-needed> | <user-input-or-source> | confirmed | open |

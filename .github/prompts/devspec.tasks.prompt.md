@@ -1,11 +1,11 @@
 ---
 name: "devspec.tasks"
-description: "Create or update ordered implementation tasks for the current ready devspec work item."
+description: "Create or update ordered executable implementation tasks for the current ready devspec work item."
 argument-hint: "Optional: add task decomposition guidance"
 agent: "devspec.tasks"
 ---
 
-Create or update `devspec/work-items/<work-item-folder>/tasks.md` for the current work item.
+Create or update `devspec/work-items/<work-item-folder>/tasks.md` for the current work item with planning basis and executable implementation tasks.
 
 Optional user input:
 ${input:tasksInput:Optional: add task decomposition guidance}

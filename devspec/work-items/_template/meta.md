@@ -1,42 +1,54 @@
-# Meta
+# Work-Item Metadata
 
-## Classification
+Use this artifact as the work-item control record. Keep only the stable work-item record, routing index, and current workflow state. Put detailed intake content in `story.md`, work-item decisions in `decisions.md`, implementation readiness in `finalize.md`, and execution state in `tasks.md` or `implement.md`.
+
+## Work-Item Record
+
+Use this section for durable identity, classification, intake provenance, ownership, dates, and links.
 
 | Field | Value |
 | --- | --- |
+| Title | |
+| Folder name | |
+| Naming status | valid, needs-confirmation, legacy |
 | Type | feature, bug, security-vulnerability |
 | Severity | low, medium, high, critical, n/a for feature |
 | Priority | record for features when available |
 | Disclosure status | internal, coordinated, public, n/a |
+| Source resolution status | See `devspec/glossary.md#source-resolution-status-values` |
+| Source system | |
+| Identifier | |
+| URL | |
+| Confirmation status | confirmed, rejected, pending, n/a |
+| Resolution notes | |
+| Owner | |
+| Reviewer | |
+| Created | |
+| Updated | |
+| Parent work item | |
+| Related ADRs | |
+| Related PRs or commits | |
 
-## Impact
+## Triage Index
+
+Use this section for routing and lookup only. Keep narrative impact, acceptance criteria, and dependency details in `story.md`.
 
 | Field | Value |
 | --- | --- |
-| Customer impact | |
-| Affected components | |
+| Customer impact summary | |
+| Affected scope | |
 | Affected versions | |
-
-## Dependencies
-
-| Field | Value |
-| --- | --- |
 | Multi-repo dependency | yes, no |
-| Related repos | |
-| Dependency summary | |
+| Related repositories | repository names only |
+| Detail source | `story.md` |
 
-## Status
+## Workflow State
 
 | Field | Value |
 | --- | --- |
 | Work item status | See `devspec/glossary.md#work-item-status-values` |
-| Readiness status | See `devspec/glossary.md#review-and-readiness-status-values` |
-| Review status | See `devspec/glossary.md#review-and-readiness-status-values` |
-
-## Resume State
-
-| Field | Value |
-| --- | --- |
+| Readiness status | See `devspec/glossary.md#readiness-status-values` |
+| Review status | See `devspec/glossary.md#review-status-values` |
 | Current stage | |
 | Current command | |
 | Current agent | |
@@ -49,52 +61,3 @@
 | Resume command | |
 | Resume notes | |
 | Updated | |
-
-## Source Reference
-
-| Field | Value |
-| --- | --- |
-| System | |
-| Identifier | |
-| URL | |
-
-## Folder Naming
-
-| Field | Value |
-| --- | --- |
-| Folder name | |
-| Provider prefix | |
-| Story number | |
-| Title slug | |
-| Naming status | valid, needs-confirmation, legacy |
-
-## Source Resolution
-
-| Field | Value |
-| --- | --- |
-| Status | See `devspec/glossary.md#source-resolution-status-values` |
-| Provider | |
-| Resolution notes | |
-| Resolved item confirmation | confirmed, rejected, pending |
-
-## Ownership
-
-| Field | Value |
-| --- | --- |
-| Owner | |
-| Reviewer | |
-
-## Dates
-
-| Field | Value |
-| --- | --- |
-| Created | |
-| Updated | |
-
-## Related Links
-
-| Type | Link |
-| --- | --- |
-| Parent work item | |
-| Related ADRs | |
-| Related PRs or commits | |

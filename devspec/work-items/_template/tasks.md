@@ -1,4 +1,6 @@
-# Tasks
+# Implementation Task Plan
+
+Use this artifact as the executable implementation plan. Keep lifecycle recovery in `Resume State`, source references in `Planning Basis`, and all executable task details in `Implementation Tasks`. Each task should include target, dependency, impacted area, validation, and done condition.
 
 ## Resume State
 
@@ -17,37 +19,20 @@
 | Resume notes | |
 | Updated | |
 
-## Ordered Tasks
-
-| ID | Task | Target repo | Target area | Required access | Depends on | Status | Attempt count | Last checkpoint | Validation |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T-001 |  |  |  | See `devspec/glossary.md#access-requirement-values` |  | pending | 0 |  |  |
-
-## Execution Context
+## Planning Basis
 
 | Field | Value |
 | --- | --- |
-| Multi-repo dependency | yes, no |
-| Related repos | |
-| Dependency | |
-| Repo path source | |
+| Implementation brief source | `finalize.md#implementation-brief` |
+| Validation source | `finalize.md#validation-plan` |
+| Readiness source | `finalize.md#readiness-assessment` |
 | Access requirement source | `devspec/foundation/codebase-structure.md` |
 | Type-specific rule source | `devspec/foundation/rules.md` |
 
-## Impacted Files Or Areas
+## Implementation Tasks
 
-| File or area | Reason | Status |
-| --- | --- | --- |
-|  |  | planned |
+Use one row per executable checkpoint. Put likely files or areas, validation steps, and done criteria on the task that owns them. Keep validation commands or methods specific enough for `implement.md` to execute or record.
 
-## Validation Steps
-
-| ID | Validation | Status |
-| --- | --- | --- |
-| V-001 |  | pending |
-
-## Definition Of Done
-
-| Requirement | Status |
-| --- | --- |
-|  | pending |
+| ID | Task | Target repository | Target area or files | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| T-001 | <developer-action> | <repository-name> | <path-module-or-area> | See `devspec/glossary.md#access-requirement-values` | <task-id-or-none> | <command-method-or-review-signal-and-expected-result> | <observable-completion-condition-and-evidence> | pending | 0 | |

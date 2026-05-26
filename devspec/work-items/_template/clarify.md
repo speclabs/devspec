@@ -1,4 +1,6 @@
-# Clarify
+# Clarification Record
+
+Use this artifact only for blocking ambiguity resolution. Keep resumability, handoff, and next action in `Resume State`. Keep active and resolved blockers in `Clarification Log`. Do not duplicate intake or finalization details; reference the impacted artifact and section instead.
 
 ## Resume State
 
@@ -11,27 +13,16 @@
 | Current item | |
 | Last completed step | |
 | Next required action | |
-| Pending user question | |
-| Recommended option | |
+| Pending user question | active blocker ID or none |
+| Recommended option | active blocker option or none |
 | Resume command | `/devspec.clarify` |
 | Resume notes | |
 | Updated | |
 
 ## Clarification Log
 
-| Date | Question | Recommended option and justification | User answer | Impact | Status |
-| --- | --- | --- | --- | --- | --- |
-|  |  |  |  |  | open |
+Use one row per blocker. Keep at most one row with `open` status; resolved, superseded, and withdrawn rows are the history. When no blocker is active, set `Pending user question` in `Resume State` to `none` and use `Next required action` for the handoff target.
 
-## Current Blocking Question
-
-| Field | Value |
-| --- | --- |
-| Question | |
-
-## Clarification Status
-
-| Field | Value |
-| --- | --- |
-| Blocking | yes, no |
-| Next step | |
+| ID | Status | Source artifact | Blocking gap | Question | Options | Recommended option and reason | User answer | Impacted artifacts | Updated |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CLAR-001 | open, resolved, superseded, withdrawn | `story.md`, `finalize.md`, user input, or other source |  |  | include `Custom Answer` |  |  |  |  |

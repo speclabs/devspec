@@ -1,4 +1,6 @@
-# Diagram
+# Architecture Diagram
+
+Use this artifact for one durable architecture, module, feature, workflow, user-journey, sequence, state, or domain diagram. Keep diagram lifecycle status in `devspec/architecture/artifact-queue.md`; keep only generated content, supporting evidence, assumptions, and maintenance notes here.
 
 ## Resume State
 
@@ -17,43 +19,34 @@
 | Resume notes | |
 | Updated | |
 
-## Metadata
+## Diagram Metadata
 
 | Field | Value |
 | --- | --- |
 | ID | |
 | Scope | architecture, module, feature, workflow, user-journey |
-| Type | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram |
+| Diagram type | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram |
 | Subject | |
-| Status | See `devspec/glossary.md#artifact-status-values` |
-| Evidence source | |
 | Confidence | observed, high-confidence, low-confidence |
-| Queue source | `devspec/architecture/artifact-queue.md` |
+| Queue row | `devspec/architecture/artifact-queue.md#diagram-queue-register` |
 
-## Diagram
+## Mermaid Diagram
 
 ```mermaid
 flowchart TD
 ```
 
-## Evidence
+## Source Evidence and Assumptions
 
-| Source | Notes |
-| --- | --- |
-|  |  |
+Use `evidence` for directly supported code, docs, config, ADRs, or user-confirmed facts. Use `assumption` only when the diagram depends on an inference that is not fully confirmed.
 
-## Confidence Guidance
+| Type | Source or assumption | Diagram impact | Resolution |
+| --- | --- | --- | --- |
+| evidence |  |  | confirmed |
+| assumption |  |  | open |
 
-Use `observed` for directly supported code, docs, config, or ADR evidence; `high-confidence` for inference from multiple local evidence points; and `low-confidence` only when assumptions are recorded before generation.
+## Maintenance Notes
 
-## Assumptions
-
-| Assumption | Status |
-| --- | --- |
-|  | open |
-
-## Notes
-
-| Note | Status |
-| --- | --- |
-|  | open |
+| Note | Action or owner | Resolution state |
+| --- | --- | --- |
+|  |  | open |

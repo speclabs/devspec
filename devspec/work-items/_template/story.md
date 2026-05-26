@@ -1,4 +1,6 @@
-# Story
+# Work-Item Intake
+
+Use this artifact for detailed work-item intake. Keep identity, classification, source provenance, and routing summaries in `meta.md`; keep work-item decisions in `decisions.md`; keep implementation-ready scope in `finalize.md`.
 
 ## Resume State
 
@@ -17,85 +19,41 @@
 | Resume notes | |
 | Updated | |
 
-## Metadata
+## Intake Source Record
 
 | Field | Value |
 | --- | --- |
-| Title | |
 | External reference | |
-| Type | feature, bug, security-vulnerability |
-| Severity | bugs and security vulnerabilities only |
-| Priority | features should record priority |
-
-## Source Resolution Confirmation
-
-| Field | Value |
-| --- | --- |
 | Resolved summary shown | |
 | Confirmation basis | `devspec/foundation/provider-integrations.md` |
 | User confirmation | confirmed, rejected, pending |
+| Manual intake used | yes, no |
+| Manual description | |
+| Manual acceptance criteria | |
 
-## Context
+## Work-Item Brief
+
+Use this section for the durable work-item narrative. Keep it concise but specific enough for clarification and finalization.
 
 | Field | Value |
 | --- | --- |
 | Problem | |
 | Intended outcome | |
-
-## Manual Intake Details
-
-| Field | Value |
-| --- | --- |
-| Manual intake used | yes, no |
-| Manual description | |
-| Manual acceptance criteria | |
-
-## Impact
-
-| Field | Value |
-| --- | --- |
 | User or customer impact | |
 | Affected components | |
 | Affected versions | |
 
-## Context Notes
+## Work-Item Details
 
-| Type | Note |
-| --- | --- |
-| Assumption | |
-| Constraint | |
+Use this table for facts that affect clarification, readiness, task planning, or validation. Keep repository paths and access requirements in `devspec/foundation/codebase-structure.md`; keep rule definitions in `devspec/foundation/rules.md`.
 
-## Type-Specific Notes
-
-| Type | Note |
-| --- | --- |
-| Rule source | `devspec/foundation/rules.md` |
-| Bug notes | |
-| Security notes | |
-
-## Dependencies
-
-| Field | Value |
-| --- | --- |
-| Multi-repo dependency | yes, no |
-| Related repos | |
-| Dependency | |
-
-## Decisions
-
-| Decision | Reference |
-| --- | --- |
-|  |  |
-
-## Acceptance Criteria
-
-| ID | Criterion | Status |
-| --- | --- | --- |
-| AC-001 |  | pending |
-
-## Open Items
-
-| Type | Item | Status |
-| --- | --- | --- |
-| Risk |  | open |
-| Blocker |  | open |
+| Type | ID | Item | Source | Status |
+| --- | --- | --- | --- | --- |
+| Acceptance criterion | AC-001 |  | confirmed, provider, manual, user | pending |
+| Assumption | ASM-001 |  | confirmed, inferred, user | open |
+| Constraint | CON-001 |  | foundation, intake, user | open |
+| Dependency | DEP-001 | <dependency-or-none> | intake, user, discovery | open |
+| Multi-repo dependency | DEP-REPO-001 | yes, no; related repositories: <repository-names-only> | confirmed, user | open |
+| Type-specific note | TS-001 | <bug-or-security-note>; rule source: `devspec/foundation/rules.md` | intake, user, rule | open |
+| Risk | RISK-001 |  | intake, user, discovery | open |
+| Blocker | BLK-001 |  | intake, user, discovery | open |

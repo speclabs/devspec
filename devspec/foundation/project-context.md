@@ -1,34 +1,33 @@
 # Project Context
 
-## Summary
+Use this artifact for durable product facts that should shape future work items. Keep it concise and developer-facing. Omit optional rows or sections with no project content.
 
-- Purpose:
-- Problem:
-- Intended outcome:
+## Product Overview
 
-## Users And Stakeholders
+| Field | Description | Source | Confidence |
+| --- | --- | --- | --- |
+| Purpose |  |  |  |
+| Problem |  |  |  |
+| Target outcome |  |  |  |
 
-- Primary users:
-- Stakeholders:
+## Audiences and Stakeholders
 
-## Goals
+| Group | Category | Need or responsibility | Source | Confidence |
+| --- | --- | --- | --- | --- |
+|  |  |  |  |  |
 
-- Goal 1:
+## Outcomes and Scope
 
-## Non-Goals
+Use this section for product goals, explicit scope exclusions, and measurable success signals. Keep operational rules and delivery gates in `rules.md`.
 
-- Non-goal 1:
+| Type | Outcome, boundary, or metric | Implementation implication | Source | Confidence |
+| --- | --- | --- | --- | --- |
+|  |  |  |  |  |
 
-## Constraints
+## Delivery Context
 
-- Constraint 1:
+Use this section for product or business constraints and unresolved blockers that affect implementation planning. Keep repository location, access, ownership, and path facts in `codebase-structure.md`.
 
-## Success Metrics
-
-- Metric 1:
-
-## Blockers
-
-| Blocker | Impact | Status |
-| --- | --- | --- |
-|  |  | open |
+| Type | Context item | Scope | Required handling or next step | Source | Confidence | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  |

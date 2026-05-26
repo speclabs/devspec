@@ -1,68 +1,46 @@
 # Coding Standards
 
-## Standards Sources
+Use this artifact as a compact, evidence-backed catalog for how developers should write, test, document, and review code. Prefer source references and short rules over copied prose. Omit optional rows or sections with no real standards or evidence.
 
-Use project-owned source, standards docs, and configuration files as evidence. Do not infer coding standards from paths excluded by `devspec/foundation/discovery-exclusions.md`, such as installed dependencies or generated output.
+## Standards Evidence Sources
 
-| Source | Type | Applies to | Confidence | Notes |
+Use this section only for source documents, configuration files, or representative code that support one or more catalog rows. Do not infer coding standards from paths excluded by `devspec/foundation/discovery-exclusions.md`, such as installed dependencies or generated output.
+
+| Source | Source type | Applies to | Confidence | Notes |
 | --- | --- | --- | --- | --- |
-| <path-or-link> | formatter | <language-or-framework> | <confidence> | |
+| <path-or-link> | formatter, linter, standards-doc, config, source-sample, user-input | <language-framework-layer-or-area> | confirmed, observed, inferred, blocked | <why-this-source-matters> |
 
-## Language And Framework Standards
+## Standards Catalog
 
-### Language Or Framework: <name>
+Use this as the single place for language, framework, testing, error-handling, logging, documentation, review, observed-pattern, and anti-pattern guidance. Add a row only when the rule changes how developers should write or review code. Keep examples as references to `Standards Examples`, not long snippets in this table.
 
-| Category | Rule | Evidence | Confidence | Example |
-| --- | --- | --- | --- | --- |
-| File naming | <rule> | <path-or-config> | <confidence> | |
-| Formatting and indentation | <indent-size-line-length-brace-style> | <config-or-source-path> | <confidence> | CS-001 |
-| Database or SQL layout | <keyword-case-join-indent-query-layout> | <path-or-query-file> | <confidence> | CS-002 |
-| Documentation comments | <xml-doc-jsdoc-docstring-rule> | <path-or-docs> | <confidence> | |
-| Developer comments | <when-comments-are-required> | <path-or-docs> | <confidence> | |
-| Member grouping and ordering | <fields-constructors-public-private-order> | <source-path> | <confidence> | CS-003 |
-| Formatting or linting | <tool-and-command> | <config-path> | <confidence> | |
-| Testing conventions | <test-naming-structure-assertions> | <test-path> | <confidence> | |
-| Framework-specific conventions | <framework-pattern> | <source-path> | <confidence> | |
+Use `Type` values as follows:
+- `rule`: explicit standard from a project source, user instruction, or config.
+- `observed-pattern`: recurring style or structure found in source evidence.
+- `anti-pattern`: forbidden or discouraged pattern with the preferred replacement in `Developer guidance`.
+- `expectation`: cross-cutting review or quality expectation that applies across multiple areas.
 
-## Observed Patterns
+| ID | Scope | Category | Type | Developer guidance | Evidence | Confidence | Example |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| CS-001 | <language-framework-layer-or-area> | file-naming, formatting, sql-layout, comments, member-ordering, linting, testing, framework, error-handling, logging, documentation, review | rule, observed-pattern, anti-pattern, expectation | <what-to-do-or-avoid-and-preferred-pattern> | <source-id-path-or-link> | confirmed, observed, inferred, blocked | EX-001 or n/a |
 
-Use this as a compact pattern catalog. Prefer source references plus short examples over long copied code.
+## Standards Examples
 
-| Pattern ID | Pattern | Applies to | Rule | Evidence | Confidence | Example |
-| --- | --- | --- | --- | --- | --- | --- |
-| CS-001 | <pattern-name> | <language-framework-or-layer> | <rule-to-follow> | <source-path> | <confidence> | CS-001 |
+Include this section only when a short snippet clarifies a style, indentation, naming, grouping, SQL layout, testing pattern, or framework pattern better than a catalog row alone. Keep examples minimal and canonical, usually 5-20 lines. Link each example to one or more catalog row IDs.
 
-## Formatting Examples
+### EX-001: <example-name>
 
-Keep examples minimal and canonical. Use 5-20 lines when possible, enough to show indentation, grouping, naming, or layout.
-
-### CS-001: <formatting-or-pattern-name>
-
+Applies to: CS-001
 Source: `<source-path>`
 
 ```text
 <short representative snippet>
 ```
 
-## Anti-Patterns
+## Standards Blockers and Conflicts
 
-| Pattern | Avoid | Evidence | Preferred pattern | Confidence |
-| --- | --- | --- | --- | --- |
-| <anti-pattern-name> | <what-not-to-do> | <source-or-rule-path> | <preferred-pattern-id-or-rule> | <confidence> |
+Use this section only when standards evidence conflicts, required source evidence is missing, or a project decision is needed before agents can apply a standard.
 
-## Cross-Cutting Expectations
-
-| Area | Expectation | Evidence | Confidence | Notes |
-| --- | --- | --- | --- | --- |
-| Style and naming | <expectation> | <path-or-rule> | <confidence> | |
-| Testing | <expectation> | <path-or-rule> | <confidence> | |
-| Error handling | <expectation> | <path-or-rule> | <confidence> | |
-| Logging and observability | <expectation> | <path-or-rule> | <confidence> | |
-| Documentation | <expectation> | <path-or-rule> | <confidence> | |
-| Review | <expectation> | <path-or-rule> | <confidence> | |
-
-## Blockers Or Conflicts
-
-| Topic | Conflict or gap | Evidence | Resolution needed |
-| --- | --- | --- | --- |
-| <topic> | <conflict-or-gap> | <source-paths> | <question-or-decision> |
+| Topic | Affected catalog row | Conflict or gap | Evidence | Resolution needed | Status |
+| --- | --- | --- | --- | --- | --- |
+| <topic> | CS-001 or new | <conflict-or-gap> | <source-paths-or-input> | <question-or-decision> | open |
