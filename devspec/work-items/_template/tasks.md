@@ -25,14 +25,14 @@ Use this artifact as the executable implementation plan. Tasks should be ordered
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | T-001 | <developer-action> | <repo-name> | <path-or-module> | See `devspec/glossary.md#access-requirement-values` | <task-id-or-none> | <validation-id-or-command> | <observable-completion-condition> | pending | 0 | |
 
-## Execution Context
+## Planning Basis
 
 | Field | Value |
 | --- | --- |
-| Multi-repo dependency | yes, no |
-| Related repos | |
-| Dependency | |
-| Repo path source | |
+| Final scope source | `finalize.md#final-scope` |
+| Planning input source | `finalize.md#task-planning-inputs` |
+| Validation source | `finalize.md#validation-plan` |
+| Multi-repo readiness source | `finalize.md#multi-repo-readiness` when applicable |
 | Access requirement source | `devspec/foundation/codebase-structure.md` |
 | Type-specific rule source | `devspec/foundation/rules.md` |
 

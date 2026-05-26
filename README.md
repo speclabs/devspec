@@ -592,8 +592,8 @@ Important behavior:
 
 - marks the item `ready` or `not ready`
 - does not invent missing requirements
-- records final scope, acceptance criteria, dependencies, risks, and validation approach
-- for multi-repo work, verifies that `devspec/foundation/codebase-structure.md` contains the required repo configuration and user-confirmed access requirements
+- records final scope, acceptance criteria, task-planning inputs, validation plan, risks, and follow-ups without duplicating section intent
+- for multi-repo work, summarizes readiness while `devspec/foundation/codebase-structure.md` remains the source of truth for required repo configuration and user-confirmed access requirements
 - should stay `not ready` if required multi-repo foundation configuration is missing or incomplete
 
 Example:

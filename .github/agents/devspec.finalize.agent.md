@@ -18,17 +18,20 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern), [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - Required upstream artifacts must exist before finalization.
-- Set `Readiness Summary` to `ready` only when every required readiness gate is `ready` or `not applicable`; otherwise set it to `not ready`.
+- Set `Readiness Decision` to `ready` only when every required readiness gate is `ready` or `not applicable`; otherwise set it to `not ready`.
 - Mark the brief `not ready` while blockers remain or required repo access is missing, ambiguous, or unconfirmed.
 - Apply bug and security readiness gates from `../../devspec/foundation/rules.md`.
-- For multi-repo work, record only configuration status in `finalize.md`, including whether required repo access is confirmed; omit multi-repo status for single-repo work.
+- For multi-repo work, record only readiness status in `Multi-Repo Readiness`, including required repos and whether access is confirmed, missing, or blocked; keep local paths and access requirement values in `../../devspec/foundation/codebase-structure.md`.
 - Do not invent missing requirements or silently change scope.
 - Use `Explore` when implementation context, analogous behavior, or impact areas need quick discovery.
 - Use session memory only for transient notes; `finalize.md` remains canonical.
 - Update `Resume State` in `meta.md` and `finalize.md` before marking `not ready`, asking for clarification, or handing off.
-- Keep `finalize.md` implementation-oriented: readiness, scope, acceptance criteria, required configuration, validation notes, risks, and blockers.
-- Evaluate readiness gates as specific checks for scope, acceptance criteria, dependencies or repo access, type-specific requirements, and validation or risk direction. Record the blocker and next action when any gate is not ready.
-- Use `Planning Inputs` for assumptions, constraints, and dependencies that affect task planning; keep multi-repo configuration details in `Multi-Repo Configuration` only.
+- Keep `finalize.md` implementation-oriented: readiness decision, final scope, acceptance criteria, task planning inputs, repo readiness, type-specific requirements, validation plan, delivery risks, and blockers.
+- Evaluate readiness gates as specific checks for scope, acceptance criteria, dependencies or repo readiness, type-specific requirements, and validation or delivery risk. Record the blocker and next action when any gate is not ready.
+- Use `Task Planning Inputs` for assumptions, constraints, dependencies, and target-area facts that affect task planning.
+- Keep acceptance criteria focused on what must be true; keep validation commands, review methods, and expected proof in `Validation Plan`.
+- Keep risks, mitigations, backport scope, release notes, advisories, and handoff follow-ups in `Risks And Follow-Up`.
+- Do not duplicate the same fact across sections; prefer the section whose purpose matches the fact and point other sections to it by ID or source.
 - Omit optional sections when they do not affect implementation, validation, or handoff.
 
 ## Approach
