@@ -104,7 +104,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Do not queue vague subjects, candidates without source evidence, duplicate or equivalent existing diagrams, or temporary work-item diagrams without an explicit request.
 - Use `blocked` when a diagram idea is useful but evidence is insufficient; use `skipped` only after the user declines generation.
 - Before queueing or writing, check `devspec/architecture/artifact-queue.md`, `devspec/architecture/overview.md`, `devspec/architecture/diagrams/*.md`, and relevant work-item `diagrams.md` files for equivalent subject, scope, diagram type, or target location.
-- Avoid duplicate overview diagrams unless `devspec/architecture/overview.md` lacks a confirmed high-level system context or diagram index entry.
+- Avoid duplicate overview diagrams unless `devspec/architecture/overview.md` lacks a confirmed architecture context or diagram reference entry.
 - During `/devspec.extract`, seed candidates in `devspec/architecture/artifact-queue.md` and ask about only the next unresolved candidate after higher-priority confirmations. Generate diagrams later through `/devspec.diagram` unless the user explicitly continues through the confirmed queue.
 - During `/devspec.diagram`, reuse matching queue metadata instead of reclassifying the same subject from scratch, then generate exactly one evidence-backed Mermaid artifact per run.
 
