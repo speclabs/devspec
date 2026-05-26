@@ -51,7 +51,7 @@ You generate or update one diagram artifact for a requested architecture, module
 
 ## Output Format
 - Diagram target location
-- Diagram scope and type
+- Diagram scope and diagram type
 - Confidence
 - Queue status
 - Evidence and assumptions

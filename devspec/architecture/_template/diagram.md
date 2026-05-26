@@ -1,4 +1,4 @@
-# Diagram
+# Architecture Diagram
 
 Use this artifact for one durable architecture, module, feature, workflow, user-journey, sequence, state, or domain diagram. Keep diagram lifecycle status in `devspec/architecture/artifact-queue.md`; keep only generated content, supporting evidence, assumptions, and maintenance notes here.
 

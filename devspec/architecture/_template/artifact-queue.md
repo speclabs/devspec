@@ -1,4 +1,4 @@
-# Architecture Artifact Queue
+# Architecture Diagram Queue
 
 Use this file as resumable lifecycle state for proposed and generated architecture diagram artifacts. Keep generated diagram content in the target artifact; keep only queue metadata, evidence, confidence, status, and next action or notes here.
 

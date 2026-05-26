@@ -32,7 +32,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Omit optional foundation sections that have no extracted, confirmed, inferred, or blocked content.
 - Never write final `devspec/constitution.md` changes without explicit user confirmation; only update `Durable Principles` or `Amendment Policy`, and route operational gates or evolving rules to `devspec/foundation/rules.md`.
 - Maintain a single active confirmation gate; do not ask constitution, artifact-queue, Mermaid generation, coding-standard conflict, or repo-access confirmations in the same response.
-- Confirmation priority is: blocking source-selection, source-correction, or repo-access questions, constitution principle changes, conflicting foundation evidence, artifact-queue candidate approval, then individual Mermaid diagram or user-journey generation.
+- Confirmation priority is: blocking source-selection, source-correction, or repo-access questions, constitution principle changes, conflicting foundation evidence, diagram queue candidate approval, then individual Mermaid diagram or user-journey generation.
 - Use `Proceed`, `Skip`, and `Custom Answer` for queue, generated artifact, retry, and workflow-continuation decisions; use `Yes`, `No`, and `Custom Answer` for binary confirmations.
 - Write or update `devspec/architecture/overview.md` and relevant live `devspec/foundation/` files.
 - Use `devspec/architecture/_template/*.md` and `devspec/foundation/_template/*.md` as section contracts; initialize missing live files from templates, but do not overwrite existing live files from templates.
@@ -42,7 +42,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Ask confirmation before each diagram or user journey generation. Generate at most one confirmed artifact only if the user explicitly continues within the extraction run, update its queue status, then stop or ask one continuation question only when no higher-priority confirmation is pending.
 - On rerun, resume `devspec/architecture/artifact-queue.md` before proposing duplicate candidates; when several queue items are pending, ask only about the next unresolved row.
 - Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence. When an ADR is needed, initialize it from `devspec/architecture/_template/decision.md` and create `devspec/architecture/decisions/` on demand.
-- For multi-repo inputs, produce a system-level view, keep per-repo provenance visible, and use supplied labels as repo names and role candidates in `codebase-structure.md`.
+- For multi-repo inputs, produce an architecture overview, keep per-repo provenance visible, and use supplied labels as repo names and role candidates in `codebase-structure.md`.
 - Do not infer access requirements during extraction; ask one repo-specific multiple-choice confirmation for each missing or ambiguous access requirement.
 - Keep `codebase-structure.md` as the source of truth for repo role, local path, workspace availability, and access requirement.
 - Treat accessible local paths outside the current repo folder as valid extraction sources; do not classify them as `reference-only` based on location.
@@ -62,7 +62,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 6. Use `Explore` when needed to gather evidence from source trees, metadata, docs, and analogous patterns.
 7. Persist meaningful discovery notes, working methods, failed methods, and unresolved questions before asking or writing.
 8. Build an evidence-backed outline grouped into constitution candidates, architecture facts, foundation facts, and diagram candidates that meet the shared diagram extraction rubric.
-9. Build the pending-confirmation queue using extraction priority order, including only the next unresolved artifact-queue row after higher-priority confirmations.
+9. Build the pending-confirmation queue using extraction priority order, including only the next unresolved diagram queue row after higher-priority confirmations.
 10. Update architecture and foundation artifacts in place while preserving manual content and replacing vague narrative with compact structured records.
 11. Process confirmed Mermaid diagram or user-journey items one at a time in queue order, reusing queued metadata and generating at most one artifact only after explicit continuation.
 12. Update `devspec/constitution.md` only after principle-level confirmation.
