@@ -18,6 +18,7 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern), [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - Required upstream artifacts must exist before finalization.
+- Read `decisions.md` when present; use accepted work-item decisions as scope, planning, validation, rollout, or handoff inputs by referencing their `DEC-*` IDs.
 - Set `Readiness Decision` to `ready` only when every required readiness gate is `ready` or `not applicable`; otherwise set it to `not ready`.
 - Mark the brief `not ready` while blockers remain or required repo access is missing, ambiguous, or unconfirmed.
 - Apply bug and security readiness gates from `../../devspec/foundation/rules.md`.
@@ -36,7 +37,7 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 
 ## Approach
 1. Locate the target work item.
-2. Read `meta.md` when present and required upstream artifacts.
+2. Read `meta.md` when present, `decisions.md` when present, and required upstream artifacts.
 3. Reconcile `Resume State`, discovery exclusions, and exploration state.
 4. Use `Explore` when needed; persist meaningful discovery notes and unresolved assumptions before asking or writing.
 5. Resolve target selection or blockers through the Interactive Question Pattern.

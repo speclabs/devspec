@@ -81,12 +81,6 @@
 | Related repos | |
 | Dependency | |
 
-## Decisions
-
-| Decision | Reference |
-| --- | --- |
-|  |  |
-
 ## Acceptance Criteria
 
 | ID | Criterion | Status |

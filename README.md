@@ -497,6 +497,7 @@ What it does:
 - for features, records priority instead of severity
 - keeps `meta.md` as the control record for identity, triage index, workflow status, resume state, intake provenance, ownership, dates, and links
 - keeps detailed problem, impact, dependency, type-specific notes, and acceptance criteria in `story.md`
+- keeps work-item decisions in `decisions.md`
 - confirms multi-repo dependencies and records the yes/no flag plus repo names in `meta.md` when applicable
 - requires multi-repo foundation configuration in `devspec/foundation/codebase-structure.md` before multi-repo story intake can continue
 - leaves local paths and repo access requirements in the foundation artifact rather than duplicating them into story artifacts
