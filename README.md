@@ -495,7 +495,9 @@ What it does:
 - writes `meta.md` and `story.md`
 - initializes `decisions.md` and `notes.md` if the folder is new
 - for features, records priority instead of severity
-- confirms multi-repo dependencies and records all related repos when applicable
+- keeps `meta.md` as the control record for identity, triage index, workflow status, resume state, intake provenance, ownership, dates, and links
+- keeps detailed problem, impact, dependency, type-specific notes, and acceptance criteria in `story.md`
+- confirms multi-repo dependencies and records the yes/no flag plus repo names in `meta.md` when applicable
 - requires multi-repo foundation configuration in `devspec/foundation/codebase-structure.md` before multi-repo story intake can continue
 - leaves local paths and repo access requirements in the foundation artifact rather than duplicating them into story artifacts
 

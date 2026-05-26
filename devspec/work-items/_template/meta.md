@@ -1,5 +1,15 @@
 # Meta
 
+Use this artifact as the work-item control record. Keep only identity, triage, workflow status, resume state, intake provenance, ownership, dates, and links. Put detailed story content in `story.md`, implementation readiness in `finalize.md`, and execution state in `tasks.md` or `implement.md`.
+
+## Work Item Identity
+
+| Field | Value |
+| --- | --- |
+| Title | |
+| Folder name | |
+| Naming status | valid, needs-confirmation, legacy |
+
 ## Classification
 
 | Field | Value |
@@ -9,23 +19,20 @@
 | Priority | record for features when available |
 | Disclosure status | internal, coordinated, public, n/a |
 
-## Impact
+## Triage Index
+
+Use this section for routing and lookup only. Keep narrative impact, acceptance criteria, and dependency details in `story.md`.
 
 | Field | Value |
 | --- | --- |
-| Customer impact | |
-| Affected components | |
+| Customer impact summary | |
+| Affected scope | |
 | Affected versions | |
-
-## Dependencies
-
-| Field | Value |
-| --- | --- |
 | Multi-repo dependency | yes, no |
-| Related repos | |
-| Dependency summary | |
+| Related repos | repo names only |
+| Detail source | `story.md` |
 
-## Status
+## Workflow Status
 
 | Field | Value |
 | --- | --- |
@@ -50,44 +57,23 @@
 | Resume notes | |
 | Updated | |
 
-## Source Reference
+## Intake Provenance
 
 | Field | Value |
 | --- | --- |
-| System | |
+| Source resolution status | See `devspec/glossary.md#source-resolution-status-values` |
+| Source system | |
 | Identifier | |
 | URL | |
-
-## Folder Naming
-
-| Field | Value |
-| --- | --- |
-| Folder name | |
-| Provider prefix | |
-| Story number | |
-| Title slug | |
-| Naming status | valid, needs-confirmation, legacy |
-
-## Source Resolution
-
-| Field | Value |
-| --- | --- |
-| Status | See `devspec/glossary.md#source-resolution-status-values` |
-| Provider | |
+| Confirmation status | confirmed, rejected, pending, n/a |
 | Resolution notes | |
-| Resolved item confirmation | confirmed, rejected, pending |
 
-## Ownership
+## Ownership And Dates
 
 | Field | Value |
 | --- | --- |
 | Owner | |
 | Reviewer | |
-
-## Dates
-
-| Field | Value |
-| --- | --- |
 | Created | |
 | Updated | |
 
