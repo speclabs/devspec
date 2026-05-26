@@ -63,7 +63,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 | Prompt | Purpose | Produces |
 | --- | --- | --- |
 | `devspec.extract.prompt.md` | Derive structured, evidence-backed constitution candidates, architecture context, and live foundation facts from current root, repo URLs, local paths, or named multi-repo input. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` |
-| `devspec.projectcontext.prompt.md` | Capture product vision, users, goals, non-goals, constraints, metrics, sources, confidence, and developer implications. | `foundation/project-context.md` |
+| `devspec.projectcontext.prompt.md` | Capture product purpose, audiences, stakeholders, outcomes, scope boundaries, metrics, delivery context, sources, confidence, and developer implications. | `foundation/project-context.md` |
 | `devspec.techstack.prompt.md` | Capture languages, frameworks, services, tooling, hosting, versions, support status, evidence, and implementation guidance. | `foundation/tech-stack.md` |
 | `devspec.codebase-structure.prompt.md` | Capture selective repo trees, repo configuration, work areas and boundaries, integration contracts, and blockers. | `foundation/codebase-structure.md` |
 | `devspec.coding-standards.prompt.md` | Capture an evidence-backed standards catalog with scoped rules, observed patterns, anti-patterns, source links, and optional short examples. | `foundation/coding-standards.md` |

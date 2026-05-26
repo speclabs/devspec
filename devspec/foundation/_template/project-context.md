@@ -1,55 +1,37 @@
 # Project Context
 
-Use this artifact for product facts that should shape future work items. Keep it concise and developer-facing. Omit optional sections with no project content.
+Use this artifact for durable product facts that should shape future work items. Keep it concise and developer-facing. Omit optional rows or sections with no project content.
 
-## Developer Summary
+## Product Overview
 
-| Field | Detail | Source | Confidence |
+| Field | Description | Source | Confidence |
 | --- | --- | --- | --- |
-| Purpose | <what the product exists to do> | <user-input-or-source> | confirmed |
-| Problem | <problem being solved> | <user-input-or-source> | confirmed |
-| Intended outcome | <business-or-user-result> | <user-input-or-source> | confirmed |
-| Primary users | <user-groups> | <user-input-or-source> | confirmed |
+| Purpose | <why the product exists> | <user-input-or-source> | confirmed |
+| Problem | <user-or-business-problem-being-addressed> | <user-input-or-source> | confirmed |
+| Target outcome | <intended-user-or-business-result> | <user-input-or-source> | confirmed |
 
-## Users And Stakeholders
+## Audiences And Stakeholders
 
-| Group | Needs or responsibilities | Source | Confidence |
-| --- | --- | --- | --- |
-| <primary-user-group> | <need-or-responsibility> | <user-input-or-source> | confirmed |
-| <stakeholder-group> | <need-or-responsibility> | <user-input-or-source> | confirmed |
-
-## Goals
-
-| Goal | Work implication | Source | Confidence |
-| --- | --- | --- | --- |
-| <goal> | <how this should shape implementation decisions> | <user-input-or-source> | confirmed |
-
-## Non-Goals
-
-Include this section only when explicit non-goals exist.
-
-| Non-goal | Boundary for developers | Source | Confidence |
-| --- | --- | --- | --- |
-| <non-goal> | <what not to build or optimize for> | <user-input-or-source> | confirmed |
-
-## Constraints
-
-| Constraint | Applies to | Required action | Source | Confidence |
+| Group | Category | Need or responsibility | Source | Confidence |
 | --- | --- | --- | --- | --- |
-| <constraint> | <scope> | <required action or limit> | <user-input-or-source> | confirmed |
+| <primary-user-group> | user | <need-or-responsibility> | <user-input-or-source> | confirmed |
+| <stakeholder-group> | stakeholder | <need-or-responsibility> | <user-input-or-source> | confirmed |
 
-## Success Metrics
+## Outcomes And Scope
 
-Include this section only when metrics are known.
+Use this section for product goals, explicit scope exclusions, and measurable success signals. Keep operational rules and delivery gates in `rules.md`.
 
-| Metric | Target or signal | Measurement or work implication | Source | Confidence |
+| Type | Outcome, boundary, or metric | Implementation implication | Source | Confidence |
 | --- | --- | --- | --- | --- |
-| <metric> | <target-or-signal> | <what to instrument, preserve, or optimize> | <user-input-or-source> | confirmed |
+| goal | <desired-product-result> | <how-this-should-shape-implementation-decisions> | <user-input-or-source> | confirmed |
+| scope exclusion | <explicit-exclusion> | <what-not-to-build-or-optimize-for> | <user-input-or-source> | confirmed |
+| success metric | <target-or-signal> | <what to instrument, preserve, or optimize> | <user-input-or-source> | confirmed |
 
-## Blockers
+## Delivery Context
 
-Include this section only when blockers exist.
+Use this section for product or business constraints and unresolved blockers that affect implementation planning. Keep repository location, access, ownership, and path facts in `codebase-structure.md`.
 
-| Blocker | Impact | Status |
-| --- | --- | --- |
-|  |  | open |
+| Type | Context item | Scope | Required handling or next step | Source | Confidence | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| constraint | <product-or-business-constraint> | <affected-scope> | <required-action-or-limit> | <user-input-or-source> | confirmed | active |
+| blocker | <unresolved-blocker-or-question> | <affected-scope> | <next-action-needed> | <user-input-or-source> | confirmed | open |

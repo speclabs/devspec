@@ -1,34 +1,31 @@
 # Project Context
 
-## Summary
+## Product Overview
 
-- Purpose:
-- Problem:
-- Intended outcome:
+| Field | Description | Source | Confidence |
+| --- | --- | --- | --- |
+| Purpose |  |  |  |
+| Problem |  |  |  |
+| Target outcome |  |  |  |
 
-## Users And Stakeholders
+## Audiences And Stakeholders
 
-- Primary users:
-- Stakeholders:
+| Group | Category | Need or responsibility | Source | Confidence |
+| --- | --- | --- | --- | --- |
+|  |  |  |  |  |
 
-## Goals
+## Outcomes And Scope
 
-- Goal 1:
+Use this section for product goals, explicit scope exclusions, and measurable success signals. Keep operational rules and delivery gates in `rules.md`.
 
-## Non-Goals
+| Type | Outcome, boundary, or metric | Implementation implication | Source | Confidence |
+| --- | --- | --- | --- | --- |
+|  |  |  |  |  |
 
-- Non-goal 1:
+## Delivery Context
 
-## Constraints
+Use this section for product or business constraints and unresolved blockers that affect implementation planning. Keep repository location, access, ownership, and path facts in `codebase-structure.md`.
 
-- Constraint 1:
-
-## Success Metrics
-
-- Metric 1:
-
-## Blockers
-
-| Blocker | Impact | Status |
-| --- | --- | --- |
-|  |  | open |
+| Type | Context item | Scope | Required handling or next step | Source | Confidence | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  |
