@@ -64,15 +64,15 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 | --- | --- | --- |
 | `devspec.extract.prompt.md` | Derive structured, evidence-backed constitution candidates, architecture context, and live foundation facts from current root, repo URLs, local paths, or named multi-repo input. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` |
 | `devspec.projectcontext.prompt.md` | Capture product purpose, audiences, stakeholders, outcomes, scope boundaries, metrics, delivery context, sources, confidence, and developer implications. | `foundation/project-context.md` |
-| `devspec.techstack.prompt.md` | Capture stack inventory by project, support status, evidence, confidence, delivery constraints, and implementation impact. | `foundation/tech-stack.md` |
-| `devspec.codebase-structure.prompt.md` | Capture selective repository trees, repository configuration, work areas and boundaries, integration contracts, and structure blockers. | `foundation/codebase-structure.md` |
+| `devspec.techstack.prompt.md` | Capture technology stack inventory by project, support status, evidence, confidence, delivery constraints, and implementation impact. | `foundation/tech-stack.md` |
+| `devspec.codebase-structure.prompt.md` | Capture selective repository trees, repository configuration, work areas and boundaries, integration contracts, and structure gaps or blockers. | `foundation/codebase-structure.md` |
 | `devspec.coding-standards.prompt.md` | Capture an evidence-backed standards catalog with scoped rules, observed patterns, anti-patterns, source links, and optional short examples. | `foundation/coding-standards.md` |
 | `devspec.rules.prompt.md` | Capture actionable operational rules, compliance requirements, forbidden patterns, delivery gates, work-item handling rules, exceptions, enforcement points, source, and confidence. | `foundation/rules.md` |
 | `devspec.story.prompt.md` | Create or update work-item intake artifacts. | `meta.md`, `story.md`, `decisions.md`, `notes.md` |
 | `devspec.clarify.prompt.md` | Ask, resolve, and record one active blocking clarification. | `clarify.md` |
-| `devspec.finalize.prompt.md` | Freeze a structured implementation-ready brief with readiness, implementation brief, validation plan, and blockers. | `finalize.md` |
+| `devspec.finalize.prompt.md` | Create or update a structured implementation readiness brief with readiness assessment, implementation brief, validation plan, and blockers. | `finalize.md` |
 | `devspec.tasks.prompt.md` | Break a ready brief into executable implementation tasks with planning basis, validation, and done criteria. | `tasks.md` |
-| `devspec.implement.prompt.md` | Implement pending tasks and record task ledger state, implementation evidence, execution history, and handoff details. | `implement.md`, code changes |
+| `devspec.implement.prompt.md` | Implement pending tasks and record implementation task ledger state, implementation evidence, execution history, and handoff details. | `implement.md`, code changes |
 | `devspec.review.prompt.md` | Review implemented work against the finalized brief. | `review.md` |
 | `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram. | `architecture/diagrams/*.md` by default; `architecture/overview.md` for high-level architecture diagrams; work-item `diagrams.md` for explicit or temporary generated diagram content |
 

@@ -12,7 +12,7 @@ Use this section only for source documents, configuration files, or representati
 
 ## Standards Catalog
 
-Use this as the single place for language, framework, testing, error-handling, logging, documentation, review, observed-pattern, and anti-pattern guidance. Add a row only when the rule changes how developers should write or review code. Keep examples as references to `Examples`, not long snippets in this table.
+Use this as the single place for language, framework, testing, error-handling, logging, documentation, review, observed-pattern, and anti-pattern guidance. Add a row only when the rule changes how developers should write or review code. Keep examples as references to `Standards Examples`, not long snippets in this table.
 
 Use `Type` values as follows:
 - `rule`: explicit standard from a project source, user instruction, or config.
@@ -24,7 +24,7 @@ Use `Type` values as follows:
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | CS-001 | <language-framework-layer-or-area> | file-naming, formatting, sql-layout, comments, member-ordering, linting, testing, framework, error-handling, logging, documentation, review | rule, observed-pattern, anti-pattern, expectation | <what-to-do-or-avoid-and-preferred-pattern> | <source-id-path-or-link> | confirmed, observed, inferred, blocked | EX-001 or n/a |
 
-## Examples
+## Standards Examples
 
 Include this section only when a short snippet clarifies a style, indentation, naming, grouping, SQL layout, testing pattern, or framework pattern better than a catalog row alone. Keep examples minimal and canonical, usually 5-20 lines. Link each example to one or more catalog row IDs.
 

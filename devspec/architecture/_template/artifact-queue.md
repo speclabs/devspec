@@ -19,7 +19,7 @@ Add rows only when extraction or `/devspec.diagram` identifies real diagram cand
 | Scope | Use `architecture`, `module`, `feature`, `workflow`, `user-journey`, or `work-item`. Prefer durable scopes over `work-item` unless the diagram is explicitly temporary or work-item-specific. |
 | Diagram type | Use Mermaid types: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, or `classDiagram`. |
 | Subject | Use a specific subject that can map to one diagram file or one overview section. |
-| Target location | Use `devspec/architecture/overview.md#diagram-reference-index` for high-level overview diagrams, `devspec/architecture/diagrams/<subject-slug>.md` for durable detailed diagrams, or `devspec/work-items/<work-item-folder>/diagrams.md#work-item-diagrams` for temporary work-item diagrams. |
+| Target location | Use `devspec/architecture/overview.md#diagram-reference-index` for high-level overview diagrams, `devspec/architecture/diagrams/<subject-slug>.md` for durable detailed diagrams, or `devspec/work-items/<work-item-folder>/diagrams.md#diagram-content` for temporary work-item diagrams. |
 | Evidence | Name the source paths, docs, ADRs, queue request, or user-confirmed basis supporting the candidate. |
 | Confidence | Use `observed` for direct evidence, `high-confidence` for inference from multiple local evidence points, or `low-confidence` when useful but incomplete evidence needs assumptions before generation. |
 | Status | Use `devspec/glossary.md#artifact-status-values`; queue status belongs here, not in diagram indexes or generated diagram content. |

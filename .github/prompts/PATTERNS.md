@@ -44,8 +44,8 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 
 - Treat Git-tracked `devspec` artifacts as canonical; chat history and session memory are supporting context only.
 - At the start of each applicable command, read the target artifact and durable state files, then reconcile `Resume State`.
-- Use work-item folders as the orchestration boundary. Use tasks, target repos, target areas, and attempts as checkpoints.
-- For monorepos, record the target repo once and distinguish tasks by module, layer, or area. For multi-repo work, every executable task must name target repo and required access.
+- Use work-item folders as the orchestration boundary. Use tasks, target repositories, target areas, and attempts as checkpoints.
+- For monorepos, record the target repository once and distinguish tasks by module, layer, or area. For multi-repo work, every executable task must name target repository and required access.
 - Keep `Run status` values limited to the values in `devspec/glossary.md#run-status-values`.
 - Use `paused` when the user expects to continue from the same task or question.
 - Use `stopped` when the run intentionally ended and should ask one continuation question before resuming.
@@ -152,13 +152,13 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 ## Multi-Repo Validation Pattern
 
 - `devspec/foundation/codebase-structure.md` is the source of truth for multi-repo configuration.
-- Validate repo role, local path, current workspace availability, and access requirement there before planning or implementation depends on a repo.
-- Treat repo location, workspace membership, and access requirement as separate facts; do not classify a repo outside the current repo folder or workspace as `reference-only` based on location.
+- Validate repository role, local path, current workspace availability, and access requirement there before planning or implementation depends on a repository.
+- Treat repository location, workspace membership, and access requirement as separate facts; do not classify a repository outside the current repository folder or workspace as `reference-only` based on location.
 - Do not infer, default, or backfill missing access requirements. In particular, do not assume `reference-only`.
-- For each repo with a missing or ambiguous access requirement, ask exactly one repo-specific multiple-choice confirmation before writing or relying on that configuration.
+- For each repository with a missing or ambiguous access requirement, ask exactly one repository-specific multiple-choice confirmation before writing or relying on that configuration.
 - Access requirement confirmation options must be limited to the values in `devspec/glossary.md#access-requirement-values` plus `Custom Answer`.
-- Respect access requirements: do not edit repos marked `reference-only`, `validation-only`, `release-coordination`, or `unavailable` unless the user explicitly confirms a scope change.
-- Do not run validation in repos marked `reference-only`, `release-coordination`, or `unavailable` unless the user explicitly confirms a scope change.
+- Respect access requirements: do not edit repositories marked `reference-only`, `validation-only`, `release-coordination`, or `unavailable` unless the user explicitly confirms a scope change.
+- Do not run validation in repositories marked `reference-only`, `release-coordination`, or `unavailable` unless the user explicitly confirms a scope change.
 - For multi-repo work, stop and surface a blocker instead of guessing when required repository configuration is missing, outdated, or inaccessible.
 - For single-repo work, do not require multi-repo configuration.
 

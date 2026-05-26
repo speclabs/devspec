@@ -1,6 +1,6 @@
-# Finalize
+# Implementation Readiness Brief
 
-Use this artifact as the implementation-ready brief. Keep only details that affect readiness, implementation scope, task planning, validation, delivery risk, or handoff. Put lifecycle recovery in `Resume State`, readiness gating in `Readiness`, implementation facts in `Implementation Brief`, and proof expectations in `Validation Plan`.
+Use this artifact as the implementation readiness brief. Keep only details that affect readiness, implementation scope, task planning, validation, delivery risk, or handoff. Put lifecycle recovery in `Resume State`, readiness gating in `Readiness Assessment`, implementation facts in `Implementation Brief`, and proof expectations in `Validation Plan`.
 
 ## Resume State
 
@@ -19,7 +19,7 @@ Use this artifact as the implementation-ready brief. Keep only details that affe
 | Resume notes | |
 | Updated | |
 
-## Readiness
+## Readiness Assessment
 
 | Field | Value |
 | --- | --- |
@@ -36,7 +36,7 @@ Use readiness gates only for checks that decide whether task planning may procee
 
 | ID | Check | Evidence source | Ready condition | Status | Blocking action |
 | --- | --- | --- | --- | --- | --- |
-| RG-001 | Scope boundary | Implementation Brief | In-scope and out-of-scope boundaries are explicit and do not expand the story. | See `devspec/glossary.md#readiness-status-values` | |
+| RG-001 | Scope boundary | Implementation Brief | In-scope and out-of-scope boundaries are explicit and do not expand the work item. | See `devspec/glossary.md#readiness-status-values` | |
 | RG-002 | Acceptance criteria | Implementation Brief | Criteria are observable or testable enough for task planning and validation. | See `devspec/glossary.md#readiness-status-values` | |
 | RG-003 | Dependencies and repository readiness | Implementation Brief; `devspec/foundation/codebase-structure.md` | Dependencies are captured and required repository configuration or access is confirmed or not applicable. | See `devspec/glossary.md#readiness-status-values` | |
 | RG-004 | Type-specific facts | Implementation Brief; `devspec/foundation/rules.md` | Feature priority, bug facts, or security-vulnerability facts required by project rules are captured or explicitly blocked. | See `devspec/glossary.md#readiness-status-values` | |
@@ -48,13 +48,13 @@ Use this as the single task-planning input table. Include only facts that affect
 
 | Type | ID | Item | Source | Task-planning or delivery effect | Status |
 | --- | --- | --- | --- | --- | --- |
-| Scope: in | SCOPE-IN-001 | <implementation-boundary> | <story-clarify-decision-or-user-input> | Tasks may be created only for this work. | confirmed |
-| Scope: out | SCOPE-OUT-001 | <explicit-non-goal> | <story-clarify-decision-or-user-input> | Tasks must not be created for this work. | confirmed |
-| Acceptance criterion | AC-001 | <observable-outcome> | <story-clarify-decision-or-user-input> | Drives implementation tasks and validation coverage. | pending |
-| Planning input | PI-001 | <assumption-constraint-dependency-or-target-area> | <foundation-story-clarify-decision-or-discovery-source> | <how tasks should account for it> | pending |
+| Scope: in | SCOPE-IN-001 | <implementation-boundary> | <intake-clarification-decision-or-user-input> | Tasks may be created only for this work. | confirmed |
+| Scope: out | SCOPE-OUT-001 | <explicit-non-goal> | <intake-clarification-decision-or-user-input> | Tasks must not be created for this work. | confirmed |
+| Acceptance criterion | AC-001 | <observable-outcome> | <intake-clarification-decision-or-user-input> | Drives implementation tasks and validation coverage. | pending |
+| Planning input | PI-001 | <assumption-constraint-dependency-or-target-area> | <foundation-intake-clarification-decision-or-discovery-source> | <how tasks should account for it> | pending |
 | Repository readiness | MR-001 | <required-repositories-and-access-confirmation-summary-or-not-applicable> | `devspec/foundation/codebase-structure.md` | Missing or blocked repository readiness prevents task planning. | pending |
-| Type-specific requirement | TS-001 | <bug-security-or-rule-required-fact> | <story-clarify-decision-or-rule-source> | Required for task planning, validation, or release handling. | pending |
-| Risk or follow-up | RISK-001 | <risk-mitigation-backport-release-note-advisory-or-handoff-item> | <story-clarify-decision-or-discovery-source> | <delivery-or-handoff-effect> | open |
+| Type-specific requirement | TS-001 | <bug-security-or-rule-required-fact> | <intake-clarification-decision-or-rule-source> | Required for task planning, validation, or release handling. | pending |
+| Risk or follow-up | RISK-001 | <risk-mitigation-backport-release-note-advisory-or-handoff-item> | <intake-clarification-decision-or-discovery-source> | <delivery-or-handoff-effect> | open |
 
 ## Validation Plan
 

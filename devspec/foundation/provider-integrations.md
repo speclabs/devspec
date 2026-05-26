@@ -43,7 +43,7 @@ Handle outcomes as follows:
 | Provider resolution succeeds | Show the confirmation summary and require explicit user confirmation before creating or updating the work-item folder. |
 | Unverified provider input | Do not create a normal resolved work item. |
 
-## Confirmation Contract
+## Confirmation Requirements
 
 Show this minimum summary when provider resolution succeeds:
 
@@ -79,7 +79,7 @@ Offer only these confirmation actions:
 | Privilege model | Use least-privilege tokens or service identities. |
 | Access mode | Prefer read-only access for intake and review unless write-back is required. |
 
-## Story Intake Recording Contract
+## Story Intake Recording Requirements
 
 | Recording area | Requirement |
 | --- | --- |

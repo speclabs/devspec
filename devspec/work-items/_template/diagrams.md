@@ -1,4 +1,4 @@
-# Diagrams
+# Work-Item Diagrams
 
 Use this file only for explicit or clearly temporary work-item diagrams, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment.
 
@@ -23,7 +23,7 @@ Do not keep a separate diagram index or lifecycle status here. `devspec/architec
 | Resume notes | |
 | Updated | |
 
-## Work-Item Diagrams
+## Diagram Content
 
 ### DIA-001 - <subject>
 

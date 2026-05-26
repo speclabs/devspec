@@ -1,5 +1,7 @@
 # Project Context
 
+Use this artifact for durable product facts that should shape future work items. Keep it concise and developer-facing. Omit optional rows or sections with no project content.
+
 ## Product Overview
 
 | Field | Description | Source | Confidence |

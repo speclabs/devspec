@@ -1,6 +1,6 @@
-# Implement
+# Implementation Record
 
-Use this artifact for recovery, audit, and handoff during implementation. Keep lifecycle recovery in `Resume State`, per-task progress in `Task Ledger`, changed files and validation evidence in `Implementation Evidence`, and attempt history in `Execution Log`. Omit optional evidence rows with no entries.
+Use this artifact for recovery, audit, and handoff during implementation. Keep lifecycle recovery in `Resume State`, per-task progress in `Implementation Task Ledger`, changed files and validation evidence in `Implementation Evidence`, and attempt history in `Implementation Execution Log`. Omit optional evidence rows with no entries.
 
 ## Resume State
 
@@ -19,7 +19,7 @@ Use this artifact for recovery, audit, and handoff during implementation. Keep l
 | Resume notes | |
 | Updated | |
 
-## Task Ledger
+## Implementation Task Ledger
 
 Use this as the single recovery view for implementation progress, current task, last safe checkpoint, and next handoff. Keep one row per task from `tasks.md`.
 
@@ -36,17 +36,17 @@ Use this as the single recovery view for implementation progress, current task, 
 | Roll-forward notes | |
 | Completion note | |
 
-| Task | Target repo | Target area | Depends on | Status | Attempt count | Last checkpoint | Validation last run | Next action |
+| Task | Target repository | Target area | Depends on | Status | Attempt count | Last checkpoint | Validation last run | Next action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | T-001 |  |  |  | pending | 0 |  |  | |
 
 ## Implementation Evidence
 
-Record only evidence that exists. Use this section for repo access checks, changed files, validation results, type-specific handling, residual risks, follow-ups, and review/audit snippets. Repo path and access requirement source is `devspec/foundation/codebase-structure.md`; type-specific rule source is `devspec/foundation/rules.md`.
+Record only evidence that exists. Use this section for repository access checks, changed files, validation results, type-specific handling, residual risks, follow-ups, and review/audit snippets. Repository path and access requirement source is `devspec/foundation/codebase-structure.md`; type-specific rule source is `devspec/foundation/rules.md`.
 
 | Type | Applies to | Item | Evidence or notes | Status |
 | --- | --- | --- | --- | --- |
-| Repo access | <repo-name> | <access-requirement-and-status> | <confirmation-or-blocker-notes> | confirmed, missing, blocked |
+| Repository access | <repository-name> | <access-requirement-and-status> | <confirmation-or-blocker-notes> | confirmed, missing, blocked |
 | Changed file | <task-id> | <path> | <change-summary-and-validation> | modified |
 | Validation | <task-id-or-scope> | <command-or-method> | <result-or-expected-signal> | pending, passed, failed, skipped |
 | Type-specific handling | <bug-security-or-rule> | <handling-note> | <rule-source-or-audit-note> | pending, complete |
@@ -54,7 +54,7 @@ Record only evidence that exists. Use this section for repo access checks, chang
 | Review snippet | <task-id-or-file> | <before-after-or-audit-summary> | <why-useful-for-review> | recorded |
 | Token telemetry | <run-or-task> | before, after, unavailable | <usage-summary-or-unavailable-reason> | recorded |
 
-## Execution Log
+## Implementation Execution Log
 
 Record one row per task attempt, validation run, blocker, retry escalation, pause, skip, completion, or handoff. Failed methods, retry conditions, and next safer methods belong here.
 

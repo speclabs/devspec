@@ -1,4 +1,4 @@
-# Tech Stack
+# Technology Stack
 
 Use this artifact for technology, version, support, hosting, and delivery facts that affect implementation or validation decisions.
 
@@ -8,7 +8,7 @@ Use this artifact for technology, version, support, hosting, and delivery facts 
 | --- | --- |
 | Evidence sources | Use manifests, lockfiles, framework config, CI config, infrastructure config, and docs as version evidence. |
 | Discovery boundary | Do not inspect dependency folders, generated output, or excluded paths listed in `devspec/foundation/discovery-exclusions.md`. |
-| Inventory scope | Use one stack inventory table per repo, deployable unit, or named project component. |
+| Inventory scope | Use one stack inventory table per repository, deployable unit, or named project component. |
 | Categories | Use clear categories such as `Language`, `Runtime`, `Framework`, `Library`, `Database`, `Service`, `Tooling`, `Hosting`, or `Delivery Constraint`. |
 | Support status | Record support status from official release, lifecycle, or support pages when practical. |
 | Unknown support | Use `no LTS channel`, `managed service`, or `unknown - needs lookup` instead of defaulting to `n/a`. |

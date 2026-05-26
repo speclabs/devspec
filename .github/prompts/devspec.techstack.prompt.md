@@ -1,6 +1,6 @@
 ---
 name: "devspec.techstack"
-description: "Create or update structured devspec foundation tech stack inventory."
+description: "Create or update the structured devspec foundation technology stack inventory."
 argument-hint: "Describe languages, frameworks, services, tooling, hosting, and delivery constraints"
 agent: "devspec.techstack"
 ---

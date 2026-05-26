@@ -99,13 +99,13 @@ Use for generated or queued devspec artifacts, including architecture diagram qu
 
 ### Access Requirement Values
 
-Use for repo access requirements in `devspec/foundation/codebase-structure.md` and task rows. Access values describe the allowed interaction with a repo; they are permissions for repo use, not task or run statuses. When a task needs more access than the repo value allows, stop and ask before changing scope.
+Use for repository access requirements in `devspec/foundation/codebase-structure.md` and task rows. Access values describe the allowed interaction with a repository; they are permissions for repository use, not task or run statuses. When a task needs more access than the repository value allows, stop and ask before changing scope.
 
 | Value | Meaning |
 | --- | --- |
-| `reference-only` | Read or search the repo for context only; do not edit files, run validation, or treat the repo as a delivery target. |
-| `edit` | File changes are allowed in this repo, but validation is not confirmed here; record any needed validation as a separate task, handoff, or blocker. |
-| `edit-and-test` | File changes and validation commands are allowed in this repo; use for normal implementation targets where the agent may both modify and verify. |
+| `reference-only` | Read or search the repository for context only; do not edit files, run validation, or treat the repository as a delivery target. |
+| `edit` | File changes are allowed in this repository, but validation is not confirmed here; record any needed validation as a separate task, handoff, or blocker. |
+| `edit-and-test` | File changes and validation commands are allowed in this repository; use for normal implementation targets where the agent may both modify and verify. |
 | `validation-only` | Validation commands or manual checks are allowed, but file changes are not; use for smoke tests, compatibility checks, or downstream verification repos. |
-| `release-coordination` | Track release, deployment, advisory, backport, or dependency coordination for this repo; do not edit or validate it without separate confirmation. |
-| `unavailable` | The repo is required but cannot currently be accessed or used; record the impact as a blocker and do not rely on this repo until access is restored. |
+| `release-coordination` | Track release, deployment, advisory, backport, or dependency coordination for this repository; do not edit or validate it without separate confirmation. |
+| `unavailable` | The repository is required but cannot currently be accessed or used; record the impact as a blocker and do not rely on this repository until access is restored. |

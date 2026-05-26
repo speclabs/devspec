@@ -1,6 +1,6 @@
-# Meta
+# Work-Item Metadata
 
-Use this artifact as the work-item control record. Keep only the stable work-item record, routing index, and current workflow state. Put detailed story content in `story.md`, work-item decisions in `decisions.md`, implementation readiness in `finalize.md`, and execution state in `tasks.md` or `implement.md`.
+Use this artifact as the work-item control record. Keep only the stable work-item record, routing index, and current workflow state. Put detailed intake content in `story.md`, work-item decisions in `decisions.md`, implementation readiness in `finalize.md`, and execution state in `tasks.md` or `implement.md`.
 
 ## Work-Item Record
 
@@ -39,7 +39,7 @@ Use this section for routing and lookup only. Keep narrative impact, acceptance 
 | Affected scope | |
 | Affected versions | |
 | Multi-repo dependency | yes, no |
-| Related repos | repo names only |
+| Related repositories | repository names only |
 | Detail source | `story.md` |
 
 ## Workflow State

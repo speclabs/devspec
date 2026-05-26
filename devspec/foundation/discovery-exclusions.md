@@ -21,7 +21,7 @@ Use these categories for every repository, regardless of ecosystem. Ecosystem ru
 
 ## Ecosystem Discovery Rules
 
-Use this table after detecting the ecosystem. Exclusions listed here are ecosystem-specific additions to `Baseline Exclusions`. Prefer evidence sources are safe discovery targets unless a project override says otherwise.
+Use this table after detecting the ecosystem. Exclusions listed here are ecosystem-specific additions to `Baseline Exclusions`. Preferred evidence sources are safe discovery targets unless a project override says otherwise.
 
 | Ecosystem or framework | Detect from | Additional exclusions | Prefer as evidence |
 | --- | --- | --- | --- |
@@ -49,4 +49,4 @@ Use this table only when a project intentionally owns a normally excluded path o
 
 | Scope | Pattern | Action | Purpose | Confirmed by |
 | --- | --- | --- | --- | --- |
-| <repo-or-area> | <path-or-glob> | include, exclude, include-for-purpose | <why-this-exception-exists> | <user-source-or-date> |
+| <repository-or-area> | <path-or-glob> | include, exclude, include-for-purpose | <why-this-exception-exists> | <user-source-or-date> |

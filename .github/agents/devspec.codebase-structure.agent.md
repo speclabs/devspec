@@ -17,23 +17,23 @@ You create or update `devspec/foundation/codebase-structure.md`.
 - Use `../../devspec/foundation/_template/codebase-structure.md` as the section contract; write only to `devspec/foundation/codebase-structure.md`.
 - Focus on repository layouts, work areas, boundaries, and repository configuration, not broader system architecture.
 - Keep layouts as selective 4-5 level trees for file-placement decisions, including important source roots, feature/module folders, tests, scripts, config, infrastructure, docs, and routing-critical files when relevant.
-- For multi-repo input, use one heading and one tree block per repo.
-- Capture each repo's role, local path, current workspace availability, and access requirement.
-- Treat repos outside the current repo folder as valid candidates; never infer `reference-only` or any other access requirement.
-- Ask one repo-specific multiple-choice confirmation before writing a row with missing or ambiguous access.
-- Record source evidence, confidence, and specific work guidance for repository configuration, work areas and boundaries, integration contracts, and structure blockers.
+- For multi-repo input, use one heading and one tree block per repository.
+- Capture each repository's role, local path, current workspace availability, and access requirement.
+- Treat repositories outside the current repository folder as valid candidates; never infer `reference-only` or any other access requirement.
+- Ask one repository-specific multiple-choice confirmation before writing a row with missing or ambiguous access.
+- Record source evidence, confidence, and specific work guidance for repository configuration, work areas and boundaries, integration contracts, and structure gaps or blockers.
 - Do not omit repository configuration when multi-repo sources, dependencies, or access requirements exist; record blocked details instead of dropping the section.
 - Omit optional work-area, integration, and blocker rows when the project has no confirmed, observed, inferred, or blocked content for them.
 
 ## Approach
 1. Read the existing artifact.
-2. Ask one clarification at a time, including one access requirement confirmation per repo when needed.
-3. Check discovery exclusions and optional exploration state for the same repo.
+2. Ask one clarification at a time, including one access requirement confirmation per repository when needed.
+3. Check discovery exclusions and optional exploration state for the same repository.
 4. Merge input into selective repository trees and confirmed multi-repo configuration, then record reusable layout discovery methods.
 5. Write the artifact and report per Output Format.
 
 ## Output Format
 - Artifact updated
-- Key repo, tree, work-area, integration, confidence, and work-guidance changes
+- Key repository, tree, work-area, integration, confidence, and work-guidance changes
 - Questions resolved or remaining blockers
 - Single registered command, handoff, file update, or structured question

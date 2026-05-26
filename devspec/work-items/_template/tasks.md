@@ -1,4 +1,4 @@
-# Tasks
+# Implementation Task Plan
 
 Use this artifact as the executable implementation plan. Keep lifecycle recovery in `Resume State`, source references in `Planning Basis`, and all executable task details in `Implementation Tasks`. Each task should include target, dependency, impacted area, validation, and done condition.
 
@@ -25,7 +25,7 @@ Use this artifact as the executable implementation plan. Keep lifecycle recovery
 | --- | --- |
 | Implementation brief source | `finalize.md#implementation-brief` |
 | Validation source | `finalize.md#validation-plan` |
-| Readiness source | `finalize.md#readiness` |
+| Readiness source | `finalize.md#readiness-assessment` |
 | Access requirement source | `devspec/foundation/codebase-structure.md` |
 | Type-specific rule source | `devspec/foundation/rules.md` |
 
@@ -33,6 +33,6 @@ Use this artifact as the executable implementation plan. Keep lifecycle recovery
 
 Use one row per executable checkpoint. Put likely files or areas, validation steps, and done criteria on the task that owns them. Keep validation commands or methods specific enough for `implement.md` to execute or record.
 
-| ID | Task | Target repo | Target area or files | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
+| ID | Task | Target repository | Target area or files | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T-001 | <developer-action> | <repo-name> | <path-module-or-area> | See `devspec/glossary.md#access-requirement-values` | <task-id-or-none> | <command-method-or-review-signal-and-expected-result> | <observable-completion-condition-and-evidence> | pending | 0 | |
+| T-001 | <developer-action> | <repository-name> | <path-module-or-area> | See `devspec/glossary.md#access-requirement-values` | <task-id-or-none> | <command-method-or-review-signal-and-expected-result> | <observable-completion-condition-and-evidence> | pending | 0 | |

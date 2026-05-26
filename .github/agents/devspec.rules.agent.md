@@ -24,7 +24,7 @@ You create or update `devspec/foundation/rules.md`.
 ## Approach
 1. Read the existing artifact.
 2. Ask one clarification at a time if required input is incomplete or ambiguous.
-3. Check discovery exclusions and optional exploration state for the same repo or policy area.
+3. Check discovery exclusions and optional exploration state for the same repository or policy area.
 4. Merge input into a stable rules document and record reusable discovery methods.
 5. Write the artifact and report per Output Format.
 

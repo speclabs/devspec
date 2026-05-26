@@ -5,7 +5,7 @@ argument-hint: "Optional: add implementation, validation, task-order, or skip gu
 agent: "devspec.implement-task"
 ---
 
-Implement the current work item and update `devspec/work-items/<work-item-folder>/implement.md` with task ledger state, implementation evidence, execution history, blockers, and handoff notes.
+Implement the current work item and update `devspec/work-items/<work-item-folder>/implement.md` with implementation task ledger state, implementation evidence, execution history, blockers, and handoff notes.
 
 Optional user input:
 ${input:implementInput:Optional: add implementation, validation, task-order, or skip guidance}

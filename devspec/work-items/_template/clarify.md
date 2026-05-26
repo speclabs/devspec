@@ -1,6 +1,6 @@
-# Clarify
+# Clarification Record
 
-Use this artifact only for blocking ambiguity resolution. Keep resumability, handoff, and next action in `Resume State`. Keep active and resolved blockers in `Clarifications`. Do not duplicate story or finalize details; reference the impacted artifact and section instead.
+Use this artifact only for blocking ambiguity resolution. Keep resumability, handoff, and next action in `Resume State`. Keep active and resolved blockers in `Clarification Log`. Do not duplicate intake or finalization details; reference the impacted artifact and section instead.
 
 ## Resume State
 
@@ -19,7 +19,7 @@ Use this artifact only for blocking ambiguity resolution. Keep resumability, han
 | Resume notes | |
 | Updated | |
 
-## Clarifications
+## Clarification Log
 
 Use one row per blocker. Keep at most one row with `open` status; resolved, superseded, and withdrawn rows are the history. When no blocker is active, set `Pending user question` in `Resume State` to `none` and use `Next required action` for the handoff target.
 

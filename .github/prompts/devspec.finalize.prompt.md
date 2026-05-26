@@ -1,6 +1,6 @@
 ---
 name: "devspec.finalize"
-description: "Create or update the structured implementation-ready brief for the current devspec work item."
+description: "Create or update the structured implementation readiness brief for the current devspec work item."
 argument-hint: "Optional: add reviewer notes, constraints, or finalization guidance"
 agent: "devspec.finalize"
 ---

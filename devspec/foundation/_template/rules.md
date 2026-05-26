@@ -1,4 +1,4 @@
-# Rules
+# Operational Rules
 
 Use this artifact for project-operational rules that affect planning, implementation, review, or release. Keep enduring principles in `devspec/constitution.md`; keep product goals and scope boundaries in `project-context.md`.
 

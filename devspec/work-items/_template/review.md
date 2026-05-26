@@ -1,6 +1,6 @@
-# Review
+# Review Record
 
-Use this artifact for review outcome, actionable findings, and handoff. Keep lifecycle recovery in `Resume State`, overall review judgment and non-actionable notes in `Review Outcome`, and required changes or tracked gaps in `Findings`.
+Use this artifact for review outcome, actionable findings, and handoff. Keep lifecycle recovery in `Resume State`, overall review judgment and non-actionable notes in `Review Outcome`, and required changes or tracked gaps in `Review Findings`.
 
 ## Resume State
 
@@ -32,7 +32,7 @@ Use this artifact for review outcome, actionable findings, and handoff. Keep lif
 | Type-specific review notes | bug/security/rule notes or n/a |
 | Follow-up summary | |
 
-## Findings
+## Review Findings
 
 Record required changes, validation gaps, missing tests, scope drift, security risks, regressions, and follow-ups here. Use `Status` values such as `open`, `fixed`, `accepted-risk`, or `follow-up`.
 

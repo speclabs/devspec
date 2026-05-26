@@ -1,4 +1,4 @@
-# Story
+# Work-Item Intake
 
 Use this artifact for detailed work-item intake. Keep identity, classification, source provenance, and routing summaries in `meta.md`; keep work-item decisions in `decisions.md`; keep implementation-ready scope in `finalize.md`.
 
@@ -19,7 +19,7 @@ Use this artifact for detailed work-item intake. Keep identity, classification, 
 | Resume notes | |
 | Updated | |
 
-## Intake Source
+## Intake Source Record
 
 | Field | Value |
 | --- | --- |
@@ -31,9 +31,9 @@ Use this artifact for detailed work-item intake. Keep identity, classification, 
 | Manual description | |
 | Manual acceptance criteria | |
 
-## Story Brief
+## Work-Item Brief
 
-Use this section for the durable story narrative. Keep it concise but specific enough for clarification and finalization.
+Use this section for the durable work-item narrative. Keep it concise but specific enough for clarification and finalization.
 
 | Field | Value |
 | --- | --- |
@@ -43,17 +43,17 @@ Use this section for the durable story narrative. Keep it concise but specific e
 | Affected components | |
 | Affected versions | |
 
-## Story Details
+## Work-Item Details
 
-Use this table for facts that affect clarification, readiness, task planning, or validation. Keep repo paths and access requirements in `devspec/foundation/codebase-structure.md`; keep rule definitions in `devspec/foundation/rules.md`.
+Use this table for facts that affect clarification, readiness, task planning, or validation. Keep repository paths and access requirements in `devspec/foundation/codebase-structure.md`; keep rule definitions in `devspec/foundation/rules.md`.
 
 | Type | ID | Item | Source | Status |
 | --- | --- | --- | --- | --- |
 | Acceptance criterion | AC-001 |  | confirmed, provider, manual, user | pending |
 | Assumption | ASM-001 |  | confirmed, inferred, user | open |
-| Constraint | CON-001 |  | foundation, story, user | open |
-| Dependency | DEP-001 | <dependency-or-none> | story, user, discovery | open |
-| Multi-repo dependency | DEP-REPO-001 | yes, no; related repos: <repo-names-only> | confirmed, user | open |
-| Type-specific note | TS-001 | <bug-or-security-note>; rule source: `devspec/foundation/rules.md` | story, user, rule | open |
-| Risk | RISK-001 |  | story, user, discovery | open |
-| Blocker | BLK-001 |  | story, user, discovery | open |
+| Constraint | CON-001 |  | foundation, intake, user | open |
+| Dependency | DEP-001 | <dependency-or-none> | intake, user, discovery | open |
+| Multi-repo dependency | DEP-REPO-001 | yes, no; related repositories: <repository-names-only> | confirmed, user | open |
+| Type-specific note | TS-001 | <bug-or-security-note>; rule source: `devspec/foundation/rules.md` | intake, user, rule | open |
+| Risk | RISK-001 |  | intake, user, discovery | open |
+| Blocker | BLK-001 |  | intake, user, discovery | open |
