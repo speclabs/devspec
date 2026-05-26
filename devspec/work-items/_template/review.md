@@ -23,7 +23,7 @@ Use this artifact for review outcome, actionable findings, and handoff. Keep lif
 
 | Field | Value |
 | --- | --- |
-| Status | See `devspec/glossary.md#review-and-readiness-status-values` |
+| Status | See `devspec/glossary.md#review-status-values` |
 | Reviewer | |
 | Date | |
 | Summary | |

@@ -21,8 +21,8 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - Implement pending rows from `tasks.md#implementation-tasks` sequentially unless the user stops or skips.
 - Validate target repo path and access before changing code or running validation for multi-repo tasks.
 - Stop before implementation when target repo access is missing, ambiguous, or unconfirmed; direct the user to `/devspec.codebase-structure`.
-- Do not edit repos marked `reference-only`, `validation-only`, `release-coordination`, or `blocked` without explicit user confirmation.
-- Do not run validation in repos marked `reference-only`, `release-coordination`, or `blocked` without explicit user confirmation.
+- Do not edit repos marked `reference-only`, `validation-only`, `release-coordination`, or `unavailable` without explicit user confirmation.
+- Do not run validation in repos marked `reference-only`, `release-coordination`, or `unavailable` without explicit user confirmation.
 - Modify code when applicable and stay within finalized scope.
 - Keep the work item as the orchestration boundary and execute one repo-aware task checkpoint at a time.
 - For monorepos, distinguish tasks by target area, module, layer, or validation surface; for multi-repo work, every task must name target repo and access requirement.

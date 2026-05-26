@@ -85,7 +85,7 @@ Offer only these confirmation actions:
 
 | Topic | Requirement |
 | --- | --- |
-| Source resolution status | Record `resolved`, `manual`, or `blocked` in `meta.md`. |
+| Source resolution status | Record a value from `devspec/glossary.md#source-resolution-status-values` in `meta.md`. |
 | Lookup attempt | Record provider and resolution notes. |
 | Manual status | Use only when the user explicitly chooses to continue without external resolution. |
 | Manual intake | Require external reference, manual description, and manual acceptance criteria. |

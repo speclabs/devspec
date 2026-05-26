@@ -47,8 +47,8 @@ Use this section for routing and lookup only. Keep narrative impact, acceptance 
 | Field | Value |
 | --- | --- |
 | Work item status | See `devspec/glossary.md#work-item-status-values` |
-| Readiness status | See `devspec/glossary.md#review-and-readiness-status-values` |
-| Review status | See `devspec/glossary.md#review-and-readiness-status-values` |
+| Readiness status | See `devspec/glossary.md#readiness-status-values` |
+| Review status | See `devspec/glossary.md#review-status-values` |
 | Current stage | |
 | Current command | |
 | Current agent | |

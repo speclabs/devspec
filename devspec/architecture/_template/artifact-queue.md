@@ -40,12 +40,6 @@ Add rows only when extraction or `/devspec.diagram` identifies real diagram cand
 | `high-confidence` | Inferred from multiple local evidence points. |
 | `low-confidence` | Useful but incomplete evidence; record assumptions before generation. |
 
-## Artifact Status Values
+## Status Values
 
-| Status | Meaning |
-| --- | --- |
-| `proposed` | Candidate identified from evidence. |
-| `confirmed` | User approved generation, not yet generated. |
-| `generated` | Artifact was added to the target path. |
-| `skipped` | User declined generation. |
-| `blocked` | Evidence or context is insufficient. |
+Use `devspec/glossary.md#artifact-status-values` for queue status values.

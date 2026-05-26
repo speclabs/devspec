@@ -26,7 +26,7 @@ Use this artifact as the implementation-ready brief. Keep only details that affe
 | Type | feature, bug, security-vulnerability |
 | Severity | bugs and security vulnerabilities only |
 | Priority | features should record priority |
-| Status | ready, not ready |
+| Status | See `devspec/glossary.md#readiness-status-values`; use only `ready` or `not ready` for the overall decision |
 | Blocking gates | gate IDs or none |
 | Next action | `/devspec.tasks` when ready; `/devspec.clarify` or required foundation update when not ready |
 | Decision note | |
@@ -36,11 +36,11 @@ Use readiness gates only for checks that decide whether task planning may procee
 
 | ID | Check | Evidence source | Ready condition | Status | Blocking action |
 | --- | --- | --- | --- | --- | --- |
-| RG-001 | Scope boundary | Implementation Brief | In-scope and out-of-scope boundaries are explicit and do not expand the story. | ready, not ready, not applicable | |
-| RG-002 | Acceptance criteria | Implementation Brief | Criteria are observable or testable enough for task planning and validation. | ready, not ready, not applicable | |
-| RG-003 | Dependencies and repo readiness | Implementation Brief; `devspec/foundation/codebase-structure.md` | Dependencies are captured and required repo configuration or access is confirmed or not applicable. | ready, not ready, not applicable | |
-| RG-004 | Type-specific facts | Implementation Brief; `devspec/foundation/rules.md` | Feature priority, bug facts, or security-vulnerability facts required by project rules are captured or explicitly blocked. | ready, not ready, not applicable | |
-| RG-005 | Validation and delivery risk | Implementation Brief; Validation Plan | Validation expectations and material delivery risks are known enough to plan tasks, or marked not applicable. | ready, not ready, not applicable | |
+| RG-001 | Scope boundary | Implementation Brief | In-scope and out-of-scope boundaries are explicit and do not expand the story. | See `devspec/glossary.md#readiness-status-values` | |
+| RG-002 | Acceptance criteria | Implementation Brief | Criteria are observable or testable enough for task planning and validation. | See `devspec/glossary.md#readiness-status-values` | |
+| RG-003 | Dependencies and repo readiness | Implementation Brief; `devspec/foundation/codebase-structure.md` | Dependencies are captured and required repo configuration or access is confirmed or not applicable. | See `devspec/glossary.md#readiness-status-values` | |
+| RG-004 | Type-specific facts | Implementation Brief; `devspec/foundation/rules.md` | Feature priority, bug facts, or security-vulnerability facts required by project rules are captured or explicitly blocked. | See `devspec/glossary.md#readiness-status-values` | |
+| RG-005 | Validation and delivery risk | Implementation Brief; Validation Plan | Validation expectations and material delivery risks are known enough to plan tasks, or marked not applicable. | See `devspec/glossary.md#readiness-status-values` | |
 
 ## Implementation Brief
 

@@ -224,16 +224,7 @@ Recommended enterprise model:
 
 This works for both monoliths and multi-repo systems. In a monolith, tasks usually share the same target repo and differ by module, layer, or validation surface. In multi-repo work, each executable task must name its target repo and required access, while the work item still owns the end-to-end business intent.
 
-Run statuses:
-
-| Status | Meaning | Resume behavior |
-| --- | --- | --- |
-| `active` | Work is in progress. | Continue from the current item. |
-| `waiting-for-user` | A question or confirmation is pending. | Ask or preserve the recorded question. |
-| `paused` | User intends to continue from the same point. | Resume directly when prerequisites still hold. |
-| `stopped` | User intentionally ended the run. | Ask one `Continue`, `Pause`, `Skip`, or `Custom Answer` question before changing code. |
-| `blocked` | Required evidence, access, or prerequisites are missing. | Continue only after the recorded blocker condition is resolved. |
-| `complete` | The stage is done. | Hand off to the next registered command or agent. |
+Run status values are defined in `devspec/glossary.md#run-status-values`. Resume behavior is recorded in the artifact's `Resume State`: continue `active` or `paused` runs from the current item when prerequisites still hold, preserve the pending question for `waiting-for-user`, require the recorded blocker condition to clear for `blocked`, ask one continuation question before resuming `stopped`, and hand off when `complete`.
 
 Retry handling is intentionally bounded. If an implementation or repair task exceeds three attempts, the agent records the failed method, failure reason, retry condition, and next safer method, then asks one structured continuation question instead of looping.
 
@@ -404,7 +395,7 @@ Use it for:
 - integration boundaries
 - cross-cutting placement rules that tell developers where related code belongs
 
-For multi-repo projects, use this stage to capture each repo's role, local path, whether it is already open in the current VS Code workspace, and its access requirement such as `reference-only`, `edit`, `edit-and-test`, `validation-only`, `release-coordination`, or `blocked`.
+For multi-repo projects, use this stage to capture each repo's role, local path, whether it is already open in the current VS Code workspace, and its access requirement from `devspec/glossary.md#access-requirement-values`.
 
 Agents must not assume `reference-only` or any other access requirement. When a repo access requirement is missing or ambiguous, the agent should ask one multiple-choice confirmation for that repo before writing or relying on the repo configuration.
 
@@ -596,7 +587,7 @@ What it writes:
 
 Important behavior:
 
-- marks the item `ready` or `not ready`
+- marks the item with a readiness status from `devspec/glossary.md#readiness-status-values`
 - does not invent missing requirements
 - records readiness, implementation brief, and validation plan without duplicating section intent
 - for multi-repo work, summarizes readiness while `devspec/foundation/codebase-structure.md` remains the source of truth for required repo configuration and user-confirmed access requirements
@@ -672,7 +663,7 @@ Important behavior:
 
 - checks scope drift, bugs, regressions, security risks, missing validation, and missing tests
 - keeps status and summary in `Review Outcome`, and required changes or tracked gaps in `Findings`
-- returns `approved`, `approved-with-follow-ups`, or `changes-requested`
+- returns a review status from `devspec/glossary.md#review-status-values`
 
 Example:
 
@@ -688,7 +679,7 @@ What it writes:
 
 - `devspec/architecture/diagrams/<subject-slug>.md` by default for durable architecture, module, feature workflow, user journey, sequence, state, or class/domain diagrams
 - `devspec/architecture/overview.md` only for high-level system diagrams or links to detailed diagram files
-- `devspec/architecture/artifact-queue.md` for resumable proposed, confirmed, generated, skipped, or blocked diagram work with evidence and confidence
+- `devspec/architecture/artifact-queue.md` for resumable diagram work with evidence, confidence, and artifact status from `devspec/glossary.md#artifact-status-values`
 - `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary generated work-item diagram content, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment
 
 Important behavior:
@@ -700,7 +691,7 @@ Important behavior:
 - supports `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, and `classDiagram`
 - checks for an equivalent existing diagram before creating another one
 - separates evidence-backed facts from assumptions
-- keeps work-item `diagrams.md` focused on generated temporary diagram content; `architecture/artifact-queue.md` owns proposed, confirmed, generated, skipped, or blocked diagram status
+- keeps work-item `diagrams.md` focused on generated temporary diagram content; `architecture/artifact-queue.md` owns diagram artifact status
 - uses confidence values consistently: `observed`, `high-confidence`, or `low-confidence`
 - keeps feature and module workflow diagrams out of `overview.md` unless they are truly high-level system views
 - defaults to `devspec/architecture/diagrams/` even when the request mentions a work item, unless the diagram is explicit or clearly temporary story-specific context
@@ -727,7 +718,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 | 5 | `/devspec.rules` | Operational hard constraints and delivery gates need to be recorded. | Compliance requirements, forbidden patterns, governance rules, and gates. | `foundation/rules.md` | `/devspec.story` |
 | 6 | `/devspec.story` | A feature, bug, or security vulnerability needs intake. | Work-item reference or manual intake details. | `work-items/<work-item-folder>/meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
 | 7 | `/devspec.clarify` | A blocking question must be resolved. | Existing `story.md`. | `work-items/<work-item-folder>/clarify.md` | Repeat until unblocked, then `/devspec.finalize` |
-| 8 | `/devspec.finalize` | The work item needs an implementation-ready brief. | Upstream work-item artifacts. | `work-items/<work-item-folder>/finalize.md` with `ready` or `not ready`. | `/devspec.tasks` when ready |
+| 8 | `/devspec.finalize` | The work item needs an implementation-ready brief. | Upstream work-item artifacts. | `work-items/<work-item-folder>/finalize.md` with readiness status. | `/devspec.tasks` when ready |
 | 9 | `/devspec.tasks` | A ready brief needs ordered implementation tasks. | `finalize.md` marked `ready`. | `work-items/<work-item-folder>/tasks.md` | `/devspec.implement` |
 | 10 | `/devspec.implement` | Pending tasks should be implemented. | `finalize.md` marked `ready` and `tasks.md`. | `work-items/<work-item-folder>/implement.md` and code changes when applicable. | `/devspec.review` |
 | 11 | `/devspec.review` | Implemented work needs review against the finalized brief. | `finalize.md` and `implement.md`. | `work-items/<work-item-folder>/review.md` | Return to implementation for changes, or close the work item |
@@ -838,7 +829,7 @@ Holds one folder per story, feature, bug, or security issue. Each work item carr
 
 Each work-item artifact can include `Resume State`, which lets a new Copilot or agent session recover the current stage, pending question, next safe action, and resume command from Git-tracked files. Implementation also records task-level checkpoints in `implement.md` so monolith and multi-repo work can continue by target repo, target area, and task status.
 
-Reusable feature workflows, user journeys, sequence diagrams, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Use work-item `diagrams.md` only for explicit or clearly temporary story-specific generated diagram content, such as a bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment. Keep proposed, confirmed, generated, skipped, or blocked diagram status in `devspec/architecture/artifact-queue.md`.
+Reusable feature workflows, user journeys, sequence diagrams, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Use work-item `diagrams.md` only for explicit or clearly temporary story-specific generated diagram content, such as a bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment. Keep diagram artifact status in `devspec/architecture/artifact-queue.md`.
 
 ## Advanced: extracting information from an existing project
 
