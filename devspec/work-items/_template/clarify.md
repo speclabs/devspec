@@ -1,6 +1,6 @@
 # Clarify
 
-Use this artifact only for blocking ambiguity resolution. Keep resumability in `Resume State`, the single unresolved question in `Active Blocker`, answered or superseded questions in `Resolution Log`, and the handoff result in `Clarification Outcome`. Do not duplicate story or finalize details; reference the impacted artifact and section instead.
+Use this artifact only for blocking ambiguity resolution. Keep resumability, handoff, and next action in `Resume State`. Keep active and resolved blockers in `Clarifications`. Do not duplicate story or finalize details; reference the impacted artifact and section instead.
 
 ## Resume State
 
@@ -14,40 +14,15 @@ Use this artifact only for blocking ambiguity resolution. Keep resumability in `
 | Last completed step | |
 | Next required action | |
 | Pending user question | active blocker ID or none |
-| Recommended option | see `Active Blocker` or none |
+| Recommended option | active blocker option or none |
 | Resume command | `/devspec.clarify` |
 | Resume notes | |
 | Updated | |
 
-## Active Blocker
+## Clarifications
 
-Use this section only for the one unresolved blocking question. Set `Status` to `none` when no blocker is active.
+Use one row per blocker. Keep at most one row with `open` status; resolved, superseded, and withdrawn rows are the history. When no blocker is active, set `Pending user question` in `Resume State` to `none` and use `Next required action` for the handoff target.
 
-| Field | Value |
-| --- | --- |
-| ID | |
-| Source artifact | `story.md`, `finalize.md`, user input, or other source |
-| Blocking gap | |
-| Question | |
-| Options | include `Custom Answer` |
-| Recommended option | |
-| Recommendation reason | |
-| Asked | |
-| Status | open, none |
-
-## Resolution Log
-
-Record only answered, superseded, or withdrawn blockers here. Keep the active open blocker in `Active Blocker` until it is resolved.
-
-| ID | Date | Source artifact | Question | User answer | Impacted artifacts | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-|  |  |  |  |  |  | resolved, superseded, withdrawn |
-
-## Clarification Outcome
-
-| Field | Value |
-| --- | --- |
-| Blocking status | blocked, unblocked |
-| Open blocker ID | |
-| Handoff target | `/devspec.clarify` while blocked; `/devspec.finalize` when unblocked |
-| Outcome notes | |
+| ID | Status | Source artifact | Blocking gap | Question | Options | Recommended option and reason | User answer | Impacted artifacts | Updated |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CLAR-001 | open, resolved, superseded, withdrawn | `story.md`, `finalize.md`, user input, or other source |  |  | include `Custom Answer` |  |  |  |  |

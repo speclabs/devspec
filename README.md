@@ -571,8 +571,8 @@ What it writes:
 Important behavior:
 
 - asks exactly one blocking question at a time
-- keeps the unresolved question in `Active Blocker`
-- moves answered, superseded, or withdrawn blockers to `Resolution Log`
+- keeps active and resolved blockers in one `Clarifications` table
+- keeps handoff and next-action state in `Resume State`
 - uses explicit clickable options for confirmations, selections, and workflow decisions
 - includes `Custom Answer`
 - includes one recommended option with a short justification

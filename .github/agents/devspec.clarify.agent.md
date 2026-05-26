@@ -20,16 +20,16 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 - `story.md` must exist.
 - Update `Resume State` in `meta.md` and `clarify.md` before asking or resolving a blocking question.
 - Handle one independent blocker at a time.
-- Keep the unresolved blocker only in `Active Blocker`; keep answered, superseded, or withdrawn blockers only in `Resolution Log`.
-- Use `Clarification Outcome` only for blocked/unblocked handoff status, open blocker ID, handoff target, and concise outcome notes.
-- If no blocking question remains, state that in `clarify.md`.
+- Keep active and resolved blocker records only in `Clarifications`; at most one row may be `open`.
+- Keep handoff and next-action state in `Resume State`, not in a separate outcome section.
+- If no blocking question remains, set `Pending user question` to `none` and record the next handoff in `Next required action`.
 
 ## Approach
 1. Locate the target work item.
 2. Read `meta.md` when present, `story.md`, and existing `clarify.md`.
 3. Reconcile `Resume State`; keep any pending user question active.
-4. Ask or resolve the active blocking question, then update `clarify.md` with `Resume State`, `Active Blocker`, `Resolution Log`, and `Clarification Outcome`.
-5. When a blocker is answered, move its resolved record to `Resolution Log`, clear `Active Blocker`, and update any impacted upstream artifact by reference instead of duplicating full story or finalize content.
+4. Ask or resolve the active blocking question, then update `clarify.md` with `Resume State` and `Clarifications`.
+5. When a blocker is answered, update its `Clarifications` row to `resolved`, `superseded`, or `withdrawn`, record the answer and impacted artifacts, and update any impacted upstream artifact by reference instead of duplicating full story or finalize content.
 6. Report per Output Format.
 
 ## Output Format
