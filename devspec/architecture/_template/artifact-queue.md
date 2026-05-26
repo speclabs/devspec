@@ -1,45 +1,26 @@
 # Architecture Artifact Queue
 
-Use this file as resumable state for proposed and generated architecture visuals.
+Use this file as resumable lifecycle state for proposed and generated architecture diagram artifacts. Keep generated diagram content in the target artifact; keep only queue metadata, evidence, confidence, status, and next-action notes here.
 
 Store high-level diagrams in `devspec/architecture/overview.md`, durable detailed diagrams in `devspec/architecture/diagrams/<subject-slug>.md`, and temporary work-item diagrams in `devspec/work-items/<work-item-folder>/diagrams.md`.
 
-## Queue
+## Diagram Artifact Queue
 
-| ID | Scope | Type | Subject | Target path | Evidence source | Confidence | Status | Output section | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+Add rows only when extraction or `/devspec.diagram` identifies real diagram candidates backed by evidence. Keep one row per diagram subject and update the existing row instead of creating duplicates.
 
-Add rows only when extraction or `/devspec.diagram` identifies real diagram candidates.
+| ID | Scope | Diagram type | Subject | Target location | Evidence | Confidence | Status | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
-## Scope Values
+## Queue Field Guidance
 
-| Scope | Meaning |
+| Field | Guidance |
 | --- | --- |
-| `architecture` | Stable system-level structure or cross-system flow. |
-| `module` | Durable module or bounded-context behavior. |
-| `feature` | Reusable feature-level behavior not tied to a single work item. |
-| `workflow` | Process flow across modules, services, or users. |
-| `user-journey` | User-facing path through product behavior. |
-| `work-item` | Explicit or temporary diagram specific to one story, bug, or security issue. |
-
-## Diagram Type Values
-
-| Type | Meaning |
-| --- | --- |
-| `flowchart` | Feature, module, or process workflow. |
-| `sequenceDiagram` | Service, actor, or system interaction over time. |
-| `journey` | User-facing experience flow. |
-| `stateDiagram` | Lifecycle, status, or transition behavior. |
-| `classDiagram` | Stable domain or structural relationships when useful. |
-
-## Confidence Values
-
-| Confidence | Meaning |
-| --- | --- |
-| `observed` | Directly supported by code, docs, config, or ADR evidence. |
-| `high-confidence` | Inferred from multiple local evidence points. |
-| `low-confidence` | Useful but incomplete evidence; record assumptions before generation. |
-
-## Status Values
-
-Use `devspec/glossary.md#artifact-status-values` for queue status values.
+| ID | Use stable IDs such as `DIA-001`, preserving existing IDs and assigning the next available number for new rows. |
+| Scope | Use `architecture`, `module`, `feature`, `workflow`, `user-journey`, or `work-item`. Prefer durable scopes over `work-item` unless the diagram is explicitly temporary or work-item-specific. |
+| Diagram type | Use Mermaid types: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, or `classDiagram`. |
+| Subject | Use a specific subject that can map to one diagram file or one overview section. |
+| Target location | Use `devspec/architecture/overview.md#diagram-index` for high-level overview diagrams, `devspec/architecture/diagrams/<subject-slug>.md` for durable detailed diagrams, or `devspec/work-items/<work-item-folder>/diagrams.md#work-item-diagrams` for temporary work-item diagrams. |
+| Evidence | Name the source paths, docs, ADRs, queue request, or user-confirmed basis supporting the candidate. |
+| Confidence | Use `observed` for direct evidence, `high-confidence` for inference from multiple local evidence points, or `low-confidence` when useful but incomplete evidence needs assumptions before generation. |
+| Status | Use `devspec/glossary.md#artifact-status-values`; queue status belongs here, not in diagram indexes or generated diagram content. |
+| Notes | Record duplicate-check result, assumptions, blocker details, skip reason, or the next action needed. |

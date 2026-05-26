@@ -95,7 +95,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 
 - Use this pattern when extraction proposes diagram candidates or `/devspec.diagram` generates or updates a diagram.
 - Queue only candidates backed by concrete repository evidence from owned routes, modules, workflows, state transitions, services, integrations, ADRs, docs, infrastructure, runtime config, or manifests.
-- Each queued candidate must include ID, scope, Mermaid type, subject, target path, evidence source, confidence, status, output section, notes, and the result of an equivalent-diagram check.
+- Each queued candidate must include ID, scope, diagram type, subject, target location, evidence, confidence, status, and notes. Record the equivalent-diagram check result in `Notes`.
 - Use stable IDs such as `DIA-001`, `DIA-002`, preserving existing IDs and assigning the next available number for new rows.
 - Keep subjects specific enough to become one diagram file. Use lowercase kebab-case for subject slugs, one subject per diagram file, and `devspec/architecture/diagrams/<subject-slug>.md` for durable diagrams.
 - Prefer reusable architecture, module, feature, workflow, sequence, state, or user-journey diagrams over temporary work-item diagrams. Use work-item `diagrams.md` only for explicit or clearly temporary generated diagram content; keep diagram lifecycle status in `devspec/architecture/artifact-queue.md`.
@@ -103,7 +103,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Use confidence values consistently: `observed` for directly supported code, docs, config, or ADR evidence; `high-confidence` for inference from multiple local evidence points; `low-confidence` only when useful but incomplete evidence must be recorded as an assumption.
 - Do not queue vague subjects, candidates without source evidence, duplicate or equivalent existing diagrams, or temporary work-item diagrams without an explicit request.
 - Use `blocked` when a diagram idea is useful but evidence is insufficient; use `skipped` only after the user declines generation.
-- Before queueing or writing, check `devspec/architecture/artifact-queue.md`, `devspec/architecture/overview.md`, `devspec/architecture/diagrams/*.md`, and relevant work-item `diagrams.md` files for equivalent subject, scope, type, or target path.
+- Before queueing or writing, check `devspec/architecture/artifact-queue.md`, `devspec/architecture/overview.md`, `devspec/architecture/diagrams/*.md`, and relevant work-item `diagrams.md` files for equivalent subject, scope, diagram type, or target location.
 - Avoid duplicate overview diagrams unless `devspec/architecture/overview.md` lacks a confirmed high-level system context or diagram index entry.
 - During `/devspec.extract`, seed candidates in `devspec/architecture/artifact-queue.md` and ask about only the next unresolved candidate after higher-priority confirmations. Generate diagrams later through `/devspec.diagram` unless the user explicitly continues through the confirmed queue.
 - During `/devspec.diagram`, reuse matching queue metadata instead of reclassifying the same subject from scratch, then generate exactly one evidence-backed Mermaid artifact per run.

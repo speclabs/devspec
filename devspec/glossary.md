@@ -91,7 +91,7 @@ Use for generated or queued devspec artifacts, including architecture diagram qu
 | --- | --- |
 | `proposed` | Candidate identified from evidence. |
 | `confirmed` | User approved generation, not yet generated. |
-| `generated` | Artifact was added to the target path. |
+| `generated` | Artifact was added to the target location. |
 | `skipped` | User declined generation. |
 | `blocked` | Evidence or context is insufficient. |
 

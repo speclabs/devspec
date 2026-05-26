@@ -20,10 +20,10 @@ You generate or update one diagram artifact for a requested architecture, module
 - Required user input is mandatory.
 - Apply Work-Item Target only when the request is explicitly work-item-specific or clearly temporary to one story, bug, or security issue.
 - Generate exactly one Mermaid diagram per run unless the user explicitly continues through the queue.
-- Treat a clear `/devspec.diagram` request as approval to generate one diagram; ask only when target, type, scope, evidence, overwrite behavior, or queue continuation is ambiguous.
+- Treat a clear `/devspec.diagram` request as approval to generate one diagram; ask only when target location, diagram type, scope, evidence, overwrite behavior, or queue continuation is ambiguous.
 - Do not invent architecture, user behavior, service interactions, states, or dependencies; separate observed facts from assumptions.
 - Prefer `flowchart` for feature or module workflows, `sequenceDiagram` for service interactions, `journey` for user-facing flows, `stateDiagram` for lifecycle or status behavior, and `classDiagram` for stable domain or structural relationships.
-- Reuse matching queue metadata for subject, scope, type, target path, evidence, and confidence instead of reclassifying from scratch unless the queued row is stale, contradicted, or incomplete.
+- Reuse matching queue metadata for subject, scope, diagram type, target location, evidence, and confidence instead of reclassifying from scratch unless the queued row is stale, contradicted, or incomplete.
 - Store stable system, module, feature workflow, user journey, sequence, state, class/domain, and cross-feature diagrams under `devspec/architecture/diagrams/<subject-slug>.md` by default.
 - Store work-item diagrams only for explicit requests or clearly temporary bug reproduction, migration path, security incident or threat flow, implementation-plan, or experiment flows that should not become durable architecture.
 - Keep `devspec/architecture/overview.md` limited to high-level system context, architecture decision links, and confirmed diagram links.
@@ -36,20 +36,20 @@ You generate or update one diagram artifact for a requested architecture, module
 - Prefer existing devspec artifacts, queue rows, manifests, and targeted reads before broad search or Explore runs.
 
 ## Approach
-1. Parse the requested subject, scope, audience, and Mermaid type.
+1. Parse the requested subject, scope, audience, and diagram type.
 2. Read relevant architecture, foundation, queue, and work-item artifacts only when referenced.
 3. Reconcile `Resume State`, existing queue rows, discovery exclusions, and optional exploration state.
-4. Match the request to an existing queue row when possible, then reuse its scope, type, subject, target path, evidence, and confidence.
+4. Match the request to an existing queue row when possible, then reuse its scope, diagram type, subject, target location, evidence, and confidence.
 5. Classify scope as `architecture`, `module`, `feature`, `workflow`, `user-journey`, or `work-item` only when no usable queue row exists.
-6. Select the Mermaid type, or ask one structured question when the type or target path is ambiguous.
+6. Select the diagram type, or ask one structured question when the diagram type or target location is ambiguous.
 7. Gather evidence with targeted reads, search, or Explore.
 8. Check for an equivalent existing diagram before adding a queue row or output.
-9. Add or update one queue row with scope, type, subject, target path, evidence, confidence, status, output section, notes, and duplicate-check result.
+9. Add or update one queue row with scope, diagram type, subject, target location, evidence, confidence, status, and notes that include the duplicate-check result.
 10. Ask one structured question for clarification, overwrite approval, or queue continuation when needed.
-11. Generate one concise Mermaid diagram with evidence notes and assumptions, write it to the target diagram section, add or update the `overview.md` `Diagram Index` row when the diagram is durable, mark the queue row `generated`, `skipped`, or `blocked`, and report per Output Format.
+11. Generate one concise Mermaid diagram with evidence notes and assumptions, write it to the target location, add or update the `overview.md` `Diagram Index` row when the diagram is durable, mark the queue row `generated`, `skipped`, or `blocked`, and report per Output Format.
 
 ## Output Format
-- Diagram target path
+- Diagram target location
 - Diagram scope and type
 - Confidence
 - Queue status

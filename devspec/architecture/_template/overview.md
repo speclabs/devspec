@@ -16,7 +16,7 @@ Use this section for confirmed architecture facts that affect system understandi
 
 Use this section for confirmed high-level diagrams in this file and links to durable detailed diagrams. Do not mirror lifecycle status here; track proposed, pending, generated, skipped, or blocked diagram work in `devspec/architecture/artifact-queue.md`.
 
-| ID | Scope | Type | Subject | Link or section | Notes |
+| ID | Scope | Diagram type | Subject | Link or section | Notes |
 | --- | --- | --- | --- | --- | --- |
 |  | architecture, module, feature, workflow, user-journey | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram |  | `devspec/architecture/diagrams/<subject-slug>.md` or section anchor |  |
 
