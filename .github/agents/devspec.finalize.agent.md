@@ -26,7 +26,7 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 - Do not invent missing requirements or silently change scope.
 - Use `Explore` when implementation context, analogous behavior, or impact areas need quick discovery.
 - Use session memory only for transient notes; `finalize.md` remains canonical.
-- Update `Resume State` in `meta.md` and `finalize.md` before marking `not ready`, asking for clarification, or handing off.
+- Update `Workflow State` in `meta.md` and `Resume State` in `finalize.md` before marking `not ready`, asking for clarification, or handing off.
 - Keep `finalize.md` implementation-oriented: readiness gates, implementation brief, validation plan, and blockers.
 - Evaluate readiness gates as specific checks for scope, acceptance criteria, dependencies or repo readiness, type-specific requirements, and validation or delivery risk. Record the blocker and next action in `Readiness` when any gate is not ready.
 - Use `Implementation Brief` as the single source for implementation scope, acceptance criteria, assumptions, constraints, dependencies, target-area facts, repo readiness summaries, type-specific requirements, delivery risks, and handoff follow-ups.

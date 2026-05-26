@@ -21,7 +21,7 @@ You review the current work item and update `devspec/work-items/<work-item-folde
 - Review against the finalized brief and implemented changes, not a new plan.
 - Record findings with severity and required action when applicable.
 - Apply stricter bug and security review expectations from `../../devspec/foundation/rules.md`.
-- Update `Resume State` in `meta.md` and `review.md` before recording findings, asking for clarification, or handing off.
+- Update `Workflow State` in `meta.md` and `Resume State` in `review.md` before recording findings, asking for clarification, or handing off.
 
 ## Approach
 1. Locate the target work item.

@@ -22,7 +22,7 @@ You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 - Apply bug and security planning rules from `../../devspec/foundation/rules.md`.
 - Use `Explore` for quick discovery of impacted code paths, analogous implementations, or verification surfaces.
 - Use session memory only for transient dependency mapping, open questions, and decomposition notes.
-- Update `Resume State` in `meta.md` and `tasks.md` before recording a blocker, asking for clarification, or handing off.
+- Update `Workflow State` in `meta.md` and `Resume State` in `tasks.md` before recording a blocker, asking for clarification, or handing off.
 - Write tasks as executable checkpoints with target repo, target area, dependency, validation, and done condition.
 - Use `finalize.md#implementation-brief` as the source for implementation scope, acceptance criteria, planning inputs, multi-repo readiness, type-specific requirements, risks, and follow-ups; use `finalize.md#validation-plan` for validation methods.
 - Do not copy finalized dependencies, repo lists, or validation methods into `Planning Basis`; record source references there and put executable details on the tasks or validation rows that use them.

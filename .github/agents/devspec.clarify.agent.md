@@ -18,7 +18,7 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - `story.md` must exist.
-- Update `Resume State` in `meta.md` and `clarify.md` before asking or resolving a blocking question.
+- Update `Workflow State` in `meta.md` and `Resume State` in `clarify.md` before asking or resolving a blocking question.
 - Handle one independent blocker at a time.
 - Keep active and resolved blocker records only in `Clarifications`; at most one row may be `open`.
 - Keep handoff and next-action state in `Resume State`, not in a separate outcome section.
