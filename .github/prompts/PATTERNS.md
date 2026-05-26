@@ -52,7 +52,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Use `blocked` only when evidence, access, or prerequisites are insufficient; record the blocker and continuation condition.
 - Before any blocking question, handoff, retry-loop stop, or run end, update `Resume State` with stage, item, last completed step, pending question, recommended option, resume command, and next required action.
 - On rerun, resume a `paused` item directly when prerequisites still hold; for `stopped` or ambiguous state, ask one structured continuation question first.
-- Retry only when the recorded retry condition is met, the user gives custom direction, or the method materially changed. Do not replay known failed methods just because the session changed.
+- Retry only when the recorded retry condition is met, the user gives custom direction, or the method materially changed. Do not replay recorded failed methods just because the session changed.
 - When stage tasks or queue items are complete, mark the stage `complete` and hand off to the next registered command or configured agent.
 
 ## Output Closure Pattern
@@ -111,12 +111,12 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 ## Exploration Recovery Pattern
 
 - When `.github/skills/exploration-recovery/SKILL.md` is available, use it as the operational procedure.
-- Before broad search, generated scripts, helper commands, provider lookup, or repeated discovery, follow the [Discovery Exclusion Pattern](#discovery-exclusion-pattern), then check `devspec/foundation/exploration-state.md` and session memory for known working and failed methods in the same scope.
-- Use known working methods first when scope and goal match.
-- Skip known failed methods unless input, environment, credentials, dependencies, access, path, or command changed.
+- Before broad search, generated scripts, helper commands, provider lookup, or repeated discovery, follow the [Discovery Exclusion Pattern](#discovery-exclusion-pattern), then check `devspec/foundation/exploration-state.md#method-ledger` when present and session memory for reusable methods in the same scope.
+- Use `working` methods first when scope and goal match.
+- Skip `failed` methods unless input, environment, credentials, dependencies, access, path, or command changed.
 - Prefer built-in repository search, targeted reads, manifest inspection, and configured provider tools before generating broad helper scripts.
 - Limit probing to one new generated script, helper command, provider lookup path, or expensive search strategy per source or goal before falling back to direct search/read evidence gathering.
-- When a fallback succeeds after a failed method, record scope, goal, failed method, reason, working method, and retry condition in `devspec/foundation/exploration-state.md`; optionally mirror a concise transient summary in `/memories/session/<stage>.md`.
+- When a reusable method outcome should be preserved, create or update `devspec/foundation/exploration-state.md` from `devspec/foundation/_template/exploration-state.md` and record method ledger rows with scope, goal, method, outcome, evidence or failure reason, retry or reuse condition, and last verified date. Optionally mirror a concise transient summary in `/memories/session/<stage>.md`.
 - On rerun, use the recorded working method first and mention skipped known failures in the output.
 
 ## Foundation Update Pattern

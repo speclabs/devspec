@@ -200,7 +200,7 @@ These are core behaviors baked into the prompts and agents:
 - New work-item folders must follow `<provider-prefix-optional>-<story-number>-<kebab-case-title>`, such as `GHUB-12345-doc-conversion` or `89564-save-user-roles`.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
 - Repository discovery must apply baseline exclusions for dependency installs, generated output, caches, coverage output, VCS internals, local tool metadata, and temporary output; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
-- Discovery-heavy commands should check `devspec/foundation/exploration-state.md`, use known working methods first, and skip known failed searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
+- Discovery-heavy commands should check `devspec/foundation/exploration-state.md` when present, use `working` methods first, and skip `failed` searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
 - Work-item commands should recover from Git-tracked `devspec` artifacts first. Session memory and chat history are transient helpers, not the source of truth.
 - Work items are the orchestration boundary. Tasks, target repos, target areas, and attempts are execution checkpoints inside the work item.
 - A paused run should continue from the recorded current task or question. A stopped run should ask one structured continuation question before changing code.
@@ -220,7 +220,7 @@ Recommended enterprise model:
 - Use tasks as repo-aware execution checkpoints inside the work item.
 - Store current stage, current task, pending question, next action, and resume command in `Resume State`.
 - Store implementation progress, attempts, changed files, validation, blockers, and rollback or roll-forward notes in `implement.md`.
-- Store reusable discovery successes and failures in `devspec/foundation/exploration-state.md`.
+- Store reusable discovery method outcomes in `devspec/foundation/exploration-state.md` only when there is reusable state to preserve.
 
 This works for both monoliths and multi-repo systems. In a monolith, tasks usually share the same target repo and differ by module, layer, or validation surface. In multi-repo work, each executable task must name its target repo and required access, while the work item still owns the end-to-end business intent.
 
@@ -270,7 +270,7 @@ What it does:
 - asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction` when no source is provided
 - reads repository layout, routes, modules, workflows, states, services, integrations, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
 - applies baseline and ecosystem discovery rules in `devspec/foundation/discovery-exclusions.md` unless the project records an explicit override
-- prefers direct repository search and known working exploration methods before trying new generated scripts
+- prefers direct repository search and any recorded `working` exploration methods before trying new generated scripts
 - records practical foundation details with source evidence, confidence, scope, and required guidance
 - avoids broad theory and omits optional sections that have no extracted, confirmed, inferred, or blocked content
 - proposes updates to:
@@ -802,8 +802,6 @@ Holds project-operational context and constraints.
   Implementation expectations, testing rules, error handling, logging, documentation, and review norms.
 - `discovery-exclusions.md`
   Baseline exclusions, ecosystem discovery rules, and project-specific overrides for repository discovery.
-- `exploration-state.md`
-  Known working and failed discovery methods for searches, scripts, provider lookups, validation probes, and extraction paths.
 - `provider-integrations.md`
   Manually maintained provider intake policy for external systems such as GitHub, Jira, or Azure DevOps.
 - `rules.md`

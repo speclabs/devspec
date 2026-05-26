@@ -36,7 +36,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 
 ## Approach
 1. Validate the incoming reference against supported provider formats.
-2. Check discovery exclusions and exploration state for known provider resolution methods in the same scope.
+2. Check discovery exclusions and optional exploration state for known provider resolution methods in the same scope.
 3. Resolve or normalize the reference, or stop with correction guidance.
 4. For existing work items, read `meta.md` and `story.md` and reconcile `Resume State`.
 5. Ask one clarification or confirmation when required.

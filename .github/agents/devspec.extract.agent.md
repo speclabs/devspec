@@ -58,7 +58,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 2. Parse explicit input as either one repository URL or local path, or named multi-repo entries split by comma or newline.
 3. For named multi-repo entries, split each entry on the first ` - ` delimiter, preserve the label, and validate label uniqueness.
 4. Parse and validate each resolved repository URL or local path.
-5. Check discovery exclusions, exploration state, and session memory for known failed or working methods; use matching working methods first.
+5. Check discovery exclusions, optional exploration state, and session memory for matching method ledger outcomes; use matching `working` methods first.
 6. Use `Explore` when needed to gather evidence from source trees, metadata, docs, and analogous patterns.
 7. Persist meaningful discovery notes, working methods, failed methods, and unresolved questions before asking or writing.
 8. Build an evidence-backed outline grouped into constitution candidates, architecture facts, foundation facts, and diagram candidates that meet the shared diagram extraction rubric.

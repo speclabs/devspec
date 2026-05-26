@@ -37,7 +37,7 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 ## Approach
 1. Locate the target work item.
 2. Read `meta.md` when present, `decisions.md` when present, and required upstream artifacts.
-3. Reconcile `Resume State`, discovery exclusions, and exploration state.
+3. Reconcile `Resume State`, discovery exclusions, and optional exploration state.
 4. Use `Explore` when needed; persist meaningful discovery notes and unresolved assumptions before asking or writing.
 5. Resolve target selection or blockers through the Interactive Question Pattern.
 6. Apply type-specific readiness gates and write `finalize.md` with `../../devspec/work-items/_template/finalize.md`.

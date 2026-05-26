@@ -23,7 +23,7 @@ You create or update `devspec/foundation/tech-stack.md`.
 ## Approach
 1. Read the existing artifact.
 2. Ask one clarification at a time if required input is incomplete or ambiguous.
-3. Check discovery exclusions and exploration state for the same technology or repo.
+3. Check discovery exclusions and optional exploration state for the same technology or repo.
 4. Gather or confirm version details, merge them into per-project tables, and record reusable lookup methods.
 5. Write the artifact and report per Output Format.
 

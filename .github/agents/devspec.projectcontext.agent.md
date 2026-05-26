@@ -22,7 +22,7 @@ You create or update `devspec/foundation/project-context.md`.
 ## Approach
 1. Read the existing artifact.
 2. Ask one clarification at a time if required input is incomplete or ambiguous.
-3. Check discovery exclusions and exploration state for the same repo or product area.
+3. Check discovery exclusions and optional exploration state for the same repo or product area.
 4. Merge the input into the project-context structure and record reusable discovery methods.
 5. Write the artifact and report per Output Format.
 

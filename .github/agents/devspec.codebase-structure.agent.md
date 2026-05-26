@@ -28,7 +28,7 @@ You create or update `devspec/foundation/codebase-structure.md`.
 ## Approach
 1. Read the existing artifact.
 2. Ask one clarification at a time, including one access requirement confirmation per repo when needed.
-3. Check discovery exclusions and exploration state for the same repo.
+3. Check discovery exclusions and optional exploration state for the same repo.
 4. Merge input into selective repo trees and confirmed multi-repo configuration, then record reusable layout discovery methods.
 5. Write the artifact and report per Output Format.
 

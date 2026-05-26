@@ -31,7 +31,7 @@ You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 ## Approach
 1. Locate the target work item.
 2. Read `meta.md` when present, `finalize.md`, existing `tasks.md`, and relevant foundation artifacts.
-3. Reconcile `Resume State`, discovery exclusions, and exploration state.
+3. Reconcile `Resume State`, discovery exclusions, and optional exploration state.
 4. Use `Explore` when needed; persist meaningful discovery notes, dependency mapping, and unresolved questions before asking or writing.
 5. Resolve target selection or blockers through the Interactive Question Pattern.
 6. Apply type-specific planning rules and write repo-aware tasks with `../../devspec/work-items/_template/tasks.md`.

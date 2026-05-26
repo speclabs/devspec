@@ -46,7 +46,7 @@ Developers invoke registered slash commands from this directory. Agent names are
 - `../../devspec/foundation/rules.md`: bug, security, review, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
 - `../../devspec/foundation/discovery-exclusions.md`: baseline exclusions, ecosystem discovery rules, and project-specific overrides for repository discovery.
-- `../../devspec/foundation/exploration-state.md`: durable record of known working and failed discovery methods.
+- `../../devspec/foundation/exploration-state.md`: optional method ledger for reusable working, failed, and superseded discovery methods; create only when there is reusable state to preserve.
 - `../../devspec/foundation/provider-integrations.md`: manually maintained provider intake and manual fallback policy.
 - `../skills/exploration-recovery/SKILL.md`: reusable GitHub skill for avoiding repeated failed exploration paths.
 - `../../devspec/foundation/_template/`: framework-owned section contracts for foundation artifacts.

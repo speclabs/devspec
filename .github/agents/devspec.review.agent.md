@@ -27,7 +27,7 @@ You review the current work item and update `devspec/work-items/<work-item-folde
 ## Approach
 1. Locate the target work item.
 2. Read `meta.md` when present, `finalize.md`, `tasks.md` when present, `implement.md`, existing `review.md`, and relevant code context.
-3. Reconcile `Resume State`, discovery exclusions, and exploration state.
+3. Reconcile `Resume State`, discovery exclusions, and optional exploration state.
 4. Resolve target selection or blockers through the Interactive Question Pattern.
 5. Check scope adherence, bugs, regressions, security risks, validation gaps, and missing tests.
 6. Record reusable review discovery methods and write `review.md` with `../../devspec/work-items/_template/review.md`.

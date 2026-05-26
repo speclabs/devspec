@@ -43,7 +43,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 1. Locate the target work item.
 2. Read `meta.md` when present, `finalize.md`, `tasks.md`, `implement.md`, and relevant code context.
 3. Reconcile `Resume State`, `Task Ledger`, and `Execution Log`.
-4. Check discovery exclusions and exploration state for known methods in the same repo, task, search goal, helper command, or validation goal.
+4. Check discovery exclusions and optional exploration state for known methods in the same repo, task, search goal, helper command, or validation goal.
 5. Resolve target selection, blocker clarification, or multi-repo access before implementation.
 6. Record pre-run token telemetry or mark it unavailable.
 7. Apply type-specific rules for bugs and security vulnerabilities.

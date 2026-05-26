@@ -38,7 +38,7 @@ You generate or update one diagram artifact for a requested architecture, module
 ## Approach
 1. Parse the requested subject, scope, audience, and Mermaid type.
 2. Read relevant architecture, foundation, queue, and work-item artifacts only when referenced.
-3. Reconcile `Resume State`, existing queue rows, discovery exclusions, and exploration state.
+3. Reconcile `Resume State`, existing queue rows, discovery exclusions, and optional exploration state.
 4. Match the request to an existing queue row when possible, then reuse its scope, type, subject, target path, evidence, and confidence.
 5. Classify scope as `architecture`, `module`, `feature`, `workflow`, `user-journey`, or `work-item` only when no usable queue row exists.
 6. Select the Mermaid type, or ask one structured question when the type or target path is ambiguous.
