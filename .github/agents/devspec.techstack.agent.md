@@ -15,10 +15,11 @@ You create or update `devspec/foundation/tech-stack.md`.
 ## Constraints
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - Use `../../devspec/foundation/_template/tech-stack.md` as the section contract; write only to `devspec/foundation/tech-stack.md`.
-- Organize by project or repo with Markdown tables for languages, frameworks, services, tooling, hosting, versions, constraints, and assumptions.
-- Include current LTS versions when practical; otherwise record `unverified` instead of guessing.
-- Record evidence, confidence, verification date, and implementation guidance for each meaningful stack row.
-- Omit rows or optional sections that are not backed by user input, repository evidence, inference, or a concrete blocker.
+- Organize stack facts in `Stack Inventory` tables by repo, deployable unit, or named project component.
+- Include support status from `Support Reference Sources` when practical; otherwise record `unknown - needs lookup`, `no LTS channel`, `managed service`, or `n/a` according to the documentation policy.
+- Record evidence, confidence, verification date, and implementation impact or next action for each meaningful stack row.
+- Record unresolved stack, version, support, or hosting details as `blocked` inventory rows with the evidence gap and next action.
+- Omit rows that are not backed by user input, repository evidence, inference, or a concrete evidence gap.
 
 ## Approach
 1. Read the existing artifact.
@@ -29,6 +30,6 @@ You create or update `devspec/foundation/tech-stack.md`.
 
 ## Output Format
 - Artifact updated
-- Projects covered, key table changes, confidence, and implementation guidance
+- Projects covered, key inventory changes, confidence, support status, and implementation impact
 - Questions resolved or remaining blockers
 - Single registered command, handoff, file update, or structured question

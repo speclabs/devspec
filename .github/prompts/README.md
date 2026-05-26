@@ -64,7 +64,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 | --- | --- | --- |
 | `devspec.extract.prompt.md` | Derive structured, evidence-backed constitution candidates, architecture context, and live foundation facts from current root, repo URLs, local paths, or named multi-repo input. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` |
 | `devspec.projectcontext.prompt.md` | Capture product purpose, audiences, stakeholders, outcomes, scope boundaries, metrics, delivery context, sources, confidence, and developer implications. | `foundation/project-context.md` |
-| `devspec.techstack.prompt.md` | Capture languages, frameworks, services, tooling, hosting, versions, support status, evidence, and implementation guidance. | `foundation/tech-stack.md` |
+| `devspec.techstack.prompt.md` | Capture stack inventory by project, support status, evidence, confidence, delivery constraints, and implementation impact. | `foundation/tech-stack.md` |
 | `devspec.codebase-structure.prompt.md` | Capture selective repo trees, repo configuration, work areas and boundaries, integration contracts, and blockers. | `foundation/codebase-structure.md` |
 | `devspec.coding-standards.prompt.md` | Capture an evidence-backed standards catalog with scoped rules, observed patterns, anti-patterns, source links, and optional short examples. | `foundation/coding-standards.md` |
 | `devspec.rules.prompt.md` | Capture actionable operational rules, compliance requirements, forbidden patterns, delivery gates, work-item handling rules, exceptions, enforcement points, source, and confidence. | `foundation/rules.md` |

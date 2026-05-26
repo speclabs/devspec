@@ -48,7 +48,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Treat accessible local paths outside the current repo folder as valid extraction sources; do not classify them as `reference-only` based on location.
 - Use `Explore` for efficient repository discovery, analogous patterns, or likely artifact touchpoints; prefer 2-3 focused parallel runs for independent repos or surfaces.
 - Use session memory only for transient evidence summaries and unresolved questions.
-- Keep `tech-stack.md` per project with version tables and verified current LTS versions when available.
+- Keep `tech-stack.md` as a per-project stack inventory with version evidence, support status, verification dates, and blocked lookup rows when needed.
 - Keep `codebase-structure.md` layouts as selective 4-5 level trees for file-placement decisions.
 - Keep `coding-standards.md` as an evidence-backed standards catalog with sources, scoped guidance, observed patterns, anti-patterns, confidence, and short examples.
 - For formatting-sensitive languages or SQL/database code, capture compact representative snippets, usually 5-20 lines, and link to source paths for full context.

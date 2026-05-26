@@ -1,33 +1,39 @@
 # Tech Stack
 
-## Recording Rules
+Use this artifact for technology, version, support, hosting, and delivery facts that affect implementation or validation decisions.
 
-- Use manifests, lockfiles, framework config, CI config, and docs as version evidence.
-- Do not inspect dependency folders, generated output, or excluded paths listed in `devspec/foundation/discovery-exclusions.md`.
-- Use one project table per repo or deployable unit.
-- Use clear categories such as `Language`, `Runtime`, `Framework`, `Library`, `Database`, `Service`, `Tooling`, `Hosting`, or `Delivery Constraint`.
-- Record `Current LTS/Support` from official release, lifecycle, or support pages when practical to verify.
-- Use `no LTS channel`, `managed service`, or `unknown - needs lookup` instead of defaulting to `n/a`.
-- Use `n/a` only when version support does not apply.
-- Fill `Verified As Of` with the date the version or support status was checked.
-- Include implementation guidance when the technology affects coding, validation, hosting, compatibility, or support decisions.
-- Omit rows for technologies that are not confirmed, observed, inferred, or blocked by a specific evidence gap.
+## Documentation Policy
 
-## Projects
+| Policy area | Requirement |
+| --- | --- |
+| Evidence sources | Use manifests, lockfiles, framework config, CI config, infrastructure config, and docs as version evidence. |
+| Discovery boundary | Do not inspect dependency folders, generated output, or excluded paths listed in `devspec/foundation/discovery-exclusions.md`. |
+| Inventory scope | Use one stack inventory table per repo, deployable unit, or named project component. |
+| Categories | Use clear categories such as `Language`, `Runtime`, `Framework`, `Library`, `Database`, `Service`, `Tooling`, `Hosting`, or `Delivery Constraint`. |
+| Support status | Record support status from official release, lifecycle, or support pages when practical. |
+| Unknown support | Use `no LTS channel`, `managed service`, or `unknown - needs lookup` instead of defaulting to `n/a`. |
+| Not applicable support | Use `n/a` only when version support does not apply. |
+| Verification date | Fill `Verified on` with the date the version or support status was checked. |
+| Implementation impact | Include guidance when a technology affects coding, validation, hosting, compatibility, or support decisions. |
+| Blocked facts | Record blocked stack, version, support, or hosting details as inventory rows with `blocked` confidence, the evidence gap, and the next action. |
+| Row quality | Omit rows for technologies that are not confirmed, observed, inferred, or blocked by a specific evidence gap. |
+
+## Stack Inventory
 
 ### Project: <project-name>
 
-| Category | Technology | Version In Project | Current LTS/Support | Evidence | Confidence | Verified As Of | Implementation guidance |
+| Category | Technology | Project version or configuration | Support status | Evidence | Confidence | Verified on | Implementation impact or next action |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Runtime | <runtime> | <version> | <lts-version-or-status> | <manifest-or-doc-path> | observed | <yyyy-mm-dd> | <implementation-or-validation-impact> |
 | Framework | <framework> | <version> | <lts-version-or-status> | <manifest-or-config-path> | observed | <yyyy-mm-dd> | <implementation-or-validation-impact> |
-| Service | <service-or-platform> | <version-or-managed-plan> | <lts-version-or-status> | <config-or-doc-path> | observed | <yyyy-mm-dd> | <implementation-or-validation-impact> |
+| Service | <service-or-platform> | <version-or-managed-plan> | <managed-service-or-support-status> | <config-or-doc-path> | observed | <yyyy-mm-dd> | <implementation-or-validation-impact> |
+| Delivery Constraint | <blocked-or-unknown-stack-fact> | unknown | unknown - needs lookup | <missing-or-inconclusive-evidence> | blocked | <yyyy-mm-dd> | <next-action-needed> |
 
-## LTS Lookup Sources
+## Support Reference Sources
 
-Maintain this lookup with official release, lifecycle, or support pages. Users may update these sources when a project uses a different vendor distribution or a better official endpoint becomes available.
+Maintain this lookup with official release, lifecycle, or support pages. Update these sources when a project uses a different vendor distribution or a better official endpoint becomes available.
 
-| Technology Or Ecosystem | Official Source | Lookup Guidance | Verified As Of |
+| Technology or ecosystem | Official source | Lookup guidance | Verified on |
 | --- | --- | --- | --- |
 | Node.js | https://nodejs.org/en/about/releases/ | Use active or maintenance LTS release lines. | 2026-05-20 |
 | Python | https://devguide.python.org/versions/ | Use supported Python versions; Python does not label releases as LTS. | 2026-05-20 |
@@ -41,11 +47,3 @@ Maintain this lookup with official release, lifecycle, or support pages. Users m
 | Next.js | https://nextjs.org/support-policy | Use versions covered by the official support policy and LTS policy. | 2026-05-20 |
 | Vite | https://vite.dev/releases | Use the official release policy; Vite does not label releases as LTS. | 2026-05-20 |
 | Laravel | https://laravel.com/docs/releases | Use the official support policy table for bug-fix and security-fix windows. | 2026-05-20 |
-
-## Blockers
-
-Include this section only when stack, version, support, or hosting details are blocked.
-
-| Blocker | Impact | Status |
-| --- | --- | --- |
-|  |  | open |
