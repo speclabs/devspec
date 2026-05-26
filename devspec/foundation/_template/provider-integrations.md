@@ -6,7 +6,7 @@ Use this policy for external work-item resolution during `devspec.story`. Keep p
 
 | Policy area | Requirement |
 | --- | --- |
-| Workflow boundary | Keep the `story` workflow provider-agnostic; provider-specific lookup belongs in integration tools. |
+| Workflow boundary | Keep the work-item intake workflow provider-agnostic; provider-specific lookup belongs in integration tools. |
 | Resolution preference | Prefer exact provider URLs or provider-qualified identifiers over inferred matches. |
 | Ambiguity handling | Ask one clarification question before resolving an ambiguous provider or identifier. |
 | Manual fallback | Use manual intake only when external resolution is unavailable and the user explicitly chooses to proceed. |
@@ -79,7 +79,7 @@ Offer only these confirmation actions:
 | Privilege model | Use least-privilege tokens or service identities. |
 | Access mode | Prefer read-only access for intake and review unless write-back is required. |
 
-## Story Intake Recording Requirements
+## Work-Item Intake Recording Requirements
 
 | Recording area | Requirement |
 | --- | --- |

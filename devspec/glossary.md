@@ -27,7 +27,7 @@ Use for the durable lifecycle of a work item in `meta.md`. Readiness, review out
 
 | Status | Meaning |
 | --- | --- |
-| `intake` | Initial story capture is in progress. |
+| `intake` | Initial work-item capture is in progress. |
 | `clarifying` | The item needs user or source clarification. |
 | `finalized` | Scope is captured; readiness status records whether task planning may proceed. |
 | `tasks-planned` | Implementation tasks are recorded. |

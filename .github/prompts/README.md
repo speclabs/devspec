@@ -10,7 +10,7 @@ Foundation: `extract` -> `projectcontext` -> `techstack` -> `codebase-structure`
 
 Work items: `story` -> `finalize` -> `tasks` -> `implement` -> `review`
 
-Use `clarify` only when story intake or finalization records a blocking question.
+Use `clarify` only when work-item intake or finalization records a blocking question.
 
 Supporting: `diagram`
 

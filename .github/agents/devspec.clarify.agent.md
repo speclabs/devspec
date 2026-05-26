@@ -6,9 +6,9 @@ model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copi
 user-invocable: true
 agents: []
 handoffs:
-  - label: Back to Story Intake
+  - label: Back to Work-Item Intake
     agent: devspec.story
-    prompt: Revise story intake from this clarification.
+    prompt: Revise work-item intake from this clarification.
   - label: Continue to Finalize
     agent: devspec.finalize
     prompt: Create or update the finalized brief.

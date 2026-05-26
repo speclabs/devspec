@@ -6,7 +6,7 @@ model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copi
 user-invocable: true
 agents: [Explore]
 handoffs:
-  - label: Continue to Story
+  - label: Continue to Work-Item Intake
     agent: devspec.story
     prompt: Start or update a related devspec work item.
   - label: Continue to Tasks
@@ -18,7 +18,7 @@ You generate or update one diagram artifact for a requested architecture, module
 ## Constraints
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Diagram Extraction Consistency Pattern](../prompts/PATTERNS.md#diagram-extraction-consistency-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - Required user input is mandatory.
-- Apply Work-Item Target only when the request is explicitly work-item-specific or clearly temporary to one story, bug, or security issue.
+- Apply Work-Item Target only when the request is explicitly work-item-specific or clearly temporary to one work item, bug, or security issue.
 - Generate exactly one Mermaid diagram per run unless the user explicitly continues through the queue.
 - Treat a clear `/devspec.diagram` request as approval to generate one diagram; ask only when target location, diagram type, scope, evidence, overwrite behavior, or queue continuation is ambiguous.
 - Do not invent architecture, user behavior, service interactions, states, or dependencies; separate observed facts from assumptions.

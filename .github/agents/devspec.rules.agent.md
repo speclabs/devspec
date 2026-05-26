@@ -6,7 +6,7 @@ model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copi
 user-invocable: true
 agents: []
 handoffs:
-  - label: Start a Work Item Story
+  - label: Start a Work Item
     agent: devspec.story
     prompt: Start or update a devspec work item from the foundation context.
 ---

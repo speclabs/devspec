@@ -139,13 +139,13 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 
 ## Work-Item Folder Naming Pattern
 
-- New work-item folders must use `<provider-prefix-optional>-<story-number>-<kebab-case-title>`.
+- New work-item folders must use `<provider-prefix-optional>-<work-item-number>-<kebab-case-title>`.
 - Validate new folder names with `^(?:[A-Z]{3,5}-)?[0-9]+-[a-z0-9]+(?:-[a-z0-9]+)*$`.
 - Provider prefix is optional. When present, it must be 3-5 uppercase letters. Use known mappings where available: GitHub -> `GHUB`, Azure DevOps -> `ADO`, Jira -> `JIRA`.
-- Story number must be numeric and should come from the resolved provider item, issue number, work item id, or manually supplied external reference.
+- Work-item number must be numeric and should come from the resolved provider item, issue number, work item id, or manually supplied external reference.
 - Title slug must be lowercase kebab-case from the resolved provider title or manually supplied title.
 - Remove punctuation, replace separators with hyphens, collapse repeated hyphens, and trim leading or trailing hyphens.
-- If provider prefix, numeric story number, or title slug is missing or ambiguous, ask exactly one structured question before creating the folder.
+- If provider prefix, numeric work-item number, or title slug is missing or ambiguous, ask exactly one structured question before creating the folder.
 - Do not create or rename a work-item folder until the generated folder name is valid or the user confirms a custom valid name.
 - Do not automatically rename existing work-item folders; treat non-matching existing folders as legacy and continue using them unless the user explicitly asks to rename.
 

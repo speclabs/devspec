@@ -59,7 +59,7 @@ After the foundation exists, use this work-item flow:
 /devspec.review
 ```
 
-Use `/devspec.clarify` only when story intake or finalization records a blocking question.
+Use `/devspec.clarify` only when work-item intake or finalization records a blocking question.
 
 Use `/devspec.diagram` whenever you need an additional architecture, module, feature workflow, user journey, sequence, state, or class/domain diagram after the relevant context exists.
 
@@ -91,7 +91,7 @@ The workflow has two layers.
 
 | Layer | Goal | Commands |
 | --- | --- | --- |
-| Project foundation | Define stable project context every future story should follow. | `/devspec.extract`, `/devspec.projectcontext`, `/devspec.techstack`, `/devspec.codebase-structure`, `/devspec.coding-standards`, `/devspec.rules` |
+| Project foundation | Define stable project context every future work item should follow. | `/devspec.extract`, `/devspec.projectcontext`, `/devspec.techstack`, `/devspec.codebase-structure`, `/devspec.coding-standards`, `/devspec.rules` |
 | Work-item execution | Move one feature, bug, or security issue from intake to review. | `/devspec.story`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, `/devspec.review`; use `/devspec.clarify` only when blocked |
 
 ### Workflow at a glance
@@ -166,7 +166,7 @@ Choose the first foundation command based on the project:
 
 On first install, live project artifacts may be created from matching `_template` files. After that, treat live files as project-owned and update them through the slash-command workflow rather than replacing them from newer templates.
 
-For multi-repo work, keep one shared VS Code multi-root workspace open and record repository configuration in `devspec/foundation/codebase-structure.md`. That file is the source of truth for local repository paths and access requirements used by story, finalize, tasks, and implement.
+For multi-repo work, keep one shared VS Code multi-root workspace open and record repository configuration in `devspec/foundation/codebase-structure.md`. That file is the source of truth for local repository paths and access requirements used by intake, finalization, tasks, and implementation.
 
 ### Manual upgrades
 
@@ -197,18 +197,18 @@ These are core behaviors baked into the prompts and agents:
 - Recommended next steps must be singular. Agents should not list multiple possible next prompts when one confirmation, queue item, handoff, retry, or fallback decision is pending.
 - Agents must recommend only registered devspec slash commands; planning work maps to `/devspec.tasks`.
 - Developers should run registered slash commands. Internal agents such as `devspec.implement-task` are handoff targets, not additional slash commands.
-- New work-item folders must follow `<provider-prefix-optional>-<story-number>-<kebab-case-title>`, such as `GHUB-12345-doc-conversion` or `89564-save-user-roles`.
+- New work-item folders must follow `<provider-prefix-optional>-<work-item-number>-<kebab-case-title>`, such as `GHUB-12345-doc-conversion` or `89564-save-user-roles`.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
 - Repository discovery must apply baseline exclusions for dependency installs, generated output, caches, coverage output, VCS internals, local tool metadata, and temporary output; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
 - Discovery-heavy commands should check `devspec/foundation/exploration-state.md` when present, use `working` methods first, and skip `failed` searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
 - Work-item commands should recover from Git-tracked `devspec` artifacts first. Session memory and chat history are transient helpers, not the source of truth.
 - Work items are the orchestration boundary. Tasks, target repositories, target areas, and attempts are execution checkpoints inside the work item.
 - A paused run should continue from the recorded current task or question. A stopped run should ask one structured continuation question before changing code.
-- `/devspec.diagram` should generate one evidence-backed Mermaid diagram at a time. Architecture-level diagram files are the default; work-item diagrams are only for explicit or clearly temporary story-specific context.
-- `/devspec.finalize` should mark a story `not ready` if blockers remain.
+- `/devspec.diagram` should generate one evidence-backed Mermaid diagram at a time. Architecture-level diagram files are the default; work-item diagrams are only for explicit or clearly temporary work-item-specific context.
+- `/devspec.finalize` should mark a work item `not ready` if blockers remain.
 - `/devspec.tasks` must not expand scope.
 - `/devspec.implement` should implement pending tasks sequentially, then ask one structured `Proceed`, `Skip`, or `Custom Answer` question after each task.
-- `/devspec.review` should review against the finalized brief, not re-plan the story.
+- `/devspec.review` should review against the finalized brief, not re-plan the work item.
 
 ## Session recovery and continuation
 
@@ -256,7 +256,7 @@ Use Medium for `devspec.story` or `devspec.clarify` only for simple single-repo 
 
 ## Foundation workflow
 
-These commands establish the project-wide spec that all stories must follow.
+These commands establish the project-wide spec that all work items must follow.
 
 Foundation artifacts should be compact and useful to developers. Prefer summary or comparison tables for stack, repository boundaries, rules, readiness, tasks, and validation; use bullets for direct facts; use ordered lists only when sequence matters. Omit optional sections when they have no real project content.
 
@@ -466,7 +466,7 @@ Example:
 /devspec.rules PII must stay encrypted at rest and in transit. No client-side secrets. No ORM-generated schema changes without review. Production releases require passing CI, security scan approval, and rollback notes for database migrations.
 ```
 
-## How to start a user story
+## How to start a work item
 
 Once the project foundation exists, start work with `/devspec.story`, then move through finalize, tasks, implement, and review. Use `/devspec.clarify` only when a blocking question is recorded.
 
@@ -516,12 +516,12 @@ If provider lookup succeeds, the command should show the resolved item summary a
 
 ### What gets created
 
-The story stage creates a folder under `devspec/work-items/<work-item-folder>/`.
+The work-item intake stage creates a folder under `devspec/work-items/<work-item-folder>/`.
 
 New work-item folders must use:
 
 ```text
-<provider-prefix-optional>-<story-number>-<kebab-case-title>
+<provider-prefix-optional>-<work-item-number>-<kebab-case-title>
 ```
 
 Examples:
@@ -534,9 +534,9 @@ devspec/work-items/89564-save-user-roles/
 devspec/work-items/568912-new-report-for-daily-stock/
 ```
 
-The optional provider prefix is 3-5 uppercase letters, such as `GHUB`, `ADO`, or `JIRA`. The story number must be numeric, and the title must be lowercase kebab-case.
+The optional provider prefix is 3-5 uppercase letters, such as `GHUB`, `ADO`, or `JIRA`. The work-item number must be numeric, and the title must be lowercase kebab-case.
 
-During story intake, the command writes:
+During work-item intake, the command writes:
 
 - `meta.md`
 - `story.md`
@@ -693,7 +693,7 @@ Important behavior:
 - keeps work-item `diagrams.md` focused on generated temporary diagram content; `architecture/artifact-queue.md` owns diagram artifact status
 - uses confidence values consistently: `observed`, `high-confidence`, or `low-confidence`
 - keeps feature and module workflow diagrams out of `overview.md` unless they are truly high-level system views
-- defaults to `devspec/architecture/diagrams/` even when the request mentions a work item, unless the diagram is explicit or clearly temporary story-specific context
+- defaults to `devspec/architecture/diagrams/` even when the request mentions a work item, unless the diagram is explicit or clearly temporary work-item-specific context
 
 Example:
 
@@ -767,7 +767,7 @@ Then start the first work item:
 /devspec.techstack Confirm Node.js services, React frontend, PostgreSQL, Redis, Docker, GitHub Actions, and AWS deployment constraints.
 ```
 
-Then start a story:
+Then start a work item:
 
 ```text
 /devspec.story https://github.com/acme/warehouse-suite/issues/932
@@ -822,11 +822,11 @@ Holds broader technical architecture.
 
 ### `devspec/work-items/`
 
-Holds one folder per story, feature, bug, or security issue. Each work item carries its own staged artifacts from intake through review.
+Holds one folder per work item, including features, bugs, and security issues. Each work item carries its own staged artifacts from intake through review.
 
 Each work-item artifact can include `Resume State`, which lets a new Copilot or agent session recover the current stage, pending question, next safe action, and resume command from Git-tracked files. Implementation also records task-level checkpoints in `implement.md` so monolith and multi-repo work can continue by target repository, target area, and task status.
 
-Reusable feature workflows, user journeys, sequence diagrams, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Use work-item `diagrams.md` only for explicit or clearly temporary story-specific generated diagram content, such as a bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment. Keep diagram artifact status in `devspec/architecture/artifact-queue.md`.
+Reusable feature workflows, user journeys, sequence diagrams, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Use work-item `diagrams.md` only for explicit or clearly temporary work-item-specific generated diagram content, such as a bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment. Keep diagram artifact status in `devspec/architecture/artifact-queue.md`.
 
 ## Advanced: extracting information from an existing project
 
@@ -841,7 +841,7 @@ Review extracted artifacts before relying on them:
 | `devspec/constitution.md` | Durable principles only; principle-level changes require confirmation. |
 | `devspec/architecture/overview.md` | Major components, system boundaries, integrations, high-level data flow, and links to detailed diagrams. |
 | `devspec/architecture/artifact-queue.md` | Diagram candidates with scope, type, target path, evidence, confidence, status, and duplicate-check notes. |
-| `devspec/foundation/project-context.md` | Product goals and user outcomes, because code rarely tells the whole story. |
+| `devspec/foundation/project-context.md` | Product goals and user outcomes, because code rarely tells the whole product context. |
 | `devspec/foundation/tech-stack.md` | Languages, runtimes, frameworks, services, tooling, hosting, support status, and verification dates. |
 | `devspec/foundation/codebase-structure.md` | Selective 4-5 level layout, work areas and boundaries, integration contracts, multi-repo roles, local paths, workspace availability, and access requirements. |
 | `devspec/foundation/discovery-exclusions.md` | Baseline exclusions, ecosystem discovery rules, and project-specific overrides agents should apply during discovery. |
@@ -866,7 +866,7 @@ Use this setup when you want `devspec` to resolve external work items instead of
    For most teams, this means an MCP server per provider or one internal tool that wraps multiple providers.
 2. Install or connect that MCP server or integration tool in the VS Code environment your team uses for Copilot Chat.
 3. Configure authentication outside the prompt artifacts.
-   Prefer least-privilege, read-only access for story intake and review workflows unless write-back is explicitly required.
+   Prefer least-privilege, read-only access for work-item intake and review workflows unless write-back is explicitly required.
 4. Verify the integration can validate and fetch a real work item before relying on `/devspec.story`.
    The integration should be able to return core fields such as title, description, status, type or labels, and canonical links.
 5. Record the supported providers, accepted input formats, and manual fallback policy in `devspec/foundation/provider-integrations.md`.
@@ -881,9 +881,9 @@ If you are introducing `devspec` to a team, this usually works well:
 
 1. Install it into one target repo.
 2. Run the foundation flow.
-3. Start one real feature story.
-4. Start one real bug story.
-5. If relevant, run one security-vulnerability story.
+3. Start one real feature work item.
+4. Start one real bug work item.
+5. If relevant, run one security-vulnerability work item.
 6. Adjust the foundation docs after learning from those first runs.
 
 ## License
