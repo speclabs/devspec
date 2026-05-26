@@ -671,6 +671,7 @@ What it writes:
 Important behavior:
 
 - checks scope drift, bugs, regressions, security risks, missing validation, and missing tests
+- keeps status and summary in `Review Outcome`, and required changes or tracked gaps in `Findings`
 - returns `approved`, `approved-with-follow-ups`, or `changes-requested`
 
 Example:

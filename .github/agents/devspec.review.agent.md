@@ -20,6 +20,7 @@ You review the current work item and update `devspec/work-items/<work-item-folde
 - `finalize.md` and `implement.md` must exist.
 - Review against the finalized brief and implemented changes, not a new plan.
 - Record findings with severity and required action when applicable.
+- Record validation gaps, missing tests, scope drift, security risks, regressions, and follow-ups as `Findings`; use `Review Outcome` only for status, summary, scope alignment, validation coverage, and type-specific summary notes.
 - Apply stricter bug and security review expectations from `../../devspec/foundation/rules.md`.
 - Update `Workflow State` in `meta.md` and `Resume State` in `review.md` before recording findings, asking for clarification, or handing off.
 
@@ -36,6 +37,6 @@ You review the current work item and update `devspec/work-items/<work-item-folde
 - Work-item path updated
 - Review status
 - Top findings
-- Validation gaps
+- Validation gaps or missing tests
 - Next step or handoff
 - Single registered command, handoff, file update, or structured question

@@ -1,5 +1,7 @@
 # Review
 
+Use this artifact for review outcome, actionable findings, and handoff. Keep lifecycle recovery in `Resume State`, overall review judgment and non-actionable notes in `Review Outcome`, and required changes or tracked gaps in `Findings`.
+
 ## Resume State
 
 | Field | Value |
@@ -17,43 +19,23 @@
 | Resume notes | |
 | Updated | |
 
-## Review Status
+## Review Outcome
 
 | Field | Value |
 | --- | --- |
 | Status | See `devspec/glossary.md#review-and-readiness-status-values` |
 | Reviewer | |
 | Date | |
-
-## Summary
-
-| Field | Value |
-| --- | --- |
 | Summary | |
-
-## Review Notes
-
-| Topic | Finding | Status |
-| --- | --- | --- |
-| Finalized scope alignment |  | pending |
-| Scope drift found |  | pending |
-| Follow-up |  | open |
+| Finalized scope alignment | aligned, drift found, not reviewed |
+| Validation coverage | complete, gaps found, not reviewed |
+| Type-specific review notes | bug/security/rule notes or n/a |
+| Follow-up summary | |
 
 ## Findings
 
-| ID | Severity | Category | Details | Required action | Status |
-| --- | --- | --- | --- | --- | --- |
-| F-001 | critical, high, medium, low | bug, regression, security, validation, scope, maintainability |  |  | open |
+Record required changes, validation gaps, missing tests, scope drift, security risks, regressions, and follow-ups here. Use `Status` values such as `open`, `fixed`, `accepted-risk`, or `follow-up`.
 
-## Validation Gaps
-
-| Gap | Impact | Status |
-| --- | --- | --- |
-|  |  | open |
-
-## Type-Specific Review Notes
-
-| Type | Note |
-| --- | --- |
-| Bug review notes | |
-| Security review notes | |
+| ID | Severity | Category | Details | Required action | Evidence | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| F-001 | critical, high, medium, low | bug, regression, security, validation, test-gap, scope, maintainability, follow-up |  |  |  | open |
