@@ -20,9 +20,11 @@ You create or update `devspec/foundation/coding-standards.md`.
 - Record standards source links or document paths when the user provides them.
 - Treat the artifact as an evidence-backed pattern catalog, not a prose guide or copied code archive.
 - Capture file naming, indentation, grouping, formatting, linting, testing, framework, database/SQL, XML-doc, developer-comment, error-handling, logging, and review patterns when provided, detected, or confirmed.
-- Record source evidence and confidence: `confirmed`, `observed`, or `inferred`.
+- Record source evidence and confidence: `confirmed`, `observed`, `inferred`, or `blocked`.
 - Prefer 5-20 line examples that show style, indentation, naming, grouping, SQL layout, or reusable patterns, and link to full source context.
 - Ask one clarification at a time when evidence conflicts or a detected pattern should become a rule.
+- Make examples optional; include snippets only when they clarify a style or reusable pattern better than a table row.
+- Omit anti-pattern, conflict, and example sections when there is no meaningful content.
 
 ## Approach
 1. Read the existing artifact.
@@ -33,6 +35,6 @@ You create or update `devspec/foundation/coding-standards.md`.
 
 ## Output Format
 - Artifact updated
-- Key changes
+- Key standards, sources, confidence, and required coding guidance
 - Questions resolved or remaining blockers
 - Single registered command, handoff, file update, or structured question

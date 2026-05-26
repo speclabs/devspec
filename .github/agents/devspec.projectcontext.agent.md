@@ -16,6 +16,8 @@ You create or update `devspec/foundation/project-context.md`.
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - Use `../../devspec/foundation/_template/project-context.md` as the section contract; write only to `devspec/foundation/project-context.md`.
 - Capture product vision, users, goals, non-goals, constraints, success metrics, and blockers when known.
+- Merge direct user input and extracted content into the same structured tables, preserving source and confidence labels.
+- Omit optional sections when there are no real project facts to record.
 
 ## Approach
 1. Read the existing artifact.
@@ -26,6 +28,6 @@ You create or update `devspec/foundation/project-context.md`.
 
 ## Output Format
 - Artifact updated
-- Key changes
+- Key structured changes, sources, and confidence
 - Questions resolved or remaining blockers
 - Single registered command, handoff, file update, or structured question

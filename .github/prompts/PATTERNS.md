@@ -70,6 +70,17 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Do not duplicate content already captured in another devspec artifact. Link or name the source instead.
 - Preserve user-authored content with targeted edits instead of whole-file rewrites.
 
+## Artifact Content Pattern
+
+- Write artifacts for developers who need to plan, implement, review, or recover work. Every captured item should make clear what is true, where it applies, what evidence or source supports it, and what a developer should do with it.
+- Prefer Markdown tables for matrix data, including stack details, source evidence, repo configuration, module boundaries, rules, readiness, tasks, validations, and comparison-style decisions.
+- Prefer bullets for direct facts, rules, assumptions, blockers, and concise developer guidance.
+- Prefer ordered lists only for workflows, procedures, reproduction steps, migration steps, or task sequences where order changes the result.
+- Avoid theory, generic explanations, restated prompt policy, and broad background that does not change a developer's next action.
+- Do not keep optional sections only to satisfy a template. Omit sections, tables, or rows that have no real project content, unless the empty section is required for resume state or a command contract.
+- Use source labels consistently: `confirmed` for user-provided or approved facts, `observed` for direct repository evidence, `inferred` for reasoned conclusions from evidence, and `blocked` for unresolved gaps.
+- Preserve useful existing content, but replace stale, vague, or duplicative prose with compact structured records.
+
 ## Discovery Exclusion Pattern
 
 - Before repository search, extraction, code-pattern discovery, layout mapping, validation-surface discovery, or generated helper scripts, read `devspec/foundation/discovery-exclusions.md` when present.
@@ -112,6 +123,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 
 - Required user input is mandatory.
 - Ask one clarification at a time when required details are missing or ambiguous, following the Interactive Question Pattern.
+- Follow the [Artifact Content Pattern](#artifact-content-pattern).
 - Use the matching `devspec/foundation/_template/*.md` or `devspec/architecture/_template/*.md` file as the section contract when one exists.
 - Treat live `devspec/foundation/*.md` and `devspec/architecture/*.md` files as project-owned; update them in place and never replace them wholesale from templates.
 - If a live foundation or architecture artifact is missing, initialize it from the matching `_template` file before applying user-provided or extracted content.
@@ -121,6 +133,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 
 - Use the current work item when clear; otherwise ask the user to select one, following the Interactive Question Pattern.
 - Work-item folders must follow the [Work-Item Folder Naming Pattern](#work-item-folder-naming-pattern) when created by `/devspec.story`.
+- Follow the [Artifact Content Pattern](#artifact-content-pattern) when updating work-item artifacts.
 - Treat optional user input as additive guidance only.
 - Update the target work-item artifact in place. Stay within current stage scope and, after finalization, within finalized scope.
 

@@ -10,16 +10,18 @@
 - Use `no LTS channel`, `managed service`, or `unknown - needs lookup` instead of defaulting to `n/a`.
 - Use `n/a` only when version support does not apply.
 - Fill `Verified As Of` with the date the version or support status was checked.
+- Include implementation guidance when the technology affects coding, validation, hosting, compatibility, or support decisions.
+- Omit rows for technologies that are not confirmed, observed, inferred, or blocked by a specific evidence gap.
 
 ## Projects
 
 ### Project: <project-name>
 
-| Category | Technology | Version In Project | Current LTS/Support | Verified As Of | Notes |
-| --- | --- | --- | --- | --- | --- |
-| Runtime | <runtime> | <version> | <lts-version-or-status> | <yyyy-mm-dd> | <evidence-or-notes> |
-| Framework | <framework> | <version> | <lts-version-or-status> | <yyyy-mm-dd> | <evidence-or-notes> |
-| Service | <service-or-platform> | <version-or-managed-plan> | <lts-version-or-status> | <yyyy-mm-dd> | <evidence-or-notes> |
+| Category | Technology | Version In Project | Current LTS/Support | Evidence | Confidence | Verified As Of | Implementation guidance |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Runtime | <runtime> | <version> | <lts-version-or-status> | <manifest-or-doc-path> | observed | <yyyy-mm-dd> | <implementation-or-validation-impact> |
+| Framework | <framework> | <version> | <lts-version-or-status> | <manifest-or-config-path> | observed | <yyyy-mm-dd> | <implementation-or-validation-impact> |
+| Service | <service-or-platform> | <version-or-managed-plan> | <lts-version-or-status> | <config-or-doc-path> | observed | <yyyy-mm-dd> | <implementation-or-validation-impact> |
 
 ## LTS Lookup Sources
 
@@ -41,6 +43,8 @@ Maintain this lookup with official release, lifecycle, or support pages. Users m
 | Laravel | https://laravel.com/docs/releases | Use the official support policy table for bug-fix and security-fix windows. | 2026-05-20 |
 
 ## Blockers
+
+Include this section only when stack, version, support, or hosting details are blocked.
 
 | Blocker | Impact | Status |
 | --- | --- | --- |

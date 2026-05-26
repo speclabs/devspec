@@ -2,6 +2,8 @@
 
 Slash-command prompts live here. Keep behavior in `PATTERNS.md`, matching agents, or canonical devspec artifacts.
 
+Artifacts should be developer-facing and compact. Prefer tables for stack, source evidence, repo configuration, boundaries, rules, tasks, readiness, and validation; use bullets for direct facts; use ordered lists only when sequence matters. Omit optional sections when they have no real content.
+
 ## Workflow
 
 Foundation: `extract` -> `projectcontext` -> `techstack` -> `codebase-structure` -> `coding-standards` -> `rules`
@@ -39,6 +41,7 @@ Developers invoke registered slash commands from this directory. Agent names are
 ## Shared References
 
 - `PATTERNS.md`: shared workflow, recovery, output, discovery, foundation, work-item, memory, and multi-repo rules.
+- `PATTERNS.md#artifact-content-pattern`: shared structure rules for developer-facing artifacts, source labels, optional sections, and table/bullet/list usage.
 - `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, evidence, confidence, dedupe, and queue rules.
 - `../../devspec/foundation/rules.md`: bug, security, review, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
@@ -59,17 +62,17 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 
 | Prompt | Purpose | Produces |
 | --- | --- | --- |
-| `devspec.extract.prompt.md` | Derive constitution candidates, architecture context, and live foundation facts from current root, repo URLs, local paths, or named multi-repo input. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` |
-| `devspec.projectcontext.prompt.md` | Capture product vision, users, goals, non-goals, constraints, and metrics. | `foundation/project-context.md` |
-| `devspec.techstack.prompt.md` | Capture languages, frameworks, services, tooling, hosting, and versions. | `foundation/tech-stack.md` |
-| `devspec.codebase-structure.prompt.md` | Capture repo layout, module boundaries, ownership seams, and multi-repo config. | `foundation/codebase-structure.md` |
-| `devspec.coding-standards.prompt.md` | Capture evidence-backed language/framework standards, observed patterns, source links, and short examples. | `foundation/coding-standards.md` |
-| `devspec.rules.prompt.md` | Capture operational constraints, compliance, forbidden patterns, and gates. | `foundation/rules.md` |
+| `devspec.extract.prompt.md` | Derive structured, evidence-backed constitution candidates, architecture context, and live foundation facts from current root, repo URLs, local paths, or named multi-repo input. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` |
+| `devspec.projectcontext.prompt.md` | Capture product vision, users, goals, non-goals, constraints, metrics, sources, confidence, and developer implications. | `foundation/project-context.md` |
+| `devspec.techstack.prompt.md` | Capture languages, frameworks, services, tooling, hosting, versions, support status, evidence, and implementation guidance. | `foundation/tech-stack.md` |
+| `devspec.codebase-structure.prompt.md` | Capture selective repo trees, module boundaries, ownership seams, integration contracts, multi-repo config, and placement rules. | `foundation/codebase-structure.md` |
+| `devspec.coding-standards.prompt.md` | Capture an evidence-backed language/framework pattern catalog, source links, anti-patterns, and optional short examples. | `foundation/coding-standards.md` |
+| `devspec.rules.prompt.md` | Capture actionable operational constraints, compliance, forbidden patterns, gates, enforcement points, source, and confidence. | `foundation/rules.md` |
 | `devspec.story.prompt.md` | Create or update work-item intake artifacts. | `meta.md`, `story.md`, `decisions.md`, `notes.md` |
 | `devspec.clarify.prompt.md` | Ask and record one blocking clarification. | `clarify.md` |
-| `devspec.finalize.prompt.md` | Freeze an implementation-ready brief. | `finalize.md` |
-| `devspec.tasks.prompt.md` | Break a ready brief into ordered implementation tasks. | `tasks.md` |
-| `devspec.implement.prompt.md` | Implement pending tasks and record progress. | `implement.md`, code changes |
+| `devspec.finalize.prompt.md` | Freeze a structured implementation-ready brief with readiness, scope, validation, risks, and blockers. | `finalize.md` |
+| `devspec.tasks.prompt.md` | Break a ready brief into executable ordered tasks with target areas, dependencies, validation, and done criteria. | `tasks.md` |
+| `devspec.implement.prompt.md` | Implement pending tasks and record compact recovery checkpoints, changed files, validation, and handoff details. | `implement.md`, code changes |
 | `devspec.review.prompt.md` | Review implemented work against the finalized brief. | `review.md` |
 | `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram. | `architecture/diagrams/*.md` by default; `architecture/overview.md` for high-level system diagrams; work-item `diagrams.md` for explicit or temporary work-item diagrams |
 

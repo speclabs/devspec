@@ -267,6 +267,8 @@ Use Medium for `devspec.story` or `devspec.clarify` only for simple single-repo 
 
 These commands establish the project-wide spec that all stories must follow.
 
+Foundation artifacts should be compact and useful to developers. Prefer summary or comparison tables for stack, repo boundaries, rules, readiness, tasks, and validation; use bullets for direct facts; use ordered lists only when sequence matters. Omit optional sections when they have no real project content.
+
 ### 1. `/devspec.extract`
 
 Use this when you already have a repository and want Copilot to backfill `devspec` from source code and existing docs.
@@ -278,6 +280,8 @@ What it does:
 - reads repository layout, routes, modules, workflows, states, services, integrations, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
 - applies the default exclusions in `devspec/foundation/discovery-exclusions.md` unless the project records an explicit override
 - prefers direct repository search and known working exploration methods before trying new generated scripts
+- records practical foundation details with source evidence, confidence, scope, and required guidance
+- avoids broad theory and omits optional sections that have no extracted, confirmed, inferred, or blocked content
 - proposes updates to:
   - `devspec/constitution.md`
   - `devspec/architecture/overview.md`
@@ -333,11 +337,11 @@ Expected outcome:
 
 - `architecture/overview.md` gets a first-pass system view
 - `architecture/artifact-queue.md` gets evidence-backed diagram candidates when durable diagrams would clarify the system
-- `foundation/tech-stack.md` gets stack evidence
-- `foundation/codebase-structure.md` gets a repo-layout draft
-- repository layout should be a selective 3-5 level map that helps agents place new files and folders
-- `foundation/coding-standards.md` gets evidence-backed language-specific and framework-specific standards when the repository exposes them
-- `foundation/rules.md` gets evidence-backed candidate content
+- `foundation/tech-stack.md` gets table-first stack evidence with versions, support status, sources, confidence, verification dates, and implementation guidance
+- `foundation/codebase-structure.md` gets a selective repo-layout draft plus structured repo, boundary, ownership, integration, and placement tables where evidence exists
+- repository layout should be a selective 4-5 level map that helps agents place new files and folders
+- `foundation/coding-standards.md` gets an evidence-backed pattern catalog with optional short examples only when snippets clarify a rule
+- `foundation/rules.md` gets actionable rule tables with scope, enforcement points, source, and confidence
 - `constitution.md` gets only confirmed principle updates
 
 ### 2. `/devspec.projectcontext`
@@ -353,6 +357,7 @@ Use it for:
 - defining product vision
 - identifying users and stakeholders
 - recording goals, non-goals, and business constraints
+- capturing developer-facing implications with source and confidence
 
 Example:
 
@@ -374,6 +379,7 @@ Use it for:
 - frameworks and libraries
 - services and infrastructure
 - build, test, lint, CI/CD, and hosting choices
+- version support, source evidence, and implementation or validation impact
 
 Example:
 
@@ -396,6 +402,7 @@ Use it for:
 - module boundaries
 - ownership seams
 - integration boundaries
+- cross-cutting placement rules that tell developers where related code belongs
 
 For multi-repo projects, use this stage to capture each repo's role, local path, whether it is already open in the current VS Code workspace, and its access requirement such as `reference-only`, `edit`, `edit-and-test`, `validation-only`, `release-coordination`, or `blocked`.
 
@@ -403,7 +410,7 @@ Agents must not assume `reference-only` or any other access requirement. When a 
 
 Repos outside the current repo folder are valid multi-repo participants. Their location should not imply `reference-only`; record the local path, workspace availability, and user-confirmed access requirement separately.
 
-The repository tree should go deep enough for file-placement decisions, usually 3-5 levels for important source roots, feature/module folders, tests, scripts, config, infrastructure, docs, and routing-critical files. Avoid exhaustive file listings.
+The repository tree should go deep enough for file-placement decisions, usually 4-5 levels for important source roots, feature/module folders, tests, scripts, config, infrastructure, docs, and routing-critical files. Avoid exhaustive file listings.
 
 Example:
 
@@ -433,6 +440,7 @@ Use it for:
 - links to existing coding standards docs
 - evidence-backed pattern catalogs with source paths and confidence
 - short canonical examples for important style, indentation, SQL layout, member ordering, or framework patterns when available
+- anti-patterns and conflicts only when they are provided, detected, or confirmed
 
 Example:
 
@@ -460,6 +468,7 @@ Use it for:
 - forbidden libraries or patterns
 - approval gates
 - production readiness rules
+- enforcement points and blocking conditions developers must satisfy before completion
 
 Example:
 
@@ -605,6 +614,7 @@ Important behavior:
 
 - must not change or expand the finalized scope
 - should create ordered, implementation-oriented tasks
+- should make each task an executable checkpoint with target area, dependency, validation, and done criteria
 - should include validation steps and type-specific checks
 - for multi-repo work, should assign each task to a target repo and use `devspec/foundation/codebase-structure.md` as the source of truth for local repo paths and user-confirmed access requirements
 
@@ -631,6 +641,7 @@ Important behavior:
 - for multi-repo work, uses the repo configuration in `devspec/foundation/codebase-structure.md` as the single source of truth for which physical repo path to change and what access is allowed
 - validates required repo paths and access requirements before making code changes or running validation, and surfaces missing repo access as a blocker
 - records task state by target repo, target area, status, attempt count, and last checkpoint
+- keeps `implement.md` detailed enough for recovery while omitting optional sections with no changed files, repo-access checks, type-specific notes, or retry escalations
 - after each task, reports completed and pending counts and asks one structured question with `Proceed`, `Skip`, and `Custom Answer`
 - once all tasks are implemented, records the completed task list and completion summary
 - if the same task exceeds three attempts, explains the blocker before asking whether to proceed, skip, or provide custom direction
@@ -838,7 +849,7 @@ Review extracted artifacts before relying on them:
 | `devspec/architecture/artifact-queue.md` | Diagram candidates with scope, type, target path, evidence, confidence, status, and duplicate-check notes. |
 | `devspec/foundation/project-context.md` | Product goals and user outcomes, because code rarely tells the whole story. |
 | `devspec/foundation/tech-stack.md` | Languages, runtimes, frameworks, services, tooling, hosting, support status, and verification dates. |
-| `devspec/foundation/codebase-structure.md` | Selective 3-5 level layout, module boundaries, multi-repo roles, local paths, workspace availability, and access requirements. |
+| `devspec/foundation/codebase-structure.md` | Selective 4-5 level layout, module boundaries, multi-repo roles, local paths, workspace availability, and access requirements. |
 | `devspec/foundation/discovery-exclusions.md` | Default and project-specific paths agents should skip during discovery. |
 | `devspec/foundation/coding-standards.md` | Evidence-backed conventions, source paths, confidence, and compact examples for important patterns. |
 | `devspec/foundation/rules.md` | Compliance, security, deployment, approval, and production-readiness constraints. |

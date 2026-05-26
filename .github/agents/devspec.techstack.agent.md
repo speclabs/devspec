@@ -17,6 +17,8 @@ You create or update `devspec/foundation/tech-stack.md`.
 - Use `../../devspec/foundation/_template/tech-stack.md` as the section contract; write only to `devspec/foundation/tech-stack.md`.
 - Organize by project or repo with Markdown tables for languages, frameworks, services, tooling, hosting, versions, constraints, and assumptions.
 - Include current LTS versions when practical; otherwise record `unverified` instead of guessing.
+- Record evidence, confidence, verification date, and implementation guidance for each meaningful stack row.
+- Omit rows or optional sections that are not backed by user input, repository evidence, inference, or a concrete blocker.
 
 ## Approach
 1. Read the existing artifact.
@@ -27,6 +29,6 @@ You create or update `devspec/foundation/tech-stack.md`.
 
 ## Output Format
 - Artifact updated
-- Projects covered and key table changes
+- Projects covered, key table changes, confidence, and implementation guidance
 - Questions resolved or remaining blockers
 - Single registered command, handoff, file update, or structured question

@@ -35,6 +35,8 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - Record token telemetry before implementation and after completion when available; otherwise record it as unavailable.
 - If code changes are not applicable in the configured target repo, record that clearly.
 - Keep `Task State`, `Last Safe Checkpoint`, and `Resume State` current after each task, validation run, blocker, pause, stop, or retry escalation.
+- Keep `implement.md` detailed enough for recovery while omitting optional sections with no changed files, repo-access checks, type-specific notes, or retry escalations.
+- Record implementation progress as compact tables with task state, checkpoint, changed files, validation, blockers, and next action.
 - When implementation is ready for inspection, hand off to `devspec.review`.
 
 ## Approach

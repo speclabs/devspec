@@ -6,22 +6,36 @@ This file holds project-operational constraints, governance rules, and delivery 
 
 - Use this file for operational constraints, delivery gates, and evolving project rules.
 - Do not duplicate enduring principles that belong in `devspec/constitution.md`.
+- Write rules as actionable records with scope, enforcement point, source, and confidence.
+- Omit optional sections that have no project-specific content.
 
 ## Hard Constraints
 
-- Constraint 1:
+| Rule | Scope | Requirement | Enforcement point | Source | Confidence |
+| --- | --- | --- | --- | --- | --- |
+| <rule-name> | <system-or-work-scope> | <must-do-or-must-not-do> | <planning-implementation-review-release> | <source-or-user-input> | confirmed |
 
 ## Compliance Requirements
 
-- Requirement 1:
+Include this section only when compliance requirements exist.
+
+| Requirement | Applies to | Required action | Evidence or policy source | Confidence |
+| --- | --- | --- | --- | --- |
+| <requirement> | <data-system-or-work-type> | <action-required> | <source-or-user-input> | confirmed |
 
 ## Forbidden Patterns
 
-- Pattern 1:
+Include this section only when forbidden patterns exist.
+
+| Pattern | Scope | Why forbidden | Preferred alternative | Source | Confidence |
+| --- | --- | --- | --- | --- | --- |
+| <pattern> | <scope> | <risk-or-policy-reason> | <alternative> | <source-or-user-input> | confirmed |
 
 ## Delivery Gates
 
-- Gate 1:
+| Gate | Applies to | Required evidence | Blocking condition | Source | Confidence |
+| --- | --- | --- | --- | --- | --- |
+| <gate-name> | <work-type-or-release-stage> | <validation-or-approval-required> | <what blocks completion> | <source-or-user-input> | confirmed |
 
 ## Bug Handling Rules
 
@@ -50,6 +64,8 @@ This file holds project-operational constraints, governance rules, and delivery 
 | Changes requested | Route the work item back to implementation before marking it complete. |
 
 ## Exceptions
+
+Include this section only when exception handling differs from the normal gates.
 
 | Exception | Process | Status |
 | --- | --- | --- |

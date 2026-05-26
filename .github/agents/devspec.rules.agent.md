@@ -17,6 +17,8 @@ You create or update `devspec/foundation/rules.md`.
 - Use `../../devspec/foundation/_template/rules.md` as the section contract; write only to `devspec/foundation/rules.md`.
 - Keep this file focused on project-operational hard constraints, not enduring principles from `devspec/constitution.md`.
 - Capture compliance requirements, forbidden patterns, delivery gates, review rules, and exception process when known.
+- Write rules as actionable table records with scope, requirement, enforcement point, source, confidence, and required action.
+- Omit optional rule sections that have no confirmed, observed, inferred, or blocked content.
 
 ## Approach
 1. Read the existing artifact.
@@ -27,6 +29,6 @@ You create or update `devspec/foundation/rules.md`.
 
 ## Output Format
 - Artifact updated
-- Key changes
+- Key rules, enforcement points, sources, and confidence
 - Questions resolved or remaining blockers
 - Single registered command, handoff, file update, or structured question

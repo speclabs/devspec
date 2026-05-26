@@ -1,5 +1,7 @@
 # Coding Standards
 
+Use this artifact as a compact pattern catalog for how developers should write and review code. Prefer source references and short rules over copied prose. Omit optional sections with no real standards or evidence.
+
 ## Standards Sources
 
 Use project-owned source, standards docs, and configuration files as evidence. Do not infer coding standards from paths excluded by `devspec/foundation/discovery-exclusions.md`, such as installed dependencies or generated output.
@@ -28,13 +30,13 @@ Use project-owned source, standards docs, and configuration files as evidence. D
 
 Use this as a compact pattern catalog. Prefer source references plus short examples over long copied code.
 
-| Pattern ID | Pattern | Applies to | Rule | Evidence | Confidence | Example |
+| Pattern ID | Pattern | Applies to | Developer rule | Evidence | Confidence | Example |
 | --- | --- | --- | --- | --- | --- | --- |
-| CS-001 | <pattern-name> | <language-framework-or-layer> | <rule-to-follow> | <source-path> | <confidence> | CS-001 |
+| CS-001 | <pattern-name> | <language-framework-or-layer> | <rule-to-follow> | <source-path> | observed | CS-001 |
 
 ## Formatting Examples
 
-Keep examples minimal and canonical. Use 5-20 lines when possible, enough to show indentation, grouping, naming, or layout.
+Include this section only when a short snippet clarifies a style, indentation, naming, grouping, SQL layout, or framework pattern better than a rule alone. Keep examples minimal and canonical. Use 5-20 lines when possible.
 
 ### CS-001: <formatting-or-pattern-name>
 
@@ -45,6 +47,8 @@ Source: `<source-path>`
 ```
 
 ## Anti-Patterns
+
+Include this section only when anti-patterns are provided, detected, or confirmed.
 
 | Pattern | Avoid | Evidence | Preferred pattern | Confidence |
 | --- | --- | --- | --- | --- |
@@ -62,6 +66,8 @@ Source: `<source-path>`
 | Review | <expectation> | <path-or-rule> | <confidence> | |
 
 ## Blockers Or Conflicts
+
+Include this section only when standards evidence conflicts or a required decision is blocked.
 
 | Topic | Conflict or gap | Evidence | Resolution needed |
 | --- | --- | --- | --- |

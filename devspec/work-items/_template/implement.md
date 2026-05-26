@@ -1,5 +1,7 @@
 # Implement
 
+Use this artifact for recovery, audit, and handoff during implementation. Keep resume, task state, checkpoints, changed files, validation, blockers, and next handoff current. Omit optional sections with no entries.
+
 ## Resume State
 
 | Field | Value |
@@ -27,14 +29,13 @@
 
 ## Progress Summary
 
-| Metric | Value |
-| --- | --- |
-| Completed tasks count | |
-| Pending tasks count | |
-| Skipped tasks count | |
-| Last confirmation outcome | proceed, continue, pause, skip, custom |
+| Completed | Pending | Skipped | Last confirmation outcome |
+| --- | --- | --- | --- |
+| <count> | <count> | <count> | proceed, continue, pause, skip, custom |
 
 ## Repo Access Validation
+
+Include this section only when `Multi-repo dependency` is `yes` or implementation needs explicit repo access confirmation.
 
 - Repo path source: `devspec/foundation/codebase-structure.md` when `Multi-repo dependency` is `yes`
 
@@ -44,9 +45,9 @@
 
 ## Task State
 
-| Task | Target repo | Target area | Depends on | Status | Attempt count | Last checkpoint |
-| --- | --- | --- | --- | --- | --- | --- |
-| Task 1 |  |  |  | pending | 0 |  |
+| Task | Target repo | Target area | Depends on | Status | Attempt count | Last checkpoint | Next action |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| T-001 |  |  |  | pending | 0 |  | |
 
 ## Last Safe Checkpoint
 
@@ -60,6 +61,8 @@
 
 ## Changed Files
 
+Include this section only after files or project artifacts change.
+
 | File | Change summary | Status | Validation |
 | --- | --- | --- | --- |
 |  |  | modified |  |
@@ -72,17 +75,21 @@
 
 ## Execution Summary
 
-| Type | Item | Status |
-| --- | --- | --- |
-| Current task outcome |  | pending |
-| Completed task |  | complete |
-| Overall completed summary |  |  |
-| Pending task |  | pending |
-| Skipped task |  | skipped |
-| Residual risk |  | open |
-| Follow-up |  | open |
+Include this section when pausing, completing, skipping, or handing off.
+
+| Type | Item | Evidence or next action | Status |
+| --- | --- | --- | --- |
+| Current task outcome |  |  | pending |
+| Completed task |  |  | complete |
+| Overall completed summary |  |  | |
+| Pending task |  |  | pending |
+| Skipped task |  |  | skipped |
+| Residual risk |  |  | open |
+| Follow-up |  |  | open |
 
 ## Type-Specific Handling
+
+Include this section only for bug or security-vulnerability work items, or when rules add type-specific handling.
 
 | Type | Note |
 | --- | --- |
@@ -91,6 +98,8 @@
 | Security handling notes | |
 
 ## Attempt Escalations
+
+Include this section only when retry or repair attempts need escalation.
 
 | Attempt | Reason | Escalation | Status |
 | --- | --- | --- | --- |
