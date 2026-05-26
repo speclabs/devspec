@@ -66,7 +66,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 | `devspec.projectcontext.prompt.md` | Capture product vision, users, goals, non-goals, constraints, metrics, sources, confidence, and developer implications. | `foundation/project-context.md` |
 | `devspec.techstack.prompt.md` | Capture languages, frameworks, services, tooling, hosting, versions, support status, evidence, and implementation guidance. | `foundation/tech-stack.md` |
 | `devspec.codebase-structure.prompt.md` | Capture selective repo trees, repo configuration, work areas and boundaries, integration contracts, and blockers. | `foundation/codebase-structure.md` |
-| `devspec.coding-standards.prompt.md` | Capture an evidence-backed language/framework pattern catalog, source links, anti-patterns, and optional short examples. | `foundation/coding-standards.md` |
+| `devspec.coding-standards.prompt.md` | Capture an evidence-backed standards catalog with scoped rules, observed patterns, anti-patterns, source links, and optional short examples. | `foundation/coding-standards.md` |
 | `devspec.rules.prompt.md` | Capture actionable operational constraints, compliance, forbidden patterns, gates, enforcement points, source, and confidence. | `foundation/rules.md` |
 | `devspec.story.prompt.md` | Create or update work-item intake artifacts. | `meta.md`, `story.md`, `decisions.md`, `notes.md` |
 | `devspec.clarify.prompt.md` | Ask, resolve, and record one active blocking clarification. | `clarify.md` |

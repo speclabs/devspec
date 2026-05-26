@@ -331,7 +331,7 @@ Expected outcome:
 - `foundation/tech-stack.md` gets table-first stack evidence with versions, support status, sources, confidence, verification dates, and implementation guidance
 - `foundation/codebase-structure.md` gets a selective repo-layout draft plus structured repo configuration, work-area boundary, integration contract, and blocker tables where evidence exists
 - repository layout should be a selective 4-5 level map that helps agents place new files and folders
-- `foundation/coding-standards.md` gets an evidence-backed pattern catalog with optional short examples only when snippets clarify a rule
+- `foundation/coding-standards.md` gets an evidence-backed standards catalog with scoped rules, observed patterns, anti-patterns, and optional short examples only when snippets clarify a rule
 - `foundation/rules.md` gets actionable rule tables with scope, enforcement points, source, and confidence
 - `constitution.md` gets only confirmed principle updates
 
@@ -428,7 +428,7 @@ Use it for:
 - logging and observability
 - review expectations
 - links to existing coding standards docs
-- evidence-backed pattern catalogs with source paths and confidence
+- an evidence-backed standards catalog with source paths and confidence
 - short canonical examples for important style, indentation, SQL layout, member ordering, or framework patterns when available
 - anti-patterns and conflicts only when they are provided, detected, or confirmed
 
@@ -847,7 +847,7 @@ Review extracted artifacts before relying on them:
 | `devspec/foundation/tech-stack.md` | Languages, runtimes, frameworks, services, tooling, hosting, support status, and verification dates. |
 | `devspec/foundation/codebase-structure.md` | Selective 4-5 level layout, work areas and boundaries, integration contracts, multi-repo roles, local paths, workspace availability, and access requirements. |
 | `devspec/foundation/discovery-exclusions.md` | Default and project-specific paths agents should skip during discovery. |
-| `devspec/foundation/coding-standards.md` | Evidence-backed conventions, source paths, confidence, and compact examples for important patterns. |
+| `devspec/foundation/coding-standards.md` | Evidence-backed standards catalog, scoped guidance, source paths, confidence, anti-patterns, and compact examples for important patterns. |
 | `devspec/foundation/rules.md` | Compliance, security, deployment, approval, and production-readiness constraints. |
 
 After extraction, refine the foundation with human context:
