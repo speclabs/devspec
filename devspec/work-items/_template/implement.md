@@ -1,6 +1,6 @@
 # Implement
 
-Use this artifact for recovery, audit, and handoff during implementation. Keep resume, task state, checkpoints, changed files, validation, blockers, and next handoff current. Omit optional sections with no entries.
+Use this artifact for recovery, audit, and handoff during implementation. Keep lifecycle recovery in `Resume State`, per-task progress in `Task Ledger`, changed files and validation evidence in `Implementation Evidence`, and attempt history in `Execution Log`. Omit optional evidence rows with no entries.
 
 ## Resume State
 
@@ -19,96 +19,45 @@ Use this artifact for recovery, audit, and handoff during implementation. Keep r
 | Resume notes | |
 | Updated | |
 
-## Implementation Status
+## Task Ledger
+
+Use this as the single recovery view for implementation progress, current task, last safe checkpoint, and next handoff. Keep one row per task from `tasks.md`.
 
 | Field | Value |
 | --- | --- |
-| Status | See `devspec/glossary.md#task-status-values` |
+| Overall status | See `devspec/glossary.md#task-status-values` |
+| Completed count | |
+| Pending count | |
+| Skipped count | |
 | Current task | |
-| Completion note | |
-
-## Progress Summary
-
-| Completed | Pending | Skipped | Last confirmation outcome |
-| --- | --- | --- | --- |
-| <count> | <count> | <count> | proceed, continue, pause, skip, custom |
-
-## Repo Access Validation
-
-Include this section only when `Multi-repo dependency` is `yes` or implementation needs explicit repo access confirmation.
-
-- Repo path source: `devspec/foundation/codebase-structure.md` when `Multi-repo dependency` is `yes`
-
-| Repo | Access requirement | Access status | Notes |
-| --- | --- | --- | --- |
-| <repo-name> | <access-requirement> | <access-status> | |
-
-## Task State
-
-| Task | Target repo | Target area | Depends on | Status | Attempt count | Last checkpoint | Next action |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| T-001 |  |  |  | pending | 0 |  | |
-
-## Last Safe Checkpoint
-
-| Field | Value |
-| --- | --- |
 | Last completed task | |
-| Current task | |
-| Validation last run | |
+| Last confirmation outcome | proceed, continue, pause, skip, custom |
 | Known good state | |
 | Roll-forward notes | |
+| Completion note | |
 
-## Changed Files
+| Task | Target repo | Target area | Depends on | Status | Attempt count | Last checkpoint | Validation last run | Next action |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| T-001 |  |  |  | pending | 0 |  |  | |
 
-Include this section only after files or project artifacts change.
+## Implementation Evidence
 
-| File | Change summary | Status | Validation |
-| --- | --- | --- | --- |
-|  |  | modified |  |
+Record only evidence that exists. Use this section for repo access checks, changed files, validation results, type-specific handling, residual risks, follow-ups, and review/audit snippets. Repo path and access requirement source is `devspec/foundation/codebase-structure.md`; type-specific rule source is `devspec/foundation/rules.md`.
 
-## Task Execution Log
+| Type | Applies to | Item | Evidence or notes | Status |
+| --- | --- | --- | --- | --- |
+| Repo access | <repo-name> | <access-requirement-and-status> | <confirmation-or-blocker-notes> | confirmed, missing, blocked |
+| Changed file | <task-id> | <path> | <change-summary-and-validation> | modified |
+| Validation | <task-id-or-scope> | <command-or-method> | <result-or-expected-signal> | pending, passed, failed, skipped |
+| Type-specific handling | <bug-security-or-rule> | <handling-note> | <rule-source-or-audit-note> | pending, complete |
+| Risk or follow-up | <task-id-or-work-item> | <risk-or-follow-up> | <owner-or-next-action> | open, pending, complete |
+| Review snippet | <task-id-or-file> | <before-after-or-audit-summary> | <why-useful-for-review> | recorded |
+| Token telemetry | <run-or-task> | before, after, unavailable | <usage-summary-or-unavailable-reason> | recorded |
 
-| Date | Task | Target repo | Target area | Attempt count | Status | Summary | Files changed | Validation | Blockers | Failed method | Failure reason | Retry condition | Next safer method | Confirmation after task |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-|  |  |  |  | 0 | pending |  |  |  |  |  |  |  |  |  |
+## Execution Log
 
-## Execution Summary
+Record one row per task attempt, validation run, blocker, retry escalation, pause, skip, completion, or handoff. Failed methods, retry conditions, and next safer methods belong here.
 
-Include this section when pausing, completing, skipping, or handing off.
-
-| Type | Item | Evidence or next action | Status |
-| --- | --- | --- | --- |
-| Current task outcome |  |  | pending |
-| Completed task |  |  | complete |
-| Overall completed summary |  |  | |
-| Pending task |  |  | pending |
-| Skipped task |  |  | skipped |
-| Residual risk |  |  | open |
-| Follow-up |  |  | open |
-
-## Type-Specific Handling
-
-Include this section only for bug or security-vulnerability work items, or when rules add type-specific handling.
-
-| Type | Note |
-| --- | --- |
-| Rule source | `devspec/foundation/rules.md` |
-| Bug handling notes | |
-| Security handling notes | |
-
-## Attempt Escalations
-
-Include this section only when retry or repair attempts need escalation.
-
-| Attempt | Reason | Escalation | Status |
-| --- | --- | --- | --- |
-| 1 |  |  | pending |
-
-## Next Task Handoff
-
-| Field | Value |
-| --- | --- |
-| Next task | |
-| Preconditions | |
-| Notes for next implementation pass | |
+| Date | Task | Event | Attempt count | Status | Summary | Evidence refs | Blockers | Failed method and reason | Retry condition or next safer method | Confirmation or handoff |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | T-001 | attempt, validation, blocker, retry-escalation, pause, skip, completion, handoff | 0 | pending |  |  |  |  |  |  |

@@ -34,15 +34,15 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - Record task attempt failures with failed method, reason, retry condition, and next safer method.
 - Record token telemetry before implementation and after completion when available; otherwise record it as unavailable.
 - If code changes are not applicable in the configured target repo, record that clearly.
-- Keep `Task State`, `Last Safe Checkpoint`, and `Resume State` current after each task, validation run, blocker, pause, stop, or retry escalation.
-- Keep `implement.md` detailed enough for recovery while omitting optional sections with no changed files, repo-access checks, type-specific notes, or retry escalations.
-- Record implementation progress as compact tables with task state, checkpoint, changed files, validation, blockers, and next action.
+- Keep `Task Ledger`, `Execution Log`, and `Resume State` current after each task, validation run, blocker, pause, stop, or retry escalation.
+- Keep `implement.md` detailed enough for recovery while omitting evidence rows with no changed files, repo-access checks, validation results, type-specific notes, residual risks, follow-ups, or retry escalations.
+- Record implementation progress as compact tables with task ledger state, checkpoints, changed files, validation, blockers, retry details, and next action.
 - When implementation is ready for inspection, hand off to `devspec.review`.
 
 ## Approach
 1. Locate the target work item.
 2. Read `meta.md` when present, `finalize.md`, `tasks.md`, `implement.md`, and relevant code context.
-3. Reconcile `Resume State`, `Task State`, `Last Safe Checkpoint`, and `Next Task Handoff`.
+3. Reconcile `Resume State`, `Task Ledger`, and `Execution Log`.
 4. Check discovery exclusions and exploration state for known methods in the same repo, task, search goal, helper command, or validation goal.
 5. Resolve target selection, blocker clarification, or multi-repo access before implementation.
 6. Record pre-run token telemetry or mark it unavailable.
@@ -50,7 +50,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 8. Select the next paused or pending task; if none remain, update `implement.md`, mark completion, and notify the user.
 9. Implement the task when applicable and run appropriate validation.
 10. Record reusable search, helper-command, repair, or validation methods.
-11. Update `implement.md` with access status, task state, checkpoint, task log, changed files, validation, blockers, type-specific notes, counts, and confirmation outcome.
+11. Update `implement.md` with access status, task ledger, checkpoints, execution log, changed files, validation, blockers, type-specific notes, counts, and confirmation outcome.
 12. Ask the required continuation question or, when complete, record post-run telemetry, summarize completion, mark `Resume State` complete, and hand off to review.
 
 ## Output Format

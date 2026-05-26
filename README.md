@@ -645,12 +645,12 @@ Important behavior:
 - resumes from `implement.md` and `meta.md` when a prior session was paused, stopped, blocked, or waiting for user input
 - for multi-repo work, uses the repo configuration in `devspec/foundation/codebase-structure.md` as the single source of truth for which physical repo path to change and what access is allowed
 - validates required repo paths and access requirements before making code changes or running validation, and surfaces missing repo access as a blocker
-- records task state by target repo, target area, status, attempt count, and last checkpoint
-- keeps `implement.md` detailed enough for recovery while omitting optional sections with no changed files, repo-access checks, type-specific notes, or retry escalations
+- records task ledger state by target repo, target area, status, attempt count, last checkpoint, validation, and next action
+- keeps `implement.md` detailed enough for recovery while omitting evidence rows with no changed files, repo-access checks, validation results, type-specific notes, risks, follow-ups, or retry escalations
 - after each task, reports completed and pending counts and asks one structured question with `Proceed`, `Skip`, and `Custom Answer`
 - once all tasks are implemented, records the completed task list and completion summary
 - if the same task exceeds three attempts, explains the blocker before asking whether to proceed, skip, or provide custom direction
-- updates the execution log, last safe checkpoint, and next-task handoff
+- updates the task ledger, implementation evidence, and execution log
 - for bug fixes, records focused before-and-after code snippets in `implement.md` when useful for review or audit
 
 Example:
