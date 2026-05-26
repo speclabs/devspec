@@ -29,10 +29,9 @@ Use this artifact as the executable implementation plan. Tasks should be ordered
 
 | Field | Value |
 | --- | --- |
-| Final scope source | `finalize.md#final-scope` |
-| Planning input source | `finalize.md#task-planning-inputs` |
+| Implementation brief source | `finalize.md#implementation-brief` |
 | Validation source | `finalize.md#validation-plan` |
-| Multi-repo readiness source | `finalize.md#multi-repo-readiness` when applicable |
+| Readiness source | `finalize.md#readiness` |
 | Access requirement source | `devspec/foundation/codebase-structure.md` |
 | Type-specific rule source | `devspec/foundation/rules.md` |
 

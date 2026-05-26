@@ -5,7 +5,7 @@ argument-hint: "Optional: add reviewer notes, constraints, or finalization guida
 agent: "devspec.finalize"
 ---
 
-Create or update `devspec/work-items/<work-item-folder>/finalize.md` for the current work item with implementation-oriented readiness, final scope, acceptance criteria, task planning inputs, validation plan, risks, and blockers.
+Create or update `devspec/work-items/<work-item-folder>/finalize.md` for the current work item with implementation-oriented readiness, implementation brief, validation plan, and blockers.
 
 Optional user input:
 ${input:finalizeInput:Optional: add reviewer notes, constraints, or finalization guidance}
