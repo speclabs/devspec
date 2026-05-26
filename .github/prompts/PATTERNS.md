@@ -95,7 +95,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 
 - Use this pattern when extraction proposes diagram candidates or `/devspec.diagram` generates or updates a diagram.
 - Queue only candidates backed by concrete repository evidence from owned routes, modules, workflows, state transitions, services, integrations, ADRs, docs, infrastructure, runtime config, or manifests.
-- Each queued candidate must include ID, scope, diagram type, subject, target location, evidence, confidence, status, and notes. Record the equivalent-diagram check result in `Notes`.
+- Each queued candidate must include ID, scope, diagram type, subject, target location, evidence, confidence, status, and next action or notes. Record the equivalent-diagram check result in `Next action or notes`.
 - Use stable IDs such as `DIA-001`, `DIA-002`, preserving existing IDs and assigning the next available number for new rows.
 - Keep subjects specific enough to become one diagram file. Use lowercase kebab-case for subject slugs, one subject per diagram file, and `devspec/architecture/diagrams/<subject-slug>.md` for durable diagrams.
 - Prefer reusable architecture, module, feature, workflow, sequence, state, or user-journey diagrams over temporary work-item diagrams. Use work-item `diagrams.md` only for explicit or clearly temporary generated diagram content; keep diagram lifecycle status in `devspec/architecture/artifact-queue.md`.

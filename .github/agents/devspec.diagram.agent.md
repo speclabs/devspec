@@ -45,7 +45,7 @@ You generate or update one diagram artifact for a requested architecture, module
 6. Select the diagram type, or ask one structured question when the diagram type or target location is ambiguous.
 7. Gather evidence with targeted reads, search, or Explore.
 8. Check for an equivalent existing diagram before adding a queue row or output.
-9. Add or update one queue row with scope, diagram type, subject, target location, evidence, confidence, status, and notes that include the duplicate-check result.
+9. Add or update one queue row with scope, diagram type, subject, target location, evidence, confidence, status, and next action or notes that include the duplicate-check result.
 10. Ask one structured question for clarification, overwrite approval, or queue continuation when needed.
 11. Generate one concise Mermaid diagram, write `Diagram Metadata`, `Mermaid Diagram`, `Source Evidence and Assumptions`, and any `Maintenance Notes` to the target location, add or update the `overview.md` `Diagram Reference Index` row when the diagram is durable, mark the queue row `generated`, `skipped`, or `blocked`, and report per Output Format.
 

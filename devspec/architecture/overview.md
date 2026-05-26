@@ -16,7 +16,7 @@ Use this section for confirmed architecture facts that affect system understandi
 
 Use this section for confirmed high-level diagrams in this file and links to durable detailed diagrams. Do not mirror lifecycle status here; track proposed, pending, generated, skipped, or blocked diagram work in `devspec/architecture/artifact-queue.md`.
 
-| ID | Scope | Diagram type | Subject | Link or section | Notes |
+| ID | Scope | Diagram type | Subject | Link or section | Usage notes |
 | --- | --- | --- | --- | --- | --- |
 |  | architecture, module, feature, workflow, user-journey | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram |  | `devspec/architecture/diagrams/<subject-slug>.md` or section anchor |  |
 
@@ -24,7 +24,7 @@ Use this section for confirmed high-level diagrams in this file and links to dur
 
 Use this section only for pointers to durable ADRs or confirmed architecture decisions. Keep decision status, context, and consequences in the ADR file.
 
-| Decision | Reference | Notes |
+| Decision | Reference | Architecture relevance |
 | --- | --- | --- |
 |  | `devspec/architecture/decisions/<adr-file>.md` |  |
 
@@ -32,6 +32,6 @@ Use this section only for pointers to durable ADRs or confirmed architecture dec
 
 Use this section only for missing or conflicting architecture facts that prevent reliable planning, diagram generation, or architecture decision recording. Keep implementation blockers in work-item artifacts.
 
-| Gap or blocker | Impact | Required resolution | State |
+| Gap or blocker | Impact | Required resolution | Resolution state |
 | --- | --- | --- | --- |
 |  |  |  | open |

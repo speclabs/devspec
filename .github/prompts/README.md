@@ -74,7 +74,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 | `devspec.tasks.prompt.md` | Break a ready brief into executable implementation tasks with planning basis, validation, and done criteria. | `tasks.md` |
 | `devspec.implement.prompt.md` | Implement pending tasks and record task ledger state, implementation evidence, execution history, and handoff details. | `implement.md`, code changes |
 | `devspec.review.prompt.md` | Review implemented work against the finalized brief. | `review.md` |
-| `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram. | `architecture/diagrams/*.md` by default; `architecture/overview.md` for high-level system diagrams; work-item `diagrams.md` for explicit or temporary generated diagram content |
+| `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram. | `architecture/diagrams/*.md` by default; `architecture/overview.md` for high-level architecture diagrams; work-item `diagrams.md` for explicit or temporary generated diagram content |
 
 ## Maintenance
 

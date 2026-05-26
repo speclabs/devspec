@@ -28,7 +28,7 @@ Use this artifact for one durable architecture, module, feature, workflow, user-
 | Diagram type | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram |
 | Subject | |
 | Confidence | observed, high-confidence, low-confidence |
-| Queue row | `devspec/architecture/artifact-queue.md#diagram-artifact-queue` |
+| Queue row | `devspec/architecture/artifact-queue.md#diagram-queue-register` |
 
 ## Mermaid Diagram
 
@@ -47,6 +47,6 @@ Use `evidence` for directly supported code, docs, config, ADRs, or user-confirme
 
 ## Maintenance Notes
 
-| Note | Action or owner | State |
+| Note | Action or owner | Resolution state |
 | --- | --- | --- |
 |  |  | open |
