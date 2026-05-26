@@ -22,7 +22,7 @@ Use this section for confirmed high-level diagrams in this file and links to dur
 
 ## Decision Reference Index
 
-Use this section only for pointers to durable ADRs or confirmed architecture decisions. Keep decision status, context, and consequences in the ADR file.
+Use this section only for pointers to durable ADRs or confirmed architecture decisions. Keep metadata, context, outcome, impact, and references in the ADR file.
 
 | Decision | Reference | Architecture relevance |
 | --- | --- | --- |

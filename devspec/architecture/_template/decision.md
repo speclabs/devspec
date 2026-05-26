@@ -1,4 +1,4 @@
-# Architecture Decision Record
+# Architecture Decision
 
 Use this artifact for one durable architecture decision that affects multiple work items, long-lived system structure, integration boundaries, technology direction, or operational architecture. Create ADR files under `devspec/architecture/decisions/` only when the user explicitly asks or the decision has clear supporting evidence and needs durable cross-work-item tracking.
 
@@ -13,15 +13,17 @@ Use this artifact for one durable architecture decision that affects multiple wo
 | Decision owner | |
 | Supersedes | ADR ID or none |
 
-## Context
+## Decision Context
 
-| Topic | Details | Evidence |
+Use this section for the problem, forces, constraints, and alternatives that explain why a durable architecture decision is needed. Keep implementation task details in work-item artifacts.
+
+| Context item | Details | Evidence |
 | --- | --- | --- |
-| Background |  |  |
-| Constraints |  |  |
+| Problem or driver |  |  |
+| Constraints or forces |  |  |
 | Alternatives considered |  |  |
 
-## Decision
+## Decision Outcome
 
 | Field | Value |
 | --- | --- |
@@ -29,18 +31,15 @@ Use this artifact for one durable architecture decision that affects multiple wo
 | Scope | |
 | Rationale | |
 
-## Consequences
+## Impact and References
 
-| Type | Consequence | Required handling |
+Use this section for the decision effects and durable links that future agents or developers must preserve. Link related work-item decisions instead of duplicating them here.
+
+| Type | Item | Required handling or relationship |
 | --- | --- | --- |
-| positive |  |  |
+| positive consequence |  |  |
 | trade-off |  |  |
 | risk |  |  |
-
-## Related References
-
-| Reference type | Reference | Relationship |
-| --- | --- | --- |
-| work-item |  |  |
-| architecture artifact |  |  |
-| source |  |  |
+| related work item |  |  |
+| related architecture artifact |  |  |
+| source evidence |  |  |
