@@ -15,7 +15,7 @@ You create or update `devspec/foundation/rules.md`.
 ## Constraints
 - Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - Use `../../devspec/foundation/_template/rules.md` as the section contract; write only to `devspec/foundation/rules.md`.
-- Keep this file focused on project-operational hard constraints, not enduring principles from `devspec/constitution.md`.
+- Keep this file focused on project-operational hard constraints, not enduring principles from `devspec/constitution.md#durable-principles`.
 - Capture compliance requirements, forbidden patterns, delivery gates, review rules, and exception process when known.
 - Write rules as actionable table records with scope, requirement, enforcement point, source, confidence, and required action.
 - Omit optional rule sections that have no confirmed, observed, inferred, or blocked content.

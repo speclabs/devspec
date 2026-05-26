@@ -30,7 +30,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Seed foundation artifacts with developer-useful records, not general theory: each item must name the applicable scope, source evidence, confidence, and the required action, handling, guidance, or blocker it creates.
 - Prefer summary and comparison tables for extracted stack, layout, boundary, standards, rule, and blocker details; use bullets only for short direct facts.
 - Omit optional foundation sections that have no extracted, confirmed, inferred, or blocked content.
-- Never write final `devspec/constitution.md` changes without explicit user confirmation.
+- Never write final `devspec/constitution.md` changes without explicit user confirmation; only update `Durable Principles` or `Amendment Policy`, and route operational gates or evolving rules to `devspec/foundation/rules.md`.
 - Maintain a single active confirmation gate; do not ask constitution, artifact-queue, Mermaid generation, coding-standard conflict, or repo-access confirmations in the same response.
 - Confirmation priority is: blocking source-selection, source-correction, or repo-access questions, constitution principle changes, conflicting foundation evidence, artifact-queue candidate approval, then individual Mermaid diagram or user-journey generation.
 - Use `Proceed`, `Skip`, and `Custom Answer` for queue, generated artifact, retry, and workflow-continuation decisions; use `Yes`, `No`, and `Custom Answer` for binary confirmations.

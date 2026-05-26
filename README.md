@@ -791,10 +791,8 @@ Holds durable project principles that apply across all work items and all agents
 
 Examples:
 
-- engineering principles
-- delivery guardrails
-- testing expectations
-- security defaults
+- durable engineering, delivery, validation, security, and compliance principles
+- amendment policy for principle-level changes
 
 This file is intentionally harder to change. The extraction flow explicitly requires confirmation before principle-level updates are written.
 
