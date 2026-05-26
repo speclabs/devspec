@@ -28,6 +28,7 @@ You generate or update one diagram artifact for a requested architecture, module
 - Store work-item diagrams only for explicit requests or clearly temporary bug reproduction, migration path, security incident or threat flow, implementation-plan, or experiment flows that should not become durable architecture.
 - Keep `devspec/architecture/overview.md` limited to high-level system diagrams and links.
 - Use `devspec/architecture/artifact-queue.md` as the resumable diagram queue.
+- For work-item `diagrams.md`, do not maintain a separate diagram index or lifecycle status; write generated temporary diagram content under `Work-Item Diagrams` and keep proposed, confirmed, generated, skipped, or blocked status in `devspec/architecture/artifact-queue.md`.
 - Update `Resume State` in the target diagram artifact, and in `meta.md` only for work-item diagrams.
 - Update queue rows before asking for confirmation, after generation, or when evidence is missing.
 - Before writing, check `devspec/architecture/diagrams/*.md`, `devspec/architecture/overview.md`, `devspec/architecture/artifact-queue.md`, and relevant work-item `diagrams.md` files for equivalent diagrams.
@@ -45,7 +46,7 @@ You generate or update one diagram artifact for a requested architecture, module
 8. Check for an equivalent existing diagram before adding a queue row or output.
 9. Add or update one queue row with scope, type, subject, target path, evidence, confidence, status, output section, notes, and duplicate-check result.
 10. Ask one structured question for clarification, overwrite approval, or queue continuation when needed.
-11. Generate one concise Mermaid diagram with evidence notes and assumptions, write it to the target, update `overview.md` only for detailed architecture diagram links, mark the queue row `generated`, `skipped`, or `blocked`, and report per Output Format.
+11. Generate one concise Mermaid diagram with evidence notes and assumptions, write it to the target diagram section, update `overview.md` only for detailed architecture diagram links, mark the queue row `generated`, `skipped`, or `blocked`, and report per Output Format.
 
 ## Output Format
 - Diagram target path

@@ -686,7 +686,7 @@ What it writes:
 - `devspec/architecture/diagrams/<subject-slug>.md` by default for durable architecture, module, feature workflow, user journey, sequence, state, or class/domain diagrams
 - `devspec/architecture/overview.md` only for high-level system diagrams or links to detailed diagram files
 - `devspec/architecture/artifact-queue.md` for resumable proposed, confirmed, generated, skipped, or blocked diagram work with evidence and confidence
-- `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment
+- `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary generated work-item diagram content, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment
 
 Important behavior:
 
@@ -697,6 +697,7 @@ Important behavior:
 - supports `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, and `classDiagram`
 - checks for an equivalent existing diagram before creating another one
 - separates evidence-backed facts from assumptions
+- keeps work-item `diagrams.md` focused on generated temporary diagram content; `architecture/artifact-queue.md` owns proposed, confirmed, generated, skipped, or blocked diagram status
 - uses confidence values consistently: `observed`, `high-confidence`, or `low-confidence`
 - keeps feature and module workflow diagrams out of `overview.md` unless they are truly high-level system views
 - defaults to `devspec/architecture/diagrams/` even when the request mentions a work item, unless the diagram is explicit or clearly temporary story-specific context
@@ -727,7 +728,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 | 9 | `/devspec.tasks` | A ready brief needs ordered implementation tasks. | `finalize.md` marked `ready`. | `work-items/<work-item-folder>/tasks.md` | `/devspec.implement` |
 | 10 | `/devspec.implement` | Pending tasks should be implemented. | `finalize.md` marked `ready` and `tasks.md`. | `work-items/<work-item-folder>/implement.md` and code changes when applicable. | `/devspec.review` |
 | 11 | `/devspec.review` | Implemented work needs review against the finalized brief. | `finalize.md` and `implement.md`. | `work-items/<work-item-folder>/review.md` | Return to implementation for changes, or close the work item |
-| Optional | `/devspec.diagram` | A requested architecture, module, feature workflow, user journey, sequence, state, or class/domain diagram is needed. | Diagram subject or related work item. | `architecture/diagrams/*.md` by default, `architecture/overview.md` for high-level system diagrams, `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagrams, and `architecture/artifact-queue.md` as applicable. | Continue the current workflow |
+| Optional | `/devspec.diagram` | A requested architecture, module, feature workflow, user journey, sequence, state, or class/domain diagram is needed. | Diagram subject or related work item. | `architecture/diagrams/*.md` by default, `architecture/overview.md` for high-level system diagrams, `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary generated work-item diagram content, and `architecture/artifact-queue.md` as applicable. | Continue the current workflow |
 
 ## End-to-end examples
 
@@ -836,7 +837,7 @@ Holds one folder per story, feature, bug, or security issue. Each work item carr
 
 Each work-item artifact can include `Resume State`, which lets a new Copilot or agent session recover the current stage, pending question, next safe action, and resume command from Git-tracked files. Implementation also records task-level checkpoints in `implement.md` so monolith and multi-repo work can continue by target repo, target area, and task status.
 
-Reusable feature workflows, user journeys, sequence diagrams, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Use work-item `diagrams.md` only for explicit or clearly temporary story-specific context, such as a bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment.
+Reusable feature workflows, user journeys, sequence diagrams, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Use work-item `diagrams.md` only for explicit or clearly temporary story-specific generated diagram content, such as a bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment. Keep proposed, confirmed, generated, skipped, or blocked diagram status in `devspec/architecture/artifact-queue.md`.
 
 ## Advanced: extracting information from an existing project
 

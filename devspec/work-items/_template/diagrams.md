@@ -4,6 +4,8 @@ Use this file only for explicit or clearly temporary work-item diagrams, such as
 
 Reusable feature workflows, module workflows, user journeys, sequences, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item.
 
+Do not keep a separate diagram index or lifecycle status here. `devspec/architecture/artifact-queue.md` owns proposed, confirmed, generated, skipped, or blocked diagram work. This file owns only the content of generated work-item-specific diagrams and the resume state needed to continue the diagram command.
+
 ## Resume State
 
 | Field | Value |
@@ -21,22 +23,19 @@ Reusable feature workflows, module workflows, user journeys, sequences, and stat
 | Resume notes | |
 | Updated | |
 
-## Diagram Index
+## Work-Item Diagrams
 
-| ID | Type | Subject | Status | Source | Notes |
-| --- | --- | --- | --- | --- | --- |
-|  |  |  | proposed |  |  |
-
-## Generated Diagrams
-
-### Diagram 1
+### DIA-001 - <subject>
 
 | Field | Value |
 | --- | --- |
 | Type | |
 | Subject | |
-| Evidence | |
-| Assumptions | |
+| Queue source | `devspec/architecture/artifact-queue.md` |
+| Evidence sources | |
+| Confidence | observed, high-confidence, low-confidence |
+| Assumptions | none or listed below |
+| Notes | |
 
 ```mermaid
 flowchart TD
