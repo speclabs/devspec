@@ -329,7 +329,7 @@ Expected outcome:
 - `architecture/overview.md` gets a first-pass system view
 - `architecture/artifact-queue.md` gets evidence-backed diagram candidates when durable diagrams would clarify the system
 - `foundation/tech-stack.md` gets table-first stack evidence with versions, support status, sources, confidence, verification dates, and implementation guidance
-- `foundation/codebase-structure.md` gets a selective repo-layout draft plus structured repo, boundary, ownership, integration, and placement tables where evidence exists
+- `foundation/codebase-structure.md` gets a selective repo-layout draft plus structured repo configuration, work-area boundary, integration contract, and blocker tables where evidence exists
 - repository layout should be a selective 4-5 level map that helps agents place new files and folders
 - `foundation/coding-standards.md` gets an evidence-backed pattern catalog with optional short examples only when snippets clarify a rule
 - `foundation/rules.md` gets actionable rule tables with scope, enforcement points, source, and confidence
@@ -390,10 +390,9 @@ Use it for:
 
 - repo tree
 - multi-repo repo configuration when applicable
-- module boundaries
-- ownership seams
-- integration boundaries
-- cross-cutting placement rules that tell developers where related code belongs
+- work areas and internal boundaries that tell developers where related code belongs
+- ownership or review routing when it affects future changes
+- integration contracts that must be preserved across repos, modules, services, or external systems
 
 For multi-repo projects, use this stage to capture each repo's role, local path, whether it is already open in the current VS Code workspace, and its access requirement from `devspec/glossary.md#access-requirement-values`.
 
@@ -713,7 +712,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 | 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Optional: blank for current root confirmation, one repo URL or local path, or named `Name - path` multi-repo entries. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
 | 1 | `/devspec.projectcontext` | Product and business context need to be created or updated. | Product vision, users, goals, non-goals, and constraints. | `foundation/project-context.md` | `/devspec.techstack` |
 | 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Stack evidence, support status, hosting, tooling, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
-| 3 | `/devspec.codebase-structure` | Repo layout, module boundaries, ownership seams, or multi-repo config need to be recorded. | Repository layout, integration boundaries, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
+| 3 | `/devspec.codebase-structure` | Repo layout, work areas, integration contracts, or multi-repo config need to be recorded. | Repository layout, work-area boundaries, integration contracts, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
 | 4 | `/devspec.coding-standards` | Engineering expectations or observed code patterns need to be recorded. | Direct standards, links, repo-relative standards docs, or evidence-backed examples. | `foundation/coding-standards.md` | `/devspec.rules` |
 | 5 | `/devspec.rules` | Operational hard constraints and delivery gates need to be recorded. | Compliance requirements, forbidden patterns, governance rules, and gates. | `foundation/rules.md` | `/devspec.story` |
 | 6 | `/devspec.story` | A feature, bug, or security vulnerability needs intake. | Work-item reference or manual intake details. | `work-items/<work-item-folder>/meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
@@ -798,7 +797,7 @@ Holds project-operational context and constraints.
 - `tech-stack.md`
   Languages, frameworks, services, tooling, hosting, current LTS or support status, verification dates, and delivery constraints.
 - `codebase-structure.md`
-  Repository layout, module boundaries, ownership seams, and integration boundaries.
+  Repository layout, work areas and boundaries, integration contracts, and multi-repo configuration.
 - `coding-standards.md`
   Implementation expectations, testing rules, error handling, logging, documentation, and review norms.
 - `discovery-exclusions.md`
@@ -846,7 +845,7 @@ Review extracted artifacts before relying on them:
 | `devspec/architecture/artifact-queue.md` | Diagram candidates with scope, type, target path, evidence, confidence, status, and duplicate-check notes. |
 | `devspec/foundation/project-context.md` | Product goals and user outcomes, because code rarely tells the whole story. |
 | `devspec/foundation/tech-stack.md` | Languages, runtimes, frameworks, services, tooling, hosting, support status, and verification dates. |
-| `devspec/foundation/codebase-structure.md` | Selective 4-5 level layout, module boundaries, multi-repo roles, local paths, workspace availability, and access requirements. |
+| `devspec/foundation/codebase-structure.md` | Selective 4-5 level layout, work areas and boundaries, integration contracts, multi-repo roles, local paths, workspace availability, and access requirements. |
 | `devspec/foundation/discovery-exclusions.md` | Default and project-specific paths agents should skip during discovery. |
 | `devspec/foundation/coding-standards.md` | Evidence-backed conventions, source paths, confidence, and compact examples for important patterns. |
 | `devspec/foundation/rules.md` | Compliance, security, deployment, approval, and production-readiness constraints. |

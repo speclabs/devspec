@@ -73,7 +73,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 ## Artifact Content Pattern
 
 - Write artifacts for developers who need to plan, implement, review, or recover work. Every captured item should make clear what is true, where it applies, what evidence or source supports it, and what a developer should do with it.
-- Prefer Markdown tables for matrix data, including stack details, source evidence, repo configuration, module boundaries, rules, readiness, tasks, validations, and comparison-style decisions.
+- Prefer Markdown tables for matrix data, including stack details, source evidence, repo configuration, work-area boundaries, integration contracts, rules, readiness, tasks, validations, and comparison-style decisions.
 - Prefer bullets for direct facts, rules, assumptions, blockers, and concise developer guidance.
 - Prefer ordered lists only for workflows, procedures, reproduction steps, migration steps, or task sequences where order changes the result.
 - Avoid theory, generic explanations, restated prompt policy, and broad background that does not change a developer's next action.
