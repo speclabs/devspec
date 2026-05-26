@@ -1,72 +1,54 @@
 # Rules
 
-This file holds project-operational constraints, governance rules, and delivery gates.
+Use this artifact for project-operational rules that affect planning, implementation, review, or release. Keep enduring principles in `devspec/constitution.md`; keep product goals and scope boundaries in `project-context.md`.
 
-## Scope Reminder
+## Policy Boundary
 
-- Use this file for operational constraints, delivery gates, and evolving project rules.
-- Do not duplicate enduring principles that belong in `devspec/constitution.md`.
-- Write rules as actionable records with scope, enforcement point, source, and confidence.
-- Omit optional sections that have no project-specific content.
+| Boundary | Guidance |
+| --- | --- |
+| Purpose | Record operational constraints, governance requirements, delivery gates, and evolving project rules. |
+| Exclusions | Do not duplicate durable principles from `devspec/constitution.md` or product intent from `project-context.md`. |
+| Record quality | Write actionable records with scope, enforcement point, source, and confidence. |
+| Optional content | Omit rows or sections that have no project-specific content. |
 
-## Hard Constraints
+## Operational Rule Catalog
 
-| Rule | Scope | Requirement | Enforcement point | Source | Confidence |
-| --- | --- | --- | --- | --- | --- |
-| <rule-name> | <system-or-work-scope> | <must-do-or-must-not-do> | <planning-implementation-review-release> | <source-or-user-input> | confirmed |
+Use this section for hard constraints, compliance requirements, and forbidden patterns. Use `Type` to distinguish the rule kind instead of creating separate overlapping sections.
 
-## Compliance Requirements
+| Type | Rule | Scope | Requirement or prohibition | Enforcement point | Evidence, rationale, or preferred alternative | Source | Confidence |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| hard constraint | <rule-name> | <system-or-work-scope> | <must-do-or-must-not-do> | <planning-implementation-review-release> | <why-or-how-to-apply> | <source-or-user-input> | confirmed |
+| compliance requirement | <requirement-name> | <data-system-or-work-type> | <action-required> | <planning-implementation-review-release> | <evidence-or-policy-source> | <source-or-user-input> | confirmed |
+| forbidden pattern | <pattern-name> | <system-or-work-scope> | <pattern-or-practice-to-avoid> | <planning-implementation-review-release> | <risk-or-preferred-alternative> | <source-or-user-input> | confirmed |
 
-Include this section only when compliance requirements exist.
-
-| Requirement | Applies to | Required action | Evidence or policy source | Confidence |
-| --- | --- | --- | --- | --- |
-| <requirement> | <data-system-or-work-type> | <action-required> | <source-or-user-input> | confirmed |
-
-## Forbidden Patterns
-
-Include this section only when forbidden patterns exist.
-
-| Pattern | Scope | Why forbidden | Preferred alternative | Source | Confidence |
-| --- | --- | --- | --- | --- | --- |
-| <pattern> | <scope> | <risk-or-policy-reason> | <alternative> | <source-or-user-input> | confirmed |
-
-## Delivery Gates
+## Delivery Gate Catalog
 
 | Gate | Applies to | Required evidence | Blocking condition | Source | Confidence |
 | --- | --- | --- | --- | --- | --- |
-| <gate-name> | <work-type-or-release-stage> | <validation-or-approval-required> | <what blocks completion> | <source-or-user-input> | confirmed |
+| <gate-name> | <work-type-or-release-stage> | <validation-or-approval-required> | <what-blocks-completion> | <source-or-user-input> | confirmed |
 
-## Bug Handling Rules
+## Work Item Handling Rules
 
-| Stage | Requirement |
-| --- | --- |
-| Intake and readiness | Capture expected behavior, actual behavior, reproduction steps, impact, and regression context unless blocked. |
-| Planning | Include reproduce, fix, and regression-validation work when practical. |
-| Implementation | Record regression validation and useful before-and-after snippets for code fixes. |
-| Review | Review bugs with meaningful regression risk before closure. |
+Use this section for rules that vary by work-item type or workflow stage. These defaults apply unless a stricter project-specific rule or delivery gate supersedes them.
 
-## Security Vulnerability Rules
-
-| Stage | Requirement |
-| --- | --- |
-| Intake and readiness | Capture severity, affected scope, attack surface, exploitability, disclosure status, and containment or remediation plan. |
-| Shared artifacts | Minimize or redact sensitive exploit details when full disclosure is unsafe. |
-| Planning | Include impact confirmation, remediation, supported-version verification, and follow-up needs when applicable. |
-| Implementation | Verify remediation across affected supported versions and record backport, release, or advisory follow-up. |
-| Review | Review security vulnerabilities before closure. |
-
-## Review Rules
-
-| Rule | Requirement |
-| --- | --- |
-| Review focus | Check scope adherence, bugs, regressions, missing validation, and rule violations against the finalized brief. |
-| Changes requested | Route the work item back to implementation before marking it complete. |
-
-## Exceptions
-
-Include this section only when exception handling differs from the normal gates.
-
-| Exception | Process | Status |
+| Work item type | Stage | Requirement |
 | --- | --- | --- |
-|  |  | open |
+| bug | Intake and readiness | Capture expected behavior, actual behavior, reproduction steps, impact, and regression context unless blocked. |
+| bug | Planning | Include reproduce, fix, and regression-validation work when practical. |
+| bug | Implementation | Record regression validation and useful before-and-after snippets for code fixes. |
+| bug | Review | Review bugs with meaningful regression risk before closure. |
+| security-vulnerability | Intake and readiness | Capture severity, affected scope, attack surface, exploitability, disclosure status, and containment or remediation plan. |
+| security-vulnerability | Shared artifacts | Minimize or redact sensitive exploit details when full disclosure is unsafe. |
+| security-vulnerability | Planning | Include impact confirmation, remediation, supported-version verification, and follow-up needs when applicable. |
+| security-vulnerability | Implementation | Verify remediation across affected supported versions and record backport, release, or advisory follow-up. |
+| security-vulnerability | Review | Review security vulnerabilities before closure. |
+| all | Review | Check scope adherence, bugs, regressions, missing validation, and rule violations against the finalized brief. |
+| all | Changes requested | Route the work item back to implementation before marking it complete. |
+
+## Exception Management
+
+Include this section only when exception handling differs from the normal rules or gates.
+
+| Exception | Affected rule or gate | Approval or handling process | Status | Source |
+| --- | --- | --- | --- | --- |
+| <exception-name> | <rule-or-gate-id> | <approval-process-or-compensating-control> | open | <source-or-user-input> |

@@ -28,7 +28,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - For monorepos, distinguish tasks by target area, module, layer, or validation surface; for multi-repo work, every task must name target repo and access requirement.
 - Resume a `paused` current task when prerequisites still hold; ask one structured continuation question for `stopped` or ambiguous state.
 - Update `implement.md` using `../../devspec/work-items/_template/implement.md`.
-- Apply bug and security implementation rules from `../../devspec/foundation/rules.md`.
+- Apply implementation requirements from `../../devspec/foundation/rules.md#work-item-handling-rules`.
 - After each completed task, report completed and pending counts and ask one structured `Proceed`, `Skip`, and `Custom Answer` question.
 - If the same task exceeds three implementation or repair attempts, stop, explain the loop, and ask one structured `Proceed`, `Skip`, and `Custom Answer` question.
 - Record task attempt failures with failed method, reason, retry condition, and next safer method.
@@ -46,7 +46,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 4. Check discovery exclusions and optional exploration state for known methods in the same repo, task, search goal, helper command, or validation goal.
 5. Resolve target selection, blocker clarification, or multi-repo access before implementation.
 6. Record pre-run token telemetry or mark it unavailable.
-7. Apply type-specific rules for bugs and security vulnerabilities.
+7. Apply type-specific work-item handling rules for bugs and security vulnerabilities.
 8. Select the next paused or pending task; if none remain, update `implement.md`, mark completion, and notify the user.
 9. Implement the task when applicable and run appropriate validation.
 10. Record reusable search, helper-command, repair, or validation methods.

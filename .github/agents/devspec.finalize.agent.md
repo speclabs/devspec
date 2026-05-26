@@ -21,7 +21,7 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 - Read `decisions.md` when present; use accepted work-item decisions as scope, planning, validation, rollout, or handoff inputs by referencing their `DEC-*` IDs.
 - Set `Readiness` status to `ready` only when every required readiness gate is `ready` or `not applicable`; otherwise set it to `not ready`.
 - Mark the brief `not ready` while blockers remain or required repo access is missing, ambiguous, or unconfirmed.
-- Apply bug and security readiness gates from `../../devspec/foundation/rules.md`.
+- Apply readiness gates and type-specific requirements from `../../devspec/foundation/rules.md`.
 - For multi-repo work, record only repo readiness summary in `Implementation Brief`, including required repos and whether access is confirmed, missing, or blocked; keep local paths and access requirement values in `../../devspec/foundation/codebase-structure.md`.
 - Do not invent missing requirements or silently change scope.
 - Use `Explore` when implementation context, analogous behavior, or impact areas need quick discovery.

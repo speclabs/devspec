@@ -30,7 +30,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 - Record impact and affected scope details in `story.md#story-brief`, with only a compact routing summary in `meta.md#triage-index`.
 - Confirm multi-repo dependencies; record the yes/no flag and related repo names in `meta.md`, dependency details in `story.md`, and repo paths or access requirements only in `devspec/foundation/codebase-structure.md`.
 - Do not assume repo access requirements during intake; missing or ambiguous requirements must be handled through `/devspec.codebase-structure`.
-- Capture bug and security facts required by `../../devspec/foundation/rules.md`.
+- Capture bug and security facts required by `../../devspec/foundation/rules.md#work-item-handling-rules`.
 - Initialize `decisions.md` and `notes.md` for new work-item folders; use `decisions.md` as the only work-item decision log and `notes.md` only for temporary working notes that have not been promoted to a canonical artifact.
 - Ask targeted questions one at a time before writing when required facts are missing.
 

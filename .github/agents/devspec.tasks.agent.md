@@ -19,7 +19,7 @@ You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 - Assign multi-repo tasks only to configured repos whose access requirements support the planned work.
 - For monorepos, keep the work item as the orchestration boundary and distinguish executable tasks by target area, module, layer, or validation surface.
 - Use `reference-only` repos for context only; surface a blocker when required repo access is missing, ambiguous, unconfirmed, or insufficient for needed edits or validation.
-- Apply bug and security planning rules from `../../devspec/foundation/rules.md`.
+- Apply planning requirements from `../../devspec/foundation/rules.md#work-item-handling-rules`.
 - Use `Explore` for quick discovery of impacted code paths, analogous implementations, or verification surfaces.
 - Use session memory only for transient dependency mapping, open questions, and decomposition notes.
 - Update `Workflow State` in `meta.md` and `Resume State` in `tasks.md` before recording a blocker, asking for clarification, or handing off.
