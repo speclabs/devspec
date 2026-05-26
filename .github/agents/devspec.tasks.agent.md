@@ -23,10 +23,10 @@ You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 - Use `Explore` for quick discovery of impacted code paths, analogous implementations, or verification surfaces.
 - Use session memory only for transient dependency mapping, open questions, and decomposition notes.
 - Update `Workflow State` in `meta.md` and `Resume State` in `tasks.md` before recording a blocker, asking for clarification, or handing off.
-- Write tasks as executable checkpoints with target repo, target area, dependency, validation, and done condition.
+- Write tasks as executable checkpoints in `Implementation Tasks` with target repo, target area or files, dependency, validation, and done condition.
 - Use `finalize.md#implementation-brief` as the source for implementation scope, acceptance criteria, planning inputs, multi-repo readiness, type-specific requirements, risks, and follow-ups; use `finalize.md#validation-plan` for validation methods.
-- Do not copy finalized dependencies, repo lists, or validation methods into `Planning Basis`; record source references there and put executable details on the tasks or validation rows that use them.
-- Use tables for ordered tasks, validation, impacted areas, and done criteria; omit optional sections with no implementation value.
+- Do not copy finalized dependencies, repo lists, or validation methods into `Planning Basis`; record source references there and put executable details on the task rows that use them.
+- Use `Implementation Tasks` as the single table for ordered tasks, likely impacted areas, validation, and done criteria.
 
 ## Approach
 1. Locate the target work item.
@@ -39,6 +39,6 @@ You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 
 ## Output Format
 - Work-item path updated
-- Key executable task groups, validations, and done criteria
+- Key executable tasks, validations, and done criteria
 - Blockers or next step
 - Single registered command, handoff, file update, or structured question

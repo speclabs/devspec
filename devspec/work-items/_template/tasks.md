@@ -1,6 +1,6 @@
 # Tasks
 
-Use this artifact as the executable implementation plan. Tasks should be ordered checkpoints with a clear target, dependency, validation, and done condition. Omit optional sections that do not add implementation value.
+Use this artifact as the executable implementation plan. Keep lifecycle recovery in `Resume State`, source references in `Planning Basis`, and all executable task details in `Implementation Tasks`. Each task should include target, dependency, impacted area, validation, and done condition.
 
 ## Resume State
 
@@ -19,12 +19,6 @@ Use this artifact as the executable implementation plan. Tasks should be ordered
 | Resume notes | |
 | Updated | |
 
-## Ordered Tasks
-
-| ID | Task | Target repo | Target area | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T-001 | <developer-action> | <repo-name> | <path-or-module> | See `devspec/glossary.md#access-requirement-values` | <task-id-or-none> | <validation-id-or-command> | <observable-completion-condition> | pending | 0 | |
-
 ## Planning Basis
 
 | Field | Value |
@@ -35,22 +29,10 @@ Use this artifact as the executable implementation plan. Tasks should be ordered
 | Access requirement source | `devspec/foundation/codebase-structure.md` |
 | Type-specific rule source | `devspec/foundation/rules.md` |
 
-## Impacted Files Or Areas
+## Implementation Tasks
 
-Include this section only when discovery identified likely files or areas.
+Use one row per executable checkpoint. Put likely files or areas, validation steps, and done criteria on the task that owns them. Keep validation commands or methods specific enough for `implement.md` to execute or record.
 
-| File or area | Reason | Related task | Status |
-| --- | --- | --- | --- |
-|  |  | T-001 | planned |
-
-## Validation Steps
-
-| ID | Validation | Applies to | Command or method | Expected result | Status |
-| --- | --- | --- | --- | --- | --- |
-| V-001 | <validation-name> | <task-or-scope> | <command-or-manual-check> | <passing-signal> | pending |
-
-## Definition Of Done
-
-| Requirement | Evidence expected | Status |
-| --- | --- | --- |
-| <done-requirement> | <artifact-command-or-review-signal> | pending |
+| ID | Task | Target repo | Target area or files | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| T-001 | <developer-action> | <repo-name> | <path-module-or-area> | See `devspec/glossary.md#access-requirement-values` | <task-id-or-none> | <command-method-or-review-signal-and-expected-result> | <observable-completion-condition-and-evidence> | pending | 0 | |

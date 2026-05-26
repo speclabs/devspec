@@ -18,7 +18,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - `finalize.md` must be `ready` and `tasks.md` must exist.
-- Implement pending tasks from `tasks.md` sequentially unless the user stops or skips.
+- Implement pending rows from `tasks.md#implementation-tasks` sequentially unless the user stops or skips.
 - Validate target repo path and access before changing code or running validation for multi-repo tasks.
 - Stop before implementation when target repo access is missing, ambiguous, or unconfirmed; direct the user to `/devspec.codebase-structure`.
 - Do not edit repos marked `reference-only`, `validation-only`, `release-coordination`, or `blocked` without explicit user confirmation.

@@ -620,8 +620,8 @@ Important behavior:
 
 - must not change or expand the finalized scope
 - should create ordered, implementation-oriented tasks
-- should make each task an executable checkpoint with target area, dependency, validation, and done criteria
-- should include validation steps and type-specific checks
+- should make each task an executable checkpoint with target area or files, dependency, validation, and done criteria
+- should keep validation steps, type-specific checks, likely impacted areas, and done evidence on the task rows that use them
 - for multi-repo work, should assign each task to a target repo and use `devspec/foundation/codebase-structure.md` as the source of truth for local repo paths and user-confirmed access requirements
 
 Example:

@@ -71,7 +71,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 | `devspec.story.prompt.md` | Create or update work-item intake artifacts. | `meta.md`, `story.md`, `decisions.md`, `notes.md` |
 | `devspec.clarify.prompt.md` | Ask, resolve, and record one active blocking clarification. | `clarify.md` |
 | `devspec.finalize.prompt.md` | Freeze a structured implementation-ready brief with readiness, implementation brief, validation plan, and blockers. | `finalize.md` |
-| `devspec.tasks.prompt.md` | Break a ready brief into executable ordered tasks with target areas, dependencies, validation, and done criteria. | `tasks.md` |
+| `devspec.tasks.prompt.md` | Break a ready brief into executable implementation tasks with planning basis, validation, and done criteria. | `tasks.md` |
 | `devspec.implement.prompt.md` | Implement pending tasks and record task ledger state, implementation evidence, execution history, and handoff details. | `implement.md`, code changes |
 | `devspec.review.prompt.md` | Review implemented work against the finalized brief. | `review.md` |
 | `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram. | `architecture/diagrams/*.md` by default; `architecture/overview.md` for high-level system diagrams; work-item `diagrams.md` for explicit or temporary generated diagram content |
