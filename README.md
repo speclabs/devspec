@@ -496,7 +496,7 @@ What it does:
 - initializes `decisions.md` and `notes.md` if the folder is new
 - for features, records priority instead of severity
 - keeps `meta.md` as the control record for the stable work-item record, triage routing, and workflow state
-- keeps detailed problem, impact, dependency, type-specific notes, and acceptance criteria in `story.md`
+- keeps source/manual intake in `story.md#intake-source`, narrative and impact in `story.md#story-brief`, and criteria, dependencies, type-specific notes, risks, and blockers in `story.md#story-details`
 - keeps work-item decisions in `decisions.md`
 - keeps temporary scratch context in `notes.md` only until it can be promoted to a canonical artifact
 - confirms multi-repo dependencies and records the yes/no flag plus repo names in `meta.md` when applicable

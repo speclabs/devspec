@@ -17,7 +17,7 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern), [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
-- Required upstream artifacts must exist before finalization.
+- Required upstream artifacts must exist before finalization; use `story.md#story-brief` and `story.md#story-details` as the source for intake narrative, acceptance criteria, dependencies, type-specific notes, risks, and blockers.
 - Read `decisions.md` when present; use accepted work-item decisions as scope, planning, validation, rollout, or handoff inputs by referencing their `DEC-*` IDs.
 - Set `Readiness` status to `ready` only when every required readiness gate is `ready` or `not applicable`; otherwise set it to `not ready`.
 - Mark the brief `not ready` while blockers remain or required repo access is missing, ambiguous, or unconfirmed.
