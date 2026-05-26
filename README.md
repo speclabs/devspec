@@ -498,6 +498,7 @@ What it does:
 - keeps `meta.md` as the control record for the stable work-item record, triage routing, and workflow state
 - keeps detailed problem, impact, dependency, type-specific notes, and acceptance criteria in `story.md`
 - keeps work-item decisions in `decisions.md`
+- keeps temporary scratch context in `notes.md` only until it can be promoted to a canonical artifact
 - confirms multi-repo dependencies and records the yes/no flag plus repo names in `meta.md` when applicable
 - requires multi-repo foundation configuration in `devspec/foundation/codebase-structure.md` before multi-repo story intake can continue
 - leaves local paths and repo access requirements in the foundation artifact rather than duplicating them into story artifacts
