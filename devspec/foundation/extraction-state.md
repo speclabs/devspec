@@ -1,6 +1,6 @@
 # Extraction State
 
-Use this file for the `/devspec.extract` queue and resume state. Keep extracted facts in target artifacts, reusable discovery methods in `devspec/foundation/exploration-state.md`, and diagram queue state in `devspec/architecture/artifact-queue.md`.
+Use this artifact for the `/devspec.extract` queue and resume state. Keep extracted facts in target artifacts, reusable discovery methods in `devspec/foundation/exploration-state.md`, and diagram queue state in `devspec/architecture/artifact-queue.md`.
 
 ## Resume State
 

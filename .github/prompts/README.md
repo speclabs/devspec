@@ -36,7 +36,7 @@ The registered devspec slash commands are:
 
 Recommendation behavior is defined by `PATTERNS.md#registered-command-recommendation-pattern`.
 
-Developers invoke registered slash commands from this directory. Agent names are workflow targets and may be internal handoff details; do not recommend an agent name as a slash command unless the matching prompt is registered here.
+Developers invoke registered slash commands from this directory. Agent names are workflow targets used for internal handoffs; do not recommend an agent name as a slash command unless the matching prompt is registered here.
 
 ## Shared References
 
@@ -58,7 +58,7 @@ Developers invoke registered slash commands from this directory. Agent names are
 
 ## Model Policy
 
-See [Model recommendations](../../README.md#model-recommendations). Agent frontmatter owns model fallback order; VS Code model-picker settings own thinking effort.
+See [Model recommendations](../../README.md#model-recommendations). Agent front matter owns model fallback order; VS Code model picker settings own thinking effort.
 
 ## Prompt Map
 

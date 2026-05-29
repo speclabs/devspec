@@ -1,6 +1,6 @@
 # Provider Integrations
 
-Use this policy for external work-item resolution during `devspec.story`. Keep provider-specific access behind MCP servers or equivalent integration tools, and allow manual intake only as an explicit fallback when provider resolution is unavailable or intentionally skipped.
+Use this policy for external work-item resolution during `/devspec.story`. Keep provider-specific access behind MCP servers or equivalent integration tools, and allow manual intake only as an explicit fallback when provider resolution is unavailable or intentionally skipped.
 
 ## Resolution Policy
 
