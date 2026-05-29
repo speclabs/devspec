@@ -19,7 +19,7 @@ Use this policy for external work-item resolution during `devspec.story`. Keep p
 | --- | --- | --- | --- |
 | GitHub | Full issue URL or supported pull request URL | `owner/repo#123` | Reject bare numbers unless repository context is configured. |
 | Jira | Full issue URL | Issue key such as `ABC-123` | Reject malformed keys or keys outside configured project patterns. |
-| Azure DevOps | Full work item URL | Numeric id only with configured organization and project context | Reject numeric ids when organization or project context is missing. |
+| Azure DevOps | Full work item URL | Numeric ID only with configured organization and project context | Reject numeric IDs when organization or project context is missing. |
 
 ## Resolution Flow and Outcomes
 

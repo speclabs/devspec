@@ -1,6 +1,6 @@
 # Architecture Diagram Queue
 
-Use this file as the resumable lifecycle register for proposed and generated architecture diagrams. Keep generated diagram content in the target artifact; keep only queue metadata, evidence, confidence, status, and next action or notes here.
+Use this file as the resumable queue register for proposed and generated architecture diagrams. Keep generated diagram content in the target artifact; keep only queue metadata, evidence, confidence, status, and next action or notes here.
 
 Store high-level diagrams in `devspec/architecture/overview.md`, durable detailed diagrams in `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md`, and temporary work-item diagrams in `devspec/work-items/<work-item-folder>/diagrams.md`.
 

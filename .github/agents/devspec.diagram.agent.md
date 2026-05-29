@@ -18,7 +18,7 @@ You generate or update one diagram for a requested architecture, module, feature
 ## Constraints
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Diagram Extraction Consistency Pattern](../prompts/PATTERNS.md#diagram-extraction-consistency-pattern), [Process Flow Extraction Pattern](../prompts/PATTERNS.md#process-flow-extraction-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - Required user input is mandatory.
-- Apply Work-Item Target only when the request is explicitly work-item-specific or clearly temporary to one work item, bug, or security issue.
+- Apply the Work-Item Target Pattern only when the request is explicitly work-item-specific or clearly temporary for one work item, bug, or security issue.
 - Generate exactly one Mermaid diagram per run unless the user continues through the queue or explicitly requests process-flow batch generation.
 - Treat a clear `/devspec.diagram` request as approval to generate one diagram; ask only when target location, diagram type, scope, evidence, overwrite behavior, or queue continuation is ambiguous.
 - Treat `/devspec.diagram Generate all process-flow diagrams` or equivalent wording as explicit batch-generation approval for eligible process-flow rows in `devspec/architecture/artifact-queue.md`.
@@ -28,7 +28,7 @@ You generate or update one diagram for a requested architecture, module, feature
 - Prefer `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines; `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping; `sequenceDiagram` for interactions over time; `journey` for user-facing flows; `stateDiagram-v2` for lifecycle behavior; and `classDiagram` for stable domain or structural relationships.
 - Reuse matching queue metadata for subject, scope, diagram type, target location, evidence, and confidence instead of reclassifying from scratch unless the queued row is stale, contradicted, or incomplete.
 - Store stable system, module, feature workflow, user journey, sequence, state, class/domain, process-flow, and cross-feature diagrams under `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md` by default.
-- Store work-item diagrams only for explicit requests or clearly temporary bug reproduction, migration path, security incident or threat flow, implementation-plan, or experiment flows that should not become durable architecture.
+- Store work-item diagrams only for explicit requests or clearly temporary bug reproduction, migration path, security incident or threat flow, implementation plan, or experiment flows that should not become durable architecture.
 - Keep `devspec/architecture/overview.md` limited to architecture context, diagram references, decision references, and architecture gaps or blockers.
 - Use `devspec/architecture/artifact-queue.md` as the resumable diagram queue.
 - For durable diagram files, write status only to `devspec/architecture/artifact-queue.md`; do not mirror queue status in the generated diagram file.
@@ -50,7 +50,7 @@ You generate or update one diagram for a requested architecture, module, feature
 5. Classify scope as `architecture`, `module`, `feature`, `workflow`, `user-journey`, or `work-item` only when no usable queue row exists.
 6. Select the diagram type and Mermaid declaration, or ask one structured question when the diagram type, declaration, or target location is ambiguous.
 7. Gather evidence with targeted reads, search, or Explore.
-8. Check for an equivalent existing diagram before adding a queue row or output.
+8. Check for an equivalent existing diagram before adding a queue row or writing output.
 9. Add or update queue rows with scope, diagram type, subject, target location, evidence, confidence, status, tags, and next action or notes that include the duplicate-check result.
 10. If the user requested process-flow batch generation, filter eligible process-flow rows and generate them in `DIA-*` order.
 11. Otherwise, ask one structured question for clarification, overwrite approval, or queue continuation when needed.
@@ -63,6 +63,6 @@ You generate or update one diagram for a requested architecture, module, feature
 - Queue status
 - Tags
 - Evidence and assumptions
-- Assumptions or blockers
+- Blockers
 - Updated files
 - Single registered command, handoff, file update, or structured question

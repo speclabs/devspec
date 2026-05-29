@@ -47,7 +47,7 @@ For an existing project, backfill from the repository first:
 /devspec.rules
 ```
 
-When run without a source, `/devspec.extract` asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction`. To extract another repository or multiple repositories immediately, pass explicit sources such as `D:\path\to\repo` or `UI - D:\repo-ui, API - D:\repo-api`.
+When `/devspec.extract` runs without a source, it asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction`. To extract another repository or multiple repositories immediately, pass explicit sources such as `D:\path\to\repo` or `UI - D:\repo-ui, API - D:\repo-api`.
 
 After the foundation exists, use this work-item flow:
 
@@ -166,7 +166,7 @@ Choose the first foundation command based on the project:
 
 On first install, live project artifacts may be created from matching `_template` files. After that, treat live files as project-owned and update them through the slash-command workflow rather than replacing them from newer templates.
 
-For multi-repo work, keep one shared VS Code multi-root workspace open and record repository configuration in `devspec/foundation/codebase-structure.md`. That file is the source of truth for local repository paths and access requirements used by intake, finalization, tasks, and implementation.
+For multi-repo work, keep one shared VS Code multi-root workspace open and record repository configuration in `devspec/foundation/codebase-structure.md`. That file is the canonical place for local repository paths and access requirements used by intake, finalization, tasks, and implementation.
 
 ### Manual upgrades
 
@@ -198,10 +198,10 @@ These are core behaviors baked into the prompts and agents:
 - Developers should run registered slash commands. Internal agents such as `devspec.implement-task` are handoff targets, not additional slash commands.
 - New work-item folders must follow `<provider-prefix-optional>-<work-item-number>-<kebab-case-title>`, such as `GHUB-12345-doc-conversion` or `89564-save-user-roles`.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
-- `/devspec.extract` should keep only the extraction queue and resume state in `devspec/foundation/extraction-state.md`; put extracted facts, reusable search methods, and diagram lifecycle state in their target artifacts.
+- `/devspec.extract` should keep only the extraction queue and resume state in `devspec/foundation/extraction-state.md`; put extracted facts, reusable search methods, and diagram queue state in their target artifacts.
 - Repository discovery must apply baseline exclusions for dependency installs, generated output, caches, coverage output, VCS internals, local tool metadata, and temporary output; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
 - Discovery-heavy commands should check `devspec/foundation/exploration-state.md` when present, use `working` methods first, and skip `failed` searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
-- Work-item commands should recover from Git-tracked `devspec` artifacts first. Session memory and chat history are transient helpers, not the source of truth.
+- Work-item commands should recover from Git-tracked `devspec` artifacts first. Session memory and chat history are transient helpers, not canonical records.
 - Work items are the orchestration boundary. Tasks, target repositories, target areas, and attempts are execution checkpoints inside the work item.
 - A paused run should continue from the recorded current task or question. A stopped run should ask one structured continuation question before changing code.
 - `/devspec.diagram` should generate one evidence-backed Mermaid diagram at a time. Architecture-level diagram files are the default; work-item diagrams are only for explicit or clearly temporary work-item-specific context.
@@ -231,7 +231,7 @@ Retry handling is intentionally bounded. If an implementation or repair task exc
 
 ## Model recommendations
 
-Agent frontmatter is the source of truth for model fallback order. At the time of writing, agents use this order: `GPT-5.4`, `GPT-5.3-Codex`, `Claude Sonnet 4.6`, then `Claude Haiku 4.5`.
+Agent frontmatter owns model fallback order. The current frontmatter order is `GPT-5.4`, `GPT-5.3-Codex`, `Claude Sonnet 4.6`, then `Claude Haiku 4.5`.
 
 Set thinking effort in the VS Code model picker. Prefer **High** for best quality. Use **Medium** when cost or latency matters. Avoid Low for devspec agents.
 
@@ -269,7 +269,7 @@ What it does:
 
 - validates the confirmed current project root, repository URLs, local repository paths, or named multi-repo paths
 - asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction` when no source is provided
-- creates or updates `devspec/foundation/extraction-state.md` as the extraction queue and resume state when extraction is not cancelled
+- creates or updates `devspec/foundation/extraction-state.md` as the extraction queue and resume state when extraction is not canceled
 - processes one extraction queue row at a time and updates resume state before asking, pausing, blocking, or handing off
 - reads repository layout, routes, modules, workflows, states, services, integrations, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
 - applies baseline and ecosystem discovery rules in `devspec/foundation/discovery-exclusions.md` unless the project records an explicit override
@@ -336,8 +336,8 @@ Expected outcome:
 - `architecture/artifact-queue.md` gets evidence-backed diagram candidates when durable diagrams would clarify the system, including process-flow rows tagged with `process-flow`
 - process-flow candidates cover business-centric end-to-end workflows, user journeys, lifecycle flows, cross-service process sequences, and the default `Hybrid User-to-Data Operational Flow` when evidence supports it
 - `foundation/tech-stack.md` gets table-first stack evidence with versions, support status, sources, confidence, verification dates, and implementation guidance
-- `foundation/codebase-structure.md` gets a selective repository-layout draft plus structured repository configuration, work-area boundary, integration contract, and blocker tables where evidence exists
-- repository layout should be a selective 4-5 level map that helps agents place new files and folders
+- `foundation/codebase-structure.md` gets a selective repository layout plus structured repository configuration, work-area boundary, integration contract, and blocker tables where evidence exists
+- repository layout uses a selective 4-5 level map that helps agents place new files and folders
 - `foundation/coding-standards.md` gets an evidence-backed standards catalog with scoped rules, observed patterns, anti-patterns, and optional short examples only when snippets clarify a rule
 - `foundation/rules.md` gets actionable rule tables with scope, enforcement points, source, and confidence
 - `constitution.md` gets only confirmed principle updates
@@ -442,7 +442,7 @@ Use it for:
 Example:
 
 ```text
-/devspec.coding-standards Prefer explicit TypeScript types at module boundaries. Require unit tests for business logic and Playwright coverage for critical user flows. Use structured logging with request ids. Avoid silent catch blocks. Require concise developer comments for non-obvious implementation details. Document any new environment variables in repository docs.
+/devspec.coding-standards Prefer explicit TypeScript types at module boundaries. Require unit tests for business logic and Playwright coverage for critical user flows. Use structured logging with request IDs. Avoid silent catch blocks. Require concise developer comments for non-obvious implementation details. Document any new environment variables in repository docs.
 ```
 
 Another example:
@@ -596,7 +596,7 @@ Important behavior:
 - marks the item with a readiness status from `devspec/glossary.md#readiness-status-values`
 - does not invent missing requirements
 - records readiness, implementation brief, and validation plan without duplicating section intent
-- for multi-repo work, summarizes readiness while `devspec/foundation/codebase-structure.md` remains the source of truth for required repository configuration and user-confirmed access requirements
+- for multi-repo work, summarizes readiness while `devspec/foundation/codebase-structure.md` records required repository configuration and user-confirmed access requirements
 - should stay `not ready` if required multi-repo foundation configuration is missing or incomplete
 
 Example:
@@ -619,7 +619,7 @@ Important behavior:
 - should create ordered, implementation-oriented tasks
 - should make each task an executable checkpoint with target area or files, dependency, validation, and done criteria
 - should keep validation steps, type-specific checks, likely impacted areas, and done evidence on the task rows that use them
-- for multi-repo work, should assign each task to a target repository and use `devspec/foundation/codebase-structure.md` as the source of truth for local repository paths and user-confirmed access requirements
+- for multi-repo work, should assign each task to a target repository and use `devspec/foundation/codebase-structure.md` for local repository paths and user-confirmed access requirements
 
 Example:
 
@@ -641,7 +641,7 @@ Important behavior:
 - requires `tasks.md`
 - implements pending tasks sequentially until the work is completed or the user chooses to stop or skip
 - resumes from `implement.md` and `meta.md` when a prior session was paused, stopped, blocked, or waiting for user input
-- for multi-repo work, uses the repository configuration in `devspec/foundation/codebase-structure.md` as the single source of truth for which physical repository path to change and what access is allowed
+- for multi-repo work, uses `devspec/foundation/codebase-structure.md` to determine which physical repository path to change and what access is allowed
 - validates required repository paths and access requirements before making code changes or running validation, and surfaces missing repository access as a blocker
 - records implementation task ledger state by target repository, target area, status, attempt count, last checkpoint, validation, and next action
 - keeps `implement.md` detailed enough for recovery while omitting evidence rows with no changed files, repository-access checks, validation results, type-specific notes, risks, follow-ups, or retry escalations

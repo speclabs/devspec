@@ -66,14 +66,14 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 ## Extraction State Pattern
 
 - Use this pattern for `/devspec.extract` only.
-- Create or update `devspec/foundation/extraction-state.md` from `devspec/foundation/_template/extraction-state.md` when extraction starts and is not cancelled.
+- Create or update `devspec/foundation/extraction-state.md` from `devspec/foundation/_template/extraction-state.md` when extraction starts and is not canceled.
 - Use `extraction-state.md` only for the extraction queue, resume state, blockers, and confirmations.
 - Keep exactly one extraction queue row `active`. Use existing task status values from `devspec/glossary.md#task-status-values`.
 - Process extraction queue rows in ID order unless a blocker, confirmation, or explicit user direction changes the next action.
 - Before asking a question, blocking, pausing, or handing off, update `Resume State`, the active extraction queue row, and `Blockers and Confirmations`.
 - Do not store extracted facts in `extraction-state.md`; write them to the target artifact named by the active queue row.
 - Do not store reusable discovery methods in `extraction-state.md`; use `devspec/foundation/exploration-state.md`.
-- Do not store diagram lifecycle state in `extraction-state.md`; use `devspec/architecture/artifact-queue.md`.
+- Do not store diagram queue state in `extraction-state.md`; use `devspec/architecture/artifact-queue.md`.
 
 ## Token Stewardship Pattern
 
@@ -123,7 +123,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Use `blocked` when a diagram idea is useful but evidence is insufficient; use `skipped` only after the user declines generation.
 - Before queueing or writing, check `devspec/architecture/artifact-queue.md`, `devspec/architecture/overview.md`, `devspec/architecture/diagrams/*.md`, and relevant work-item `diagrams.md` files for equivalent subject, scope, diagram type, or target location.
 - Avoid duplicate overview diagrams unless `devspec/architecture/overview.md` lacks a confirmed architecture context or diagram reference entry.
-- During `/devspec.extract`, seed candidates in `devspec/architecture/artifact-queue.md` and ask about only the next unresolved candidate after higher-priority confirmations. Generate diagrams later through `/devspec.diagram` unless the user explicitly continues through the confirmed queue.
+- During `/devspec.extract`, seed candidates in `devspec/architecture/artifact-queue.md` and ask only about the next unresolved candidate after higher-priority confirmations. Generate diagrams later through `/devspec.diagram` unless the user explicitly continues through the confirmed queue.
 - During `/devspec.diagram`, reuse matching queue metadata instead of reclassifying the same subject from scratch. Generate exactly one evidence-backed Mermaid artifact per run unless the user requests process-flow batch generation.
 
 ## Process Flow Extraction Pattern
@@ -198,7 +198,7 @@ Optional evidence-specific diagrams may include `layered-architecture`, `<entity
 - New work-item folders must use `<provider-prefix-optional>-<work-item-number>-<kebab-case-title>`.
 - Validate new folder names with `^(?:[A-Z]{3,5}-)?[0-9]+-[a-z0-9]+(?:-[a-z0-9]+)*$`.
 - Provider prefix is optional. When present, it must be 3-5 uppercase letters. Use known mappings where available: GitHub -> `GHUB`, Azure DevOps -> `ADO`, Jira -> `JIRA`.
-- Work-item number must be numeric and should come from the resolved provider item, issue number, work item id, or manually supplied external reference.
+- Work-item number must be numeric and should come from the resolved provider item, issue number, work item ID, or manually supplied external reference.
 - Title slug must be lowercase kebab-case from the resolved provider title or manually supplied title.
 - Remove punctuation, replace separators with hyphens, collapse repeated hyphens, and trim leading or trailing hyphens.
 - If provider prefix, numeric work-item number, or title slug is missing or ambiguous, ask exactly one structured question before creating the folder.

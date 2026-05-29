@@ -14,7 +14,7 @@ Use `clarify` only when work-item intake or finalization records a blocking ques
 
 Supporting: `diagram`
 
-`/devspec.extract` can be run with blank input to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction`; it also accepts one repository URL or local path, or named multi-repo input such as `UI - D:\repo-ui, API - D:\repo-api`.
+`/devspec.extract` can run with blank input to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction`; it also accepts one repository URL or local path, or named multi-repo input such as `UI - D:\repo-ui, API - D:\repo-api`.
 
 ## Registered Slash Commands
 
@@ -42,7 +42,7 @@ Developers invoke registered slash commands from this directory. Agent names are
 
 - `PATTERNS.md`: shared workflow, recovery, output, discovery, foundation, work-item, memory, and multi-repo rules.
 - `PATTERNS.md#artifact-content-pattern`: shared structure rules for developer-facing artifacts, source labels, optional sections, and table/bullet/list usage.
-- `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, naming, Mermaid layout, evidence, confidence, dedupe, tags, and diagram queue rules.
+- `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, naming, Mermaid declaration, evidence, confidence, dedupe, tags, and diagram queue rules.
 - `PATTERNS.md#process-flow-extraction-pattern`: process-flow discovery, tagging, hybrid user-to-data operational flow, and batch-generation rules.
 - `../../devspec/foundation/rules.md`: operational rules, work-item handling rules, exceptions, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.

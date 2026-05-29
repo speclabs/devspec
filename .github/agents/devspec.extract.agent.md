@@ -34,16 +34,16 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Maintain a single active confirmation gate; do not ask constitution, process-flow candidate, diagram candidate, Mermaid generation, coding-standards conflict, or repository-access confirmations in the same response.
 - Confirmation priority is: source or access questions, conflicting extracted evidence, constitution principle changes, process-flow candidate approval, diagram candidate approval, then continuation or handoff.
 - Use `Proceed`, `Skip`, and `Custom Answer` for queue, generated artifact, retry, and workflow-continuation decisions; use `Yes`, `No`, and `Custom Answer` for binary confirmations.
-- Create or update `devspec/foundation/extraction-state.md` from `devspec/foundation/_template/extraction-state.md` when extraction starts and is not cancelled.
+- Create or update `devspec/foundation/extraction-state.md` from `devspec/foundation/_template/extraction-state.md` when extraction starts and is not canceled.
 - Process `devspec/foundation/extraction-state.md#extraction-queue` one row at a time in ID order. Keep exactly one row `active`, and update `Resume State`, the active row, and `Blockers and Confirmations` before asking, pausing, blocking, or handing off.
-- Use `devspec/foundation/extraction-state.md` only for the extraction queue and resume state. Keep extracted facts in target artifacts, reusable discovery methods in `devspec/foundation/exploration-state.md`, and diagram lifecycle state in `devspec/architecture/artifact-queue.md`.
+- Use `devspec/foundation/extraction-state.md` only for the extraction queue and resume state. Keep extracted facts in target artifacts, reusable discovery methods in `devspec/foundation/exploration-state.md`, and diagram queue state in `devspec/architecture/artifact-queue.md`.
 - Write or update `devspec/architecture/overview.md` and relevant live `devspec/foundation/` files.
 - Use `devspec/architecture/_template/*.md` and `devspec/foundation/_template/*.md` as section contracts; initialize missing live files from templates, but do not overwrite existing live files from templates.
 - During the `process-flows` extraction row, seed business-centric end-to-end process-flow candidates in `devspec/architecture/artifact-queue.md` when they meet the process-flow rubric and pass the equivalent-diagram check.
 - Include process-flow rows for business workflows, user journeys, lifecycle flows, cross-service process sequences, and the default `Hybrid User-to-Data Operational Flow` when evidence supports user entry points through application boundaries, services, integrations, data stores, validations, operational states, and outcomes.
 - During the `diagram-candidates` extraction row, seed non-process-flow Mermaid architecture, module, feature workflow, sequence, state, class/domain, and user-journey candidates in `devspec/architecture/artifact-queue.md` only when they meet the diagram extraction rubric and pass the equivalent-diagram check.
 - Use the language-neutral default catalog in `PATTERNS.md#default-diagram-candidate-catalog` when selecting diagram candidates. Do not create language-, framework-, vendor-, or platform-specific default subjects.
-- Treat `/devspec.extract` as queue-first discovery-time seeding for diagram candidates; recommend `/devspec.diagram` as the normal follow-up for generation.
+- Treat `/devspec.extract` as queue-first discovery seeding for diagram candidates; recommend `/devspec.diagram` as the normal follow-up for generation.
 - Add queued candidates in queue order with ID, scope, diagram type, subject, target location, evidence, confidence, status, tags, and next action or notes that include the duplicate-check result.
 - Use sequence-preserving naming for durable diagram candidates: `DIA-001` maps to subject `dia-001-<diagram-name>` and target `devspec/architecture/diagrams/dia-001-<diagram-name>.md`. Never renumber existing `DIA-*` rows or generated `dia-NNN-*` files.
 - Tag process-flow rows with `process-flow`, plus narrower tags such as `business-process`, `user-journey`, `lifecycle-flow`, or `hybrid-user-to-data-operational-flow` when they apply.
@@ -64,7 +64,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 
 ## Approach
 1. Resolve source input. If omitted or blank, ask the source-selection confirmation before extraction.
-2. If extraction is not cancelled, initialize or reconcile `devspec/foundation/extraction-state.md`.
+2. If extraction is not canceled, initialize or reconcile `devspec/foundation/extraction-state.md`.
 3. Parse and validate each resolved source; record source and access blockers or confirmations under `Blockers and Confirmations`.
 4. Select the next unresolved extraction queue row by ID order and mark it `active`.
 5. For the active row, read only the target artifact, required templates, discovery exclusions, optional exploration state, and evidence needed for that row.
