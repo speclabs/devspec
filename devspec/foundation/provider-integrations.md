@@ -1,16 +1,16 @@
 # Provider Integrations
 
-Use this policy for external work-item resolution during `/devspec.story`. Keep provider-specific access behind MCP servers or equivalent integration tools, and allow manual intake only as an explicit fallback when provider resolution is unavailable or intentionally skipped.
+Use this policy to resolve external work items during `/devspec.story`. Keep provider-specific lookup behind MCP servers or equivalent integration tools. Manual intake is an explicit fallback, available only when provider resolution is unavailable or intentionally skipped.
 
 ## Resolution Policy
 
 | Policy area | Requirement |
 | --- | --- |
-| Workflow boundary | Keep the work-item intake workflow provider-agnostic; provider-specific lookup belongs in integration tools. |
+| Workflow boundary | Keep work-item intake provider-agnostic; provider-specific lookup belongs in integration tools. |
 | Resolution preference | Prefer exact provider URLs or provider-qualified identifiers over inferred matches. |
 | Ambiguity handling | Ask one clarification question before resolving an ambiguous provider or identifier. |
-| Manual fallback | Use manual intake only when external resolution is unavailable and the user explicitly chooses to proceed. |
-| Work-item creation gate | Do not create or update the work-item folder from provider input until the resolved item is shown and explicitly confirmed. |
+| Manual fallback | Allow manual intake only when external resolution is unavailable and the user explicitly chooses to proceed. |
+| Work-item creation gate | Do not create or update the work-item folder from provider input until the resolved item is shown to the user and explicitly confirmed. |
 | Secret handling | Keep provider authentication, credentials, and secrets outside prompt artifacts. |
 
 ## Supported Provider Inputs
@@ -40,8 +40,8 @@ Handle outcomes as follows:
 | Ambiguous provider | Ask one clarification question to identify the provider. |
 | Known provider cannot resolve item | Stop intake and classify the failure as not found, access denied, or integration unavailable when possible. |
 | Integration unavailable | Offer manual intake as an explicit fallback. |
-| Provider resolution succeeds | Show the confirmation summary and require explicit user confirmation before creating or updating the work-item folder. |
-| Unverified provider input | Do not create a normal resolved work item. |
+| Provider resolution succeeds | Show the confirmation summary and require explicit confirmation before creating or updating the work-item folder. |
+| Unverified provider input | Treat as blocked or manual fallback only; do not create a normal resolved work item. |
 
 ## Confirmation Requirements
 
@@ -71,7 +71,7 @@ Offer only these confirmation actions:
 
 | Area | Requirement |
 | --- | --- |
-| Tooling model | Use one MCP server per provider or one internal MCP server that wraps multiple providers. |
+| Tooling model | Use a provider-specific MCP server or one internal MCP server that wraps multiple providers. |
 | Lookup tools | Validate and fetch work items by URL or provider-specific identifier. |
 | Returned data | Include title, description, status, labels or type, links, and relevant metadata. |
 | Failure detail | Distinguish not found, unauthorized, malformed input, and transient provider failures. |
@@ -85,7 +85,7 @@ Offer only these confirmation actions:
 | --- | --- |
 | Source resolution status | Record a value from `devspec/glossary.md#source-resolution-status-values` in `meta.md`. |
 | Lookup attempt | Record provider and resolution notes. |
-| Manual status | Use only when the user explicitly chooses to continue without external resolution. |
+| Manual source status | Use source resolution status `manual` only when the user explicitly chooses to continue without external resolution. |
 | Manual intake | Require external reference, manual description, and manual acceptance criteria. |
 | Resolved items | Require explicit user confirmation after showing resolved details. |
 | Blocked status | Use when input is invalid or required resolution failed. |

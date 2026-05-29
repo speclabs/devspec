@@ -1,6 +1,6 @@
 # Devspec Prompt Index
 
-Slash-command prompts live here. Keep behavior in `PATTERNS.md`, matching agents, or canonical devspec artifacts.
+Slash-command prompts live here. Put reusable behavior in `PATTERNS.md`, matching agents, or canonical devspec artifacts.
 
 Artifacts should be developer-facing and compact. Prefer tables for stack, source evidence, repository configuration, boundaries, rules, tasks, readiness, and validation; use bullets for direct facts; use ordered lists only when sequence matters. Omit optional sections when they have no real content.
 
@@ -49,8 +49,8 @@ Developers invoke registered slash commands from this directory. Agent names are
 - `../../devspec/foundation/discovery-exclusions.md`: baseline exclusions, ecosystem discovery rules, and project-specific overrides for repository discovery.
 - `../../devspec/foundation/extraction-state.md`: extraction queue, resume state, blockers, and confirmations for `/devspec.extract`.
 - `../../devspec/foundation/exploration-state.md`: optional method ledger for reusable working, failed, and superseded discovery methods; create only when there is reusable state to preserve.
-- `../../devspec/foundation/provider-integrations.md`: manually maintained provider resolution, confirmation, integration access, and manual fallback policy.
-- `../skills/exploration-recovery/SKILL.md`: reusable GitHub skill for avoiding repeated failed exploration paths.
+- `../../devspec/foundation/provider-integrations.md`: manually maintained provider lookup, confirmation, integration access, and manual fallback policy.
+- `../skills/exploration-recovery/SKILL.md`: reusable skill for avoiding repeated failed exploration paths.
 - `../../devspec/foundation/_template/`: framework-owned section contracts for foundation artifacts.
 - `../../devspec/architecture/_template/`: framework-owned section contracts for architecture artifacts.
 - `../../devspec/architecture/_template/decision.md`: framework-owned ADR section contract; create `../../devspec/architecture/decisions/` only when an ADR is needed.

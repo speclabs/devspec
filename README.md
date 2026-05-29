@@ -198,7 +198,7 @@ These are core behaviors baked into the prompts and agents:
 - Developers should run registered slash commands. Internal agents such as `devspec.implement-task` are handoff targets, not additional slash commands.
 - New work-item folders must follow `<provider-prefix-optional>-<work-item-number>-<kebab-case-title>`, such as `GHUB-12345-doc-conversion` or `89564-save-user-roles`.
 - `/devspec.extract` must not rewrite `constitution.md` principles from code inference without explicit confirmation.
-- `/devspec.extract` should keep only the extraction queue and resume state in `devspec/foundation/extraction-state.md`; put extracted facts, reusable search methods, and diagram queue state in their target artifacts.
+- `/devspec.extract` should keep only the extraction queue, resume state, blockers, and confirmations in `devspec/foundation/extraction-state.md`; put extracted facts, reusable search methods, and diagram queue state in their target artifacts.
 - Repository discovery must apply baseline exclusions for dependency installs, generated output, caches, coverage output, VCS internals, local tool metadata, and temporary output; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
 - Discovery-heavy commands should check `devspec/foundation/exploration-state.md` when present, use `working` methods first, and skip `failed` searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
 - Work-item commands should recover from Git-tracked `devspec` artifacts first. Session memory and chat history are transient helpers, not canonical records.
@@ -219,7 +219,7 @@ Recommended recovery model:
 - Use the work item as the audit, scope, and orchestration boundary.
 - Use tasks as repository-aware execution checkpoints inside the work item.
 - Store current stage, current task, pending question, next action, and resume command in `Resume State`.
-- Store `/devspec.extract` queue and resume state in `devspec/foundation/extraction-state.md`.
+- Store `/devspec.extract` queue, resume state, blockers, and confirmations in `devspec/foundation/extraction-state.md`.
 - Store implementation progress, attempts, changed files, validation, blockers, and rollback or roll-forward notes in `implement.md`.
 - Store reusable discovery method outcomes in `devspec/foundation/exploration-state.md` only when there is reusable state to preserve.
 
@@ -269,7 +269,7 @@ What it does:
 
 - validates the confirmed current project root, repository URLs, local repository paths, or named multi-repo paths
 - asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction` when no source is provided
-- creates or updates `devspec/foundation/extraction-state.md` as the extraction queue and resume state when extraction is not canceled
+- creates or updates `devspec/foundation/extraction-state.md` for the extraction queue, resume state, blockers, and confirmations when extraction is not canceled
 - processes one extraction queue row at a time and updates resume state before asking, pausing, blocking, or handing off
 - reads repository layout, routes, modules, workflows, states, services, integrations, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
 - applies baseline and ecosystem discovery rules in `devspec/foundation/discovery-exclusions.md` unless the project records an explicit override
@@ -477,7 +477,7 @@ Example:
 
 Once the project foundation exists, start work with `/devspec.story`, then move through finalize, tasks, implement, and review. Use `/devspec.clarify` only when a blocking question is recorded.
 
-If you want `/devspec.story` to resolve GitHub, Jira, or Azure DevOps references, first confirm `devspec/foundation/provider-integrations.md` reflects your configured providers, accepted formats, access model, and manual fallback.
+If you want `/devspec.story` to resolve GitHub, Jira, or Azure DevOps references, first confirm `devspec/foundation/provider-integrations.md` reflects your configured providers, accepted formats, lookup tools, access model, and manual fallback policy.
 
 Use `/devspec.diagram` alongside the flow when a feature workflow, user journey, sequence, state, or class/domain diagram would clarify the work item.
 
@@ -487,13 +487,13 @@ Use this to start or update a work item.
 
 What it does:
 
-- resolves a provider item when possible, or supports manual intake when provider lookup is unavailable
+- resolves a provider item when possible, or supports manual intake when provider lookup is unavailable or intentionally skipped
 - creates the work-item folder
 - writes `meta.md` and `story.md`
 - initializes `decisions.md` and `notes.md` if the folder is new
 - for features, records priority instead of severity
 - keeps `meta.md` as the control record for the stable work-item record, triage routing, and workflow state
-- keeps source/manual intake in `story.md#intake-source-record`, narrative and impact in `story.md#work-item-brief`, and criteria, dependencies, type-specific notes, risks, and blockers in `story.md#work-item-details`
+- keeps source confirmation and manual intake in `story.md#intake-source-record`, narrative and impact in `story.md#work-item-brief`, and criteria, dependencies, type-specific notes, risks, and blockers in `story.md#work-item-details`
 - keeps work-item decisions in `decisions.md`
 - keeps temporary scratch context in `notes.md` only until it can be promoted to a canonical artifact
 - confirms multi-repo dependencies and records the yes/no flag plus repository names in `meta.md` when applicable
@@ -519,7 +519,7 @@ Example with manual fallback input:
 /devspec.story INS-2041
 ```
 
-If provider lookup succeeds, the command should show the resolved item summary and ask you to confirm before it writes the work item. The confirmation choices are `Confirm and continue`, `Reject and retry input`, `Switch to manual intake`, `Cancel`, and `Custom Answer`. A `Custom Answer` response routes back through clarification and must not create or update the work-item folder until resolved.
+If provider lookup succeeds, the command should show the resolved item summary and ask you to confirm before it writes the work item. The confirmation choices are `Confirm and continue`, `Reject and retry input`, `Switch to manual intake`, `Cancel`, and `Custom Answer`. A `Custom Answer` response routes through clarification and must not create or update the work-item folder until resolved.
 
 ### What gets created
 
@@ -910,8 +910,8 @@ After extraction, refine the foundation with human context:
 
 Use this setup when you want `devspec` to resolve external work items instead of falling back to manual intake.
 
-1. Choose the provider access path you will support in VS Code.
-   For most teams, this means an MCP server per provider or one internal tool that wraps multiple providers.
+1. Choose the provider lookup path you will support in VS Code.
+   For most teams, this means a provider-specific MCP server or one internal tool that wraps multiple providers.
 2. Install or connect that MCP server or integration tool in the VS Code environment your team uses for Copilot Chat.
 3. Configure authentication outside the prompt artifacts.
    Prefer least-privilege, read-only access for work-item intake and review workflows unless write-back is explicitly required.
