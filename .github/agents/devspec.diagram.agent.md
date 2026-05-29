@@ -22,7 +22,9 @@ You generate or update one diagram artifact for a requested architecture, module
 - Generate exactly one Mermaid diagram per run unless the user explicitly continues through the queue.
 - Treat a clear `/devspec.diagram` request as approval to generate one diagram; ask only when target location, diagram type, scope, evidence, overwrite behavior, or queue continuation is ambiguous.
 - Do not invent architecture, user behavior, service interactions, states, or dependencies; separate observed facts from assumptions.
-- Prefer `flowchart` for feature or module workflows, `sequenceDiagram` for service interactions, `journey` for user-facing flows, `stateDiagram` for lifecycle or status behavior, and `classDiagram` for stable domain or structural relationships.
+- Use the naming and layout guidance in `PATTERNS.md#diagram-extraction-consistency-pattern`, including the language-neutral default catalog when the request matches a catalog subject.
+- Keep queue `Diagram type` as the Mermaid family. Choose the full Mermaid declaration for the generated artifact from queue notes, catalog guidance, or evidence, such as `flowchart LR`, `flowchart TD`, `flowchart BT`, `sequenceDiagram`, or `stateDiagram-v2`.
+- Prefer `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines; `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping; `sequenceDiagram` for interactions over time; `journey` for user-facing flows; `stateDiagram-v2` for lifecycle behavior; and `classDiagram` for stable domain or structural relationships.
 - Reuse matching queue metadata for subject, scope, diagram type, target location, evidence, and confidence instead of reclassifying from scratch unless the queued row is stale, contradicted, or incomplete.
 - Store stable system, module, feature workflow, user journey, sequence, state, class/domain, and cross-feature diagrams under `devspec/architecture/diagrams/<subject-slug>.md` by default.
 - Store work-item diagrams only for explicit requests or clearly temporary bug reproduction, migration path, security incident or threat flow, implementation-plan, or experiment flows that should not become durable architecture.
@@ -42,7 +44,7 @@ You generate or update one diagram artifact for a requested architecture, module
 3. Reconcile `Resume State`, existing queue rows, discovery exclusions, and optional exploration state.
 4. Match the request to an existing queue row when possible, then reuse its scope, diagram type, subject, target location, evidence, and confidence.
 5. Classify scope as `architecture`, `module`, `feature`, `workflow`, `user-journey`, or `work-item` only when no usable queue row exists.
-6. Select the diagram type, or ask one structured question when the diagram type or target location is ambiguous.
+6. Select the diagram type and Mermaid declaration, or ask one structured question when the diagram type, declaration, or target location is ambiguous.
 7. Gather evidence with targeted reads, search, or Explore.
 8. Check for an equivalent existing diagram before adding a queue row or output.
 9. Add or update one queue row with scope, diagram type, subject, target location, evidence, confidence, status, and next action or notes that include the duplicate-check result.
@@ -51,7 +53,7 @@ You generate or update one diagram artifact for a requested architecture, module
 
 ## Output Format
 - Diagram target location
-- Diagram scope and diagram type
+- Diagram scope, diagram type, and Mermaid declaration
 - Confidence
 - Queue status
 - Evidence and assumptions

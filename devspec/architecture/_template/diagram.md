@@ -26,6 +26,7 @@ Use this artifact for one durable architecture, module, feature, workflow, user-
 | ID | |
 | Scope | architecture, module, feature, workflow, user-journey |
 | Diagram type | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram |
+| Mermaid declaration | flowchart TD, flowchart LR, flowchart BT, sequenceDiagram, journey, stateDiagram-v2, classDiagram |
 | Subject | |
 | Confidence | observed, high-confidence, low-confidence |
 | Queue row | `devspec/architecture/artifact-queue.md#diagram-queue-register` |

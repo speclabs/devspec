@@ -97,9 +97,12 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Queue only candidates backed by concrete repository evidence from owned routes, modules, workflows, state transitions, services, integrations, ADRs, docs, infrastructure, runtime config, or manifests.
 - Each queued candidate must include ID, scope, diagram type, subject, target location, evidence, confidence, status, and next action or notes. Record the equivalent-diagram check result in `Next action or notes`.
 - Use stable IDs such as `DIA-001`, `DIA-002`, preserving existing IDs and assigning the next available number for new rows.
-- Keep subjects specific enough to become one diagram file. Use lowercase kebab-case for subject slugs, one subject per diagram file, and `devspec/architecture/diagrams/<subject-slug>.md` for durable diagrams.
+- Keep subjects specific enough to become one diagram file. Use Title Case for display names, lowercase kebab-case for subject slugs, one subject per diagram file, and `devspec/architecture/diagrams/<subject-slug>.md` for durable diagrams.
+- Avoid language, framework, vendor, or platform names in default diagram subjects. Use language-specific evidence only as supporting evidence unless the user explicitly requests a specialized diagram.
 - Prefer reusable architecture, module, feature, workflow, sequence, state, or user-journey diagrams over temporary work-item diagrams. Use work-item `diagrams.md` only for explicit or clearly temporary generated diagram content; keep diagram lifecycle status in `devspec/architecture/artifact-queue.md`.
-- Use `flowchart` for module, feature, process, or data flow; `sequenceDiagram` for actor or service interactions over time; `journey` for user-facing paths; `stateDiagram` for lifecycle or status transitions; and `classDiagram` for stable domain or structural relationships.
+- Use queue `Diagram type` for the Mermaid family only: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, or `classDiagram`. Record orientation such as `LR`, `TD`, or `BT` in `Next action or notes` when useful, and write the full Mermaid declaration in the generated artifact.
+- Use `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines. Use `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping. Use `flowchart BT` only for optional layer dependency views where lower layers should appear as foundations.
+- Use `sequenceDiagram` for actor, service, workflow, or security interactions over time; `journey` for user-facing paths; `stateDiagram-v2` for lifecycle or status transitions; and `classDiagram` for stable domain or structural relationships.
 - Use confidence values consistently: `observed` for directly supported code, docs, config, or ADR evidence; `high-confidence` for inference from multiple local evidence points; `low-confidence` only when useful but incomplete evidence must be recorded as an assumption.
 - Do not queue vague subjects, candidates without source evidence, duplicate or equivalent existing diagrams, or temporary work-item diagrams without an explicit request.
 - Use `blocked` when a diagram idea is useful but evidence is insufficient; use `skipped` only after the user declines generation.
@@ -107,6 +110,30 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Avoid duplicate overview diagrams unless `devspec/architecture/overview.md` lacks a confirmed architecture context or diagram reference entry.
 - During `/devspec.extract`, seed candidates in `devspec/architecture/artifact-queue.md` and ask about only the next unresolved candidate after higher-priority confirmations. Generate diagrams later through `/devspec.diagram` unless the user explicitly continues through the confirmed queue.
 - During `/devspec.diagram`, reuse matching queue metadata instead of reclassifying the same subject from scratch, then generate exactly one evidence-backed Mermaid artifact per run.
+
+### Default Diagram Candidate Catalog
+
+Use this language-neutral priority catalog for extraction. Queue a candidate only when concrete evidence exists and duplicate checks pass.
+
+| Priority | Display name | Subject slug | Scope | Queue type | Mermaid declaration | Default target |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | System Context | `system-context` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/system-context.md` |
+| 2 | Domain and Capability Map | `domain-capability-map` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/domain-capability-map.md` |
+| 3 | Repository and Ownership Map | `repository-ownership-map` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/repository-ownership-map.md` |
+| 4 | Runtime Containers | `runtime-containers` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/runtime-containers.md` |
+| 5 | Dependency Graph | `dependency-graph` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/dependency-graph.md` |
+| 6 | Component Interaction Map | `component-interaction-map` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/component-interaction-map.md` |
+| 7 | API Surface Map | `api-surface-map` | module | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/api-surface-map.md` |
+| 8 | Event and Message Flow | `event-message-flow` | workflow | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/event-message-flow.md` |
+| 9 | Data Ownership and Flow | `data-ownership-flow` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/data-ownership-flow.md` |
+| 10 | Critical Workflow Sequence | `<workflow-slug>-sequence` | workflow | `sequenceDiagram` | `sequenceDiagram` | `devspec/architecture/diagrams/<workflow-slug>-sequence.md` |
+| 11 | Authentication and Authorization Flow | `authentication-authorization-flow` | workflow | `sequenceDiagram` | `sequenceDiagram` | `devspec/architecture/diagrams/authentication-authorization-flow.md` |
+| 12 | Deployment Topology | `deployment-topology` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/deployment-topology.md` |
+| 13 | CI/CD Pipeline | `cicd-pipeline` | workflow | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/cicd-pipeline.md` |
+| 14 | Configuration and Secrets Flow | `configuration-secrets-flow` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/configuration-secrets-flow.md` |
+| 15 | Risk and Hotspot Map | `risk-hotspot-map` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/risk-hotspot-map.md` |
+
+Optional evidence-specific diagrams may include `layered-architecture`, `<entity-slug>-lifecycle`, `<domain-slug>-domain-structure`, `background-jobs-schedulers`, or `<feature-slug>-workflow` when the user asks or repository evidence makes the specialized diagram more useful than a default catalog item.
 
 ## Exploration Recovery Pattern
 

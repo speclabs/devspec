@@ -37,8 +37,10 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Write or update `devspec/architecture/overview.md` and relevant live `devspec/foundation/` files.
 - Use `devspec/architecture/_template/*.md` and `devspec/foundation/_template/*.md` as section contracts; initialize missing live files from templates, but do not overwrite existing live files from templates.
 - Seed Mermaid architecture, module, feature-workflow, sequence, state, class/domain, and user-journey candidates in `devspec/architecture/artifact-queue.md` only when they meet the diagram extraction rubric and pass the equivalent-diagram check.
+- Use the language-neutral default catalog in `PATTERNS.md#default-diagram-candidate-catalog` when selecting diagram candidates. Do not create language-, framework-, vendor-, or platform-specific default subjects.
 - Treat `/devspec.extract` as queue-first discovery-time seeding for diagram candidates; recommend `/devspec.diagram` as the normal follow-up for generation.
 - Add queued candidates in queue order with ID, scope, diagram type, subject, target location, evidence, confidence, status, and next action or notes that include the duplicate-check result.
+- Keep queue `Diagram type` limited to the Mermaid family. Record suggested Mermaid declarations such as `flowchart LR`, `flowchart TD`, or `sequenceDiagram` in `Next action or notes` when orientation will help `/devspec.diagram`.
 - Ask confirmation before each diagram or user journey generation. Generate at most one confirmed artifact only if the user explicitly continues within the extraction run, update its queue status, then stop or ask one continuation question only when no higher-priority confirmation is pending.
 - On rerun, resume `devspec/architecture/artifact-queue.md` before proposing duplicate candidates; when several queue items are pending, ask only about the next unresolved row.
 - Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence. When an ADR is needed, initialize it from `devspec/architecture/_template/decision.md` and create `devspec/architecture/decisions/` on demand.

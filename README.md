@@ -280,7 +280,8 @@ What it does:
 - requires explicit confirmation before writing principle-level changes to `constitution.md`
 - asks only one structured extraction confirmation at a time; constitution confirmation, artifact-queue approval, and Mermaid generation approval must not be asked together
 - processes artifact-queue items one at a time in queue order, asking one structured question for the next unresolved item only
-- seeds consistent diagram candidates from repository evidence with ID, scope, type, subject, target path, evidence source, confidence, status, output section, and notes
+- seeds language-neutral diagram candidates from repository evidence with ID, scope, diagram type, subject slug, target location, evidence, confidence, status, and notes
+- keeps queue `Diagram type` limited to the Mermaid family; suggested orientation such as `flowchart LR` or `flowchart TD` belongs in notes or the generated diagram artifact
 - treats extraction as queue-first diagram discovery; `/devspec.diagram` is the normal follow-up for generating one confirmed diagram
 - closes with one next action or one structured question, not a list of possible next prompts
 
@@ -686,8 +687,12 @@ Important behavior:
 - requires a diagram subject or related work item
 - generates exactly one diagram per run unless you explicitly continue through the queue
 - reuses matching artifact-queue metadata instead of reclassifying the same subject from scratch
-- chooses Mermaid type from evidence or asks one structured question when ambiguous
+- chooses Mermaid type and full Mermaid declaration from evidence or asks one structured question when ambiguous
 - supports `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, and `classDiagram`
+- uses Title Case display names, lowercase kebab-case subject slugs, and Markdown targets under `devspec/architecture/diagrams/`
+- uses `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines
+- uses `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping
+- uses `flowchart BT` only for optional layer dependency views
 - checks for an equivalent existing diagram before creating another one
 - separates evidence-backed facts from assumptions
 - keeps work-item `diagrams.md` focused on generated temporary diagram content; `architecture/artifact-queue.md` owns diagram artifact status
@@ -700,6 +705,26 @@ Example:
 ```text
 /devspec.diagram Create a workflow diagram for payment retry handling in the billing module.
 ```
+
+Default language-neutral diagram catalog:
+
+| Priority | Display name | Subject slug | Mermaid declaration |
+| --- | --- | --- | --- |
+| 1 | System Context | `system-context` | `flowchart TD` |
+| 2 | Domain and Capability Map | `domain-capability-map` | `flowchart LR` |
+| 3 | Repository and Ownership Map | `repository-ownership-map` | `flowchart LR` |
+| 4 | Runtime Containers | `runtime-containers` | `flowchart LR` |
+| 5 | Dependency Graph | `dependency-graph` | `flowchart LR` |
+| 6 | Component Interaction Map | `component-interaction-map` | `flowchart LR` |
+| 7 | API Surface Map | `api-surface-map` | `flowchart TD` |
+| 8 | Event and Message Flow | `event-message-flow` | `flowchart LR` |
+| 9 | Data Ownership and Flow | `data-ownership-flow` | `flowchart TD` |
+| 10 | Critical Workflow Sequence | `<workflow-slug>-sequence` | `sequenceDiagram` |
+| 11 | Authentication and Authorization Flow | `authentication-authorization-flow` | `sequenceDiagram` |
+| 12 | Deployment Topology | `deployment-topology` | `flowchart TD` |
+| 13 | CI/CD Pipeline | `cicd-pipeline` | `flowchart LR` |
+| 14 | Configuration and Secrets Flow | `configuration-secrets-flow` | `flowchart TD` |
+| 15 | Risk and Hotspot Map | `risk-hotspot-map` | `flowchart TD` |
 
 ## Command reference and step order
 
@@ -840,7 +865,7 @@ Review extracted artifacts before relying on them:
 | --- | --- |
 | `devspec/constitution.md` | Durable principles only; principle-level changes require confirmation. |
 | `devspec/architecture/overview.md` | Major components, system boundaries, integrations, high-level data flow, and links to detailed diagrams. |
-| `devspec/architecture/artifact-queue.md` | Diagram candidates with scope, type, target path, evidence, confidence, status, and duplicate-check notes. |
+| `devspec/architecture/artifact-queue.md` | Diagram candidates with scope, Mermaid family type, subject slug, target location, evidence, confidence, status, duplicate-check notes, and optional Mermaid declaration guidance. |
 | `devspec/foundation/project-context.md` | Product goals and user outcomes, because code rarely tells the whole product context. |
 | `devspec/foundation/tech-stack.md` | Languages, runtimes, frameworks, services, tooling, hosting, support status, and verification dates. |
 | `devspec/foundation/codebase-structure.md` | Selective 4-5 level layout, work areas and boundaries, integration contracts, multi-repo roles, local paths, workspace availability, and access requirements. |
