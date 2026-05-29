@@ -46,6 +46,7 @@ Developers invoke registered slash commands from this directory. Agent names are
 - `../../devspec/foundation/rules.md`: operational rules, work-item handling rules, exceptions, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
 - `../../devspec/foundation/discovery-exclusions.md`: baseline exclusions, ecosystem discovery rules, and project-specific overrides for repository discovery.
+- `../../devspec/foundation/extraction-state.md`: extraction queue, resume state, blockers, and confirmations for `/devspec.extract`.
 - `../../devspec/foundation/exploration-state.md`: optional method ledger for reusable working, failed, and superseded discovery methods; create only when there is reusable state to preserve.
 - `../../devspec/foundation/provider-integrations.md`: manually maintained provider resolution, confirmation, integration access, and manual fallback policy.
 - `../skills/exploration-recovery/SKILL.md`: reusable GitHub skill for avoiding repeated failed exploration paths.
@@ -62,7 +63,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 
 | Prompt | Purpose | Produces |
 | --- | --- | --- |
-| `devspec.extract.prompt.md` | Derive structured, evidence-backed constitution candidates, architecture context, live foundation facts, and language-neutral diagram queue candidates from current root, repo URLs, local paths, or named multi-repo input. | `constitution.md`, `architecture/overview.md`, `architecture/artifact-queue.md`, live `foundation/*.md` |
+| `devspec.extract.prompt.md` | Derive structured, evidence-backed constitution candidates, architecture context, live foundation facts, and language-neutral diagram queue candidates from current root, repo URLs, local paths, or named multi-repo input. | `foundation/extraction-state.md`, `constitution.md`, `architecture/overview.md`, `architecture/artifact-queue.md`, live `foundation/*.md` |
 | `devspec.projectcontext.prompt.md` | Capture product purpose, audiences, stakeholders, outcomes, scope boundaries, metrics, delivery context, sources, confidence, and developer implications. | `foundation/project-context.md` |
 | `devspec.techstack.prompt.md` | Capture technology stack inventory by project, support status, evidence, confidence, delivery constraints, and implementation impact. | `foundation/tech-stack.md` |
 | `devspec.codebase-structure.prompt.md` | Capture selective repository trees, repository configuration, work areas and boundaries, integration contracts, and structure gaps or blockers. | `foundation/codebase-structure.md` |

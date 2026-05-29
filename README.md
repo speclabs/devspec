@@ -199,6 +199,7 @@ These are core behaviors baked into the prompts and agents:
 - Developers should run registered slash commands. Internal agents such as `devspec.implement-task` are handoff targets, not additional slash commands.
 - New work-item folders must follow `<provider-prefix-optional>-<work-item-number>-<kebab-case-title>`, such as `GHUB-12345-doc-conversion` or `89564-save-user-roles`.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
+- `/devspec.extract` should keep its extraction queue and resume state in `devspec/foundation/extraction-state.md`; do not use it for extracted facts, reusable search methods, or diagram lifecycle.
 - Repository discovery must apply baseline exclusions for dependency installs, generated output, caches, coverage output, VCS internals, local tool metadata, and temporary output; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
 - Discovery-heavy commands should check `devspec/foundation/exploration-state.md` when present, use `working` methods first, and skip `failed` searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
 - Work-item commands should recover from Git-tracked `devspec` artifacts first. Session memory and chat history are transient helpers, not the source of truth.
@@ -219,6 +220,7 @@ Recommended enterprise model:
 - Use the work item as the audit, scope, and orchestration boundary.
 - Use tasks as repository-aware execution checkpoints inside the work item.
 - Store current stage, current task, pending question, next action, and resume command in `Resume State`.
+- Store `/devspec.extract` queue and resume state in `devspec/foundation/extraction-state.md`.
 - Store implementation progress, attempts, changed files, validation, blockers, and rollback or roll-forward notes in `implement.md`.
 - Store reusable discovery method outcomes in `devspec/foundation/exploration-state.md` only when there is reusable state to preserve.
 
@@ -268,6 +270,8 @@ What it does:
 
 - validates the confirmed current project root, repository URLs, local repository paths, or named multi-repo paths
 - asks you to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction` when no source is provided
+- creates or updates `devspec/foundation/extraction-state.md` as the extraction queue and resume state when extraction is not cancelled
+- processes one extraction queue row at a time and updates resume state before asking, pausing, blocking, or handing off
 - reads repository layout, routes, modules, workflows, states, services, integrations, manifests, CI/CD, docs, config, style guides, ADRs, contribution docs, and related evidence
 - applies baseline and ecosystem discovery rules in `devspec/foundation/discovery-exclusions.md` unless the project records an explicit override
 - prefers direct repository search and any recorded `working` exploration methods before trying new generated scripts
@@ -278,8 +282,7 @@ What it does:
   - `devspec/architecture/overview.md`
   - live `devspec/foundation/*.md` artifacts, excluding `devspec/foundation/_template/`
 - requires explicit confirmation before writing principle-level changes to `constitution.md`
-- asks only one structured extraction confirmation at a time; constitution confirmation, artifact-queue approval, and Mermaid generation approval must not be asked together
-- processes artifact-queue items one at a time in queue order, asking one structured question for the next unresolved item only
+- asks only one structured extraction confirmation at a time; constitution confirmation, diagram candidate approval, and Mermaid generation approval must not be asked together
 - seeds language-neutral diagram candidates from repository evidence with ID, scope, diagram type, subject slug, target location, evidence, confidence, status, and notes
 - keeps queue `Diagram type` limited to the Mermaid family; suggested orientation such as `flowchart LR` or `flowchart TD` belongs in notes or the generated diagram artifact
 - treats extraction as queue-first diagram discovery; `/devspec.diagram` is the normal follow-up for generating one confirmed diagram
@@ -327,6 +330,7 @@ Functions - D:\code\payments-functions
 
 Expected outcome:
 
+- `foundation/extraction-state.md` records the extraction queue, resume state, blockers, confirmations, and next action
 - `architecture/overview.md` gets a first-pass system view
 - `architecture/artifact-queue.md` gets evidence-backed diagram candidates when durable diagrams would clarify the system
 - `foundation/tech-stack.md` gets table-first stack evidence with versions, support status, sources, confidence, verification dates, and implementation guidance
@@ -734,7 +738,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 
 | Step | Command | Use when | Requires | Main output | Next step |
 | --- | --- | --- | --- | --- | --- |
-| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Optional: blank for current root confirmation, one repo URL or local path, or named `Name - path` multi-repo entries. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
+| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Optional: blank for current root confirmation, one repo URL or local path, or named `Name - path` multi-repo entries. | `foundation/extraction-state.md`, `constitution.md`, `architecture/overview.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
 | 1 | `/devspec.projectcontext` | Product and business context need to be created or updated. | Product vision, users, goals, non-goals, and constraints. | `foundation/project-context.md` | `/devspec.techstack` |
 | 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Stack evidence, support status, hosting, tooling, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
 | 3 | `/devspec.codebase-structure` | Repository layout, work areas, integration contracts, or multi-repo config need to be recorded. | Repository layout, work-area boundaries, integration contracts, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
@@ -863,6 +867,7 @@ Review extracted artifacts before relying on them:
 
 | Artifact | Review focus |
 | --- | --- |
+| `devspec/foundation/extraction-state.md` | Extraction queue, resume state, blockers, confirmations, and next action. |
 | `devspec/constitution.md` | Durable principles only; principle-level changes require confirmation. |
 | `devspec/architecture/overview.md` | Major components, system boundaries, integrations, high-level data flow, and links to detailed diagrams. |
 | `devspec/architecture/artifact-queue.md` | Diagram candidates with scope, Mermaid family type, subject slug, target location, evidence, confidence, status, duplicate-check notes, and optional Mermaid declaration guidance. |

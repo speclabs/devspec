@@ -63,6 +63,18 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - If the next step requires confirmation, selection, retry approval, queue approval, or continuation, ask one structured question with explicit options.
 - Summarize only the artifact or work-item path updated, key outcome, blockers or open questions, and single next action.
 
+## Extraction State Pattern
+
+- Use this pattern for `/devspec.extract` only.
+- Create or update `devspec/foundation/extraction-state.md` from `devspec/foundation/_template/extraction-state.md` when extraction starts and is not cancelled.
+- Use `extraction-state.md` only for the extraction queue, resume state, blockers, and confirmations.
+- Keep exactly one extraction queue row `active`. Use existing task status values from `devspec/glossary.md#task-status-values`.
+- Process extraction queue rows in ID order unless a blocker, confirmation, or explicit user direction changes the next action.
+- Before asking a question, blocking, pausing, or handing off, update `Resume State`, the active extraction queue row, and `Blockers and Confirmations`.
+- Do not store extracted facts in `extraction-state.md`; write them to the target artifact named by the active queue row.
+- Do not store reusable discovery methods in `extraction-state.md`; use `devspec/foundation/exploration-state.md`.
+- Do not store diagram lifecycle in `extraction-state.md`; use `devspec/architecture/artifact-queue.md`.
+
 ## Token Stewardship Pattern
 
 - Prefer canonical references over restating policy, templates, or provider rules.
