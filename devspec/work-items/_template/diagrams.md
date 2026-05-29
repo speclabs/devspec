@@ -4,7 +4,7 @@ Use this file only for explicit or clearly temporary work-item diagrams, such as
 
 Reusable process flows, feature workflows, module workflows, user journeys, sequences, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item.
 
-Do not keep a separate diagram index or artifact status here. `devspec/architecture/artifact-queue.md` owns diagram artifact status from `devspec/glossary.md#artifact-status-values`. This file owns only temporary work-item-specific diagram content and the resume state needed to continue the diagram command.
+Do not keep a separate diagram index or status here. `devspec/architecture/artifact-queue.md` owns diagram status from `devspec/glossary.md#artifact-status-values`. This file owns only temporary work-item-specific diagram content and the resume state needed to continue the diagram command.
 
 ## Resume State
 

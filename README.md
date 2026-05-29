@@ -178,7 +178,6 @@ Do not directly overwrite project-owned artifacts during manual upgrades. Framew
 | `.github/agents/` | framework | Replace or diff-apply |
 | `.github/prompts/` | framework | Replace or diff-apply |
 | `devspec/**/_template/` | framework | Replace or diff-apply |
-| `devspec/architecture/_template/decision.md` | framework | Replace or diff-apply |
 | `devspec/foundation/*.md` | project | Do not overwrite; migrate or merge |
 | `devspec/architecture/*.md` | project | Do not overwrite; migrate or merge |
 | `devspec/architecture/diagrams/*.md` | project | Do not overwrite; migrate or merge |
@@ -199,7 +198,7 @@ These are core behaviors baked into the prompts and agents:
 - Developers should run registered slash commands. Internal agents such as `devspec.implement-task` are handoff targets, not additional slash commands.
 - New work-item folders must follow `<provider-prefix-optional>-<work-item-number>-<kebab-case-title>`, such as `GHUB-12345-doc-conversion` or `89564-save-user-roles`.
 - `/devspec.extract` must not silently rewrite `constitution.md` principles from code inference alone.
-- `/devspec.extract` should keep its extraction queue and resume state in `devspec/foundation/extraction-state.md`; do not use it for extracted facts, reusable search methods, or diagram artifact lifecycle.
+- `/devspec.extract` should keep only the extraction queue and resume state in `devspec/foundation/extraction-state.md`; put extracted facts, reusable search methods, and diagram lifecycle state in their target artifacts.
 - Repository discovery must apply baseline exclusions for dependency installs, generated output, caches, coverage output, VCS internals, local tool metadata, and temporary output; for Node.js projects, use `package.json`, lockfiles, and framework config as evidence instead of searching `node_modules/`.
 - Discovery-heavy commands should check `devspec/foundation/exploration-state.md` when present, use `working` methods first, and skip `failed` searches, scripts, helper commands, provider lookups, or validation probes unless retry conditions are met.
 - Work-item commands should recover from Git-tracked `devspec` artifacts first. Session memory and chat history are transient helpers, not the source of truth.
@@ -283,7 +282,7 @@ What it does:
   - live `devspec/foundation/*.md` artifacts, excluding `devspec/foundation/_template/`
 - requires explicit confirmation before writing principle-level changes to `constitution.md`
 - asks only one structured extraction confirmation at a time; constitution confirmation, diagram candidate approval, and Mermaid generation approval must not be asked together
-- seeds business-centric process-flow diagram candidates from routes, controllers, services, state transitions, jobs, event handlers, tests, docs, ADRs, integration boundaries, domain terms, user-facing actions, data stores, and business outcomes
+- seeds business-centric process-flow candidates from routes, controllers, services, state transitions, jobs, event handlers, tests, docs, ADRs, integration boundaries, domain terms, user-facing actions, data stores, and business outcomes
 - seeds language-neutral diagram candidates from repository evidence with ID, scope, diagram type, subject slug, target location, evidence, confidence, status, tags, and notes
 - uses sequence-preserving diagram names: `DIA-001` queue rows map to subjects and files such as `dia-001-order-fulfillment-flow` and `devspec/architecture/diagrams/dia-001-order-fulfillment-flow.md`
 - keeps queue `Diagram type` limited to the Mermaid family; suggested orientation such as `flowchart LR` or `flowchart TD` belongs in notes or the generated diagram artifact
@@ -335,7 +334,7 @@ Expected outcome:
 - `foundation/extraction-state.md` records the extraction queue, resume state, blockers, confirmations, and next action
 - `architecture/overview.md` gets a first-pass system view
 - `architecture/artifact-queue.md` gets evidence-backed diagram candidates when durable diagrams would clarify the system, including process-flow rows tagged with `process-flow`
-- process-flow candidates cover business-centric end-to-end workflows, user journeys, lifecycle flows, cross-service process sequences, and the default `Hybrid User To Data Operational Flow` when evidence supports it
+- process-flow candidates cover business-centric end-to-end workflows, user journeys, lifecycle flows, cross-service process sequences, and the default `Hybrid User-to-Data Operational Flow` when evidence supports it
 - `foundation/tech-stack.md` gets table-first stack evidence with versions, support status, sources, confidence, verification dates, and implementation guidance
 - `foundation/codebase-structure.md` gets a selective repository-layout draft plus structured repository configuration, work-area boundary, integration contract, and blocker tables where evidence exists
 - repository layout should be a selective 4-5 level map that helps agents place new files and folders
@@ -686,8 +685,8 @@ What it writes:
 
 - `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md` by default for durable architecture, module, feature workflow, process-flow, user journey, sequence, state, or class/domain diagrams
 - `devspec/architecture/overview.md` only for high-level system diagrams or links to detailed diagram files
-- `devspec/architecture/artifact-queue.md` for resumable diagram work with evidence, confidence, and artifact status from `devspec/glossary.md#artifact-status-values`
-- `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagram content, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment
+- `devspec/architecture/artifact-queue.md` for resumable diagram queue metadata, evidence, confidence, and status from `devspec/glossary.md#artifact-status-values`
+- `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item-specific diagram content, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment
 
 Important behavior:
 
@@ -704,7 +703,7 @@ Important behavior:
 - uses `flowchart BT` only for optional layer dependency views
 - checks for an equivalent existing diagram before creating another one
 - separates evidence-backed facts from assumptions
-- keeps work-item `diagrams.md` focused on temporary diagram content; `architecture/artifact-queue.md` owns diagram artifact status
+- keeps work-item `diagrams.md` focused on temporary work-item-specific diagram content and records diagram status in `architecture/artifact-queue.md`
 - uses confidence values consistently: `observed`, `high-confidence`, or `low-confidence`
 - keeps feature and module workflow diagrams out of `overview.md` unless they are truly high-level system views
 - defaults to `devspec/architecture/diagrams/` even when the request mentions a work item, unless the diagram is explicit or clearly temporary work-item-specific context
@@ -747,7 +746,7 @@ Default language-neutral diagram catalog:
 | 13 | CI/CD Pipeline | `dia-NNN-cicd-pipeline` | `flowchart LR` |
 | 14 | Configuration and Secrets Flow | `dia-NNN-configuration-secrets-flow` | `flowchart TD` |
 | 15 | Risk and Hotspot Map | `dia-NNN-risk-hotspot-map` | `flowchart TD` |
-| 16 | Hybrid User To Data Operational Flow | `dia-NNN-hybrid-user-to-data-operational-flow` | `flowchart TD` |
+| 16 | Hybrid User-to-Data Operational Flow | `dia-NNN-hybrid-user-to-data-operational-flow` | `flowchart TD` |
 
 ## Command reference and step order
 
@@ -769,7 +768,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 | 9 | `/devspec.tasks` | A ready brief needs ordered implementation tasks. | `finalize.md` marked `ready`. | `work-items/<work-item-folder>/tasks.md` | `/devspec.implement` |
 | 10 | `/devspec.implement` | Pending tasks should be implemented. | `finalize.md` marked `ready` and `tasks.md`. | `work-items/<work-item-folder>/implement.md` and code changes when applicable. | `/devspec.review` |
 | 11 | `/devspec.review` | Implemented work needs review against the finalized brief. | `finalize.md` and `implement.md`. | `work-items/<work-item-folder>/review.md` | Return to implementation for changes, or close the work item |
-| Optional | `/devspec.diagram` | A requested architecture, module, feature workflow, process-flow, user journey, sequence, state, or class/domain diagram is needed. | Diagram subject, related work item, or explicit process-flow batch request. | `architecture/diagrams/dia-NNN-*.md` by default, `architecture/overview.md` for high-level system diagrams, `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagram content, and `architecture/artifact-queue.md` as applicable. | Continue the current workflow |
+| Optional | `/devspec.diagram` | A requested architecture, module, feature workflow, process-flow, user journey, sequence, state, or class/domain diagram is needed. | Diagram subject, related work item, or explicit process-flow batch request. | `architecture/diagrams/dia-NNN-*.md` by default, `architecture/overview.md` for high-level system diagrams, `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item-specific diagram content, and `architecture/artifact-queue.md` as applicable. | Continue the current workflow |
 
 ## End-to-end examples
 
@@ -874,7 +873,7 @@ Holds one folder per work item, including features, bugs, and security issues. E
 
 Each work-item artifact can include `Resume State`, which lets a new Copilot or agent session recover the current stage, pending question, next safe action, and resume command from Git-tracked files. Implementation also records task-level checkpoints in `implement.md` so monolith and multi-repo work can continue by target repository, target area, and task status.
 
-Reusable feature workflows, process flows, user journeys, sequence diagrams, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Use work-item `diagrams.md` only for explicit or clearly temporary work-item-specific diagram content, such as a bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment. Keep diagram artifact status in `devspec/architecture/artifact-queue.md`.
+Reusable feature workflows, process flows, user journeys, sequence diagrams, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Use work-item `diagrams.md` only for explicit or clearly temporary work-item-specific diagram content, such as a bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment. Keep diagram status in `devspec/architecture/artifact-queue.md`.
 
 ## Advanced: extracting information from an existing project
 

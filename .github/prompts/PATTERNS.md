@@ -73,7 +73,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Before asking a question, blocking, pausing, or handing off, update `Resume State`, the active extraction queue row, and `Blockers and Confirmations`.
 - Do not store extracted facts in `extraction-state.md`; write them to the target artifact named by the active queue row.
 - Do not store reusable discovery methods in `extraction-state.md`; use `devspec/foundation/exploration-state.md`.
-- Do not store diagram artifact lifecycle in `extraction-state.md`; use `devspec/architecture/artifact-queue.md`.
+- Do not store diagram lifecycle state in `extraction-state.md`; use `devspec/architecture/artifact-queue.md`.
 
 ## Token Stewardship Pattern
 
@@ -113,7 +113,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - For durable architecture diagram queue rows, use the queue ID as the sequence anchor: `DIA-001` maps to subject `dia-001-<diagram-name>`, target `devspec/architecture/diagrams/dia-001-<diagram-name>.md`, and display title `DIA-001 - <Title Case Diagram Name>`.
 - Never renumber existing `DIA-*` rows or generated `dia-NNN-*` diagram files. New diagrams get the next available `DIA-*` ID and matching lowercase `dia-NNN-*` subject prefix.
 - Avoid language, framework, vendor, or platform names in default diagram subjects. Use language-specific evidence only as supporting evidence unless the user explicitly requests a specialized diagram.
-- Prefer reusable architecture, module, feature, workflow, sequence, state, or user-journey diagrams over temporary work-item diagrams. Use work-item `diagrams.md` only for explicit or clearly temporary diagram content; keep diagram artifact status in `devspec/architecture/artifact-queue.md`.
+- Prefer reusable architecture, module, feature, workflow, sequence, state, or user-journey diagrams over temporary work-item diagrams. Use work-item `diagrams.md` only for explicit or clearly temporary work-item-specific diagram content, and keep diagram status in `devspec/architecture/artifact-queue.md`.
 - Use queue `Tags` for durable selection and batch processing. Process-flow rows must include `process-flow`; add narrower tags such as `business-process`, `user-journey`, `lifecycle-flow`, or `hybrid-user-to-data-operational-flow` when they apply.
 - Use queue `Diagram type` for the Mermaid family only: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, or `classDiagram`. Record orientation such as `LR`, `TD`, or `BT` in `Next action or notes` when useful, and write the full Mermaid declaration in the generated artifact.
 - Use `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines. Use `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping. Use `flowchart BT` only for optional layer dependency views where lower layers should appear as foundations.
@@ -135,7 +135,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Discover process-flow evidence from owned routes, controllers, service methods, state transitions, jobs, event handlers, tests, docs, ADRs, integration boundaries, domain terms, user-facing actions, data stores, validations, and business outcomes.
 - Queue one row per distinct durable process flow, with `process-flow` in `Tags`, a `dia-NNN-<diagram-name>` subject, a matching target under `devspec/architecture/diagrams/`, and notes that name the actor or trigger, business outcome, major decisions or state changes, data touchpoints, integrations, duplicate-check result, and suggested Mermaid declaration.
 - Queue the default hybrid candidate when evidence can connect user entry points to application boundaries, services, integrations, data stores, validations, operational states, and outcomes:
-  `Hybrid User To Data Operational Flow`, subject `dia-NNN-hybrid-user-to-data-operational-flow`, scope `workflow`, diagram type `flowchart`, declaration `flowchart TD`, tags `process-flow, business-process, hybrid-user-to-data-operational-flow`.
+  `Hybrid User-to-Data Operational Flow`, subject `dia-NNN-hybrid-user-to-data-operational-flow`, scope `workflow`, diagram type `flowchart`, declaration `flowchart TD`, tags `process-flow, business-process, hybrid-user-to-data-operational-flow`.
 - Use `observed` only when source evidence directly supports the process flow. Use `high-confidence` when multiple local evidence points support the flow. Use `low-confidence` for useful but incomplete process-flow candidates and leave them queued rather than generating them in batch mode.
 - When `/devspec.diagram` receives a process-flow batch request, process eligible rows in `DIA-*` order. Eligible rows must include `process-flow`, have status `proposed` or `confirmed`, confidence `observed` or `high-confidence`, a target matching `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md`, and a passing duplicate check.
 
@@ -160,7 +160,7 @@ Use this language-neutral priority catalog for extraction. Queue a candidate onl
 | 13 | CI/CD Pipeline | `dia-NNN-cicd-pipeline` | workflow | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/dia-NNN-cicd-pipeline.md` |
 | 14 | Configuration and Secrets Flow | `dia-NNN-configuration-secrets-flow` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-configuration-secrets-flow.md` |
 | 15 | Risk and Hotspot Map | `dia-NNN-risk-hotspot-map` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-risk-hotspot-map.md` |
-| 16 | Hybrid User To Data Operational Flow | `dia-NNN-hybrid-user-to-data-operational-flow` | workflow | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-hybrid-user-to-data-operational-flow.md` |
+| 16 | Hybrid User-to-Data Operational Flow | `dia-NNN-hybrid-user-to-data-operational-flow` | workflow | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-hybrid-user-to-data-operational-flow.md` |
 
 Optional evidence-specific diagrams may include `layered-architecture`, `<entity-slug>-lifecycle`, `<domain-slug>-domain-structure`, `background-jobs-schedulers`, or `<feature-slug>-workflow` when the user asks or repository evidence makes the specialized diagram more useful than a default catalog item.
 
