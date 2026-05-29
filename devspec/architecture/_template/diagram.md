@@ -1,6 +1,6 @@
 # Architecture Diagram
 
-Use this artifact for one durable architecture, module, feature, workflow, user-journey, sequence, state, or domain diagram. Keep diagram lifecycle status in `devspec/architecture/artifact-queue.md`; keep only generated content, supporting evidence, assumptions, and maintenance notes here.
+Use this artifact for one durable architecture, module, feature, workflow, process-flow, user journey, sequence, state, or domain diagram. Keep diagram status in `devspec/architecture/artifact-queue.md`; keep only generated content, supporting evidence, assumptions, and maintenance notes here.
 
 ## Resume State
 
@@ -24,10 +24,13 @@ Use this artifact for one durable architecture, module, feature, workflow, user-
 | Field | Value |
 | --- | --- |
 | ID | |
+| Display title | `DIA-NNN - <Title Case Diagram Name>` |
 | Scope | architecture, module, feature, workflow, user-journey |
 | Diagram type | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram |
-| Subject | |
+| Mermaid declaration | flowchart TD, flowchart LR, flowchart BT, sequenceDiagram, journey, stateDiagram-v2, classDiagram |
+| Subject | `dia-NNN-<diagram-name>` |
 | Confidence | observed, high-confidence, low-confidence |
+| Tags | |
 | Queue row | `devspec/architecture/artifact-queue.md#diagram-queue-register` |
 
 ## Mermaid Diagram

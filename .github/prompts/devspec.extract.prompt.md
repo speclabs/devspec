@@ -1,11 +1,11 @@
 ---
 name: "devspec.extract"
-description: "Create or refresh structured, evidence-backed devspec constitution, architecture, and foundation artifacts from current root, repo URLs, local repo paths, or named multi-repo sources."
-argument-hint: "Optional: leave blank for current root, paste one repo URL/path, or use Name - path pairs"
+description: "Create or refresh structured, evidence-backed devspec extraction state, constitution, architecture, foundation, process-flow, and diagram queue artifacts from current root, repository URLs, local repository paths, or named multi-repo sources."
+argument-hint: "Optional: leave blank for current root, paste one repository URL/path, or use Name - path pairs"
 agent: "devspec.extract"
 ---
 
-Create or refresh `devspec/constitution.md`, `devspec/architecture/overview.md`, and relevant live `devspec/foundation/*.md` artifacts from supported repository sources. Keep extracted output developer-facing, compact, evidence-backed, and structured.
+Create or refresh `devspec/foundation/extraction-state.md`, `devspec/constitution.md`, `devspec/architecture/overview.md`, relevant live `devspec/foundation/*.md` artifacts, business-centric process-flow candidates, and language-neutral diagram queue candidates from supported repository sources. Keep extracted output developer-facing, compact, evidence-backed, resumable, and structured.
 
 Optional user input:
-${input:extractSources:Optional: leave blank for current root, paste one repo URL/path, or use Name - path pairs}
+${input:extractSources:Optional: leave blank for current root, paste one repository URL/path, or use Name - path pairs}

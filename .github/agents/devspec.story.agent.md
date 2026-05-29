@@ -18,7 +18,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 - Validate provider URLs or identifiers before treating input as resolved.
 - Use `devspec/foundation/provider-integrations.md` for provider resolution policy, supported inputs, outcome handling, confirmation requirements, manual fallback, integration access expectations, and source-resolution recording; initialize it from `devspec/foundation/_template/provider-integrations.md` when missing.
 - If the input is ambiguous, stop and ask for clarification.
-- If provider lookup is unavailable or the item cannot be resolved confidently, do not guess; record the attempt and offer manual intake only as an explicit fallback.
+- If provider lookup is unavailable, intentionally skipped, or the item cannot be resolved confidently, do not guess; record the attempt and offer manual intake only as an explicit fallback.
 - Manual intake requires an external reference, manual description, and manual acceptance criteria before creating the work item.
 - Classify the work item as `feature`, `bug`, or `security-vulnerability`; ask if unclear.
 - Create the work-item folder only during work-item intake and only after its name is valid.

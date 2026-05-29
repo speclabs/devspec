@@ -17,7 +17,7 @@ Use these categories for every repository, regardless of ecosystem. Ecosystem ru
 | Test and coverage output | `coverage/`, `.nyc_output/`, test result folders | Reports are run artifacts, not source conventions. | User asks for coverage or test-output diagnostics. |
 | Cache and temporary output | `.cache/`, `tmp/`, `temp/`, tool caches | Cache content is transient and often huge. | User asks for cache diagnostics. |
 | Local IDE or machine metadata | `.idea/`, `.vscode/`, editor user settings | Local settings usually reflect one machine, not project standards. | Repository standards explicitly depend on these files. |
-| Dependency installs and package caches | Installed dependency folders and package-manager caches | Third-party code and package caches should not drive project conventions. | Dependency source inspection is explicitly requested or overridden. |
+| Dependency installs and package caches | Installed dependency folders and package manager caches | Third-party code and package caches should not drive project conventions. | Dependency source inspection is explicitly requested or overridden. |
 
 ## Ecosystem Discovery Rules
 

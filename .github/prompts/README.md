@@ -1,6 +1,6 @@
 # Devspec Prompt Index
 
-Slash-command prompts live here. Keep behavior in `PATTERNS.md`, matching agents, or canonical devspec artifacts.
+Slash-command prompts live here. Put reusable behavior in `PATTERNS.md`, matching agents, or canonical devspec artifacts.
 
 Artifacts should be developer-facing and compact. Prefer tables for stack, source evidence, repository configuration, boundaries, rules, tasks, readiness, and validation; use bullets for direct facts; use ordered lists only when sequence matters. Omit optional sections when they have no real content.
 
@@ -14,7 +14,7 @@ Use `clarify` only when work-item intake or finalization records a blocking ques
 
 Supporting: `diagram`
 
-`/devspec.extract` can be run with blank input to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction`; it also accepts one repo URL or local path, or named multi-repo input such as `UI - D:\repo-ui, API - D:\repo-api`.
+`/devspec.extract` can run with blank input to choose `Use current project root`, `Enter repo paths`, or `Cancel extraction`; it also accepts one repository URL or local path, or named multi-repo input such as `UI - D:\repo-ui, API - D:\repo-api`.
 
 ## Registered Slash Commands
 
@@ -36,19 +36,21 @@ The registered devspec slash commands are:
 
 Recommendation behavior is defined by `PATTERNS.md#registered-command-recommendation-pattern`.
 
-Developers invoke registered slash commands from this directory. Agent names are workflow targets and may be internal handoff details; do not recommend an agent name as a slash command unless the matching prompt is registered here.
+Developers invoke registered slash commands from this directory. Agent names are workflow targets used for internal handoffs; do not recommend an agent name as a slash command unless the matching prompt is registered here.
 
 ## Shared References
 
 - `PATTERNS.md`: shared workflow, recovery, output, discovery, foundation, work-item, memory, and multi-repo rules.
 - `PATTERNS.md#artifact-content-pattern`: shared structure rules for developer-facing artifacts, source labels, optional sections, and table/bullet/list usage.
-- `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, evidence, confidence, dedupe, and diagram queue rules.
+- `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, naming, Mermaid declaration, evidence, confidence, dedupe, tags, and diagram queue rules.
+- `PATTERNS.md#process-flow-extraction-pattern`: process-flow discovery, tagging, hybrid user-to-data operational flow, and batch-generation rules.
 - `../../devspec/foundation/rules.md`: operational rules, work-item handling rules, exceptions, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
 - `../../devspec/foundation/discovery-exclusions.md`: baseline exclusions, ecosystem discovery rules, and project-specific overrides for repository discovery.
+- `../../devspec/foundation/extraction-state.md`: extraction queue, resume state, blockers, and confirmations for `/devspec.extract`.
 - `../../devspec/foundation/exploration-state.md`: optional method ledger for reusable working, failed, and superseded discovery methods; create only when there is reusable state to preserve.
-- `../../devspec/foundation/provider-integrations.md`: manually maintained provider resolution, confirmation, integration access, and manual fallback policy.
-- `../skills/exploration-recovery/SKILL.md`: reusable GitHub skill for avoiding repeated failed exploration paths.
+- `../../devspec/foundation/provider-integrations.md`: manually maintained provider lookup, confirmation, integration access, and manual fallback policy.
+- `../skills/exploration-recovery/SKILL.md`: reusable skill for avoiding repeated failed exploration paths.
 - `../../devspec/foundation/_template/`: framework-owned section contracts for foundation artifacts.
 - `../../devspec/architecture/_template/`: framework-owned section contracts for architecture artifacts.
 - `../../devspec/architecture/_template/decision.md`: framework-owned ADR section contract; create `../../devspec/architecture/decisions/` only when an ADR is needed.
@@ -56,13 +58,13 @@ Developers invoke registered slash commands from this directory. Agent names are
 
 ## Model Policy
 
-See [Model recommendations](../../README.md#model-recommendations). Agent frontmatter owns model fallback order; VS Code model-picker settings own thinking effort.
+See [Model recommendations](../../README.md#model-recommendations). Agent front matter owns model fallback order; VS Code model picker settings own thinking effort.
 
 ## Prompt Map
 
 | Prompt | Purpose | Produces |
 | --- | --- | --- |
-| `devspec.extract.prompt.md` | Derive structured, evidence-backed constitution candidates, architecture context, and live foundation facts from current root, repo URLs, local paths, or named multi-repo input. | `constitution.md`, `architecture/overview.md`, live `foundation/*.md` |
+| `devspec.extract.prompt.md` | Derive structured, evidence-backed constitution candidates, architecture context, live foundation facts, process-flow queue candidates, and language-neutral diagram queue candidates from current root, repository URLs, local paths, or named multi-repo input. | `foundation/extraction-state.md`, `constitution.md`, `architecture/overview.md`, `architecture/artifact-queue.md`, live `foundation/*.md` |
 | `devspec.projectcontext.prompt.md` | Capture product purpose, audiences, stakeholders, outcomes, scope boundaries, metrics, delivery context, sources, confidence, and developer implications. | `foundation/project-context.md` |
 | `devspec.techstack.prompt.md` | Capture technology stack inventory by project, support status, evidence, confidence, delivery constraints, and implementation impact. | `foundation/tech-stack.md` |
 | `devspec.codebase-structure.prompt.md` | Capture selective repository trees, repository configuration, work areas and boundaries, integration contracts, and structure gaps or blockers. | `foundation/codebase-structure.md` |
@@ -74,7 +76,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent frontm
 | `devspec.tasks.prompt.md` | Break a ready brief into executable implementation tasks with planning basis, validation, and done criteria. | `tasks.md` |
 | `devspec.implement.prompt.md` | Implement pending tasks and record implementation task ledger state, implementation evidence, execution history, and handoff details. | `implement.md`, code changes |
 | `devspec.review.prompt.md` | Review implemented work against the finalized brief. | `review.md` |
-| `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram. | `architecture/diagrams/*.md` by default; `architecture/overview.md` for high-level architecture diagrams; work-item `diagrams.md` for explicit or temporary generated diagram content |
+| `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram, or batch-generate queued process-flow diagrams, using canonical naming and Mermaid declaration guidance. | `architecture/diagrams/dia-NNN-*.md` by default; `architecture/overview.md` for high-level architecture diagrams; work-item `diagrams.md` for explicit or clearly temporary work-item-specific diagram content |
 
 ## Maintenance
 
