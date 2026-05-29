@@ -31,9 +31,10 @@ Use this file for the `/devspec.extract` queue and resume state. Keep extracted 
 | EXT-006 | coding-standards | `devspec/foundation/coding-standards.md` | style guides, observed patterns, tests, examples | pending | Extract standards and anti-patterns. | |
 | EXT-007 | rules-and-constraints | `devspec/foundation/rules.md` | compliance, security, delivery gates, operational constraints | pending | Extract actionable rules only. | |
 | EXT-008 | architecture-overview | `devspec/architecture/overview.md` | components, integrations, runtime boundaries, data movement | pending | Extract high-level architecture context. | |
-| EXT-009 | diagram-candidates | `devspec/architecture/artifact-queue.md` | evidence-backed diagram candidates and duplicate checks | pending | Queue eligible diagram candidates. | |
-| EXT-010 | constitution-candidates | `devspec/constitution.md` | durable principle candidates requiring confirmation | pending | Ask before writing principle changes. | |
-| EXT-011 | closure | `devspec/foundation/extraction-state.md` | updated artifacts, blockers, confirmations, next action | pending | Summarize extraction and select one next action. | |
+| EXT-009 | process-flows | `devspec/architecture/artifact-queue.md` | business-centric end-to-end workflows, user journeys, lifecycle flows, cross-service process sequences, hybrid user-to-data operational flow | pending | Queue eligible process-flow diagram candidates. | |
+| EXT-010 | diagram-candidates | `devspec/architecture/artifact-queue.md` | evidence-backed diagram candidates and duplicate checks | pending | Queue eligible non-process-flow diagram candidates. | |
+| EXT-011 | constitution-candidates | `devspec/constitution.md` | durable principle candidates requiring confirmation | pending | Ask before writing principle changes. | |
+| EXT-012 | closure | `devspec/foundation/extraction-state.md` | updated artifacts, blockers, confirmations, next action | pending | Summarize extraction and select one next action. | |
 
 ## Blockers and Confirmations
 

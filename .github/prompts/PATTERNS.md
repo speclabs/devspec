@@ -107,11 +107,14 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 
 - Use this pattern when extraction proposes diagram candidates or `/devspec.diagram` generates or updates a diagram.
 - Queue only candidates backed by concrete repository evidence from owned routes, modules, workflows, state transitions, services, integrations, ADRs, docs, infrastructure, runtime config, or manifests.
-- Each queued candidate must include ID, scope, diagram type, subject, target location, evidence, confidence, status, and next action or notes. Record the equivalent-diagram check result in `Next action or notes`.
+- Each queued candidate must include ID, scope, diagram type, subject, target location, evidence, confidence, status, tags, and next action or notes. Record the equivalent-diagram check result in `Next action or notes`.
 - Use stable IDs such as `DIA-001`, `DIA-002`, preserving existing IDs and assigning the next available number for new rows.
-- Keep subjects specific enough to become one diagram file. Use Title Case for display names, lowercase kebab-case for subject slugs, one subject per diagram file, and `devspec/architecture/diagrams/<subject-slug>.md` for durable diagrams.
+- Keep subjects specific enough to become one diagram file. Use Title Case for display names and lowercase kebab-case for subject slugs.
+- For durable architecture diagram queue rows, use the queue ID as the sequence anchor: `DIA-001` maps to subject `dia-001-<diagram-name>`, target `devspec/architecture/diagrams/dia-001-<diagram-name>.md`, and display title `DIA-001 - <Title Case Diagram Name>`.
+- Never renumber existing `DIA-*` rows or generated `dia-NNN-*` diagram files. New diagrams get the next available `DIA-*` ID and matching lowercase `dia-NNN-*` subject prefix.
 - Avoid language, framework, vendor, or platform names in default diagram subjects. Use language-specific evidence only as supporting evidence unless the user explicitly requests a specialized diagram.
 - Prefer reusable architecture, module, feature, workflow, sequence, state, or user-journey diagrams over temporary work-item diagrams. Use work-item `diagrams.md` only for explicit or clearly temporary diagram content; keep diagram artifact status in `devspec/architecture/artifact-queue.md`.
+- Use queue `Tags` for durable selection and batch processing. Process-flow rows must include `process-flow`; add narrower tags such as `business-process`, `user-journey`, `lifecycle-flow`, or `hybrid-user-to-data-operational-flow` when they apply.
 - Use queue `Diagram type` for the Mermaid family only: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, or `classDiagram`. Record orientation such as `LR`, `TD`, or `BT` in `Next action or notes` when useful, and write the full Mermaid declaration in the generated artifact.
 - Use `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines. Use `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping. Use `flowchart BT` only for optional layer dependency views where lower layers should appear as foundations.
 - Use `sequenceDiagram` for actor, service, workflow, or security interactions over time; `journey` for user-facing paths; `stateDiagram-v2` for lifecycle or status transitions; and `classDiagram` for stable domain or structural relationships.
@@ -121,7 +124,20 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Before queueing or writing, check `devspec/architecture/artifact-queue.md`, `devspec/architecture/overview.md`, `devspec/architecture/diagrams/*.md`, and relevant work-item `diagrams.md` files for equivalent subject, scope, diagram type, or target location.
 - Avoid duplicate overview diagrams unless `devspec/architecture/overview.md` lacks a confirmed architecture context or diagram reference entry.
 - During `/devspec.extract`, seed candidates in `devspec/architecture/artifact-queue.md` and ask about only the next unresolved candidate after higher-priority confirmations. Generate diagrams later through `/devspec.diagram` unless the user explicitly continues through the confirmed queue.
-- During `/devspec.diagram`, reuse matching queue metadata instead of reclassifying the same subject from scratch, then generate exactly one evidence-backed Mermaid artifact per run.
+- During `/devspec.diagram`, reuse matching queue metadata instead of reclassifying the same subject from scratch. Generate exactly one evidence-backed Mermaid artifact per run unless the user requests process-flow batch generation.
+
+## Process Flow Extraction Pattern
+
+- Use this pattern during the `/devspec.extract` `process-flows` queue row and for `/devspec.diagram` process-flow generation.
+- Treat process flows as business-centric end-to-end workflows first: user or actor initiation, system or service handoffs, business decisions, state changes, integrations, data touchpoints, success outcomes, and major failure or exception paths.
+- Include user journeys, lifecycle flows, cross-service process sequences, and hybrid user-to-data operational flows when they explain an end-to-end business process.
+- Do not treat pure structural maps, generic CRUD paths, deployment pipelines, CI/CD, authentication or configuration flows, or one-off work-item diagrams as process flows unless the user explicitly requests them.
+- Discover process-flow evidence from owned routes, controllers, service methods, state transitions, jobs, event handlers, tests, docs, ADRs, integration boundaries, domain terms, user-facing actions, data stores, validations, and business outcomes.
+- Queue one row per distinct durable process flow, with `process-flow` in `Tags`, a `dia-NNN-<diagram-name>` subject, a matching target under `devspec/architecture/diagrams/`, and notes that name the actor or trigger, business outcome, major decisions or state changes, data touchpoints, integrations, duplicate-check result, and suggested Mermaid declaration.
+- Queue the default hybrid candidate when evidence can connect user entry points to application boundaries, services, integrations, data stores, validations, operational states, and outcomes:
+  `Hybrid User To Data Operational Flow`, subject `dia-NNN-hybrid-user-to-data-operational-flow`, scope `workflow`, diagram type `flowchart`, declaration `flowchart TD`, tags `process-flow, business-process, hybrid-user-to-data-operational-flow`.
+- Use `observed` only when source evidence directly supports the process flow. Use `high-confidence` when multiple local evidence points support the flow. Use `low-confidence` for useful but incomplete process-flow candidates and leave them queued rather than generating them in batch mode.
+- When `/devspec.diagram` receives a process-flow batch request, process eligible rows in `DIA-*` order. Eligible rows must include `process-flow`, have status `proposed` or `confirmed`, confidence `observed` or `high-confidence`, a target matching `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md`, and a passing duplicate check.
 
 ### Default Diagram Candidate Catalog
 
@@ -129,21 +145,22 @@ Use this language-neutral priority catalog for extraction. Queue a candidate onl
 
 | Priority | Display name | Subject slug | Scope | Queue type | Mermaid declaration | Default target |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | System Context | `system-context` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/system-context.md` |
-| 2 | Domain and Capability Map | `domain-capability-map` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/domain-capability-map.md` |
-| 3 | Repository and Ownership Map | `repository-ownership-map` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/repository-ownership-map.md` |
-| 4 | Runtime Containers | `runtime-containers` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/runtime-containers.md` |
-| 5 | Dependency Graph | `dependency-graph` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/dependency-graph.md` |
-| 6 | Component Interaction Map | `component-interaction-map` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/component-interaction-map.md` |
-| 7 | API Surface Map | `api-surface-map` | module | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/api-surface-map.md` |
-| 8 | Event and Message Flow | `event-message-flow` | workflow | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/event-message-flow.md` |
-| 9 | Data Ownership and Flow | `data-ownership-flow` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/data-ownership-flow.md` |
-| 10 | Critical Workflow Sequence | `<workflow-slug>-sequence` | workflow | `sequenceDiagram` | `sequenceDiagram` | `devspec/architecture/diagrams/<workflow-slug>-sequence.md` |
-| 11 | Authentication and Authorization Flow | `authentication-authorization-flow` | workflow | `sequenceDiagram` | `sequenceDiagram` | `devspec/architecture/diagrams/authentication-authorization-flow.md` |
-| 12 | Deployment Topology | `deployment-topology` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/deployment-topology.md` |
-| 13 | CI/CD Pipeline | `cicd-pipeline` | workflow | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/cicd-pipeline.md` |
-| 14 | Configuration and Secrets Flow | `configuration-secrets-flow` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/configuration-secrets-flow.md` |
-| 15 | Risk and Hotspot Map | `risk-hotspot-map` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/risk-hotspot-map.md` |
+| 1 | System Context | `dia-NNN-system-context` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-system-context.md` |
+| 2 | Domain and Capability Map | `dia-NNN-domain-capability-map` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/dia-NNN-domain-capability-map.md` |
+| 3 | Repository and Ownership Map | `dia-NNN-repository-ownership-map` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/dia-NNN-repository-ownership-map.md` |
+| 4 | Runtime Containers | `dia-NNN-runtime-containers` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/dia-NNN-runtime-containers.md` |
+| 5 | Dependency Graph | `dia-NNN-dependency-graph` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/dia-NNN-dependency-graph.md` |
+| 6 | Component Interaction Map | `dia-NNN-component-interaction-map` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/dia-NNN-component-interaction-map.md` |
+| 7 | API Surface Map | `dia-NNN-api-surface-map` | module | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-api-surface-map.md` |
+| 8 | Event and Message Flow | `dia-NNN-event-message-flow` | workflow | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/dia-NNN-event-message-flow.md` |
+| 9 | Data Ownership and Flow | `dia-NNN-data-ownership-flow` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-data-ownership-flow.md` |
+| 10 | Critical Workflow Sequence | `dia-NNN-<workflow-slug>-sequence` | workflow | `sequenceDiagram` | `sequenceDiagram` | `devspec/architecture/diagrams/dia-NNN-<workflow-slug>-sequence.md` |
+| 11 | Authentication and Authorization Flow | `dia-NNN-authentication-authorization-flow` | workflow | `sequenceDiagram` | `sequenceDiagram` | `devspec/architecture/diagrams/dia-NNN-authentication-authorization-flow.md` |
+| 12 | Deployment Topology | `dia-NNN-deployment-topology` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-deployment-topology.md` |
+| 13 | CI/CD Pipeline | `dia-NNN-cicd-pipeline` | workflow | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/dia-NNN-cicd-pipeline.md` |
+| 14 | Configuration and Secrets Flow | `dia-NNN-configuration-secrets-flow` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-configuration-secrets-flow.md` |
+| 15 | Risk and Hotspot Map | `dia-NNN-risk-hotspot-map` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-risk-hotspot-map.md` |
+| 16 | Hybrid User To Data Operational Flow | `dia-NNN-hybrid-user-to-data-operational-flow` | workflow | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-hybrid-user-to-data-operational-flow.md` |
 
 Optional evidence-specific diagrams may include `layered-architecture`, `<entity-slug>-lifecycle`, `<domain-slug>-domain-structure`, `background-jobs-schedulers`, or `<feature-slug>-workflow` when the user asks or repository evidence makes the specialized diagram more useful than a default catalog item.
 

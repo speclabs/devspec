@@ -283,7 +283,9 @@ What it does:
   - live `devspec/foundation/*.md` artifacts, excluding `devspec/foundation/_template/`
 - requires explicit confirmation before writing principle-level changes to `constitution.md`
 - asks only one structured extraction confirmation at a time; constitution confirmation, diagram candidate approval, and Mermaid generation approval must not be asked together
-- seeds language-neutral diagram candidates from repository evidence with ID, scope, diagram type, subject slug, target location, evidence, confidence, status, and notes
+- seeds business-centric process-flow diagram candidates from routes, controllers, services, state transitions, jobs, event handlers, tests, docs, ADRs, integration boundaries, domain terms, user-facing actions, data stores, and business outcomes
+- seeds language-neutral diagram candidates from repository evidence with ID, scope, diagram type, subject slug, target location, evidence, confidence, status, tags, and notes
+- uses sequence-preserving diagram names: `DIA-001` queue rows map to subjects and files such as `dia-001-order-fulfillment-flow` and `devspec/architecture/diagrams/dia-001-order-fulfillment-flow.md`
 - keeps queue `Diagram type` limited to the Mermaid family; suggested orientation such as `flowchart LR` or `flowchart TD` belongs in notes or the generated diagram artifact
 - treats extraction as queue-first diagram discovery; `/devspec.diagram` is the normal follow-up for generating one confirmed diagram
 - closes with one next action or one structured question, not a list of possible next prompts
@@ -332,7 +334,8 @@ Expected outcome:
 
 - `foundation/extraction-state.md` records the extraction queue, resume state, blockers, confirmations, and next action
 - `architecture/overview.md` gets a first-pass system view
-- `architecture/artifact-queue.md` gets evidence-backed diagram candidates when durable diagrams would clarify the system
+- `architecture/artifact-queue.md` gets evidence-backed diagram candidates when durable diagrams would clarify the system, including process-flow rows tagged with `process-flow`
+- process-flow candidates cover business-centric end-to-end workflows, user journeys, lifecycle flows, cross-service process sequences, and the default `Hybrid User To Data Operational Flow` when evidence supports it
 - `foundation/tech-stack.md` gets table-first stack evidence with versions, support status, sources, confidence, verification dates, and implementation guidance
 - `foundation/codebase-structure.md` gets a selective repository-layout draft plus structured repository configuration, work-area boundary, integration contract, and blocker tables where evidence exists
 - repository layout should be a selective 4-5 level map that helps agents place new files and folders
@@ -677,23 +680,25 @@ Example:
 
 ### Optional: `/devspec.diagram`
 
-Use this when you want one additional evidence-backed Mermaid diagram for an architecture area, module, feature workflow, user journey, sequence, state, or stable domain structure.
+Use this when you want one evidence-backed Mermaid diagram for an architecture area, module, feature workflow, user journey, sequence, state, or stable domain structure. It can also generate all eligible queued process-flow diagrams when explicitly requested.
 
 What it writes:
 
-- `devspec/architecture/diagrams/<subject-slug>.md` by default for durable architecture, module, feature workflow, user journey, sequence, state, or class/domain diagrams
+- `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md` by default for durable architecture, module, feature workflow, process-flow, user journey, sequence, state, or class/domain diagrams
 - `devspec/architecture/overview.md` only for high-level system diagrams or links to detailed diagram files
 - `devspec/architecture/artifact-queue.md` for resumable diagram work with evidence, confidence, and artifact status from `devspec/glossary.md#artifact-status-values`
-- `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary generated work-item diagram content, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment
+- `devspec/work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagram content, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment
 
 Important behavior:
 
 - requires a diagram subject or related work item
-- generates exactly one diagram per run unless you explicitly continue through the queue
+- generates exactly one diagram per run unless you continue through the queue or explicitly request process-flow batch generation
 - reuses matching artifact-queue metadata instead of reclassifying the same subject from scratch
+- treats `/devspec.diagram Generate all process-flow diagrams` as approval to batch-generate eligible queued rows tagged `process-flow`
 - chooses Mermaid type and full Mermaid declaration from evidence or asks one structured question when ambiguous
 - supports `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, and `classDiagram`
-- uses Title Case display names, lowercase kebab-case subject slugs, and Markdown targets under `devspec/architecture/diagrams/`
+- uses Title Case display names, lowercase sequence-prefixed kebab-case subject slugs, and Markdown targets under `devspec/architecture/diagrams/`
+- uses sequence-preserving names where `DIA-001` maps to `dia-001-<diagram-name>.md` and display title `DIA-001 - <Title Case Diagram Name>`; existing `DIA-*` rows are never renumbered
 - uses `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines
 - uses `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping
 - uses `flowchart BT` only for optional layer dependency views
@@ -704,31 +709,45 @@ Important behavior:
 - keeps feature and module workflow diagrams out of `overview.md` unless they are truly high-level system views
 - defaults to `devspec/architecture/diagrams/` even when the request mentions a work item, unless the diagram is explicit or clearly temporary work-item-specific context
 
+Process-flow batch generation:
+
+- uses queued rows where `Tags` includes `process-flow`, status is `proposed` or `confirmed`, confidence is `observed` or `high-confidence`, target location is `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md`, and duplicate check passes
+- processes rows in `DIA-*` order and leaves low-confidence, ambiguous, blocked, or duplicate rows queued with notes
+- generates business-centric end-to-end diagrams rather than module call graphs
+- includes `hybrid-user-to-data-operational-flow` when evidence connects user entry points, application boundaries, services, data stores, validations, operational states, and outcomes
+
 Example:
 
 ```text
 /devspec.diagram Create a workflow diagram for payment retry handling in the billing module.
 ```
 
+Process-flow batch example:
+
+```text
+/devspec.diagram Generate all process-flow diagrams
+```
+
 Default language-neutral diagram catalog:
 
 | Priority | Display name | Subject slug | Mermaid declaration |
 | --- | --- | --- | --- |
-| 1 | System Context | `system-context` | `flowchart TD` |
-| 2 | Domain and Capability Map | `domain-capability-map` | `flowchart LR` |
-| 3 | Repository and Ownership Map | `repository-ownership-map` | `flowchart LR` |
-| 4 | Runtime Containers | `runtime-containers` | `flowchart LR` |
-| 5 | Dependency Graph | `dependency-graph` | `flowchart LR` |
-| 6 | Component Interaction Map | `component-interaction-map` | `flowchart LR` |
-| 7 | API Surface Map | `api-surface-map` | `flowchart TD` |
-| 8 | Event and Message Flow | `event-message-flow` | `flowchart LR` |
-| 9 | Data Ownership and Flow | `data-ownership-flow` | `flowchart TD` |
-| 10 | Critical Workflow Sequence | `<workflow-slug>-sequence` | `sequenceDiagram` |
-| 11 | Authentication and Authorization Flow | `authentication-authorization-flow` | `sequenceDiagram` |
-| 12 | Deployment Topology | `deployment-topology` | `flowchart TD` |
-| 13 | CI/CD Pipeline | `cicd-pipeline` | `flowchart LR` |
-| 14 | Configuration and Secrets Flow | `configuration-secrets-flow` | `flowchart TD` |
-| 15 | Risk and Hotspot Map | `risk-hotspot-map` | `flowchart TD` |
+| 1 | System Context | `dia-NNN-system-context` | `flowchart TD` |
+| 2 | Domain and Capability Map | `dia-NNN-domain-capability-map` | `flowchart LR` |
+| 3 | Repository and Ownership Map | `dia-NNN-repository-ownership-map` | `flowchart LR` |
+| 4 | Runtime Containers | `dia-NNN-runtime-containers` | `flowchart LR` |
+| 5 | Dependency Graph | `dia-NNN-dependency-graph` | `flowchart LR` |
+| 6 | Component Interaction Map | `dia-NNN-component-interaction-map` | `flowchart LR` |
+| 7 | API Surface Map | `dia-NNN-api-surface-map` | `flowchart TD` |
+| 8 | Event and Message Flow | `dia-NNN-event-message-flow` | `flowchart LR` |
+| 9 | Data Ownership and Flow | `dia-NNN-data-ownership-flow` | `flowchart TD` |
+| 10 | Critical Workflow Sequence | `dia-NNN-<workflow-slug>-sequence` | `sequenceDiagram` |
+| 11 | Authentication and Authorization Flow | `dia-NNN-authentication-authorization-flow` | `sequenceDiagram` |
+| 12 | Deployment Topology | `dia-NNN-deployment-topology` | `flowchart TD` |
+| 13 | CI/CD Pipeline | `dia-NNN-cicd-pipeline` | `flowchart LR` |
+| 14 | Configuration and Secrets Flow | `dia-NNN-configuration-secrets-flow` | `flowchart TD` |
+| 15 | Risk and Hotspot Map | `dia-NNN-risk-hotspot-map` | `flowchart TD` |
+| 16 | Hybrid User To Data Operational Flow | `dia-NNN-hybrid-user-to-data-operational-flow` | `flowchart TD` |
 
 ## Command reference and step order
 
@@ -738,7 +757,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 
 | Step | Command | Use when | Requires | Main output | Next step |
 | --- | --- | --- | --- | --- | --- |
-| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Optional: blank for current root confirmation, one repository URL or local path, or named `Name - path` multi-repo entries. | `foundation/extraction-state.md`, `constitution.md`, `architecture/overview.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
+| 0 | `/devspec.extract` | Existing repositories need foundation backfill from code and docs. | Optional: blank for current root confirmation, one repository URL or local path, or named `Name - path` multi-repo entries. | `foundation/extraction-state.md`, `constitution.md`, `architecture/overview.md`, `architecture/artifact-queue.md`, live `foundation/*.md` | Refine with `/devspec.projectcontext`. |
 | 1 | `/devspec.projectcontext` | Product and business context need to be created or updated. | Product vision, users, goals, non-goals, and constraints. | `foundation/project-context.md` | `/devspec.techstack` |
 | 2 | `/devspec.techstack` | Technical environment needs to be recorded. | Stack evidence, support status, hosting, tooling, and delivery constraints. | `foundation/tech-stack.md` | `/devspec.codebase-structure` |
 | 3 | `/devspec.codebase-structure` | Repository layout, work areas, integration contracts, or multi-repo configuration need to be recorded. | Repository layout, work-area boundaries, integration contracts, and multi-repo access requirements. | `foundation/codebase-structure.md` | `/devspec.coding-standards` |
@@ -750,7 +769,7 @@ Do not recommend unregistered commands such as `/devspec.plan`, `/devspec.archit
 | 9 | `/devspec.tasks` | A ready brief needs ordered implementation tasks. | `finalize.md` marked `ready`. | `work-items/<work-item-folder>/tasks.md` | `/devspec.implement` |
 | 10 | `/devspec.implement` | Pending tasks should be implemented. | `finalize.md` marked `ready` and `tasks.md`. | `work-items/<work-item-folder>/implement.md` and code changes when applicable. | `/devspec.review` |
 | 11 | `/devspec.review` | Implemented work needs review against the finalized brief. | `finalize.md` and `implement.md`. | `work-items/<work-item-folder>/review.md` | Return to implementation for changes, or close the work item |
-| Optional | `/devspec.diagram` | A requested architecture, module, feature workflow, user journey, sequence, state, or class/domain diagram is needed. | Diagram subject or related work item. | `architecture/diagrams/*.md` by default, `architecture/overview.md` for high-level system diagrams, `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary generated work-item diagram content, and `architecture/artifact-queue.md` as applicable. | Continue the current workflow |
+| Optional | `/devspec.diagram` | A requested architecture, module, feature workflow, process-flow, user journey, sequence, state, or class/domain diagram is needed. | Diagram subject, related work item, or explicit process-flow batch request. | `architecture/diagrams/dia-NNN-*.md` by default, `architecture/overview.md` for high-level system diagrams, `work-items/<work-item-folder>/diagrams.md` only for explicit or clearly temporary work-item diagram content, and `architecture/artifact-queue.md` as applicable. | Continue the current workflow |
 
 ## End-to-end examples
 
@@ -855,7 +874,7 @@ Holds one folder per work item, including features, bugs, and security issues. E
 
 Each work-item artifact can include `Resume State`, which lets a new Copilot or agent session recover the current stage, pending question, next safe action, and resume command from Git-tracked files. Implementation also records task-level checkpoints in `implement.md` so monolith and multi-repo work can continue by target repository, target area, and task status.
 
-Reusable feature workflows, user journeys, sequence diagrams, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Use work-item `diagrams.md` only for explicit or clearly temporary work-item-specific diagram content, such as a bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment. Keep diagram artifact status in `devspec/architecture/artifact-queue.md`.
+Reusable feature workflows, process flows, user journeys, sequence diagrams, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Use work-item `diagrams.md` only for explicit or clearly temporary work-item-specific diagram content, such as a bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment. Keep diagram artifact status in `devspec/architecture/artifact-queue.md`.
 
 ## Advanced: extracting information from an existing project
 
@@ -870,7 +889,7 @@ Review extracted artifacts before relying on them:
 | `devspec/foundation/extraction-state.md` | Extraction queue, resume state, blockers, confirmations, and next action. |
 | `devspec/constitution.md` | Durable principles only; principle-level changes require confirmation. |
 | `devspec/architecture/overview.md` | Major components, system boundaries, integrations, high-level data flow, and links to detailed diagrams. |
-| `devspec/architecture/artifact-queue.md` | Diagram candidates with scope, Mermaid family type, subject slug, target location, evidence, confidence, status, duplicate-check notes, and optional Mermaid declaration guidance. |
+| `devspec/architecture/artifact-queue.md` | Diagram candidates with scope, Mermaid family type, sequence-prefixed subject slug, target location, evidence, confidence, status, tags, duplicate-check notes, and optional Mermaid declaration guidance. |
 | `devspec/foundation/project-context.md` | Product goals and user outcomes, because code rarely tells the whole product context. |
 | `devspec/foundation/tech-stack.md` | Languages, runtimes, frameworks, services, tooling, hosting, support status, and verification dates. |
 | `devspec/foundation/codebase-structure.md` | Selective 4-5 level layout, work areas and boundaries, integration contracts, multi-repo roles, local paths, workspace availability, and access requirements. |

@@ -1,11 +1,11 @@
 ---
 name: "devspec.diagram"
-description: "Generate or update one evidence-backed Mermaid diagram using canonical naming and layout guidance."
-argument-hint: "Describe the diagram subject, scope, diagram type, or related work item"
+description: "Generate or update one evidence-backed Mermaid diagram, or batch-generate queued process-flow diagrams, using canonical naming and layout guidance."
+argument-hint: "Describe the diagram subject, scope, diagram type, related work item, or all process-flow diagrams"
 agent: "devspec.diagram"
 ---
 
-Generate or update one diagram artifact for the requested subject using canonical diagram naming, subject slugs, and Mermaid declaration guidance.
+Generate or update one diagram artifact for the requested subject, or batch-generate eligible queued process-flow diagrams when explicitly requested, using canonical diagram naming, sequence-prefixed subject slugs, and Mermaid declaration guidance.
 
 Required user input:
-${input:diagramInput:Describe the diagram subject, scope, diagram type, or related work item}
+${input:diagramInput:Describe the diagram subject, scope, diagram type, related work item, or all process-flow diagrams}
