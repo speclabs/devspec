@@ -1,6 +1,6 @@
 # Extraction State
 
-Use this file for the `/devspec.extract` queue and resume state. Keep extracted facts in target artifacts, reusable discovery methods in `devspec/foundation/exploration-state.md`, and diagram lifecycle in `devspec/architecture/artifact-queue.md`.
+Use this file for the `/devspec.extract` queue and resume state. Keep extracted facts in target artifacts, reusable discovery methods in `devspec/foundation/exploration-state.md`, and diagram artifact lifecycle in `devspec/architecture/artifact-queue.md`.
 
 ## Resume State
 
@@ -27,7 +27,7 @@ Use this file for the `/devspec.extract` queue and resume state. Keep extracted 
 | EXT-002 | discovery-preparation | `devspec/foundation/discovery-exclusions.md` | exclusions, ignore files, reusable discovery methods | pending | Apply discovery rules before broad search. | |
 | EXT-003 | project-context | `devspec/foundation/project-context.md` | documentation, README files, product signals, user-facing behavior | pending | Extract evidence-backed project context. | |
 | EXT-004 | technology-stack | `devspec/foundation/tech-stack.md` | manifests, lockfiles, runtime configuration, tooling, CI/CD | pending | Extract stack and version evidence. | |
-| EXT-005 | codebase-structure | `devspec/foundation/codebase-structure.md` | layout, modules, work areas, boundaries, integration contracts, multi-repository configuration | pending | Extract placement and boundary guidance. | |
+| EXT-005 | codebase-structure | `devspec/foundation/codebase-structure.md` | layout, modules, work areas, boundaries, integration contracts, multi-repo configuration | pending | Extract placement and boundary guidance. | |
 | EXT-006 | coding-standards | `devspec/foundation/coding-standards.md` | style guides, observed patterns, tests, examples | pending | Extract standards and anti-patterns. | |
 | EXT-007 | rules-and-constraints | `devspec/foundation/rules.md` | compliance, security, delivery gates, operational constraints | pending | Extract actionable rules only. | |
 | EXT-008 | architecture-overview | `devspec/architecture/overview.md` | components, integrations, runtime boundaries, data movement | pending | Extract high-level architecture context. | |

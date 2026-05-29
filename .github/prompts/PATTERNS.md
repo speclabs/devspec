@@ -73,7 +73,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Before asking a question, blocking, pausing, or handing off, update `Resume State`, the active extraction queue row, and `Blockers and Confirmations`.
 - Do not store extracted facts in `extraction-state.md`; write them to the target artifact named by the active queue row.
 - Do not store reusable discovery methods in `extraction-state.md`; use `devspec/foundation/exploration-state.md`.
-- Do not store diagram lifecycle in `extraction-state.md`; use `devspec/architecture/artifact-queue.md`.
+- Do not store diagram artifact lifecycle in `extraction-state.md`; use `devspec/architecture/artifact-queue.md`.
 
 ## Token Stewardship Pattern
 
@@ -111,7 +111,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Use stable IDs such as `DIA-001`, `DIA-002`, preserving existing IDs and assigning the next available number for new rows.
 - Keep subjects specific enough to become one diagram file. Use Title Case for display names, lowercase kebab-case for subject slugs, one subject per diagram file, and `devspec/architecture/diagrams/<subject-slug>.md` for durable diagrams.
 - Avoid language, framework, vendor, or platform names in default diagram subjects. Use language-specific evidence only as supporting evidence unless the user explicitly requests a specialized diagram.
-- Prefer reusable architecture, module, feature, workflow, sequence, state, or user-journey diagrams over temporary work-item diagrams. Use work-item `diagrams.md` only for explicit or clearly temporary generated diagram content; keep diagram lifecycle status in `devspec/architecture/artifact-queue.md`.
+- Prefer reusable architecture, module, feature, workflow, sequence, state, or user-journey diagrams over temporary work-item diagrams. Use work-item `diagrams.md` only for explicit or clearly temporary diagram content; keep diagram artifact status in `devspec/architecture/artifact-queue.md`.
 - Use queue `Diagram type` for the Mermaid family only: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, or `classDiagram`. Record orientation such as `LR`, `TD`, or `BT` in `Next action or notes` when useful, and write the full Mermaid declaration in the generated artifact.
 - Use `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines. Use `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping. Use `flowchart BT` only for optional layer dependency views where lower layers should appear as foundations.
 - Use `sequenceDiagram` for actor, service, workflow, or security interactions over time; `journey` for user-facing paths; `stateDiagram-v2` for lifecycle or status transitions; and `classDiagram` for stable domain or structural relationships.
