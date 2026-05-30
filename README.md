@@ -15,6 +15,8 @@ Use it when you want agents to follow the same workflow for:
 
 Install by copying files into the target repository. There is no package manager or CLI installer yet.
 
+For the full user manual with install, workflow, AI coding agent, multi-repo, provider, validation, and upgrade examples, see [`docs/how-to/README.md`](docs/how-to/README.md).
+
 1. Open the target repository in VS Code or the selected AI coding tool.
 2. Copy the core framework folders into the repository root:
    - `devspec/`
@@ -139,8 +141,9 @@ GitHub Copilot prompt and agent files are the reference implementation. Other ad
 
 Canonical command names remain `/devspec.*`. Some adapters expose host-native shortcuts such as `/devspec:story` or `/devspec-story`.
 
-Adapter details:
+Related docs:
 
+- `docs/how-to/README.md`
 - `devspec/adapters/README.md`
 - `devspec/adapters/compatibility-matrix.md`
 - `devspec/adapters/validation-flows.md`
@@ -155,6 +158,7 @@ Adapter details:
 | `devspec/architecture/` | Architecture overview, diagrams, ADR templates, and artifact queue. |
 | `devspec/work-items/` | One folder per feature, bug, or security work item. |
 | `devspec/adapters/` | Multi-agent registry, compatibility, validation, and governance docs. |
+| `docs/how-to/` | User manual with install, workflow, AI coding agent, multi-repo, provider, validation, and upgrade examples. |
 | `.github/prompts/` | Copilot slash-command prompts. |
 | `.github/agents/` | Copilot agent definitions. |
 | `.github/skills/` | Optional reusable skills. |

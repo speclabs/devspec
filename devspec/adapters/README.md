@@ -25,6 +25,10 @@ Use this directory to keep multi-agent support additive. Existing Copilot prompt
 | Google Antigravity | `.agents/rules/devspec-workflow.md`, `.agents/skills/devspec-*.md` | Workspace rule and skills for Antigravity agents. |
 | Future tools | `devspec/adapters/command-registry.md`, `AGENTS.md` | Map new tool-specific commands, skills, or rules to the same registry. |
 
+## Usage Examples
+
+For install steps, workflow walkthroughs, and copy-ready command examples across AI coding agents, see [`../../docs/how-to/README.md`](../../docs/how-to/README.md).
+
 ## Implementation Order
 
 1. Confirm the command exists in `devspec/adapters/command-registry.md`.
