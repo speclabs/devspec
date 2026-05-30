@@ -43,6 +43,7 @@ Developers invoke registered slash commands from this directory. Agent names are
 - `PATTERNS.md`: shared workflow, recovery, output, discovery, foundation, work-item, memory, and multi-repo rules.
 - `../../devspec/adapters/command-registry.md`: provider-neutral registry for every registered `devspec` command, canonical prompt and agent source, output artifacts, mutation level, and handoff.
 - `../../devspec/adapters/validation-flows.md`: enterprise acceptance checklists for new repository, existing repository, story lifecycle, and cross-tool recovery validation.
+- `../../devspec/adapters/gemini-cli.md` and `../../devspec/adapters/antigravity.md`: Gemini CLI and Google Antigravity adapter guidance.
 - `PATTERNS.md#artifact-content-pattern`: shared structure rules for developer-facing artifacts, source labels, optional sections, and table/bullet/list usage.
 - `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, naming, Mermaid declaration, evidence, confidence, dedupe, tags, and diagram queue rules.
 - `PATTERNS.md#process-flow-extraction-pattern`: process-flow discovery, tagging, hybrid user-to-data operational flow, and batch-generation rules.

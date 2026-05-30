@@ -4,7 +4,7 @@
 
 It helps teams define the spec before coding, keep implementation aligned to that spec, and leave a reviewable paper trail in Git.
 
-Use it when you want Copilot Chat to follow a consistent workflow for:
+Use it when you want Copilot Chat or a supported adapter to follow a consistent workflow for:
 
 - project context, architecture, engineering rules, and coding standards
 - feature, bug, or security work-item intake
@@ -22,7 +22,7 @@ Install `devspec` by copying files into the target repository. There is no packa
    - `.github/prompts/`
    - `.github/agents/`
    - `.github/skills/` when you want the bundled reusable skills
-   - `AGENTS.md`, `.claude/`, and `.cursor/` when you want multi-agent adapter support
+   - `AGENTS.md`, `GEMINI.md`, `.claude/`, `.cursor/`, `.gemini/`, and `.agents/` when you want multi-agent adapter support
 4. Commit the copied files.
 5. Run the foundation commands in Copilot Chat or the configured adapter.
 6. Start the first work item with `/devspec.story`.
@@ -76,8 +76,11 @@ Use `/devspec.diagram` whenever you need an additional architecture, module, fea
 | `.github/agents/` | Copilot agent definitions used by the slash-command workflow. |
 | `.github/skills/` | Optional reusable skills, such as exploration recovery. |
 | `AGENTS.md` | Cross-agent repository instructions for Codex, Cursor, and other tools that read `AGENTS.md`. |
+| `GEMINI.md` | Gemini-native repository context that imports `AGENTS.md` and preserves the canonical workflow. |
 | `.claude/skills/` | Claude Code project skills that map to canonical `devspec` commands. |
 | `.cursor/rules/` | Cursor project rules that preserve `devspec` workflow and artifact behavior. |
+| `.gemini/commands/` | Gemini CLI project custom commands that map to canonical `devspec` commands. |
+| `.agents/rules/` and `.agents/skills/` | Google Antigravity workspace rules and skills that map to canonical `devspec` commands. |
 
 The prompt and agent folders are required for the Copilot reference adapter. The skills and adapter folders are optional but recommended when teams want the bundled behaviors to travel with the repository across multiple AI tools.
 
@@ -88,7 +91,7 @@ Installation is complete when:
 - `devspec/adapters/command-registry.md` exists when multi-agent adapters are copied
 - Copilot Chat recognizes `/devspec` commands such as `/devspec.projectcontext` or `/devspec.story`
 - `.github/skills/exploration-recovery/SKILL.md` exists if you copied the optional skills folder
-- `AGENTS.md`, `.claude/skills/`, or `.cursor/rules/` exist if you copied the corresponding adapter support
+- `AGENTS.md`, `GEMINI.md`, `.claude/skills/`, `.cursor/rules/`, `.gemini/commands/`, or `.agents/` exist if you copied the corresponding adapter support
 
 If the commands do not appear, reopen the repository workspace in VS Code and confirm the files were copied to the target repository root rather than a nested folder.
 
@@ -139,7 +142,7 @@ flowchart TD
 ### Command boundaries
 
 - Developers invoke registered `/devspec.*` slash commands from `.github/prompts/`; agent names are workflow targets used for internal handoffs.
-- GitHub Copilot prompt and agent files are the reference implementation. Adapter files for Claude Code, OpenAI Codex, Cursor, or future tools must preserve their original intent.
+- GitHub Copilot prompt and agent files are the reference implementation. Adapter files for Claude Code, OpenAI Codex, Cursor, Gemini CLI, Google Antigravity, or future tools must preserve their original intent.
 - Multi-agent support is additive. Use `devspec/adapters/command-registry.md` for provider-neutral command contracts and `devspec/adapters/validation-flows.md` for enterprise acceptance flows.
 - `/devspec.extract` seeds foundation artifacts from existing repositories; the foundation commands refine and confirm those artifacts.
 - `/devspec.coding-standards` records how code should be written; `/devspec.rules` records hard constraints, governance rules, and delivery gates.
@@ -151,8 +154,9 @@ flowchart TD
 
 Before setup, confirm:
 
-- VS Code with GitHub Copilot Chat enabled
-- the target repository open as the active workspace
+- VS Code with GitHub Copilot Chat enabled when using the Copilot reference adapter
+- the target repository open as the active workspace or project in the selected tool
+- Gemini CLI, Google Antigravity, Claude Code, Cursor, or Codex available when using those adapters
 - for multi-repo work, a VS Code multi-root workspace that includes every repository you expect agents to inspect, edit, test, or coordinate
 - Git access for committing the copied framework files and later `devspec` artifacts
 
@@ -163,7 +167,7 @@ Before setup, confirm:
    - `.github/prompts/`
    - `.github/agents/`
    - `.github/skills/` when you want the bundled reusable skills
-   - `AGENTS.md`, `.claude/`, and `.cursor/` when you want multi-agent adapter support
+   - `AGENTS.md`, `GEMINI.md`, `.claude/`, `.cursor/`, `.gemini/`, and `.agents/` when you want multi-agent adapter support
 2. Commit the copied files.
 3. Reopen the repository in VS Code if Copilot Chat does not immediately detect the new `/devspec` commands.
 
@@ -185,6 +189,10 @@ Do not directly overwrite project-owned artifacts during manual upgrades. Framew
 | Path | Owner | Upgrade action |
 | --- | --- | --- |
 | `AGENTS.md` | framework or project override | Replace only when not customized; otherwise merge |
+| `GEMINI.md` | framework or project override | Replace only when not customized; otherwise merge |
+| `.agents/rules/` | framework | Replace or diff-apply |
+| `.agents/skills/` | framework | Replace or diff-apply |
+| `.gemini/commands/` | framework | Replace or diff-apply |
 | `.claude/skills/` | framework | Replace or diff-apply |
 | `.cursor/rules/` | framework | Replace or diff-apply |
 | `.github/skills/` | framework | Replace or diff-apply |
@@ -281,6 +289,8 @@ Use **Medium** for `devspec.story` or `devspec.clarify` only for simple single-r
 | Claude Code | `.claude/skills/devspec-*/SKILL.md` | Project skills for invoking canonical `devspec` commands from Claude Code. |
 | OpenAI Codex | `AGENTS.md`, `devspec/adapters/codex.md` | Repository instructions and Codex-specific usage guidance. |
 | Cursor | `.cursor/rules/devspec-workflow.mdc`, `AGENTS.md` | Project rules and shared fallback instructions for Cursor workflows. |
+| Gemini CLI | `GEMINI.md`, `.gemini/commands/devspec/*.toml`, `devspec/adapters/gemini-cli.md` | Gemini context and project custom commands using `/devspec:*` names. |
+| Google Antigravity | `.agents/rules/devspec-workflow.md`, `.agents/skills/devspec-*.md`, `devspec/adapters/antigravity.md` | Workspace rule and skills using `/devspec-*` names. |
 
 Use these adapter docs when operating in an enterprise environment:
 
@@ -288,6 +298,7 @@ Use these adapter docs when operating in an enterprise environment:
 - `devspec/adapters/compatibility-matrix.md`: platform capability and limitation tracking
 - `devspec/adapters/validation-flows.md`: new repository, existing repository, story, and cross-tool recovery acceptance flows
 - `devspec/adapters/enterprise-governance.md`: model, permission, provider, secret, audit, and approval guidance
+- `devspec/adapters/gemini-cli.md` and `devspec/adapters/antigravity.md`: Gemini and Antigravity adapter guidance
 
 Enterprise readiness requires both foundation flows and one full story lifecycle to pass for every supported adapter.
 
@@ -904,6 +915,10 @@ Holds provider-neutral multi-agent support artifacts.
   Operating guidance for model allowlists, tool permissions, provider access, secrets, audit evidence, security work, and approvals.
 - `codex-skills/devspec-workflow/SKILL.md`
   Optional starter template for installing a reusable Codex workflow skill.
+- `gemini-cli.md`
+  Gemini CLI adapter guidance, command mapping, safety notes, and validation expectations.
+- `antigravity.md`
+  Google Antigravity adapter guidance, skill mapping, safety notes, and validation expectations.
 
 ### `devspec/architecture/`
 

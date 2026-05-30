@@ -1,6 +1,6 @@
 # Devspec Agent Instructions
 
-Use these instructions for OpenAI Codex, Cursor, and other agents that read `AGENTS.md`.
+Use these instructions for OpenAI Codex, Cursor, Gemini CLI, Google Antigravity, and other agents that read `AGENTS.md`.
 
 ## Canonical Workflow
 
@@ -68,3 +68,9 @@ Use `/devspec.clarify` only when work-item intake or finalization records a bloc
 ## Enterprise Validation
 
 Use `devspec/adapters/validation-flows.md` as the acceptance checklist for new repository, existing repository, story lifecycle, and cross-tool recovery validation.
+
+## Gemini and Antigravity Notes
+
+- Gemini CLI reads `GEMINI.md`, which imports this file and maps native `/devspec:*` commands to canonical `/devspec.*` workflow intent.
+- Google Antigravity reads workspace rules and skills from `.agents/`; native skills use `/devspec-*` names while preserving canonical `/devspec.*` command behavior.
+- Gemini and Antigravity adapters must document platform-specific permission, sandbox, telemetry, and command-name limitations without changing `devspec` semantics.

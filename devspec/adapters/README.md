@@ -1,6 +1,6 @@
 # Multi-Agent Adapter Guide
 
-Use this directory to keep multi-agent support additive. Existing Copilot prompt and agent files remain the reference implementation; adapters for Claude Code, OpenAI Codex, Cursor, and future tools must preserve their intent instead of redefining the workflow.
+Use this directory to keep multi-agent support additive. Existing Copilot prompt and agent files remain the reference implementation; adapters for Claude Code, OpenAI Codex, Cursor, Gemini CLI, Google Antigravity, and future tools must preserve their intent instead of redefining the workflow.
 
 ## Adapter Contract
 
@@ -21,6 +21,8 @@ Use this directory to keep multi-agent support additive. Existing Copilot prompt
 | Claude Code | `.claude/skills/devspec-*/SKILL.md` | Project skills that invoke the same command contract from Claude Code. |
 | OpenAI Codex | `AGENTS.md`, `devspec/adapters/codex.md` | Always-on repository guidance and Codex usage notes for the same workflow. |
 | Cursor | `.cursor/rules/devspec-workflow.mdc`, `AGENTS.md` | Project rule guidance for Cursor Agent and Inline Edit. |
+| Gemini CLI | `GEMINI.md`, `.gemini/commands/devspec/*.toml` | Gemini context and project custom commands for the same workflow. |
+| Google Antigravity | `.agents/rules/devspec-workflow.md`, `.agents/skills/devspec-*.md` | Workspace rule and skills for Antigravity agents. |
 | Future tools | `devspec/adapters/command-registry.md`, `AGENTS.md` | Map new tool-specific commands, skills, or rules to the same registry. |
 
 ## Implementation Order

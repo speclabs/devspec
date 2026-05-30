@@ -77,3 +77,14 @@ Acceptance checklist:
 - The second adapter does not rely on the first adapter's chat history.
 - The second adapter preserves pending questions, blockers, current task, and next action.
 - Any unsupported platform feature is recorded as a limitation, not converted into a workflow change.
+
+## Adapter Wrapper Checks
+
+Run these checks before enterprise release:
+
+| Adapter | Required wrapper evidence |
+| --- | --- |
+| Gemini CLI | Root `GEMINI.md` exists; `.gemini/commands/devspec/*.toml` has one wrapper for each registered command; native command names map `/devspec.story` to `/devspec:story` style names. |
+| Google Antigravity | `.agents/rules/devspec-workflow.md` exists; `.agents/skills/devspec-*.md` has one wrapper for each registered command; native skill names map `/devspec.story` to `/devspec-story` style names. |
+
+Each wrapper must reference `devspec/adapters/command-registry.md` and the matching canonical Copilot prompt and agent files.
