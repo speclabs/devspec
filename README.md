@@ -20,14 +20,19 @@ Install by copying files into the target repository. There is no package manager
    - `devspec/`
    - `.github/prompts/`
    - `.github/agents/`
-3. Copy optional support folders as needed:
-   - `.github/skills/`
-   - `AGENTS.md`
-   - `GEMINI.md`
-   - `.claude/`
-   - `.cursor/`
-   - `.gemini/`
-   - `.agents/`
+3. Copy AI coding agent support files as needed:
+
+   | Tool | Copy |
+   | --- | --- |
+   | GitHub Copilot | `.github/skills/` when you want bundled reusable skills |
+   | Claude Code | `.claude/` |
+   | OpenAI Codex | `AGENTS.md` |
+   | Cursor | `AGENTS.md`, `.cursor/` |
+   | Gemini CLI | `GEMINI.md`; optional `.gemini/` for native `/devspec:*` shortcuts |
+   | Google Antigravity | `AGENTS.md`, `.agents/` |
+
+   Copy only the rows for tools your team uses.
+
 4. Commit the copied files.
 5. Run the foundation flow.
 6. Start the first work item.
