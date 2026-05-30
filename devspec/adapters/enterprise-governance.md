@@ -13,7 +13,7 @@ Use this guide when adopting `devspec` across teams, repositories, or AI coding 
 | Provider access | Use `devspec/foundation/provider-integrations.md` for supported providers, accepted formats, lookup behavior, manual fallback, and access expectations. |
 | Audit evidence | Store decisions, readiness, tasks, implementation checkpoints, validation, and review outcomes in Git-tracked `devspec` artifacts. |
 | Security work | Follow security-vulnerability handling rules from `devspec/foundation/rules.md` and avoid recording unsafe exploit detail unless explicitly approved. |
-| Human approval | Require explicit confirmation where the canonical prompt or agent contract requires it, especially provider resolution, repository access, constitution changes, and continuation after blockers. |
+| Human approval | Require structured confirmation where the canonical prompt or agent contract requires it, especially provider resolution, repository access, constitution changes, and continuation after blockers. |
 | Gemini CLI posture | Use trusted folders, sandboxing, `.geminiignore`, enterprise settings, and telemetry policy where available; keep Gemini extensions and MCP configuration outside prompt artifacts unless intentionally packaged. |
 | Antigravity posture | Prefer strict mode or request-review settings for terminal commands, browser actions, MCP calls, non-workspace file access, and artifact application; keep projects scoped to recorded repositories. |
 

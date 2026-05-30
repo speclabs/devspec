@@ -13,6 +13,7 @@ Follow these rules:
 - Preserve the original intent of the canonical Copilot prompt and agent files named in the registry.
 - Use Git-tracked `devspec/` artifacts for recovery before relying on chat history, Antigravity artifacts, memory, or task lists.
 - Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
+- Preserve structured question behavior from `.github/prompts/PATTERNS.md#interactive-question-pattern`; if clickable options are unavailable, render the same option labels as text and preserve the recommended option.
 - Use `devspec/glossary.md` for status values.
 - Use `devspec/foundation/codebase-structure.md` for repository access requirements.
 - Use `devspec/adapters/validation-flows.md` for enterprise acceptance checks.

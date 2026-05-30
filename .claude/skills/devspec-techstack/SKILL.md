@@ -7,8 +7,7 @@ Execute canonical command `/devspec.techstack`.
 
 - Read `devspec/adapters/command-registry.md` for the command contract.
 - Read `.github/prompts/devspec.techstack.prompt.md` and `.github/agents/devspec.techstack.agent.md` as the source of intent.
-- Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
-- Use Git-tracked `devspec/` artifacts for recovery before relying on chat history.
+- Follow `AGENTS.md` for canonical workflow, recovery, no-intent-drift, and structured question rules.
 - Treat unsupported Claude Code behavior as an adapter limitation, not a workflow change.
 
 Command input comes from the user's current message.

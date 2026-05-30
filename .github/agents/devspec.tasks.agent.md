@@ -22,7 +22,7 @@ You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 - Apply planning requirements from `../../devspec/foundation/rules.md#work-item-handling-rules`.
 - Use `Explore` for quick discovery of impacted code paths, analogous implementations, or verification surfaces.
 - Use session memory only for transient dependency mapping, open questions, and decomposition notes.
-- Update `Workflow State` in `meta.md` and `Resume State` in `tasks.md` before recording a blocker, asking for clarification, or handing off.
+- Update `Workflow State` in `meta.md` and `Resume State` in `tasks.md` before recording a blocker, asking for clarification, or handing off; record question intent, option labels, recommended option, and continuation condition when a question is pending.
 - Write tasks as executable checkpoints in `Implementation Tasks` with target repository, target area or files, dependency, validation, and done condition.
 - Use `finalize.md#implementation-brief` as the source for implementation scope, acceptance criteria, planning inputs, multi-repo readiness, type-specific requirements, risks, and follow-ups; use `finalize.md#validation-plan` for validation methods.
 - Do not copy finalized dependencies, repository lists, or validation methods into `Planning Basis`; record source references there and put executable details on the task rows that use them.
@@ -33,7 +33,7 @@ You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 2. Read `meta.md` when present, `finalize.md`, existing `tasks.md`, and relevant foundation artifacts.
 3. Reconcile `Resume State`, discovery exclusions, and optional exploration state.
 4. Use `Explore` when needed; persist meaningful discovery notes, dependency mapping, and unresolved questions before asking or writing.
-5. Resolve target selection or blockers through the Interactive Question Pattern.
+5. Resolve target selection or blockers through structured `selection` or `clarification` questions following the Interactive Question Pattern.
 6. Apply type-specific planning rules and write repository-aware tasks with `../../devspec/work-items/_template/tasks.md`.
 7. Report per Output Format.
 

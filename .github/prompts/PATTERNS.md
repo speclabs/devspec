@@ -4,16 +4,33 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 
 ## Interactive Question Pattern
 
-- Ask exactly one blocking clarification, confirmation, or selection question at a time.
-- Use clickable multiple-choice options whenever reasonable; explicit options are required for confirmations and workflow decisions.
-- Always include a `Custom Answer` option.
-- Recommend exactly one option with a short justification.
-- Use `Yes`, `No`, and `Custom Answer` for binary confirmations.
-- Use `Proceed`, `Skip`, and `Custom Answer` for workflow continuation, queue processing, task continuation, generated artifact approval, or retry decisions.
-- Use `Continue`, `Pause`, `Skip`, and `Custom Answer` when resuming a run from `stopped` or ambiguous state.
-- Use domain-specific option sets only when the stage defines them, such as provider intake actions or multi-repo access requirement values.
+- Ask exactly one user question at a time.
+- Use a structured multiple-choice question whenever a finite decision can be offered; use free-form wording only when meaningful options cannot be provided.
+- Use clickable multiple-choice options whenever the platform supports them. When clickable options are unavailable, render the same option labels as text and ask the user to reply with one label or `Custom Answer`.
+- Every structured question must include question intent, prompt text, option labels, exactly one recommended option with a short reason, fallback rendering, and the state that must be recorded before waiting for the answer.
+- Always include a `Custom Answer` option for user-facing choices.
+- Use stage-specific option sets only when the stage defines them in a pattern, agent, or artifact policy; otherwise use the standard option set for the question intent.
 - Wait for the user's answer before asking another question.
 - If several confirmations are discovered, present only the highest-priority one and defer the rest.
+
+| Question intent | Use when | Standard options |
+| --- | --- | --- |
+| `clarification` | Required facts are missing or ambiguous, including provider identity, target work item, folder name, or blocked readiness facts. | Meaningful stage-specific choices plus `Custom Answer`; use free-form only when meaningful options cannot be offered. |
+| `confirmation` | A resolved fact, provider item, constitution change, repository access value, generated artifact, or risky scope change needs explicit approval. | `Yes`, `No`, `Custom Answer` unless a stage-specific confirmation set is defined. |
+| `selection` | The user must choose among sources, repositories, work items, diagram types, target locations, or other finite values. | The finite candidate values plus `Custom Answer`. |
+| `continuation` | A workflow, queue item, task, or handoff can continue or stop at the current checkpoint. | `Proceed`, `Skip`, `Custom Answer`. |
+| `resume` | A run is resuming from `stopped` or ambiguous state. | `Continue`, `Pause`, `Skip`, `Custom Answer`. |
+| `approval` | Queue item generation, diagram generation, overwrite behavior, process-flow batch work, or similar gated action needs approval. | `Proceed`, `Skip`, `Custom Answer` unless the stage defines a narrower approval set. |
+| `retry` | Failed lookup, failed validation, repeated implementation attempts, blocked discovery, or another retryable failure needs direction. | `Proceed`, `Skip`, `Custom Answer`, with the retry condition or changed method named in the prompt. |
+
+Standard stage-specific option sets:
+
+- Binary confirmations use `Yes`, `No`, and `Custom Answer`.
+- Source selection for `/devspec.extract` uses `Use current project root`, `Enter repo paths`, `Cancel extraction`, and `Custom Answer`.
+- Provider resolution uses `Confirm and continue`, `Reject and retry input`, `Switch to manual intake`, `Cancel`, and `Custom Answer`.
+- Repository access confirmation uses the values in `devspec/glossary.md#access-requirement-values` plus `Custom Answer`.
+- Workflow continuation, queue processing, task continuation, generated artifact approval, and retry decisions use `Proceed`, `Skip`, and `Custom Answer` unless a narrower stage-specific set applies.
+- Resume from `stopped` or ambiguous state uses `Continue`, `Pause`, `Skip`, and `Custom Answer`.
 
 ## Next Action Selection Pattern
 
@@ -48,10 +65,10 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - For monorepos, record the target repository once and distinguish tasks by module, layer, or area. For multi-repo work, every executable task must name target repository and required access.
 - Keep `Run status` values limited to the values in `devspec/glossary.md#run-status-values`.
 - Use `paused` when the user expects to continue from the same task or question.
-- Use `stopped` when the run intentionally ended and should ask one continuation question before resuming.
+- Use `stopped` when the run intentionally ended and should ask one structured `resume` question before resuming.
 - Use `blocked` only when evidence, access, or prerequisites are insufficient; record the blocker and continuation condition.
-- Before any blocking question, handoff, retry-loop stop, or run end, update `Resume State` with stage, item, last completed step, pending question, recommended option, resume command, and next required action.
-- On rerun, resume a `paused` item directly when prerequisites still hold; for `stopped` or ambiguous state, ask one structured continuation question first.
+- Before any blocking question, handoff, retry-loop stop, or run end, update `Resume State` with stage, item, last completed step, question intent, pending question, exact option labels, recommended option, resume command, continuation condition, and next required action.
+- On rerun, resume a `paused` item directly when prerequisites still hold; for `stopped` or ambiguous state, ask one structured `resume` question first.
 - Retry only when the recorded retry condition is met, the user gives custom direction, or the method materially changed. Do not replay recorded failed methods just because the session changed.
 - When stage tasks or queue items are complete, mark the stage `complete` and hand off to the next registered command or configured agent.
 
@@ -60,7 +77,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Follow the [Next Action Selection Pattern](#next-action-selection-pattern).
 - Follow the [Registered Command Recommendation Pattern](#registered-command-recommendation-pattern) before recommending any slash command.
 - End with exactly one registered command, handoff, file update, or structured question.
-- If the next step requires confirmation, selection, retry approval, queue approval, or continuation, ask one structured question with explicit options.
+- If the next step requires clarification, confirmation, selection, approval, retry direction, queue approval, resume, or continuation, ask one structured question with explicit options following the Interactive Question Pattern.
 - Summarize only the artifact or work-item path updated, key outcome, blockers or open questions, and single next action.
 
 ## Extraction State Pattern
@@ -70,7 +87,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Use `extraction-state.md` only for the extraction queue, resume state, blockers, and confirmations.
 - Keep exactly one extraction queue row `active`. Use existing task status values from `devspec/glossary.md#task-status-values`.
 - Process extraction queue rows in ID order unless a blocker, confirmation, or explicit user direction changes the next action.
-- Before asking a question, blocking, pausing, or handing off, update `Resume State`, the active extraction queue row, and `Blockers and Confirmations`.
+- Before asking a question, blocking, pausing, or handing off, update `Resume State`, the active extraction queue row, and `Blockers and Confirmations` with the question intent, exact option labels, recommended option, and continuation condition.
 - Do not store extracted facts in `extraction-state.md`; write them to the target artifact named by the active queue row.
 - Do not store reusable discovery methods in `extraction-state.md`; use `devspec/foundation/exploration-state.md`.
 - Do not store diagram queue state in `extraction-state.md`; use `devspec/architecture/artifact-queue.md`.
@@ -210,7 +227,7 @@ Optional evidence-specific diagrams may include `layered-architecture`, `<entity
 ## Foundation Update Pattern
 
 - Required user input is mandatory.
-- Ask one clarification at a time when required details are missing or ambiguous, following the Interactive Question Pattern.
+- Ask one structured `clarification` question at a time when required details are missing or ambiguous, following the Interactive Question Pattern.
 - Follow the [Artifact Content Pattern](#artifact-content-pattern).
 - Use the matching `devspec/foundation/_template/*.md` or `devspec/architecture/_template/*.md` file as the section contract when one exists.
 - Treat live `devspec/foundation/*.md` and `devspec/architecture/*.md` files as project-owned; update them in place and never replace them wholesale from templates.
@@ -219,7 +236,7 @@ Optional evidence-specific diagrams may include `layered-architecture`, `<entity
 
 ## Work-Item Target Pattern
 
-- Use the current work item when clear; otherwise ask the user to select one, following the Interactive Question Pattern.
+- Use the current work item when clear; otherwise ask one structured `selection` question, following the Interactive Question Pattern.
 - Work-item folders must follow the [Work-Item Folder Naming Pattern](#work-item-folder-naming-pattern) when created by `/devspec.story`.
 - Follow the [Artifact Content Pattern](#artifact-content-pattern) when updating work-item artifacts.
 - Treat optional user input as additive guidance only.
@@ -233,7 +250,7 @@ Optional evidence-specific diagrams may include `layered-architecture`, `<entity
 - Work-item number must be numeric and should come from the resolved provider item, issue number, work item ID, or manually supplied external reference.
 - Title slug must be lowercase kebab-case from the resolved provider title or manually supplied title.
 - Remove punctuation, replace separators with hyphens, collapse repeated hyphens, and trim leading or trailing hyphens.
-- If provider prefix, numeric work-item number, or title slug is missing or ambiguous, ask exactly one structured question before creating the folder.
+- If provider prefix, numeric work-item number, or title slug is missing or ambiguous, ask exactly one structured `clarification` or `selection` question before creating the folder.
 - Do not create or rename a work-item folder until the generated folder name is valid or the user confirms a custom valid name.
 - Do not automatically rename existing work-item folders; treat non-matching existing folders as legacy and continue using them unless the user explicitly asks to rename.
 
@@ -243,7 +260,7 @@ Optional evidence-specific diagrams may include `layered-architecture`, `<entity
 - Validate repository role, local path, current workspace availability, and access requirement there before planning or implementation depends on a repository.
 - Treat repository location, workspace membership, and access requirement as separate facts; do not classify a repository outside the current repository folder or workspace as `reference-only` based on location.
 - Do not infer, default, or backfill missing access requirements. In particular, do not assume `reference-only`.
-- For each repository with a missing or ambiguous access requirement, ask exactly one repository-specific multiple-choice confirmation before writing or relying on that configuration.
+- For each repository with a missing or ambiguous access requirement, ask exactly one repository-specific structured `confirmation` question before writing or relying on that configuration.
 - Access requirement confirmation options must be limited to the values in `devspec/glossary.md#access-requirement-values` plus `Custom Answer`.
 - Respect access requirements: do not edit repositories marked `reference-only`, `validation-only`, `release-coordination`, or `unavailable` unless the user explicitly confirms a scope change.
 - Do not run validation in repositories marked `reference-only`, `release-coordination`, or `unavailable` unless the user explicitly confirms a scope change.

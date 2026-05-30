@@ -18,7 +18,7 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 ## Constraints
 - Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - `story.md` must exist.
-- Update `Workflow State` in `meta.md` and `Resume State` in `clarify.md` before asking or resolving a blocking question.
+- Update `Workflow State` in `meta.md` and `Resume State` in `clarify.md` before asking or resolving a blocking question, recording question intent, option labels, recommended option, and continuation condition.
 - Handle one independent blocker at a time.
 - Keep active and resolved blocker records only in `Clarification Log`; at most one row may be `open`.
 - Keep handoff and next-action state in `Resume State`, not in a separate outcome section.
@@ -28,7 +28,7 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 1. Locate the target work item.
 2. Read `meta.md` when present, `story.md`, and existing `clarify.md`.
 3. Reconcile `Resume State`; keep any pending user question active.
-4. Ask or resolve the active blocking question, then update `clarify.md` with `Resume State` and `Clarification Log`.
+4. Ask or resolve the active structured `clarification` question, then update `clarify.md` with `Resume State` and `Clarification Log`.
 5. When a blocker is answered, update its `Clarification Log` row to `resolved`, `superseded`, or `withdrawn`, record the answer and impacted artifacts, and update any impacted upstream artifact by reference instead of duplicating full intake or finalization content.
 6. Report per Output Format.
 

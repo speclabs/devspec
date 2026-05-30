@@ -21,16 +21,16 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - Implement pending rows from `tasks.md#implementation-tasks` sequentially unless the user stops or skips.
 - Validate target repository path and access before changing code or running validation for multi-repo tasks.
 - Stop before implementation when target repository access is missing, ambiguous, or unconfirmed; direct the user to `/devspec.codebase-structure`.
-- Do not edit repositories marked `reference-only`, `validation-only`, `release-coordination`, or `unavailable` without explicit user confirmation.
-- Do not run validation in repositories marked `reference-only`, `release-coordination`, or `unavailable` without explicit user confirmation.
+- Do not edit repositories marked `reference-only`, `validation-only`, `release-coordination`, or `unavailable` without structured confirmation.
+- Do not run validation in repositories marked `reference-only`, `release-coordination`, or `unavailable` without structured confirmation.
 - Modify code when applicable and stay within finalized scope.
 - Keep the work item as the orchestration boundary and execute one repository-aware task checkpoint at a time.
 - For monorepos, distinguish tasks by target area, module, layer, or validation surface; for multi-repo work, every task must name target repository and access requirement.
-- Resume a `paused` current task when prerequisites still hold; ask one structured continuation question for `stopped` or ambiguous state.
+- Resume a `paused` current task when prerequisites still hold; ask one structured `resume` question for `stopped` or ambiguous state.
 - Update `implement.md` using `../../devspec/work-items/_template/implement.md`.
 - Apply implementation requirements from `../../devspec/foundation/rules.md#work-item-handling-rules`.
-- After each completed task, report completed and pending counts and ask one structured `Proceed`, `Skip`, and `Custom Answer` question.
-- If the same task exceeds three implementation or repair attempts, stop, explain the loop, and ask one structured `Proceed`, `Skip`, and `Custom Answer` question.
+- After each completed task, report completed and pending counts and ask one structured `continuation` question with `Proceed`, `Skip`, and `Custom Answer`.
+- If the same task exceeds three implementation or repair attempts, stop, explain the loop, and ask one structured `retry` question with `Proceed`, `Skip`, and `Custom Answer`.
 - Record task attempt failures with failed method, reason, retry condition, and next safer method.
 - Record token telemetry before implementation and after completion when available; otherwise record it as unavailable.
 - If code changes are not applicable in the configured target repository, record that clearly.
@@ -51,7 +51,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 9. Implement the task when applicable and run appropriate validation.
 10. Record reusable search, helper-command, repair, or validation methods.
 11. Update `implement.md` with access status, implementation task ledger, checkpoints, implementation execution log, changed files, validation, blockers, type-specific notes, counts, and confirmation outcome.
-12. Ask the required continuation question or, when complete, record post-run telemetry, summarize completion, mark `Resume State` complete, and hand off to review.
+12. Ask the required structured `continuation`, `resume`, or `retry` question, or when complete, record post-run telemetry, summarize completion, mark `Resume State` complete, and hand off to review.
 
 ## Output Format
 - Work-item path updated

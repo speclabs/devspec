@@ -17,29 +17,29 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 - Required user input is mandatory.
 - Validate provider URLs or identifiers before treating input as resolved.
 - Use `devspec/foundation/provider-integrations.md` for provider resolution policy, supported inputs, outcome handling, confirmation requirements, manual fallback, integration access expectations, and source-resolution recording; initialize it from `devspec/foundation/_template/provider-integrations.md` when missing.
-- If the input is ambiguous, stop and ask for clarification.
+- If the input is ambiguous, stop and ask one structured `clarification` question.
 - If provider lookup is unavailable, intentionally skipped, or the item cannot be resolved confidently, do not guess; record the attempt and offer manual intake only as an explicit fallback.
 - Manual intake requires an external reference, manual description, and manual acceptance criteria before creating the work item.
-- Classify the work item as `feature`, `bug`, or `security-vulnerability`; ask if unclear.
+- Classify the work item as `feature`, `bug`, or `security-vulnerability`; ask one structured `selection` question if unclear.
 - Create the work-item folder only during work-item intake and only after its name is valid.
 - Write or update `meta.md` and `story.md` using `../../devspec/work-items/_template/` as the section contract.
 - Keep `meta.md` as the work-item control record: `Work-Item Record`, `Triage Index`, and `Workflow State`.
 - Keep source confirmation and manual intake details in `story.md#intake-source-record`; keep problem, outcome, and impact in `story.md#work-item-brief`; keep dependencies, type-specific notes, acceptance criteria, assumptions, constraints, risks, and blockers in `story.md#work-item-details`; keep work-item decision records in `decisions.md`; do not duplicate those details in `meta.md`.
-- Update `Workflow State` in `meta.md` and `Resume State` in `story.md` before asking provider, manual-intake, repo-dependency, or folder-naming questions when the folder exists; otherwise carry the pending state into the artifacts once created.
+- Update `Workflow State` in `meta.md` and `Resume State` in `story.md` before asking provider, manual-intake, repo-dependency, or folder-naming questions when the folder exists; record question intent, option labels, recommended option, and continuation condition. Otherwise carry the pending state into the artifacts once created.
 - Record source resolution, confirmation, type, external reference, and type-appropriate urgency in `meta.md`; for features, record priority instead of severity.
 - Record impact and affected scope details in `story.md#work-item-brief`, with only a compact routing summary in `meta.md#triage-index`.
 - Confirm multi-repo dependencies; record the yes/no flag and related repository names in `meta.md`, dependency details in `story.md`, and repository paths or access requirements only in `devspec/foundation/codebase-structure.md`.
 - Do not assume repository access requirements during intake; missing or ambiguous requirements must be handled through `/devspec.codebase-structure`.
 - Capture bug and security facts required by `../../devspec/foundation/rules.md#work-item-handling-rules`.
 - Initialize `decisions.md` and `notes.md` for new work-item folders; use `decisions.md` as the only work-item decision log and `notes.md` only for temporary working notes that have not been promoted to a canonical artifact.
-- Ask targeted questions one at a time before writing when required facts are missing.
+- Ask targeted structured questions one at a time before writing when required facts are missing.
 
 ## Approach
 1. Validate the incoming reference against supported provider formats.
 2. Check discovery exclusions and optional exploration state for known provider resolution methods in the same scope.
 3. Resolve or normalize the reference, or stop with correction guidance.
 4. For existing work items, read `meta.md` and `story.md` and reconcile `Resume State`.
-5. Ask one clarification or confirmation when required.
+5. Ask one structured `clarification`, `confirmation`, or `selection` question when required.
 6. Collect manual intake fields if manual intake is chosen.
 7. Determine type, priority or severity, impacted scope, and multi-repo dependencies.
 8. Validate multi-repo configuration when dependencies exist.

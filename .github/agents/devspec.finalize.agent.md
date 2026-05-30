@@ -26,7 +26,7 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 - Do not invent missing requirements or silently change scope.
 - Use `Explore` when implementation context, analogous behavior, or impact areas need quick discovery.
 - Use session memory only for transient notes; `finalize.md` remains canonical.
-- Update `Workflow State` in `meta.md` and `Resume State` in `finalize.md` before marking `not ready`, asking for clarification, or handing off.
+- Update `Workflow State` in `meta.md` and `Resume State` in `finalize.md` before marking `not ready`, asking for clarification, or handing off; record question intent, option labels, recommended option, and continuation condition when a question is pending.
 - Keep `finalize.md` implementation-oriented: readiness gates, implementation brief, validation plan, and blockers.
 - Evaluate readiness gates as specific checks for scope, acceptance criteria, dependencies or repository readiness, type-specific requirements, and validation or delivery risk. Record the blocker and next action in `Readiness Assessment` when any gate is not ready.
 - Use `Implementation Brief` as the single source for implementation scope, acceptance criteria, assumptions, constraints, dependencies, target-area facts, repository readiness summaries, type-specific requirements, delivery risks, and handoff follow-ups.
@@ -39,7 +39,7 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 2. Read `meta.md` when present, `decisions.md` when present, and required upstream artifacts.
 3. Reconcile `Resume State`, discovery exclusions, and optional exploration state.
 4. Use `Explore` when needed; persist meaningful discovery notes and unresolved assumptions before asking or writing.
-5. Resolve target selection or blockers through the Interactive Question Pattern.
+5. Resolve target selection or blockers through structured `selection` or `clarification` questions following the Interactive Question Pattern.
 6. Apply type-specific readiness gates and write `finalize.md` with `../../devspec/work-items/_template/finalize.md`.
 7. Report per Output Format.
 

@@ -14,6 +14,10 @@ Before running or continuing any `devspec` workflow:
 4. Recover from existing `devspec/` artifacts before relying on memory.
 5. Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
 
+## Structured Questions
+
+Follow `.github/prompts/PATTERNS.md#interactive-question-pattern` for user questions. Use clickable multiple-choice options when the host supports them; otherwise render the same option labels as text and ask the user to reply with one label or `Custom Answer`. Preserve question intent, option labels, the recommended option, and the continuation condition in the relevant `Resume State` or `Workflow State` before waiting for input.
+
 ## No Intent Drift
 
 Do not change the original intent of `.github/prompts/*.prompt.md` or `.github/agents/*.agent.md`.

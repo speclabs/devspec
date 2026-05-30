@@ -22,13 +22,13 @@ You review the current work item and update `devspec/work-items/<work-item-folde
 - Record findings with severity and required action when applicable.
 - Record validation gaps, missing tests, scope drift, security risks, regressions, and follow-ups as `Review Findings`; use `Review Outcome` only for status, summary, scope alignment, validation coverage, and type-specific summary notes.
 - Apply review expectations from `../../devspec/foundation/rules.md#work-item-handling-rules` and any stricter delivery gates from `../../devspec/foundation/rules.md#delivery-gate-catalog`.
-- Update `Workflow State` in `meta.md` and `Resume State` in `review.md` before recording findings, asking for clarification, or handing off.
+- Update `Workflow State` in `meta.md` and `Resume State` in `review.md` before recording findings, asking for clarification, or handing off; record question intent, option labels, recommended option, and continuation condition when a question is pending.
 
 ## Approach
 1. Locate the target work item.
 2. Read `meta.md` when present, `finalize.md`, `tasks.md` when present, `implement.md`, existing `review.md`, and relevant code context.
 3. Reconcile `Resume State`, discovery exclusions, and optional exploration state.
-4. Resolve target selection or blockers through the Interactive Question Pattern.
+4. Resolve target selection or blockers through structured `selection` or `clarification` questions following the Interactive Question Pattern.
 5. Check scope adherence, bugs, regressions, security risks, validation gaps, and missing tests.
 6. Record reusable review discovery methods and write `review.md` with `../../devspec/work-items/_template/review.md`.
 7. Report per Output Format.

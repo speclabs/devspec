@@ -14,7 +14,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 
 ## Constraints
 - Follow the [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Next Action Selection Pattern](../prompts/PATTERNS.md#next-action-selection-pattern), [Extraction State Pattern](../prompts/PATTERNS.md#extraction-state-pattern), [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Artifact Content Pattern](../prompts/PATTERNS.md#artifact-content-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Diagram Extraction Consistency Pattern](../prompts/PATTERNS.md#diagram-extraction-consistency-pattern), [Mermaid Internal Naming and Readability Pattern](../prompts/PATTERNS.md#mermaid-internal-naming-and-readability-pattern), [Process Flow Extraction Pattern](../prompts/PATTERNS.md#process-flow-extraction-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
-- Source input is optional. When source input is omitted or blank, ask one source-selection question before extraction using these options:
+- Source input is optional. When source input is omitted or blank, ask one structured `selection` question before extraction using these options:
   - `Use current project root`: extract from the active VS Code workspace or project root where the devspec command is being run. Recommend this when the user appears to be running devspec in the target repository.
   - `Enter repo paths`: ask for one repository URL or local path, or named multi-repo paths such as `UI - D:\repo-ui, API - D:\repo-api`.
   - `Cancel extraction`: stop extraction and record no artifact changes.
@@ -24,13 +24,13 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Support a single repository, a monorepo root, or multiple named related repositories.
 - For named multi-repo input, support comma-separated or newline-separated entries in the form `<repository-label> - <repository-url-or-local-path>`. Split each entry on the first ` - ` delimiter only.
 - For named multi-repo input, require non-empty unique labels and non-empty sources. Treat labels as repository names and role candidates when seeding `codebase-structure.md`.
-- Resolve every source before extraction; stop and ask one source-correction question for invalid, unsupported, inaccessible, ambiguous, malformed, duplicate, or missing sources.
+- Resolve every source before extraction; stop and ask one structured `clarification` or `selection` question for invalid, unsupported, inaccessible, ambiguous, malformed, duplicate, or missing sources.
 - Build an evidence inventory from repository layout, routes, controllers, modules, workflows, state transitions, services, integrations, data stores, manifests, dependency files, CI/CD, infrastructure, docs, ADRs, contribution docs, CODEOWNERS, style guides, tests, event handlers, jobs, and runtime or configuration surfaces when available.
 - Separate observed facts, high-confidence inferences, and low-confidence assumptions; do not present inferred principles as settled truth.
 - Seed foundation artifacts with developer-useful records, not general theory: each item must name the applicable scope, source evidence, confidence, and the required action, handling, guidance, or blocker it creates.
 - Prefer summary and comparison tables for extracted stack, layout, boundary, standards, rule, and blocker details; use bullets only for short direct facts.
 - Omit optional foundation sections that have no extracted, confirmed, inferred, or blocked content.
-- Never write final `devspec/constitution.md` changes without explicit user confirmation; only update `Durable Principles` or `Amendment Policy`, and route operational gates or evolving rules to `devspec/foundation/rules.md`.
+- Never write final `devspec/constitution.md` changes without structured confirmation; only update `Durable Principles` or `Amendment Policy`, and route operational gates or evolving rules to `devspec/foundation/rules.md`.
 - Maintain a single active confirmation gate; do not ask constitution, process-flow candidate, diagram candidate, Mermaid generation, coding-standards conflict, or repository-access confirmations in the same response.
 - Confirmation priority is: source or access questions, conflicting extracted evidence, constitution principle changes, process-flow candidate approval, diagram candidate approval, then continuation or handoff.
 - Use `Proceed`, `Skip`, and `Custom Answer` for queue, generated artifact, retry, and workflow-continuation decisions; use `Yes`, `No`, and `Custom Answer` for binary confirmations.
@@ -49,11 +49,11 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Tag process-flow rows with `process-flow`, plus narrower tags such as `business-process`, `user-journey`, `lifecycle-flow`, or `hybrid-user-to-data-operational-flow` when they apply.
 - Keep queue `Diagram type` limited to the Mermaid family. Record suggested Mermaid declarations such as `flowchart LR`, `flowchart TD`, or `sequenceDiagram` in `Next action or notes` when orientation will help `/devspec.diagram`.
 - When queueing process-flow or diagram candidates, record that future generation must follow `PATTERNS.md#mermaid-internal-naming-and-readability-pattern`, including short node IDs, concise node and edge labels, single-concern scope, adjacent layering, implied returns, sequence happy paths, runtime/compile-time separation, system boundaries, and anti-bloat rules for API, Swagger, payload, and framework boilerplate details.
-- Ask confirmation before generating diagrams during extraction. Generate at most one confirmed diagram only if the user explicitly continues within the extraction run, update its queue status, then stop or ask one continuation question only when no higher-priority confirmation is pending.
+- Ask one structured `approval` question before generating diagrams during extraction. Generate at most one confirmed diagram only if the user explicitly continues within the extraction run, update its queue status, then stop or ask one structured `continuation` question only when no higher-priority confirmation is pending.
 - On rerun, resume `devspec/architecture/artifact-queue.md` before proposing duplicate candidates; when several queue items are pending, ask only about the next unresolved row.
 - Do not create ADR files unless the user explicitly asks and the decision has clear supporting evidence. When an ADR is needed, initialize it from `devspec/architecture/_template/decision.md` and create `devspec/architecture/decisions/` on demand.
 - For multi-repo inputs, produce an architecture overview, keep per-repository provenance visible, and use supplied labels as repository names and role candidates in `codebase-structure.md`.
-- Do not infer access requirements during extraction; ask one repository-specific multiple-choice confirmation for each missing or ambiguous access requirement.
+- Do not infer access requirements during extraction; ask one repository-specific structured `confirmation` question for each missing or ambiguous access requirement.
 - Keep `codebase-structure.md` as the source of truth for repository role, local path, workspace availability, and access requirement.
 - Treat accessible local paths outside the current repository folder as valid extraction sources; do not classify them as `reference-only` based on location.
 - Use `Explore` for efficient repository discovery, analogous patterns, or likely artifact touchpoints; prefer 2-3 focused parallel runs for independent repositories or surfaces.
@@ -64,7 +64,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - For formatting-sensitive languages or SQL/database code, capture compact representative snippets, usually 5-20 lines, and link to source paths for full context.
 
 ## Approach
-1. Resolve source input. If omitted or blank, ask the source-selection confirmation before extraction.
+1. Resolve source input. If omitted or blank, ask the source-selection `selection` question before extraction.
 2. If extraction is not canceled, initialize or reconcile `devspec/foundation/extraction-state.md`.
 3. Parse and validate each resolved source; record source and access blockers or confirmations under `Blockers and Confirmations`.
 4. Select the next unresolved extraction queue row by ID order and mark it `active`.

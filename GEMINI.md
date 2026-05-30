@@ -11,6 +11,7 @@ Use this file as Gemini CLI and Gemini-backed agent context for this repository.
 - Treat `.github/prompts/*.prompt.md` and `.github/agents/*.agent.md` as the protected reference implementation.
 - Preserve canonical `/devspec.*` command vocabulary even when Gemini CLI invokes native commands such as `/devspec:story`.
 - Recover from Git-tracked `devspec/` artifacts before relying on Gemini session memory.
+- Preserve structured question behavior from `.github/prompts/PATTERNS.md#interactive-question-pattern`; if Gemini does not provide clickable options, render the same option labels as text and preserve the recommended option.
 - Do not store credentials, API keys, tokens, personal settings, or provider secrets in Gemini context, commands, or artifacts.
 
 ## Native Gemini Commands
