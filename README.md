@@ -1,6 +1,6 @@
 # devspec
 
-`devspec` is a spec-driven development framework for developers using GitHub Copilot Chat and supported AI coding agents.
+`devspec` is a spec-driven development framework for teams using GitHub Copilot Chat and supported AI coding agents.
 
 It helps teams define the spec before coding, keep implementation aligned to that spec, and leave a reviewable paper trail in Git.
 
@@ -15,17 +15,18 @@ Use it when you want Copilot Chat or a supported adapter to follow a consistent 
 
 Install `devspec` by copying files into the target repository. There is no package manager or CLI installer yet.
 
-1. Open the target repository in VS Code.
-2. Make sure GitHub Copilot Chat is available in that workspace.
-3. Copy these folders from this repository into the target repository root:
+1. Open the target repository in VS Code or the selected AI coding tool.
+2. Make sure GitHub Copilot Chat is available when using the Copilot reference adapter.
+3. Copy the core framework folders from this repository into the target repository root:
    - `devspec/`
    - `.github/prompts/`
    - `.github/agents/`
+4. Copy optional support folders as needed:
    - `.github/skills/` when you want the bundled reusable skills
    - `AGENTS.md`, `GEMINI.md`, `.claude/`, `.cursor/`, `.gemini/`, and `.agents/` when you want multi-agent adapter support
-4. Commit the copied files.
-5. Run the foundation commands in Copilot Chat or the configured adapter.
-6. Start the first work item with `/devspec.story`.
+5. Commit the copied files.
+6. Run the foundation commands in Copilot Chat or the configured adapter.
+7. Start the first work item with `/devspec.story`.
 
 For a new project, start here:
 
@@ -79,21 +80,23 @@ Use `/devspec.diagram` whenever you need an additional architecture, module, fea
 | `GEMINI.md` | Gemini-native repository context that imports `AGENTS.md` and preserves the canonical workflow. |
 | `.claude/skills/` | Claude Code project skills that map to canonical `devspec` commands. |
 | `.cursor/rules/` | Cursor project rules that preserve `devspec` workflow and artifact behavior. |
-| `.gemini/commands/` | Gemini CLI project custom commands that map to canonical `devspec` commands. |
+| `.gemini/commands/` | Optional Gemini CLI project custom commands that expose native `/devspec:*` commands. |
 | `.agents/rules/` and `.agents/skills/` | Google Antigravity workspace rules and skills that map to canonical `devspec` commands. |
 
-The prompt and agent folders are required for the Copilot reference adapter. The skills and adapter folders are optional but recommended when teams want the bundled behaviors to travel with the repository across multiple AI tools.
+The `devspec/`, `.github/prompts/`, and `.github/agents/` folders are the core install because Copilot prompt and agent files are the reference contracts. Adapter files are optional but recommended when teams want the same workflow to travel across multiple AI tools.
+
+For Gemini CLI, `GEMINI.md` is enough to provide repository context. The `.gemini/commands/` TOML files are only needed when you want native Gemini CLI command discovery, help text, and `/devspec:*` shortcuts.
 
 Installation is complete when:
 
 - `devspec/`, `.github/prompts/`, and `.github/agents/` exist in the target repository root
 - `.github/prompts/PATTERNS.md` exists
 - `devspec/adapters/command-registry.md` exists when multi-agent adapters are copied
-- Copilot Chat recognizes `/devspec` commands such as `/devspec.projectcontext` or `/devspec.story`
+- Copilot Chat recognizes `/devspec` commands such as `/devspec.projectcontext` or `/devspec.story` when using the Copilot adapter
 - `.github/skills/exploration-recovery/SKILL.md` exists if you copied the optional skills folder
 - `AGENTS.md`, `GEMINI.md`, `.claude/skills/`, `.cursor/rules/`, `.gemini/commands/`, or `.agents/` exist if you copied the corresponding adapter support
 
-If the commands do not appear, reopen the repository workspace in VS Code and confirm the files were copied to the target repository root rather than a nested folder.
+If commands do not appear in a tool, reopen or refresh that tool's workspace and confirm the files were copied to the target repository root rather than a nested folder. For Gemini CLI, restart the session after adding project commands.
 
 ## How devspec works
 
@@ -108,7 +111,7 @@ The workflow has two layers.
 
 ```mermaid
 flowchart TD
-    Start["Start in Copilot Chat"] --> ProjectType{"Project state?"}
+    Start["Start in Copilot Chat or adapter"] --> ProjectType{"Project state?"}
     ProjectType -- "new project" --> ProjectContext["/devspec.projectcontext"]
     ProjectType -- "existing project" --> Extract["/devspec.extract"]
 
@@ -141,7 +144,7 @@ flowchart TD
 
 ### Command boundaries
 
-- Developers invoke registered `/devspec.*` slash commands from `.github/prompts/`; agent names are workflow targets used for internal handoffs.
+- In Copilot, developers invoke registered `/devspec.*` slash commands from `.github/prompts/`; other adapters map their native command surfaces back to the same canonical commands.
 - GitHub Copilot prompt and agent files are the reference implementation. Adapter files for Claude Code, OpenAI Codex, Cursor, Gemini CLI, Google Antigravity, or future tools must preserve their original intent.
 - Multi-agent support is additive. Use `devspec/adapters/command-registry.md` for provider-neutral command contracts and `devspec/adapters/validation-flows.md` for enterprise acceptance flows.
 - `/devspec.extract` seeds foundation artifacts from existing repositories; the foundation commands refine and confirm those artifacts.
@@ -157,19 +160,20 @@ Before setup, confirm:
 - VS Code with GitHub Copilot Chat enabled when using the Copilot reference adapter
 - the target repository open as the active workspace or project in the selected tool
 - Gemini CLI, Google Antigravity, Claude Code, Cursor, or Codex available when using those adapters
-- for multi-repo work, a VS Code multi-root workspace that includes every repository you expect agents to inspect, edit, test, or coordinate
+- for multi-repo work, one workspace or tool project that includes every repository agents should inspect, edit, test, or coordinate
 - Git access for committing the copied framework files and later `devspec` artifacts
 
 ### Install into a target repository
 
-1. Copy these folders into the target repository root:
+1. Copy the core framework folders into the target repository root:
    - `devspec/`
    - `.github/prompts/`
    - `.github/agents/`
+2. Copy optional support folders as needed:
    - `.github/skills/` when you want the bundled reusable skills
    - `AGENTS.md`, `GEMINI.md`, `.claude/`, `.cursor/`, `.gemini/`, and `.agents/` when you want multi-agent adapter support
-2. Commit the copied files.
-3. Reopen the repository in VS Code if Copilot Chat does not immediately detect the new `/devspec` commands.
+3. Commit the copied files.
+4. Reopen or refresh the selected tool if it does not immediately detect the new `devspec` commands or adapter files.
 
 Choose the first foundation command based on the project:
 
@@ -180,7 +184,7 @@ Choose the first foundation command based on the project:
 
 On first install, live project artifacts may be created from matching `_template` files. After that, treat live files as project-owned and update them through the slash-command workflow rather than replacing them from newer templates.
 
-For multi-repo work, keep one shared VS Code multi-root workspace open and record repository configuration in `devspec/foundation/codebase-structure.md`. That file is the canonical place for local repository paths and access requirements used by intake, finalization, tasks, and implementation.
+For multi-repo work, keep one shared workspace or project open and record repository configuration in `devspec/foundation/codebase-structure.md`. That file is the canonical place for local repository paths and access requirements used by intake, finalization, tasks, and implementation.
 
 ### Manual upgrades
 
@@ -236,7 +240,7 @@ These are core behaviors baked into the prompts and agents:
 
 ## Session recovery and continuation
 
-Copilot and agent sessions can lose context. `devspec` handles that by making the repository, not the chat session, the durable source of truth.
+AI agent sessions can lose context. `devspec` handles that by making the repository, not the chat session, the durable source of truth.
 
 Recommended recovery model:
 
@@ -255,9 +259,9 @@ Retry handling is intentionally bounded. If an implementation or repair task exc
 
 ## Model recommendations
 
-Agent front matter owns model fallback order. The current front matter order is `GPT-5.4`, `GPT-5.3-Codex`, `Claude Sonnet 4.6`, then `Claude Haiku 4.5`.
+For the Copilot reference adapter, agent front matter owns model fallback order. The current front matter order is `GPT-5.4`, `GPT-5.3-Codex`, `Claude Sonnet 4.6`, then `Claude Haiku 4.5`.
 
-Set thinking effort in the VS Code model picker. Prefer **High** for best quality. Use **Medium** when cost or latency matters. Avoid **Low** for devspec agents.
+For Copilot in VS Code, set thinking effort in the model picker. Prefer **High** for best quality. Use **Medium** when cost or latency matters. Avoid **Low** for devspec agents.
 
 `/devspec.implement` delegates to the `devspec.implement-task` agent, so that agent appears in the table below.
 
@@ -289,7 +293,7 @@ Use **Medium** for `devspec.story` or `devspec.clarify` only for simple single-r
 | Claude Code | `.claude/skills/devspec-*/SKILL.md` | Project skills for invoking canonical `devspec` commands from Claude Code. |
 | OpenAI Codex | `AGENTS.md`, `devspec/adapters/codex.md` | Repository instructions and Codex-specific usage guidance. |
 | Cursor | `.cursor/rules/devspec-workflow.mdc`, `AGENTS.md` | Project rules and shared fallback instructions for Cursor workflows. |
-| Gemini CLI | `GEMINI.md`, `.gemini/commands/devspec/*.toml`, `devspec/adapters/gemini-cli.md` | Gemini context and project custom commands using `/devspec:*` names. |
+| Gemini CLI | `GEMINI.md`, optional `.gemini/commands/devspec/*.toml`, `devspec/adapters/gemini-cli.md` | Gemini context plus optional native `/devspec:*` command shortcuts. |
 | Google Antigravity | `.agents/rules/devspec-workflow.md`, `.agents/skills/devspec-*.md`, `devspec/adapters/antigravity.md` | Workspace rule and skills using `/devspec-*` names. |
 
 Use these adapter docs when operating in an enterprise environment:
@@ -302,6 +306,8 @@ Use these adapter docs when operating in an enterprise environment:
 
 Enterprise readiness requires both foundation flows and one full story lifecycle to pass for every supported adapter.
 
+Native command parity varies by tool. Canonical command names remain `/devspec.*`; adapters may expose host-friendly wrappers such as Gemini CLI `/devspec:story` or Antigravity `/devspec-story`.
+
 ## Foundation workflow
 
 These commands establish the project-wide spec that all work items must follow.
@@ -310,7 +316,7 @@ Foundation artifacts should be compact and useful to developers. Prefer summary 
 
 ### 1. `/devspec.extract`
 
-Use this when you already have a repository and want Copilot to backfill `devspec` from source code and existing docs.
+Use this when you already have a repository and want the active adapter to backfill `devspec` from source code and existing docs.
 
 What it does:
 
@@ -338,7 +344,7 @@ What it does:
 
 Use it for:
 
-- extracting from the current repository open in VS Code
+- extracting from the current repository open in the selected tool
 - existing products
 - monorepos
 - migrations where architecture and standards already exist but are undocumented
@@ -448,7 +454,7 @@ Use it for:
 - ownership or review routing when it affects future changes
 - integration contracts that must be preserved across repositories, modules, services, or external systems
 
-For multi-repo projects, use this stage to capture each repository's role, local path, whether it is already open in the current VS Code workspace, and its access requirement from `devspec/glossary.md#access-requirement-values`.
+For multi-repo projects, use this stage to capture each repository's role, local path, whether it is already open in the current workspace or tool project, and its access requirement from `devspec/glossary.md#access-requirement-values`.
 
 Agents must not assume `reference-only` or any other access requirement. When a repository access requirement is missing or ambiguous, the agent should ask one multiple-choice confirmation for that repository before writing or relying on the repository configuration.
 
@@ -906,7 +912,7 @@ Holds project-operational context and constraints.
 Holds provider-neutral multi-agent support artifacts.
 
 - `command-registry.md`
-  Canonical command contracts for Copilot, Claude Code, Codex, Cursor, and future adapters.
+  Canonical command contracts for Copilot, Claude Code, Codex, Cursor, Gemini CLI, Google Antigravity, and future adapters.
 - `compatibility-matrix.md`
   Platform capability, limitation, permission, telemetry, and MCP support tracking.
 - `validation-flows.md`
@@ -937,7 +943,7 @@ Holds broader technical architecture.
 
 Holds one folder per work item, including features, bugs, and security issues. Each work item carries its own staged artifacts from intake through review.
 
-Each work-item artifact can include `Resume State`, which lets a new Copilot or agent session recover the current stage, pending question, next safe action, and resume command from Git-tracked files. Implementation also records task-level checkpoints in `implement.md` so monolith and multi-repo work can continue by target repository, target area, and task status.
+Each work-item artifact can include `Resume State`, which lets a new AI agent session recover the current stage, pending question, next safe action, and resume command from Git-tracked files. Implementation also records task-level checkpoints in `implement.md` so monolith and multi-repo work can continue by target repository, target area, and task status.
 
 Reusable feature workflows, process flows, user journeys, sequence diagrams, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Use work-item `diagrams.md` only for explicit or clearly temporary work-item-specific diagram content, such as a bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment. Keep diagram status in `devspec/architecture/artifact-queue.md`.
 
@@ -972,13 +978,13 @@ After extraction, refine the foundation with human context:
 /devspec.rules Protected health information must not be exposed in logs. Any document-upload change requires malware scanning and content-type validation. Releases need QA signoff for claims workflows.
 ```
 
-## Advanced: setting up MCP servers or tools in VS Code
+## Advanced: setting up MCP servers or provider tools
 
 Use this setup when you want `devspec` to resolve external work items instead of falling back to manual intake.
 
-1. Choose the provider lookup path you will support in VS Code.
+1. Choose the provider lookup path you will support in the selected AI coding environment.
    For most teams, this means a provider-specific MCP server or one internal tool that wraps multiple providers.
-2. Install or connect that MCP server or integration tool in the VS Code environment your team uses for Copilot Chat.
+2. Install or connect that MCP server or integration tool in the environment your team uses for Copilot Chat or another supported adapter.
 3. Configure authentication outside the prompt artifacts.
    Prefer least-privilege, read-only access for work-item intake and review workflows unless write-back is explicitly required.
 4. Verify the integration can validate and fetch a real work item before relying on `/devspec.story`.
@@ -987,7 +993,7 @@ Use this setup when you want `devspec` to resolve external work items instead of
    If the file is missing, initialize it from `devspec/foundation/_template/provider-integrations.md`.
 6. Test one provider-backed intake example and one manual fallback example in the target repository.
 
-Treat provider-backed intake as ready only when VS Code can reach the configured tool, authentication works, and `devspec/foundation/provider-integrations.md` matches the behavior your team expects.
+Treat provider-backed intake as ready only when the selected tool can reach the configured provider integration, authentication works, and `devspec/foundation/provider-integrations.md` matches the behavior your team expects.
 
 ## Recommended adoption pattern
 
