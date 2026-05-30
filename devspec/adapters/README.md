@@ -1,6 +1,6 @@
 # Multi-Agent Adapter Guide
 
-Use this directory to keep multi-agent support additive. Existing Copilot prompt and agent files remain the reference implementation; adapters for Claude Code, OpenAI Codex, Cursor, Gemini CLI, Google Antigravity, and future tools must preserve their intent instead of redefining the workflow.
+Use this directory to keep multi-agent support additive. GitHub Copilot prompt and agent files remain the reference implementation; adapters for Claude Code, OpenAI Codex, Cursor, Gemini CLI, Google Antigravity, and future tools must preserve that intent instead of redefining the workflow.
 
 ## Adapter Contract
 
@@ -11,7 +11,7 @@ Use this directory to keep multi-agent support additive. Existing Copilot prompt
 | State source | Recover from Git-tracked `devspec/` artifacts before relying on chat history or tool memory. |
 | Intent preservation | Do not change command purpose, required input, output artifacts, status values, handoff order, readiness gates, review gates, or recovery behavior. |
 | Platform gaps | Document unsupported behavior as a limitation; do not hide gaps by changing `devspec` semantics. |
-| Integration model | Keep provider lookup, CI, scanners, and enterprise systems behind MCP servers or equivalent internal tools. |
+| Integration model | Keep provider lookup, CI, scanners, and enterprise systems behind MCP servers, approved connectors, or equivalent internal tools. |
 
 ## Adapter Files
 
@@ -34,7 +34,7 @@ For install steps, workflow walkthroughs, and copy-ready command examples across
 1. Confirm the command exists in `devspec/adapters/command-registry.md`.
 2. Read the canonical Copilot prompt and agent files named in the registry.
 3. Implement a thin adapter wrapper for the target tool.
-4. Preserve artifact writes, gates, and next-action behavior.
+4. Preserve required inputs, artifact writes, gates, handoffs, recovery behavior, and next-action behavior.
 5. Validate with `devspec/adapters/validation-flows.md`.
 
 ## No-Intent-Drift Rules

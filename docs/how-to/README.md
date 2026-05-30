@@ -1,6 +1,6 @@
 # devspec How-To
 
-Use this manual after copying `devspec` into a target repository. It gives developers copy-ready examples for installing the framework, running the foundation flow, moving a work item through the lifecycle, using multiple AI coding agents, handling multi-repo systems, resolving provider work items, validating adapters, and upgrading framework files.
+Use this manual after copying `devspec` into a target repository. It gives developers copy-ready examples for installation, foundation setup, work-item delivery, multi-agent usage, multi-repo systems, provider resolution, adapter validation, and framework upgrades.
 
 This guide is practical usage documentation. The provider-neutral source of truth for command purpose, required input, outputs, mutation level, and handoff remains `devspec/adapters/command-registry.md`.
 
@@ -33,9 +33,9 @@ Copy the framework files into the target repository. There is no package manager
    .github/agents/
    ```
 
-3. Copy AI coding agent support files for the tools your team uses.
+3. Copy the AI coding agent support files from the setup table for the tools your team uses.
 4. Commit the copied files.
-5. Run the foundation flow.
+5. Run the foundation flow for a new or existing repository.
 6. Start the first work item.
 
 ## AI Coding Agent Setup
@@ -53,7 +53,7 @@ Copy only the rows for tools your team uses. Keep credentials, provider tokens, 
 
 ## Command Invocation by Agent
 
-Canonical command names remain `/devspec.*`. Some AI coding agents expose host-native command styles that translate to the same canonical command intent.
+Canonical command names remain `/devspec.*`. Some AI coding agents expose host-native command styles that map back to the same command intent.
 
 | Canonical command | GitHub Copilot | Claude Code | OpenAI Codex | Cursor | Gemini CLI | Google Antigravity |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -291,9 +291,9 @@ Examples:
 
 Durable detailed diagrams live under `devspec/architecture/diagrams/`. High-level architecture diagram references belong in `devspec/architecture/overview.md`. Temporary work-item-specific diagrams belong in `devspec/work-items/<work-item-folder>/diagrams.md`.
 
-Extraction may seed diagram candidates into `devspec/architecture/artifact-queue.md`. Use `/devspec.diagram` as the normal follow-up for generation.
+Extraction may seed diagram candidates into `devspec/architecture/artifact-queue.md`. Use `/devspec.diagram` as the normal follow-up when a queued diagram should be generated.
 
-Generated diagrams should follow the shared Mermaid internal naming rules:
+Generated diagrams should follow the shared Mermaid readability rules:
 
 - Keep `DIA-*` and `dia-NNN-*` names for the durable diagram file and diagram queue, not for Mermaid nodes.
 - Use short alphanumeric node IDs, double-quoted node labels of 1-4 words, no `\n` or `<br>` line breaks, and 2-3 word edge labels.

@@ -1,8 +1,8 @@
 # devspec
 
-`devspec` is a spec-driven development framework for teams using GitHub Copilot Chat and other AI coding agents.
+`devspec` is a spec-driven development framework for teams using GitHub Copilot and other AI coding agents.
 
-It keeps planning, implementation, review, and recovery in Git-tracked files instead of relying on chat history.
+It stores planning, implementation, review, and recovery state in Git-tracked files instead of relying on chat history.
 
 Use it when you want agents to follow the same workflow for:
 
@@ -15,7 +15,7 @@ Use it when you want agents to follow the same workflow for:
 
 Install by copying files into the target repository. There is no package manager or CLI installer yet.
 
-For the full user manual with install, workflow, AI coding agent, multi-repo, provider, validation, and upgrade examples, see [`docs/how-to/README.md`](docs/how-to/README.md).
+For install, workflow, AI coding agent, multi-repo, provider, validation, and upgrade examples, see [`docs/how-to/README.md`](docs/how-to/README.md).
 
 1. Open the target repository in VS Code or the selected AI coding tool.
 2. Copy the core framework folders into the repository root:
@@ -36,7 +36,7 @@ For the full user manual with install, workflow, AI coding agent, multi-repo, pr
    Copy only the rows for tools your team uses.
 
 4. Commit the copied files.
-5. Run the foundation flow.
+5. Run the foundation flow for a new or existing repository.
 6. Start the first work item.
 
 For a new project:
@@ -78,7 +78,7 @@ Use `/devspec.clarify` only when a work item records a blocking question. Use `/
 
 | Layer | Purpose | Commands |
 | --- | --- | --- |
-| Foundation | Capture stable project context and rules. | `/devspec.extract`, `/devspec.projectcontext`, `/devspec.techstack`, `/devspec.codebase-structure`, `/devspec.coding-standards`, `/devspec.rules` |
+| Foundation | Capture stable project context, architecture, stack, structure, standards, and rules. | `/devspec.extract`, `/devspec.projectcontext`, `/devspec.techstack`, `/devspec.codebase-structure`, `/devspec.coding-standards`, `/devspec.rules` |
 | Work items | Move one feature, bug, or security issue from intake to review. | `/devspec.story`, `/devspec.clarify`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, `/devspec.review` |
 
 ```mermaid
@@ -143,11 +143,11 @@ Canonical command names remain `/devspec.*`. Some adapters expose host-native sh
 
 Related docs:
 
-- `docs/how-to/README.md`
-- `devspec/adapters/README.md`
-- `devspec/adapters/compatibility-matrix.md`
-- `devspec/adapters/validation-flows.md`
-- `devspec/adapters/enterprise-governance.md`
+- [`docs/how-to/README.md`](docs/how-to/README.md)
+- [`devspec/adapters/README.md`](devspec/adapters/README.md)
+- [`devspec/adapters/compatibility-matrix.md`](devspec/adapters/compatibility-matrix.md)
+- [`devspec/adapters/validation-flows.md`](devspec/adapters/validation-flows.md)
+- [`devspec/adapters/enterprise-governance.md`](devspec/adapters/enterprise-governance.md)
 
 ## Repository Layout
 
@@ -228,13 +228,17 @@ Framework-owned files may be replaced or diff-applied during upgrades:
 - `.github/agents/`
 - `.github/skills/`
 - adapter support folders
+- `AGENTS.md`
+- `GEMINI.md`
 - `devspec/adapters/`
 - `devspec/**/_template/`
+- `docs/how-to/`
 
 Project-owned files should be migrated or merged, not overwritten:
 
 - `devspec/foundation/*.md`
 - `devspec/architecture/*.md`
+- `devspec/architecture/diagrams/*.md`
 - `devspec/work-items/**`
 - `devspec/constitution.md`
 - `devspec/glossary.md`
