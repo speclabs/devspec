@@ -35,7 +35,12 @@ Use this artifact for one durable architecture, module, feature, workflow, proce
 
 ## Mermaid Diagram
 
-Use simple Mermaid internal naming. Keep durable `DIA-*` IDs and `dia-NNN-*` subjects in metadata and filenames only. In Mermaid content, use short alphanumeric node IDs, double-quoted node labels of 1-4 words, and short edge labels for interaction context. Do not put HTTP verbs, routes, status codes, DTO names, payload names, Swagger details, or framework boilerplate in flowchart nodes unless the diagram is specifically about a startup or request pipeline.
+- Keep durable `DIA-*` IDs and `dia-NNN-*` subjects in metadata and filenames only; Mermaid content uses simple internal naming.
+- Use short alphanumeric node IDs, double-quoted node labels of 1-4 words, and 2-3 word edge labels. Do not use `\n` or `<br>` inside node labels or edge labels.
+- Keep architectural flowcharts focused on one primary domain at macro level, structurally unidirectional, and adjacent by layer. Do not include overloaded graphs, cross-layer arrows, decision diamonds, UI micro-interactions, or return/error paths unless the diagram is explicitly an algorithm or activity flowchart.
+- Use `sequenceDiagram` for exact step-by-step request and response behavior. Sequence diagrams should show happy-path messages between distinct participants, collapse pass-through API client helpers, and use method names for message labels.
+- Keep runtime communication and compile-time project dependencies in separate diagrams. Logical architecture diagrams exclude SDLC actors and build artifacts, and keep owned application databases inside the system boundary.
+- Avoid API, Swagger, tech stack, version, library, hosting, and framework boilerplate details in flowchart nodes unless the diagram is specifically about startup, request-pipeline, infrastructure-layer, or physical deployment behavior.
 
 ```mermaid
 flowchart TD

@@ -12,6 +12,14 @@ Queue `Diagram type` records the Mermaid family only. The generated diagram arti
 
 `DIA-*` IDs, `dia-NNN-*` subjects, and `dia-NNN-*` filenames are durable diagram file and diagram queue naming conventions. They must not leak into Mermaid internal naming unless they are part of metadata outside the diagram block.
 
-Inside Mermaid content, use simple internal names: short alphanumeric node IDs such as `AuthCtrl` or `ProviderSvc`, double-quoted node labels of 1-4 words such as `AuthCtrl["Authentication Controller"]`, and short edge labels such as `-->|"Validates Session"|`. Put interaction context on edge labels, not inside node labels.
+Inside Mermaid content, use simple internal names: short alphanumeric node IDs such as `AuthCtrl` or `ProviderSvc`, double-quoted node labels of 1-4 words such as `AuthCtrl["Authentication Controller"]`, and 2-3 word edge labels such as `-->|"API Calls"|`. Put interaction context on edge labels, not inside node labels, and do not use `\n` or `<br>` line breaks inside node labels or edge labels.
 
-Avoid API and framework bloat in generated Mermaid content. Do not put HTTP verbs, route templates, status codes, DTO or payload names, Swagger details, or standard framework wiring into flowchart nodes unless the requested diagram is specifically about startup or request-pipeline behavior.
+Keep architectural flowcharts and graphs structurally unidirectional and adjacent by layer. Map dependency or invocation direction, such as UI -> API -> service -> repository -> database, avoid cross-layer arrows that skip layers, and use `sequenceDiagram` when exact step-by-step request and response behavior is required. Return paths are implied by downward invocation arrows. Keep runtime communication and compile-time project dependencies in separate diagrams; default to runtime or logical data flow unless the user explicitly requests a project dependency graph.
+
+Architectural flowcharts should show one primary business domain at macro level, not overloaded graphs or component internals. Do not use decision diamonds, if/else paths, validation loops, error branches, UI micro-interactions, HTTP return codes, validation exceptions, or database error returns unless the user explicitly requests an algorithm or activity flowchart.
+
+Sequence diagrams should show messages between distinct participants only. Default to the happy path, omit generic error `alt` or `opt` blocks unless requested, collapse pass-through API client helpers, and use method names such as `AuthenticateAsync(req)` for message labels.
+
+Logical architecture diagrams must include only actual end users, client applications, runtime components, data stores, and external systems that interact with the live application. Exclude developers, maintainers, Git, CI/CD, deployment pipelines, build artifacts, and source-code project files. Place databases owned and exclusively used by the application inside the system boundary.
+
+Avoid API, tech stack, and framework bloat in generated Mermaid content. Do not put HTTP verbs, route templates, status codes, DTO or payload names, Swagger details, framework versions, specific library names, hosting models, or standard framework wiring into flowchart nodes unless the requested diagram is specifically about startup, request-pipeline, infrastructure-layer, or physical deployment behavior.

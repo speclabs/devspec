@@ -293,7 +293,15 @@ Durable detailed diagrams live under `devspec/architecture/diagrams/`. High-leve
 
 Extraction may seed diagram candidates into `devspec/architecture/artifact-queue.md`. Use `/devspec.diagram` as the normal follow-up for generation.
 
-Generated diagrams should use simple Mermaid internal naming: short alphanumeric node IDs, double-quoted node labels of 1-4 words, and short edge labels for interaction context. Keep `DIA-*` and `dia-NNN-*` names for the durable diagram file and diagram queue, not for Mermaid nodes.
+Generated diagrams should follow the shared Mermaid internal naming rules:
+
+- Keep `DIA-*` and `dia-NNN-*` names for the durable diagram file and diagram queue, not for Mermaid nodes.
+- Use short alphanumeric node IDs, double-quoted node labels of 1-4 words, no `\n` or `<br>` line breaks, and 2-3 word edge labels.
+- Keep architectural flowcharts focused on one primary domain at macro level, without overloaded graphs, cross-layer arrows, decision diamonds, UI micro-interactions, or return/error paths.
+- Keep architectural flowcharts unidirectional and adjacent by layer.
+- Use `sequenceDiagram` for exact step-by-step request and response behavior, showing happy-path messages between distinct participants with method-name labels.
+- Keep runtime communication separate from compile-time project dependencies, exclude SDLC actors and build artifacts from logical architecture diagrams, and place owned application databases inside the system boundary.
+- Avoid API, Swagger, tech stack, version, library, hosting, and framework boilerplate details in flowchart nodes unless the requested diagram specifically needs that detail.
 
 Example Mermaid style:
 
