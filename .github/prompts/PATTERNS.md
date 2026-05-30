@@ -4,16 +4,33 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 
 ## Interactive Question Pattern
 
-- Ask exactly one blocking clarification, confirmation, or selection question at a time.
-- Use clickable multiple-choice options whenever reasonable; explicit options are required for confirmations and workflow decisions.
-- Always include a `Custom Answer` option.
-- Recommend exactly one option with a short justification.
-- Use `Yes`, `No`, and `Custom Answer` for binary confirmations.
-- Use `Proceed`, `Skip`, and `Custom Answer` for workflow continuation, queue processing, task continuation, generated artifact approval, or retry decisions.
-- Use `Continue`, `Pause`, `Skip`, and `Custom Answer` when resuming a run from `stopped` or ambiguous state.
-- Use domain-specific option sets only when the stage defines them, such as provider intake actions or multi-repo access requirement values.
+- Ask exactly one user question at a time.
+- Use a structured multiple-choice question whenever a finite decision can be offered; use free-form wording only when meaningful options cannot be provided.
+- Use clickable multiple-choice options whenever the platform supports them. When clickable options are unavailable, render the same option labels as text and ask the user to reply with one label or `Custom Answer`.
+- Every structured question must include question intent, prompt text, option labels, exactly one recommended option with a short reason, fallback rendering, and the state that must be recorded before waiting for the answer.
+- Always include a `Custom Answer` option for user-facing choices.
+- Use stage-specific option sets only when the stage defines them in a pattern, agent, or artifact policy; otherwise use the standard option set for the question intent.
 - Wait for the user's answer before asking another question.
 - If several confirmations are discovered, present only the highest-priority one and defer the rest.
+
+| Question intent | Use when | Standard options |
+| --- | --- | --- |
+| `clarification` | Required facts are missing or ambiguous, including provider identity, target work item, folder name, or blocked readiness facts. | Meaningful stage-specific choices plus `Custom Answer`; use free-form only when meaningful options cannot be offered. |
+| `confirmation` | A resolved fact, provider item, constitution change, repository access value, generated artifact, or risky scope change needs explicit approval. | `Yes`, `No`, `Custom Answer` unless a stage-specific confirmation set is defined. |
+| `selection` | The user must choose among sources, repositories, work items, diagram types, target locations, or other finite values. | The finite candidate values plus `Custom Answer`. |
+| `continuation` | A workflow, queue item, task, or handoff can continue or stop at the current checkpoint. | `Proceed`, `Skip`, `Custom Answer`. |
+| `resume` | A run is resuming from `stopped` or ambiguous state. | `Continue`, `Pause`, `Skip`, `Custom Answer`. |
+| `approval` | Queue item generation, diagram generation, overwrite behavior, process-flow batch work, or similar gated action needs approval. | `Proceed`, `Skip`, `Custom Answer` unless the stage defines a narrower approval set. |
+| `retry` | Failed lookup, failed validation, repeated implementation attempts, blocked discovery, or another retryable failure needs direction. | `Proceed`, `Skip`, `Custom Answer`, with the retry condition or changed method named in the prompt. |
+
+Standard stage-specific option sets:
+
+- Binary confirmations use `Yes`, `No`, and `Custom Answer`.
+- Source selection for `/devspec.extract` uses `Use current project root`, `Enter repo paths`, `Cancel extraction`, and `Custom Answer`.
+- Provider resolution uses `Confirm and continue`, `Reject and retry input`, `Switch to manual intake`, `Cancel`, and `Custom Answer`.
+- Repository access confirmation uses the values in `devspec/glossary.md#access-requirement-values` plus `Custom Answer`.
+- Workflow continuation, queue processing, task continuation, generated artifact approval, and retry decisions use `Proceed`, `Skip`, and `Custom Answer` unless a narrower stage-specific set applies.
+- Resume from `stopped` or ambiguous state uses `Continue`, `Pause`, `Skip`, and `Custom Answer`.
 
 ## Next Action Selection Pattern
 
@@ -48,10 +65,10 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - For monorepos, record the target repository once and distinguish tasks by module, layer, or area. For multi-repo work, every executable task must name target repository and required access.
 - Keep `Run status` values limited to the values in `devspec/glossary.md#run-status-values`.
 - Use `paused` when the user expects to continue from the same task or question.
-- Use `stopped` when the run intentionally ended and should ask one continuation question before resuming.
+- Use `stopped` when the run intentionally ended and should ask one structured `resume` question before resuming.
 - Use `blocked` only when evidence, access, or prerequisites are insufficient; record the blocker and continuation condition.
-- Before any blocking question, handoff, retry-loop stop, or run end, update `Resume State` with stage, item, last completed step, pending question, recommended option, resume command, and next required action.
-- On rerun, resume a `paused` item directly when prerequisites still hold; for `stopped` or ambiguous state, ask one structured continuation question first.
+- Before any blocking question, handoff, retry-loop stop, or run end, update `Resume State` with stage, item, last completed step, question intent, pending question, exact option labels, recommended option, resume command, continuation condition, and next required action.
+- On rerun, resume a `paused` item directly when prerequisites still hold; for `stopped` or ambiguous state, ask one structured `resume` question first.
 - Retry only when the recorded retry condition is met, the user gives custom direction, or the method materially changed. Do not replay recorded failed methods just because the session changed.
 - When stage tasks or queue items are complete, mark the stage `complete` and hand off to the next registered command or configured agent.
 
@@ -60,7 +77,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Follow the [Next Action Selection Pattern](#next-action-selection-pattern).
 - Follow the [Registered Command Recommendation Pattern](#registered-command-recommendation-pattern) before recommending any slash command.
 - End with exactly one registered command, handoff, file update, or structured question.
-- If the next step requires confirmation, selection, retry approval, queue approval, or continuation, ask one structured question with explicit options.
+- If the next step requires clarification, confirmation, selection, approval, retry direction, queue approval, resume, or continuation, ask one structured question with explicit options following the Interactive Question Pattern.
 - Summarize only the artifact or work-item path updated, key outcome, blockers or open questions, and single next action.
 
 ## Extraction State Pattern
@@ -70,7 +87,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Use `extraction-state.md` only for the extraction queue, resume state, blockers, and confirmations.
 - Keep exactly one extraction queue row `active`. Use existing task status values from `devspec/glossary.md#task-status-values`.
 - Process extraction queue rows in ID order unless a blocker, confirmation, or explicit user direction changes the next action.
-- Before asking a question, blocking, pausing, or handing off, update `Resume State`, the active extraction queue row, and `Blockers and Confirmations`.
+- Before asking a question, blocking, pausing, or handing off, update `Resume State`, the active extraction queue row, and `Blockers and Confirmations` with the question intent, exact option labels, recommended option, and continuation condition.
 - Do not store extracted facts in `extraction-state.md`; write them to the target artifact named by the active queue row.
 - Do not store reusable discovery methods in `extraction-state.md`; use `devspec/foundation/exploration-state.md`.
 - Do not store diagram queue state in `extraction-state.md`; use `devspec/architecture/artifact-queue.md`.
@@ -115,9 +132,9 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Avoid language, framework, vendor, or platform names in default diagram subjects. Use language-specific evidence only as supporting evidence unless the user explicitly requests a specialized diagram.
 - Prefer reusable architecture, module, feature, workflow, sequence, state, or user-journey diagrams over temporary work-item diagrams. Use work-item `diagrams.md` only for explicit or clearly temporary work-item-specific diagram content, and keep diagram status in `devspec/architecture/artifact-queue.md`.
 - Use queue `Tags` for durable selection and batch processing. Process-flow rows must include `process-flow`; add narrower tags such as `business-process`, `user-journey`, `lifecycle-flow`, or `hybrid-user-to-data-operational-flow` when they apply.
-- Use queue `Diagram type` for the Mermaid family only: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, or `classDiagram`. Record orientation such as `LR`, `TD`, or `BT` in `Next action or notes` when useful, and write the full Mermaid declaration in the generated artifact.
+- Use queue `Diagram type` for the Mermaid family only: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, `classDiagram`, or `erDiagram`. Record orientation such as `LR`, `TD`, or `BT` in `Next action or notes` when useful, and write the full Mermaid declaration in the generated artifact.
 - Use `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines. Use `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping. Use `flowchart BT` only for optional layer dependency views where lower layers should appear as foundations.
-- Use `sequenceDiagram` for actor, service, workflow, or security interactions over time; `journey` for user-facing paths; `stateDiagram-v2` for lifecycle or status transitions; and `classDiagram` for stable domain or structural relationships.
+- Use `sequenceDiagram` for actor, service, workflow, or security interactions over time; `journey` for user-facing paths; `stateDiagram-v2` for lifecycle or status transitions; `classDiagram` for stable domain or structural relationships; and `erDiagram` for entity relationship models.
 - Use confidence values consistently: `observed` for directly supported code, docs, config, or ADR evidence; `high-confidence` for inference from multiple local evidence points; `low-confidence` only when useful but incomplete evidence must be recorded as an assumption.
 - Do not queue vague subjects, candidates without source evidence, duplicate or equivalent existing diagrams, or temporary work-item diagrams without an explicit request.
 - Use `blocked` when a diagram idea is useful but evidence is insufficient; use `skipped` only after the user declines generation.
@@ -125,6 +142,38 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Avoid duplicate overview diagrams unless `devspec/architecture/overview.md` lacks a confirmed architecture context or diagram reference entry.
 - During `/devspec.extract`, seed candidates in `devspec/architecture/artifact-queue.md` and ask only about the next unresolved candidate after higher-priority confirmations. Generate diagrams later through `/devspec.diagram` unless the user explicitly continues through the confirmed queue.
 - During `/devspec.diagram`, reuse matching queue metadata instead of reclassifying the same subject from scratch. Generate exactly one evidence-backed Mermaid artifact per run unless the user requests process-flow batch generation.
+
+## Mermaid Internal Naming and Readability Pattern
+
+- Use this pattern when `/devspec.diagram` generates or updates Mermaid content, and when `/devspec.extract` records generation guidance for queued diagram candidates.
+- Keep durable diagram file naming separate from Mermaid internal naming. `DIA-*` IDs and `dia-NNN-*` subjects name queue rows and files; Mermaid node IDs, node labels, edge labels, classes, methods, and layout must stay simple and readable.
+- Choose the best Mermaid family for the evidence: `flowchart`, `sequenceDiagram`, `classDiagram`, `stateDiagram`, `journey`, or `erDiagram`. Use `flowchart TD` for hierarchy, topology, data movement, and risk grouping. Use `flowchart LR` for interactions, relationship maps, process flows, event flows, and pipelines. Use `stateDiagram-v2` as the generated declaration for state diagrams.
+- For flowcharts, use short alphanumeric node IDs with no spaces or punctuation, such as `AuthCtrl`, `ProviderSvc`, `OrderDb`, or `JobRunner`.
+- Wrap every human-readable flowchart node label in double quotes and keep it to 1-4 words, such as `AuthCtrl["Authentication Controller"]` or `ProviderSvc["Provider Service"]`.
+- Do not use `\n` or `<br>` line breaks inside node labels or edge labels under any circumstance. If a label needs a line break, it violates the 1-4 word node label rule or 2-3 word edge label rule.
+- Flowchart nodes must be nouns such as components, classes, services, actors, or data stores, not paragraphs of responsibilities or actions.
+- Put interaction context on edge labels, not inside node labels. Use 2-3 word action phrases such as `-->|"API Calls"|`, `-->|"Loads App"|`, or `-->|"Validates Session"|`.
+- Keep each diagram focused on one primary business domain or architectural concern. Do not create overloaded graphs that mix orthogonal concerns such as authentication, session validation, master data CRUD, reporting, and deployment in the same flowchart.
+- Prefer macro structure over micro logic in architectural `flowchart` or `graph` diagrams. Map components such as services, controllers, repositories, applications, data stores, and external systems, not internal logic inside those components.
+- Do not use decision diamonds such as `Node{"Is Valid?"}` or map `if/else` execution paths, validation loops, error handling branches, or error-handling UI states unless the user explicitly requests an algorithm or activity flowchart.
+- Do not map UI micro-interactions such as opening modals, hiding editors, clicking buttons, showing failure modals, or user input correction. Treat a client application as one cohesive boundary or a small set of high-level pages.
+- Keep architectural flowcharts and graphs structurally unidirectional and strictly adjacent by layer. Map dependency or invocation direction, such as UI -> API -> service -> repository -> database, and do not draw cross-layer arrows that skip layers.
+- Treat return paths as implied by downward invocation arrows; do not map response data, domain data, HTTP status codes, validation exceptions, database errors, or other return paths flowing back up the stack.
+- Use `sequenceDiagram` when the requested view requires exact step-by-step request and response behavior. Do not force complex bidirectional request or response cycles into a `flowchart` or `graph`.
+- In sequence diagrams, map messages only between distinct participants, such as UI -> controller -> service -> repository. Do not use self-referential arrows to show internal variable processing or local component logic.
+- Default sequence diagrams to the successful happy path unless the user explicitly asks for an error scenario. Omit `alt` or `opt` blocks for local form validation failures, 400 Bad Requests, or generic exception handling.
+- Collapse pass-through API client helpers in sequence diagrams. If a UI component uses an API client service only to forward a request to an API controller, map the message directly from the UI component to the API controller.
+- Prefer actual method names for sequence message labels, such as `AuthenticateAsync(req)`, instead of descriptive paragraphs or implementation steps such as trimming fields or hashing values.
+- Keep runtime and compile-time concerns in separate diagrams. Do not mix runtime communication such as HTTP calls or database queries with compile-time structural dependencies such as project references. Default to runtime or logical data flow unless the user explicitly asks for a project dependency graph.
+- Exclude meta-actors and SDLC processes from logical architecture diagrams. Do not include developers, maintainers, source control, Git, CI/CD, deployment pipelines, or build processes unless the user explicitly requests an SDLC, build, or deployment diagram.
+- Exclude build artifacts from runtime diagrams. Do not include database projects, `.csproj` files, generated artifacts, package outputs, or other source-code project files unless the diagram is explicitly a static code dependency or project dependency graph.
+- Enforce C4-style system boundaries for runtime diagrams. Group runtime components inside sensible system boundaries, and place databases or stores owned and exclusively used by the application inside the application system boundary.
+- Use `PascalCase` for classes, interfaces, and entities. Use `camelCase()` for methods or functions only when a method-level diagram is explicitly requested or the selected diagram type requires methods.
+- Avoid API and Swagger bloat in Mermaid content. Do not put HTTP verbs, route templates, status codes, DTO names, payload model names, or endpoint specs in flowchart nodes.
+- Avoid tech stack and version bloat in Mermaid content. Do not put framework versions, target frameworks such as `net10.0`, specific library names such as `Dapper` or `MediatR`, or hosting models in node labels unless the user explicitly requests a physical deployment diagram.
+- Omit standard framework wiring such as controller registration, middleware setup, dependency injection setup, CORS, logging, SQL connection factories, or configuration plumbing unless the requested diagram is specifically about startup, request-pipeline, or infrastructure-layer behavior.
+- Prefer domain, capability, service, component, actor, and data-store names over file names, route names, package names, and implementation noise.
+- Keep generated Mermaid valid inside a fenced `mermaid` block. If a user asks for "only Mermaid", apply that restriction to the Mermaid content itself while preserving required devspec artifact metadata outside the diagram block.
 
 ## Process Flow Extraction Pattern
 
@@ -178,7 +227,7 @@ Optional evidence-specific diagrams may include `layered-architecture`, `<entity
 ## Foundation Update Pattern
 
 - Required user input is mandatory.
-- Ask one clarification at a time when required details are missing or ambiguous, following the Interactive Question Pattern.
+- Ask one structured `clarification` question at a time when required details are missing or ambiguous, following the Interactive Question Pattern.
 - Follow the [Artifact Content Pattern](#artifact-content-pattern).
 - Use the matching `devspec/foundation/_template/*.md` or `devspec/architecture/_template/*.md` file as the section contract when one exists.
 - Treat live `devspec/foundation/*.md` and `devspec/architecture/*.md` files as project-owned; update them in place and never replace them wholesale from templates.
@@ -187,7 +236,7 @@ Optional evidence-specific diagrams may include `layered-architecture`, `<entity
 
 ## Work-Item Target Pattern
 
-- Use the current work item when clear; otherwise ask the user to select one, following the Interactive Question Pattern.
+- Use the current work item when clear; otherwise ask one structured `selection` question, following the Interactive Question Pattern.
 - Work-item folders must follow the [Work-Item Folder Naming Pattern](#work-item-folder-naming-pattern) when created by `/devspec.story`.
 - Follow the [Artifact Content Pattern](#artifact-content-pattern) when updating work-item artifacts.
 - Treat optional user input as additive guidance only.
@@ -201,7 +250,7 @@ Optional evidence-specific diagrams may include `layered-architecture`, `<entity
 - Work-item number must be numeric and should come from the resolved provider item, issue number, work item ID, or manually supplied external reference.
 - Title slug must be lowercase kebab-case from the resolved provider title or manually supplied title.
 - Remove punctuation, replace separators with hyphens, collapse repeated hyphens, and trim leading or trailing hyphens.
-- If provider prefix, numeric work-item number, or title slug is missing or ambiguous, ask exactly one structured question before creating the folder.
+- If provider prefix, numeric work-item number, or title slug is missing or ambiguous, ask exactly one structured `clarification` or `selection` question before creating the folder.
 - Do not create or rename a work-item folder until the generated folder name is valid or the user confirms a custom valid name.
 - Do not automatically rename existing work-item folders; treat non-matching existing folders as legacy and continue using them unless the user explicitly asks to rename.
 
@@ -211,7 +260,7 @@ Optional evidence-specific diagrams may include `layered-architecture`, `<entity
 - Validate repository role, local path, current workspace availability, and access requirement there before planning or implementation depends on a repository.
 - Treat repository location, workspace membership, and access requirement as separate facts; do not classify a repository outside the current repository folder or workspace as `reference-only` based on location.
 - Do not infer, default, or backfill missing access requirements. In particular, do not assume `reference-only`.
-- For each repository with a missing or ambiguous access requirement, ask exactly one repository-specific multiple-choice confirmation before writing or relying on that configuration.
+- For each repository with a missing or ambiguous access requirement, ask exactly one repository-specific structured `confirmation` question before writing or relying on that configuration.
 - Access requirement confirmation options must be limited to the values in `devspec/glossary.md#access-requirement-values` plus `Custom Answer`.
 - Respect access requirements: do not edit repositories marked `reference-only`, `validation-only`, `release-coordination`, or `unavailable` unless the user explicitly confirms a scope change.
 - Do not run validation in repositories marked `reference-only`, `release-coordination`, or `unavailable` unless the user explicitly confirms a scope change.

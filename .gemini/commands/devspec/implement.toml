@@ -1,0 +1,14 @@
+description = "Run canonical /devspec.implement from Gemini CLI."
+prompt = """
+Execute canonical command `/devspec.implement`.
+
+Before acting:
+1. Read `devspec/adapters/command-registry.md` and use the `/devspec.implement` row as the command contract.
+2. Read `.github/prompts/devspec.implement.prompt.md` and `.github/agents/devspec.implement-task.agent.md` as the protected source of intent.
+3. Follow `.github/prompts/PATTERNS.md` for shared workflow, recovery, output, discovery, and recommendation behavior.
+4. Recover from existing Git-tracked `devspec/` artifacts before relying on Gemini session memory.
+5. Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
+6. Treat Gemini-specific command syntax as platform mechanics, not a workflow change.
+
+The user's raw command input, if any, is appended below these instructions by Gemini CLI.
+"""

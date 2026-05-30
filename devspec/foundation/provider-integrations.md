@@ -8,7 +8,7 @@ Use this policy to resolve external work items during `/devspec.story`. Keep pro
 | --- | --- |
 | Workflow boundary | Keep work-item intake provider-agnostic; provider-specific lookup belongs in integration tools. |
 | Resolution preference | Prefer exact provider URLs or provider-qualified identifiers over inferred matches. |
-| Ambiguity handling | Ask one clarification question before resolving an ambiguous provider or identifier. |
+| Ambiguity handling | Ask one structured `clarification` question before resolving an ambiguous provider or identifier. |
 | Manual fallback | Allow manual intake only when external resolution is unavailable and the user explicitly chooses to proceed. |
 | Work-item creation gate | Do not create or update the work-item folder from provider input until the resolved item is shown to the user and explicitly confirmed. |
 | Secret handling | Keep provider authentication, credentials, and secrets outside prompt artifacts. |
@@ -27,9 +27,9 @@ Resolve inputs in this order:
 
 | Order | Input path | Required handling |
 | --- | --- | --- |
-| 1 | Full provider URL | Validate format, resolve through the configured provider tool, and request confirmation on success. |
-| 2 | Provider-qualified identifier | Validate provider context, resolve through the configured provider tool, and request confirmation on success. |
-| 3 | Ambiguous identifier | Ask for provider clarification before lookup. |
+| 1 | Full provider URL | Validate format, resolve through the configured provider tool, and request structured confirmation on success. |
+| 2 | Provider-qualified identifier | Validate provider context, resolve through the configured provider tool, and request structured confirmation on success. |
+| 3 | Ambiguous identifier | Ask a structured provider `clarification` question before lookup. |
 | 4 | Manual intake | Continue only after the user explicitly chooses manual intake and supplies required manual fields. |
 
 Handle outcomes as follows:
@@ -37,10 +37,10 @@ Handle outcomes as follows:
 | Condition | Required handling |
 | --- | --- |
 | Invalid input format | Stop intake and explain why the input is invalid. |
-| Ambiguous provider | Ask one clarification question to identify the provider. |
+| Ambiguous provider | Ask one structured `clarification` question to identify the provider. |
 | Known provider cannot resolve item | Stop intake and classify the failure as not found, access denied, or integration unavailable when possible. |
 | Integration unavailable | Offer manual intake as an explicit fallback. |
-| Provider resolution succeeds | Show the confirmation summary and require explicit confirmation before creating or updating the work-item folder. |
+| Provider resolution succeeds | Show the confirmation summary and require structured confirmation before creating or updating the work-item folder. |
 | Unverified provider input | Treat as blocked or manual fallback only; do not create a normal resolved work item. |
 
 ## Confirmation Requirements
@@ -57,12 +57,12 @@ Show this minimum summary when provider resolution succeeds:
 | Canonical link | yes |
 | Short summary | yes |
 
-Offer only these confirmation actions:
+Offer only these structured `confirmation` actions:
 
 | Action | Result |
 | --- | --- |
 | Confirm and continue | Continue normal resolved intake. |
-| Reject and retry input | Ask for a corrected source. |
+| Reject and retry input | Ask a structured `retry` or source-correction question. |
 | Switch to manual intake | Continue only with manual intake requirements. |
 | Cancel | Stop intake. |
 | Custom Answer | Route to clarification; do not create or update the work-item folder until resolved. |
@@ -87,7 +87,7 @@ Offer only these confirmation actions:
 | Lookup attempt | Record provider and resolution notes. |
 | Manual source status | Use source resolution status `manual` only when the user explicitly chooses to continue without external resolution. |
 | Manual intake | Require external reference, manual description, and manual acceptance criteria. |
-| Resolved items | Require explicit user confirmation after showing resolved details. |
+| Resolved items | Require structured confirmation after showing resolved details. |
 | Blocked status | Use when input is invalid or required resolution failed. |
 | Confirmation result | Record it in `meta.md` and record the shown summary in `story.md`. |
 | Provider policy ownership | Keep provider-specific details here instead of duplicating them across prompt files. |

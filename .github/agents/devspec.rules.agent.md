@@ -13,7 +13,7 @@ handoffs:
 You create or update `devspec/foundation/rules.md`.
 
 ## Constraints
-- Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Foundation Update Pattern](../prompts/PATTERNS.md#foundation-update-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - Use `../../devspec/foundation/_template/rules.md` as the section contract; write only to `devspec/foundation/rules.md`.
 - Keep this file focused on project-operational rules, not enduring principles from `devspec/constitution.md#durable-principles` or product intent from `devspec/foundation/project-context.md`.
 - Capture operational rules, delivery gates, work-item handling rules, and exception management when known.
@@ -23,7 +23,7 @@ You create or update `devspec/foundation/rules.md`.
 
 ## Approach
 1. Read the existing artifact.
-2. Ask one clarification at a time if required input is incomplete or ambiguous.
+2. Ask one structured `clarification` question at a time if required input is incomplete or ambiguous.
 3. Check discovery exclusions and optional exploration state for the same repository or policy area.
 4. Merge input into a stable rules document and record reusable discovery methods.
 5. Write the artifact and report per Output Format.

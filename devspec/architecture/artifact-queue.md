@@ -17,7 +17,7 @@ Add rows only when extraction or `/devspec.diagram` identifies real diagram cand
 | --- | --- |
 | ID | Use stable IDs such as `DIA-001`, preserving existing IDs and assigning the next available number for new rows. |
 | Scope | Use `architecture`, `module`, `feature`, `workflow`, `user-journey`, or `work-item`. Prefer durable scopes over `work-item` unless the diagram is explicitly temporary or work-item-specific. |
-| Diagram type | Use the Mermaid family only: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, or `classDiagram`. Do not include orientation here. |
+| Diagram type | Use the Mermaid family only: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, `classDiagram`, or `erDiagram`. Do not include orientation here. |
 | Subject | Use a specific lowercase kebab-case subject that can map to one diagram file or one overview section. For queued architecture diagrams, prefix the subject with the lowercase queue ID, such as `dia-001-order-fulfillment-flow`. |
 | Target location | Use `devspec/architecture/overview.md#diagram-reference-index` for high-level overview diagrams, `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md` for durable detailed diagrams, or `devspec/work-items/<work-item-folder>/diagrams.md#diagram-content` for temporary work-item diagrams. |
 | Evidence | Name the source paths, docs, ADRs, queue request, or user-confirmed basis supporting the candidate. |
