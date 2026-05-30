@@ -293,6 +293,16 @@ Durable detailed diagrams live under `devspec/architecture/diagrams/`. High-leve
 
 Extraction may seed diagram candidates into `devspec/architecture/artifact-queue.md`. Use `/devspec.diagram` as the normal follow-up for generation.
 
+Generated diagrams should use simple Mermaid internal naming: short alphanumeric node IDs, double-quoted node labels of 1-4 words, and short edge labels for interaction context. Keep `DIA-*` and `dia-NNN-*` names for the durable diagram file and diagram queue, not for Mermaid nodes.
+
+Example Mermaid style:
+
+```mermaid
+flowchart LR
+    AuthCtrl["Authentication Controller"] -->|"Validates Session"| ProviderSvc["Provider Service"]
+    ProviderSvc -->|"Reads Profile"| UserDb["User Database"]
+```
+
 ## Multi-Repo Work
 
 For multi-repo systems, open one workspace or AI coding agent project that includes every repository the agent should inspect, edit, test, or coordinate.

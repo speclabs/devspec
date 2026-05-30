@@ -115,9 +115,9 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Avoid language, framework, vendor, or platform names in default diagram subjects. Use language-specific evidence only as supporting evidence unless the user explicitly requests a specialized diagram.
 - Prefer reusable architecture, module, feature, workflow, sequence, state, or user-journey diagrams over temporary work-item diagrams. Use work-item `diagrams.md` only for explicit or clearly temporary work-item-specific diagram content, and keep diagram status in `devspec/architecture/artifact-queue.md`.
 - Use queue `Tags` for durable selection and batch processing. Process-flow rows must include `process-flow`; add narrower tags such as `business-process`, `user-journey`, `lifecycle-flow`, or `hybrid-user-to-data-operational-flow` when they apply.
-- Use queue `Diagram type` for the Mermaid family only: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, or `classDiagram`. Record orientation such as `LR`, `TD`, or `BT` in `Next action or notes` when useful, and write the full Mermaid declaration in the generated artifact.
+- Use queue `Diagram type` for the Mermaid family only: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, `classDiagram`, or `erDiagram`. Record orientation such as `LR`, `TD`, or `BT` in `Next action or notes` when useful, and write the full Mermaid declaration in the generated artifact.
 - Use `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines. Use `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping. Use `flowchart BT` only for optional layer dependency views where lower layers should appear as foundations.
-- Use `sequenceDiagram` for actor, service, workflow, or security interactions over time; `journey` for user-facing paths; `stateDiagram-v2` for lifecycle or status transitions; and `classDiagram` for stable domain or structural relationships.
+- Use `sequenceDiagram` for actor, service, workflow, or security interactions over time; `journey` for user-facing paths; `stateDiagram-v2` for lifecycle or status transitions; `classDiagram` for stable domain or structural relationships; and `erDiagram` for entity relationship models.
 - Use confidence values consistently: `observed` for directly supported code, docs, config, or ADR evidence; `high-confidence` for inference from multiple local evidence points; `low-confidence` only when useful but incomplete evidence must be recorded as an assumption.
 - Do not queue vague subjects, candidates without source evidence, duplicate or equivalent existing diagrams, or temporary work-item diagrams without an explicit request.
 - Use `blocked` when a diagram idea is useful but evidence is insufficient; use `skipped` only after the user declines generation.
@@ -125,6 +125,20 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Avoid duplicate overview diagrams unless `devspec/architecture/overview.md` lacks a confirmed architecture context or diagram reference entry.
 - During `/devspec.extract`, seed candidates in `devspec/architecture/artifact-queue.md` and ask only about the next unresolved candidate after higher-priority confirmations. Generate diagrams later through `/devspec.diagram` unless the user explicitly continues through the confirmed queue.
 - During `/devspec.diagram`, reuse matching queue metadata instead of reclassifying the same subject from scratch. Generate exactly one evidence-backed Mermaid artifact per run unless the user requests process-flow batch generation.
+
+## Mermaid Internal Naming and Readability Pattern
+
+- Use this pattern when `/devspec.diagram` generates or updates Mermaid content, and when `/devspec.extract` records generation guidance for queued diagram candidates.
+- Keep durable diagram file naming separate from Mermaid internal naming. `DIA-*` IDs and `dia-NNN-*` subjects name queue rows and files; Mermaid node IDs, node labels, edge labels, classes, methods, and layout must stay simple and readable.
+- Choose the best Mermaid family for the evidence: `flowchart`, `sequenceDiagram`, `classDiagram`, `stateDiagram`, `journey`, or `erDiagram`. Use `flowchart TD` for hierarchy, topology, data movement, and risk grouping. Use `flowchart LR` for interactions, relationship maps, process flows, event flows, and pipelines. Use `stateDiagram-v2` as the generated declaration for state diagrams.
+- For flowcharts, use short alphanumeric node IDs with no spaces or punctuation, such as `AuthCtrl`, `ProviderSvc`, `OrderDb`, or `JobRunner`.
+- Wrap every human-readable flowchart node label in double quotes and keep it to 1-4 words, such as `AuthCtrl["Authentication Controller"]` or `ProviderSvc["Provider Service"]`.
+- Put interaction context on edge labels, not inside node labels. Use short action phrases such as `-->|"Validates Session"|`, `-->|"CRUD Operations"|`, or `-->|"Publishes Event"|`.
+- Use `PascalCase` for classes, interfaces, and entities. Use `camelCase()` for methods or functions only when a method-level diagram is explicitly requested or the selected diagram type requires methods.
+- Avoid API and Swagger bloat in Mermaid content. Do not put HTTP verbs, route templates, status codes, DTO names, payload model names, or endpoint specs in flowchart nodes.
+- Omit standard framework wiring such as controller registration, middleware setup, dependency injection setup, CORS, logging, or configuration plumbing unless the requested diagram is specifically about startup or request-pipeline behavior.
+- Prefer domain, capability, service, component, actor, and data-store names over file names, route names, package names, and implementation noise.
+- Keep generated Mermaid valid inside a fenced `mermaid` block. If a user asks for "only Mermaid", apply that restriction to the Mermaid content itself while preserving required devspec artifact metadata outside the diagram block.
 
 ## Process Flow Extraction Pattern
 
