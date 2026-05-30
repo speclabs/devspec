@@ -85,11 +85,18 @@ flowchart TD
     Structure --> Standards["/devspec.coding-standards"]
     Standards --> Rules["/devspec.rules"]
     Rules --> Story["/devspec.story"]
-    Story --> Finalize["/devspec.finalize"]
-    Finalize --> Tasks["/devspec.tasks"]
+    Story --> Blocked{"Blocking question?"}
+    Blocked -- "yes" --> Clarify["/devspec.clarify"]
+    Clarify --> Story
+    Blocked -- "no" --> Finalize["/devspec.finalize"]
+    Finalize --> Ready{"Ready?"}
+    Ready -- "no" --> Clarify
+    Ready -- "yes" --> Tasks["/devspec.tasks"]
     Tasks --> Implement["/devspec.implement"]
     Implement --> Review["/devspec.review"]
-    Review --> Done["Done or return to implementation"]
+    Review --> Outcome{"Review outcome?"}
+    Outcome -- "changes requested" --> Implement
+    Outcome -- "approved" --> Done["Done"]
 ```
 
 ## Command Reference
