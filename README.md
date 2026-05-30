@@ -1,6 +1,6 @@
 # devspec
 
-`devspec` is a spec-driven development framework for developers using GitHub Copilot Chat.
+`devspec` is a spec-driven development framework for developers using GitHub Copilot Chat and supported AI coding agents.
 
 It helps teams define the spec before coding, keep implementation aligned to that spec, and leave a reviewable paper trail in Git.
 
@@ -22,8 +22,9 @@ Install `devspec` by copying files into the target repository. There is no packa
    - `.github/prompts/`
    - `.github/agents/`
    - `.github/skills/` when you want the bundled reusable skills
+   - `AGENTS.md`, `.claude/`, and `.cursor/` when you want multi-agent adapter support
 4. Commit the copied files.
-5. Run the foundation commands in Copilot Chat.
+5. Run the foundation commands in Copilot Chat or the configured adapter.
 6. Start the first work item with `/devspec.story`.
 
 For a new project, start here:
@@ -70,18 +71,24 @@ Use `/devspec.diagram` whenever you need an additional architecture, module, fea
 | Path | Purpose |
 | --- | --- |
 | `devspec/` | Project context, architecture, rules, templates, and work-item artifacts. |
+| `devspec/adapters/` | Provider-neutral command registry, compatibility matrix, validation flows, and enterprise governance docs. |
 | `.github/prompts/` | Slash-command prompts such as `/devspec.story` and `/devspec.review`. |
 | `.github/agents/` | Copilot agent definitions used by the slash-command workflow. |
 | `.github/skills/` | Optional reusable skills, such as exploration recovery. |
+| `AGENTS.md` | Cross-agent repository instructions for Codex, Cursor, and other tools that read `AGENTS.md`. |
+| `.claude/skills/` | Claude Code project skills that map to canonical `devspec` commands. |
+| `.cursor/rules/` | Cursor project rules that preserve `devspec` workflow and artifact behavior. |
 
-The prompt and agent folders are required. The skills folder is optional but recommended when teams want the bundled agent behaviors to travel with the repository.
+The prompt and agent folders are required for the Copilot reference adapter. The skills and adapter folders are optional but recommended when teams want the bundled behaviors to travel with the repository across multiple AI tools.
 
 Installation is complete when:
 
 - `devspec/`, `.github/prompts/`, and `.github/agents/` exist in the target repository root
 - `.github/prompts/PATTERNS.md` exists
+- `devspec/adapters/command-registry.md` exists when multi-agent adapters are copied
 - Copilot Chat recognizes `/devspec` commands such as `/devspec.projectcontext` or `/devspec.story`
 - `.github/skills/exploration-recovery/SKILL.md` exists if you copied the optional skills folder
+- `AGENTS.md`, `.claude/skills/`, or `.cursor/rules/` exist if you copied the corresponding adapter support
 
 If the commands do not appear, reopen the repository workspace in VS Code and confirm the files were copied to the target repository root rather than a nested folder.
 
@@ -132,6 +139,8 @@ flowchart TD
 ### Command boundaries
 
 - Developers invoke registered `/devspec.*` slash commands from `.github/prompts/`; agent names are workflow targets used for internal handoffs.
+- GitHub Copilot prompt and agent files are the reference implementation. Adapter files for Claude Code, OpenAI Codex, Cursor, or future tools must preserve their original intent.
+- Multi-agent support is additive. Use `devspec/adapters/command-registry.md` for provider-neutral command contracts and `devspec/adapters/validation-flows.md` for enterprise acceptance flows.
 - `/devspec.extract` seeds foundation artifacts from existing repositories; the foundation commands refine and confirm those artifacts.
 - `/devspec.coding-standards` records how code should be written; `/devspec.rules` records hard constraints, governance rules, and delivery gates.
 - `/devspec.finalize` records the implementation-ready scope; `/devspec.tasks` turns that ready scope into ordered implementation tasks.
@@ -154,6 +163,7 @@ Before setup, confirm:
    - `.github/prompts/`
    - `.github/agents/`
    - `.github/skills/` when you want the bundled reusable skills
+   - `AGENTS.md`, `.claude/`, and `.cursor/` when you want multi-agent adapter support
 2. Commit the copied files.
 3. Reopen the repository in VS Code if Copilot Chat does not immediately detect the new `/devspec` commands.
 
@@ -170,13 +180,17 @@ For multi-repo work, keep one shared VS Code multi-root workspace open and recor
 
 ### Manual upgrades
 
-Do not directly overwrite project-owned artifacts during manual upgrades. Framework-owned files live under `.github/`, `devspec/**/_template/`, and support files referenced by prompts or agents. Live files such as `devspec/foundation/*.md`, `devspec/architecture/*.md`, `devspec/constitution.md`, and `devspec/glossary.md` are project-owned and should be migrated or merged.
+Do not directly overwrite project-owned artifacts during manual upgrades. Framework-owned files live under `.github/`, `devspec/**/_template/`, `devspec/adapters/`, adapter support folders, and support files referenced by prompts or agents. Live files such as `devspec/foundation/*.md`, `devspec/architecture/*.md`, `devspec/constitution.md`, and `devspec/glossary.md` are project-owned and should be migrated or merged.
 
 | Path | Owner | Upgrade action |
 | --- | --- | --- |
+| `AGENTS.md` | framework or project override | Replace only when not customized; otherwise merge |
+| `.claude/skills/` | framework | Replace or diff-apply |
+| `.cursor/rules/` | framework | Replace or diff-apply |
 | `.github/skills/` | framework | Replace or diff-apply |
 | `.github/agents/` | framework | Replace or diff-apply |
 | `.github/prompts/` | framework | Replace or diff-apply |
+| `devspec/adapters/` | framework | Replace or diff-apply |
 | `devspec/**/_template/` | framework | Replace or diff-apply |
 | `devspec/foundation/*.md` | project | Do not overwrite; migrate or merge |
 | `devspec/architecture/*.md` | project | Do not overwrite; migrate or merge |
@@ -189,6 +203,8 @@ Do not directly overwrite project-owned artifacts during manual upgrades. Framew
 These are core behaviors baked into the prompts and agents:
 
 - Foundation commands require user input or explicit confirmation when a command supports a default.
+- Existing `.github/prompts/*.prompt.md` and `.github/agents/*.agent.md` files are the canonical intent source for adapters.
+- Adapter behavior must not change command purpose, required inputs, output artifacts, status values, handoff order, gates, or recovery behavior.
 - `/devspec.story` requires user input.
 - Later work-item commands accept optional additive input.
 - Ask one clarification question at a time.
@@ -254,6 +270,26 @@ Set thinking effort in the VS Code model picker. Prefer **High** for best qualit
 | `devspec.diagram` | High |
 
 Use **Medium** for `devspec.story` or `devspec.clarify` only for simple single-repo projects with low coordination risk.
+
+## Multi-agent enterprise support
+
+`devspec` supports additional AI coding tools through adapters. The Copilot prompt and agent files remain the protected baseline; adapters are thin wrappers that map each tool to the same command registry and Git-tracked artifacts.
+
+| Adapter | Files | Use |
+| --- | --- | --- |
+| GitHub Copilot | `.github/prompts/`, `.github/agents/` | Native `/devspec.*` slash-command implementation and reference behavior. |
+| Claude Code | `.claude/skills/devspec-*/SKILL.md` | Project skills for invoking canonical `devspec` commands from Claude Code. |
+| OpenAI Codex | `AGENTS.md`, `devspec/adapters/codex.md` | Repository instructions and Codex-specific usage guidance. |
+| Cursor | `.cursor/rules/devspec-workflow.mdc`, `AGENTS.md` | Project rules and shared fallback instructions for Cursor workflows. |
+
+Use these adapter docs when operating in an enterprise environment:
+
+- `devspec/adapters/command-registry.md`: canonical command contracts
+- `devspec/adapters/compatibility-matrix.md`: platform capability and limitation tracking
+- `devspec/adapters/validation-flows.md`: new repository, existing repository, story, and cross-tool recovery acceptance flows
+- `devspec/adapters/enterprise-governance.md`: model, permission, provider, secret, audit, and approval guidance
+
+Enterprise readiness requires both foundation flows and one full story lifecycle to pass for every supported adapter.
 
 ## Foundation workflow
 
@@ -853,6 +889,21 @@ Holds project-operational context and constraints.
   Manually maintained provider intake policy for external systems such as GitHub, Jira, or Azure DevOps.
 - `rules.md`
   Hard constraints, forbidden patterns, compliance rules, governance, and delivery gates.
+
+### `devspec/adapters/`
+
+Holds provider-neutral multi-agent support artifacts.
+
+- `command-registry.md`
+  Canonical command contracts for Copilot, Claude Code, Codex, Cursor, and future adapters.
+- `compatibility-matrix.md`
+  Platform capability, limitation, permission, telemetry, and MCP support tracking.
+- `validation-flows.md`
+  Enterprise acceptance checklists for new repository, existing repository, story lifecycle, and cross-tool recovery validation.
+- `enterprise-governance.md`
+  Operating guidance for model allowlists, tool permissions, provider access, secrets, audit evidence, security work, and approvals.
+- `codex-skills/devspec-workflow/SKILL.md`
+  Optional starter template for installing a reusable Codex workflow skill.
 
 ### `devspec/architecture/`
 
