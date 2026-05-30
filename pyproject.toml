@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "devspec"
+version = "0.1.0"
+description = "Installer and synchronizer CLI for the devspec workflow framework."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+  { name = "devspec contributors" }
+]
+keywords = ["ai", "agents", "developer-tools", "workflow", "spec-driven-development"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development",
+]
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "pytest>=8.0",
+]
+
+[project.scripts]
+devspec = "devspec_installer.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/devspec_installer"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"AGENTS.md" = "src/devspec_installer/payload/AGENTS.md"
+"GEMINI.md" = "src/devspec_installer/payload/GEMINI.md"
+"README.md" = "src/devspec_installer/payload/README.md"
+"docs" = "src/devspec_installer/payload/docs"
+"devspec" = "src/devspec_installer/payload/devspec"
+".github" = "src/devspec_installer/payload/.github"
+".claude" = "src/devspec_installer/payload/.claude"
+".cursor" = "src/devspec_installer/payload/.cursor"
+".gemini" = "src/devspec_installer/payload/.gemini"
+".agents" = "src/devspec_installer/payload/.agents"
+"packaging/devspec-profiles.json" = "src/devspec_installer/payload/packaging/devspec-profiles.json"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/tests",
+  "/scripts",
+  "/packaging",
+  "/.github",
+  "/.claude",
+  "/.cursor",
+  "/.gemini",
+  "/.agents",
+  "/devspec",
+  "/docs",
+  "/AGENTS.md",
+  "/GEMINI.md",
+  "/README.md",
+  "/LICENSE",
+  "/pyproject.toml",
+]

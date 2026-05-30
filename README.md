@@ -13,31 +13,30 @@ Use it when you want agents to follow the same workflow for:
 
 ## Quick Start
 
-Install by copying files into the target repository. There is no package manager or CLI installer yet.
+Install with the `devspec` CLI. The recommended one-off path is `uvx`, which avoids a permanent global install and works well on machines where developers cannot write to shared PATH folders.
 
 For install, workflow, AI coding agent, multi-repo, provider, validation, and upgrade examples, see [`docs/how-to/README.md`](docs/how-to/README.md).
 
 1. Open the target repository in VS Code or the selected AI coding tool.
-2. Copy the core framework folders into the repository root:
-   - `devspec/`
-   - `.github/prompts/`
-   - `.github/agents/`
-3. Copy AI coding agent support files as needed:
+2. Install all supported adapter files into the repository:
 
-   | Tool | Copy |
-   | --- | --- |
-   | GitHub Copilot | `.github/skills/` when you want bundled reusable skills |
-   | Claude Code | `.claude/` |
-   | OpenAI Codex | `AGENTS.md` |
-   | Cursor | `AGENTS.md`, `.cursor/` |
-   | Gemini CLI | `GEMINI.md`; optional `.gemini/` for native `/devspec:*` shortcuts |
-   | Google Antigravity | `AGENTS.md`, `.agents/` |
+   ```text
+   uvx devspec init --target . --profile all --repo-state existing
+   ```
 
-   Copy only the rows for tools your team uses.
+   Use `--repo-state new` for a new repository.
+
+3. Validate the install:
+
+   ```text
+   uvx devspec doctor --target . --profile all
+   ```
 
 4. Commit the copied files.
 5. Run the foundation flow for a new or existing repository.
 6. Start the first work item.
+
+Manual copy remains supported as a fallback when package managers are blocked. Copy the framework folders listed in [Manual Copy Fallback](#manual-copy-fallback), then commit the copied files.
 
 For a new project:
 
@@ -166,6 +165,31 @@ Related docs:
 | `GEMINI.md` | Gemini-native repository context. |
 | `.claude/`, `.cursor/`, `.gemini/`, `.agents/` | Optional adapter support. |
 
+## Manual Copy Fallback
+
+Use manual copy only when the CLI, `uvx`, package managers, and release ZIP automation are blocked. Copy these core files and folders from the `devspec` release into the target repository root:
+
+```text
+devspec/
+.github/prompts/
+.github/agents/
+AGENTS.md
+docs/how-to/
+```
+
+Then copy only the adapter files your team uses:
+
+| Tool | Additional files |
+| --- | --- |
+| GitHub Copilot | `.github/skills/` |
+| Claude Code | `.claude/` |
+| OpenAI Codex | No extra files beyond `AGENTS.md` |
+| Cursor | `.cursor/` |
+| Gemini CLI | `GEMINI.md`, `.gemini/` |
+| Google Antigravity | `.agents/` |
+
+Do not copy this framework repository's root `README.md` over a target project's README. Keep credentials, provider tokens, local auth files, and personal settings outside copied framework files.
+
 ## Operating Rules
 
 - Keep `.github/prompts/*.prompt.md` and `.github/agents/*.agent.md` as the protected reference contracts.
@@ -222,6 +246,14 @@ devspec/adapters/validation-flows.md
 
 ## Upgrade Notes
 
+Use the CLI to inspect and apply framework upgrades:
+
+```text
+devspec diff --target .
+devspec sync --target . --profile all --dry-run
+devspec sync --target . --profile all
+```
+
 Framework-owned files may be replaced or diff-applied during upgrades:
 
 - `.github/prompts/`
@@ -245,12 +277,24 @@ Project-owned files should be migrated or merged, not overwritten:
 
 ## Recommended Adoption
 
-1. Install into one target repository.
+1. Install into one target repository with `uvx devspec init --target . --profile all --repo-state existing`.
 2. Run the foundation flow.
 3. Complete one real feature work item.
 4. Complete one real bug work item.
 5. Add security-vulnerability flow validation if relevant.
 6. Adjust foundation docs based on what the first runs teach the team.
+
+## Deployment Development
+
+When changing the installer, profile manifest, package metadata, or release automation, run:
+
+```text
+uv run pytest
+powershell -ExecutionPolicy Bypass -File scripts/test-local-install.ps1
+bash scripts/test-local-install.sh
+```
+
+Update `packaging/devspec-profiles.json` whenever adapter files are added, removed, or moved.
 
 ## License
 

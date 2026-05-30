@@ -1,13 +1,16 @@
 # devspec How-To
 
-Use this manual after copying `devspec` into a target repository. It gives developers copy-ready examples for installation, foundation setup, work-item delivery, multi-agent usage, multi-repo systems, provider resolution, adapter validation, and framework upgrades.
+Use this manual after installing `devspec` into a target repository. It gives developers copy-ready examples for installation, foundation setup, work-item delivery, multi-agent usage, multi-repo systems, provider resolution, adapter validation, and framework upgrades.
 
 This guide is practical usage documentation. The provider-neutral source of truth for command purpose, required input, outputs, mutation level, and handoff remains `devspec/adapters/command-registry.md`.
 
 ## Contents
 
 - [Install devspec](#install-devspec)
+- [Manual Copy Fallback](#manual-copy-fallback)
+- [Install Profiles](#install-profiles)
 - [AI Coding Agent Setup](#ai-coding-agent-setup)
+- [Restricted Developer Machines](#restricted-developer-machines)
 - [Command Invocation by Agent](#command-invocation-by-agent)
 - [Foundation Flow for a New Repository](#foundation-flow-for-a-new-repository)
 - [Foundation Flow for an Existing Repository](#foundation-flow-for-an-existing-repository)
@@ -19,24 +22,81 @@ This guide is practical usage documentation. The provider-neutral source of trut
 - [Validation](#validation)
 - [Upgrades](#upgrades)
 - [Troubleshooting](#troubleshooting)
+- [Deployment Contributor Checks](#deployment-contributor-checks)
 
 ## Install devspec
 
-Copy the framework files into the target repository. There is no package manager or CLI installer yet.
+Install the framework files into the target repository with the `devspec` CLI. The recommended path is `uvx` because it can run the installer as a one-off command without a permanent global install.
 
 1. Open the target repository in VS Code or the selected AI coding tool.
-2. Copy the core framework folders into the repository root:
+2. Run the installer:
 
    ```text
-   devspec/
-   .github/prompts/
-   .github/agents/
+   uvx devspec init --target . --profile all --repo-state existing
    ```
 
-3. Copy the AI coding agent support files from the setup table for the tools your team uses.
+   Use `--repo-state new` for a new repository.
+
+3. Validate the install:
+
+   ```text
+   uvx devspec doctor --target . --profile all
+   ```
+
 4. Commit the copied files.
 5. Run the foundation flow for a new or existing repository.
 6. Start the first work item.
+
+Other supported install paths:
+
+| Method | Command or action | Use when |
+| --- | --- | --- |
+| `uvx` one-off | `uvx devspec init --target . --profile all --repo-state existing` | Preferred path, especially when global PATH writes are restricted. |
+| `uv tool install` | `uv tool install devspec` then `devspec init --target . --profile all --repo-state existing` | Developers want a persistent local command. |
+| GitHub Release ZIP | Download the framework ZIP, verify checksums, and copy selected files. | Package indexes or installers are blocked. |
+| Homebrew | `brew install <tap>/devspec/devspec` | macOS or Linux developers use Homebrew. |
+| WinGet | `winget install <publisher>.devspec` | Windows developers use approved WinGet packages. |
+| Manual copy | Copy the core files and selected adapter files in [Manual Copy Fallback](#manual-copy-fallback). | No package manager is available. |
+
+## Manual Copy Fallback
+
+Use manual copy only when the CLI, `uvx`, package managers, and release ZIP automation are blocked. Copy these core files and folders from the `devspec` release into the target repository root:
+
+```text
+devspec/
+.github/prompts/
+.github/agents/
+AGENTS.md
+docs/how-to/
+```
+
+Then copy only the adapter files your team uses:
+
+| Tool | Additional files |
+| --- | --- |
+| GitHub Copilot | `.github/skills/` |
+| Claude Code | `.claude/` |
+| OpenAI Codex | No extra files beyond `AGENTS.md` |
+| Cursor | `.cursor/` |
+| Gemini CLI | `GEMINI.md`, `.gemini/` |
+| Google Antigravity | `.agents/` |
+
+Do not copy this framework repository's root `README.md` over a target project's README. Keep credentials, provider tokens, local auth files, and personal settings outside copied framework files.
+
+## Install Profiles
+
+Choose the smallest profile that matches the tools your team uses.
+
+| Profile | Installs |
+| --- | --- |
+| `core` | `devspec/`, `.github/prompts/`, `.github/agents/`, `AGENTS.md`, and docs. |
+| `copilot` | Core plus `.github/skills/`. |
+| `codex` | Core Codex-ready instructions through `AGENTS.md` and adapter docs. |
+| `cursor` | Core plus `.cursor/`. |
+| `claude` | Core plus `.claude/`. |
+| `gemini` | Core plus `GEMINI.md` and `.gemini/`. |
+| `antigravity` | Core plus `.agents/`. |
+| `all` | Every supported adapter profile. Recommended for multi-agent teams. |
 
 ## AI Coding Agent Setup
 
@@ -50,6 +110,24 @@ Copy the framework files into the target repository. There is no package manager
 | Google Antigravity | `AGENTS.md`, `.agents/` | Workspace rules and skills expose `/devspec-*` command-style invocations. |
 
 Copy only the rows for tools your team uses. Keep credentials, provider tokens, personal settings, and local auth outside prompt, agent, adapter, and artifact files.
+
+## Restricted Developer Machines
+
+Use `uvx` when developers cannot write to shared PATH folders:
+
+```text
+uvx devspec init --target . --profile all --repo-state existing
+uvx devspec doctor --target . --profile all
+```
+
+If `uvx` is unavailable but `uv` is approved, install into the user's local tool directory:
+
+```text
+uv tool install devspec
+devspec init --target . --profile all --repo-state existing
+```
+
+If all package managers are blocked, use the GitHub Release ZIP or [Manual Copy Fallback](#manual-copy-fallback). Keep credentials, local auth, and provider tokens outside copied prompt, agent, adapter, and artifact files.
 
 ## Command Invocation by Agent
 
@@ -385,6 +463,14 @@ For cross-tool recovery, start a command in one AI coding agent, stop after a re
 
 ## Upgrades
 
+Use the CLI first so framework-owned and project-owned files are separated before any write:
+
+```text
+devspec diff --target .
+devspec sync --target . --profile all --dry-run
+devspec sync --target . --profile all
+```
+
 Framework-owned files may be replaced or diff-applied during upgrades:
 
 ```text
@@ -415,18 +501,48 @@ devspec/glossary.md
 
 During an upgrade:
 
-1. Diff framework-owned files against the new version.
+1. Run `devspec diff --target .`.
 2. Preserve local adapter limitations and enterprise policy notes when they are still true.
-3. Merge project-owned artifacts manually.
-4. Re-run the validation flows for every AI coding agent the team uses.
+3. Run `devspec sync --target . --profile <profile> --dry-run`.
+4. Apply the sync after review.
+5. Merge project-owned artifacts manually when needed.
+6. Re-run the validation flows for every AI coding agent the team uses.
 
 ## Troubleshooting
 
 | Problem | What to do |
 | --- | --- |
+| `devspec` is not found after installation. | Prefer `uvx devspec ...` for one-off usage, or verify the user-local tool directory is on PATH. |
+| Package managers are blocked by corporate policy. | Use the GitHub Release ZIP or [Manual Copy Fallback](#manual-copy-fallback), then run the normal foundation flow. |
+| `devspec init` reports existing file conflicts. | Review the files, keep local changes when intentional, and use `--force` only for reviewed framework-owned files. |
+| `devspec diff` reports a profile mismatch. | Re-run with the intended profile or update the installation with `devspec sync --target . --profile <profile> --dry-run`. |
+| `devspec doctor` reports missing adapter files. | Reinstall or sync with the adapter profile your team uses. |
 | The AI coding agent does not recognize `/devspec.extract`. | Use the command as chat intent, such as `Run /devspec.extract for the current project root.` |
 | A command tries to continue from chat history. | Tell it to recover from Git-tracked `devspec/` artifacts first. |
 | A work item cannot move to `/devspec.tasks`. | Check whether `finalize.md` is marked `ready`; resolve blockers first. |
 | `/devspec.implement` wants to edit the wrong repository. | Check `devspec/foundation/codebase-structure.md` repository configuration and access requirements. |
 | Provider lookup fails. | Classify the failure as not found, access denied, malformed input, or integration unavailable; use manual intake only after explicit user choice. |
 | Diagram generation creates duplicate subjects. | Check `devspec/architecture/artifact-queue.md` and existing files under `devspec/architecture/diagrams/` before creating a new diagram. |
+
+## Deployment Contributor Checks
+
+Run these checks before changing installer behavior, package metadata, release workflows, or profile mappings:
+
+```text
+uv run pytest
+powershell -ExecutionPolicy Bypass -File scripts/test-local-install.ps1
+bash scripts/test-local-install.sh
+```
+
+When adapter files are added, removed, or moved, update:
+
+```text
+packaging/devspec-profiles.json
+```
+
+Then verify the affected profile:
+
+```text
+uv run devspec init --target <temp> --profile <profile> --repo-state existing
+uv run devspec doctor --target <temp> --profile <profile>
+```

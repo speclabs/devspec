@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "profiles": {
+    "core": {
+      "description": "Core devspec framework, Copilot reference prompts and agents, shared instructions, and docs.",
+      "includes": [
+        "devspec/**",
+        ".github/prompts/**",
+        ".github/agents/**",
+        "AGENTS.md",
+        "docs/**"
+      ]
+    },
+    "copilot": {
+      "description": "GitHub Copilot support, including bundled reusable skills.",
+      "extends": ["core"],
+      "includes": [
+        ".github/skills/**"
+      ]
+    },
+    "codex": {
+      "description": "OpenAI Codex support through AGENTS.md and adapter guidance.",
+      "extends": ["core"],
+      "includes": []
+    },
+    "cursor": {
+      "description": "Cursor project rules plus shared AGENTS.md fallback guidance.",
+      "extends": ["core"],
+      "includes": [
+        ".cursor/**"
+      ]
+    },
+    "claude": {
+      "description": "Claude Code project skills for devspec workflows.",
+      "extends": ["core"],
+      "includes": [
+        ".claude/**"
+      ]
+    },
+    "gemini": {
+      "description": "Gemini CLI context and native /devspec:* command wrappers.",
+      "extends": ["core"],
+      "includes": [
+        "GEMINI.md",
+        ".gemini/**"
+      ]
+    },
+    "antigravity": {
+      "description": "Google Antigravity workspace rule and skill wrappers.",
+      "extends": ["core"],
+      "includes": [
+        ".agents/**"
+      ]
+    },
+    "all": {
+      "description": "All supported devspec adapter files.",
+      "extends": ["copilot", "codex", "cursor", "claude", "gemini", "antigravity"],
+      "includes": []
+    }
+  }
+}
