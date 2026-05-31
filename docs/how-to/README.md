@@ -7,7 +7,7 @@ This guide is practical usage documentation. The provider-neutral source of trut
 ## Contents
 
 - [Install devspec](#install-devspec)
-- [Manual Copy Fallback](#manual-copy-fallback)
+- [Setup Guides](setup/README.md)
 - [Install Profiles](#install-profiles)
 - [AI Coding Agent Setup](#ai-coding-agent-setup)
 - [Restricted Developer Machines](#restricted-developer-machines)
@@ -26,62 +26,27 @@ This guide is practical usage documentation. The provider-neutral source of trut
 
 ## Install devspec
 
-Install the framework files into the target repository with the `devspec` CLI. The recommended path is `uvx` because it can run the installer as a one-off command without a permanent global install.
+Install the framework files into the target repository with the `devspec` CLI. The recommended first-time path is `uvx` because it can run `devspec` as a one-off command without a permanent global install.
 
-1. Open the target repository in VS Code or the selected AI coding tool.
-2. Run the installer:
-
-   ```text
-   uvx devspec init --target . --profile all --repo-state existing
-   ```
-
-   Use `--repo-state new` for a new repository.
-
-3. Validate the install:
-
-   ```text
-   uvx devspec doctor --target . --profile all
-   ```
-
-4. Commit the copied files.
-5. Run the foundation flow for a new or existing repository.
-6. Start the first work item.
-
-Other supported install paths:
-
-| Method | Command or action | Use when |
-| --- | --- | --- |
-| `uvx` one-off | `uvx devspec init --target . --profile all --repo-state existing` | Preferred path, especially when global PATH writes are restricted. |
-| `uv tool install` | `uv tool install devspec` then `devspec init --target . --profile all --repo-state existing` | Developers want a persistent local command. |
-| GitHub Release ZIP | Download the framework ZIP, verify checksums, and copy selected files. | Package indexes or installers are blocked. |
-| Homebrew | `brew install <tap>/devspec/devspec` | macOS or Linux developers use Homebrew. |
-| WinGet | `winget install <publisher>.devspec` | Windows developers use approved WinGet packages. |
-| Manual copy | Copy the core files and selected adapter files in [Manual Copy Fallback](#manual-copy-fallback). | No package manager is available. |
-
-## Manual Copy Fallback
-
-Use manual copy only when the CLI, `uvx`, package managers, and release ZIP automation are blocked. Copy these core files and folders from the `devspec` release into the target repository root:
+Quick install for most existing repositories:
 
 ```text
-devspec/
-.github/prompts/
-.github/agents/
-AGENTS.md
-docs/how-to/
+uvx devspec init --target . --profile all --repo-state existing
+uvx devspec doctor --target . --profile all
 ```
 
-Then copy only the adapter files your team uses:
+Use `--repo-state new` for a repository that has little or no code yet. After validation, commit the copied files, run the foundation flow, then start the first work item.
 
-| Tool | Additional files |
+For step-by-step setup instructions, use:
+
+| Method | Start here |
 | --- | --- |
-| GitHub Copilot | `.github/skills/` |
-| Claude Code | `.claude/` |
-| OpenAI Codex | No extra files beyond `AGENTS.md` |
-| Cursor | `.cursor/` |
-| Gemini CLI | `GEMINI.md`, `.gemini/` |
-| Google Antigravity | `.agents/` |
+| `uvx` one-off or `uv tool install` | [uv and uvx setup](setup/uv.md) |
+| Homebrew on macOS/Linux | [Homebrew setup](setup/homebrew.md) |
+| WinGet on Windows | [WinGet setup](setup/winget.md) |
+| Manual copy fallback | [Manual copy setup](setup/manual-copy.md) |
 
-Do not copy this framework repository's root `README.md` over a target project's README. Keep credentials, provider tokens, local auth files, and personal settings outside copied framework files.
+For command-line basics, examples, and argument explanations, see [Setup Guides](setup/README.md).
 
 ## Install Profiles
 
@@ -100,7 +65,7 @@ Choose the smallest profile that matches the tools your team uses.
 
 ## AI Coding Agent Setup
 
-| AI coding agent | Copy into target repository | Notes |
+| AI coding agent | Installed files | Notes |
 | --- | --- | --- |
 | GitHub Copilot | `.github/prompts/`, `.github/agents/`; optional `.github/skills/` | Reference implementation with native `/devspec.*` prompt commands in VS Code. |
 | Claude Code | `.claude/` | Project skills expose `/devspec-*` command-style invocations. |
@@ -109,7 +74,7 @@ Choose the smallest profile that matches the tools your team uses.
 | Gemini CLI | `GEMINI.md`; optional `.gemini/` | `GEMINI.md` provides context; `.gemini/commands/devspec/*.toml` adds native `/devspec:*` shortcuts. |
 | Google Antigravity | `AGENTS.md`, `.agents/` | Workspace rules and skills expose `/devspec-*` command-style invocations. |
 
-Copy only the rows for tools your team uses. Keep credentials, provider tokens, personal settings, and local auth outside prompt, agent, adapter, and artifact files.
+Install only the profile or files for tools your team uses. Keep credentials, provider tokens, personal settings, and local auth outside prompt, agent, adapter, and artifact files.
 
 ## Restricted Developer Machines
 
@@ -127,7 +92,7 @@ uv tool install devspec
 devspec init --target . --profile all --repo-state existing
 ```
 
-If all package managers are blocked, use the GitHub Release ZIP or [Manual Copy Fallback](#manual-copy-fallback). Keep credentials, local auth, and provider tokens outside copied prompt, agent, adapter, and artifact files.
+For more detail, see [uv and uvx setup](setup/uv.md). If all package managers are blocked, use the GitHub Release ZIP or [Manual Copy Setup](setup/manual-copy.md). Keep credentials, local auth, and provider tokens outside copied prompt, agent, adapter, and artifact files.
 
 ## Command Invocation by Agent
 
@@ -513,7 +478,7 @@ During an upgrade:
 | Problem | What to do |
 | --- | --- |
 | `devspec` is not found after installation. | Prefer `uvx devspec ...` for one-off usage, or verify the user-local tool directory is on PATH. |
-| Package managers are blocked by corporate policy. | Use the GitHub Release ZIP or [Manual Copy Fallback](#manual-copy-fallback), then run the normal foundation flow. |
+| Package managers are blocked by corporate policy. | Use the GitHub Release ZIP or [Manual Copy Setup](setup/manual-copy.md), then run the normal foundation flow. |
 | `devspec init` reports existing file conflicts. | Review the files, keep local changes when intentional, and use `--force` only for reviewed framework-owned files. |
 | `devspec diff` reports a profile mismatch. | Re-run with the intended profile or update the installation with `devspec sync --target . --profile <profile> --dry-run`. |
 | `devspec doctor` reports missing adapter files. | Reinstall or sync with the adapter profile your team uses. |
