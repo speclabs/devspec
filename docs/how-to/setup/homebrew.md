@@ -123,8 +123,8 @@ devspec init --target /Users/me/code/my-app --profile all --repo-state existing
 | `--profile all` | Install or check profile. | `all` installs every supported adapter. Required for `init` and `sync`; optional for `diff` and `doctor`. |
 | `--repo-state existing` | Repo type. | Required for `init`. Use `existing` for most projects and `new` for empty or early repos. |
 | `doctor` | Validate install. | Checks that the expected files exist. |
-| `diff` | Compare files. | Shows missing, modified, stale, protected, or profile-mismatched files without writing changes. |
-| `sync` | Update framework-owned files. | Applies framework updates while preserving project-owned artifacts. |
+| `diff` | Compare files. | Shows installed/package version context, then checksum-based missing, modified, stale, protected, or profile-mismatched files without writing changes. |
+| `sync` | Update framework-owned files. | Applies framework updates using checksum comparisons while preserving project-owned artifacts. |
 | `--dry-run` | Preview a sync. | Shows what `sync` would change without writing files. |
 | `--force` | Overwrite reviewed conflicts. | Applies to `init` and `sync`; use only after reading conflict output. |
 

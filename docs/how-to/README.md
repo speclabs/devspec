@@ -428,12 +428,20 @@ For cross-tool recovery, start a command in one AI coding agent, stop after a re
 
 ## Upgrades
 
-Use the CLI first so framework-owned and project-owned files are separated before any write:
+Use the CLI first so framework-owned and project-owned files are separated before any write. Upgrade reporting is version-aware, but file decisions are checksum-driven: `devspec` reads the installed version from `devspec/.install-manifest.json`, compares it with the running package version, then uses per-file SHA-256 checksums to decide which files are missing, stale, modified, protected, or safe to write.
 
 ```text
 devspec diff --target .
 devspec sync --target . --profile all --dry-run
 devspec sync --target . --profile all
+```
+
+`diff` and `sync --dry-run` report version context before the file report:
+
+```text
+Installed version: 0.1.0
+Package version: 0.2.0
+Version status: upgrade available
 ```
 
 Framework-owned files may be replaced or diff-applied during upgrades:

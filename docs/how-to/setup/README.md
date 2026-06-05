@@ -71,8 +71,8 @@ git commit -m "Install devspec"
 | `--profile all` | Which adapter files to install or check. | `all` installs every supported AI tool integration. Use a smaller profile if your team uses only one tool. Required for `init` and `sync`; optional for `diff` and `doctor`, where it defaults to `all` or the installed manifest profile. | `all`, `core`, `copilot`, `codex`, `cursor`, `claude`, `gemini`, `antigravity` |
 | `--repo-state existing` | Whether the target repo already has code. | Required for `init`. Use `existing` for most real projects. Use `new` for a repo that has little or no code yet. | `existing`, `new` |
 | `doctor` | Validate a devspec install. | Checks whether required devspec files are present and profiles look complete. | `doctor` |
-| `diff` | Compare installed files with the packaged framework. | Shows missing, modified, stale, protected, or profile-mismatched files. It does not write files. | `devspec diff --target .` |
-| `sync` | Update framework-owned files. | Applies framework updates while preserving project-owned artifacts. Use `--dry-run` first. | `devspec sync --target . --profile all --dry-run` |
+| `diff` | Compare installed files with the packaged framework. | Shows installed/package version context, then checksum-based missing, modified, stale, protected, or profile-mismatched files. It does not write files. | `devspec diff --target .` |
+| `sync` | Update framework-owned files. | Applies framework updates using checksum comparisons while preserving project-owned artifacts. Use `--dry-run` first. | `devspec sync --target . --profile all --dry-run` |
 | `--dry-run` | Preview a sync. | Shows what `sync` would change without writing files. Only applies to `sync`. | `--dry-run` |
 | `--force` | Overwrite reviewed framework-owned conflicts. | Applies to `init` and `sync`. Use only after reading the conflict output. Do not use casually. | `--force` |
 
@@ -126,6 +126,8 @@ Preview an upgrade:
 devspec diff --target .
 devspec sync --target . --profile all --dry-run
 ```
+
+Upgrade previews show the installed version from `devspec/.install-manifest.json`, the running package version, and a checksum-based file plan.
 
 Apply an upgrade after reviewing the dry run:
 

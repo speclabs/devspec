@@ -37,6 +37,14 @@ class CopyPlan:
     skipped: list[str]
 
 
+@dataclass(frozen=True)
+class VersionStatus:
+    installed: str | None
+    package: str
+    status: str
+    label: str
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -128,6 +136,7 @@ def cmd_diff(args: argparse.Namespace) -> int:
     manifest = read_manifest(target)
     report = diff_files(files, target, manifest, profile)
 
+    print_version_status(version_status(manifest))
     print_diff_report(report)
     return 1 if report["missing"] or report["modified"] or report["stale"] or report["profile"] else 0
 
@@ -140,17 +149,20 @@ def cmd_sync(args: argparse.Namespace) -> int:
 
     plan = create_sync_plan(files, target, manifest, force=args.force)
     if plan.conflicts:
+        print_version_status(version_status(manifest))
         print_report("Conflicts", plan.conflicts)
         print("No files were written. Run with --dry-run first, then use --force only for reviewed framework-owned files.")
         return 1
 
     if args.dry_run:
+        print_version_status(version_status(manifest))
         print(f"Dry run for devspec profile '{args.profile}' in {target}")
         print(f"Files that would be written: {len(plan.files)}")
     else:
         written = write_files(plan.files, target, dry_run=False)
         repo_state = manifest.get("repo_state", "existing") if manifest else "existing"
         write_manifest(target, build_manifest(args.profile, repo_state, files))
+        print_version_status(version_status(manifest))
         print(f"Synchronized devspec profile '{args.profile}' in {target}")
         print(f"Files written: {written}")
     if plan.skipped:
@@ -173,12 +185,19 @@ def cmd_doctor(args: argparse.Namespace) -> int:
             errors.append(f"profile '{profile}' references missing payload file: {item.path}")
 
     manifest = read_manifest(target)
+    status = version_status(manifest)
     if manifest is None:
         warnings.append(f"install manifest is missing: {MANIFEST_PATH}")
     else:
         manifest_profile = manifest.get("profile")
         if manifest_profile and manifest_profile != profile:
             warnings.append(f"profile mismatch: manifest has '{manifest_profile}', doctor checked '{profile}'")
+    if status.status == "unknown":
+        warnings.append("manifest devspec_version is missing or invalid")
+    elif status.status == "upgrade":
+        warnings.append(f"installed devspec version '{status.installed}' is older than package version '{status.package}'")
+    elif status.status == "downgrade":
+        warnings.append(f"installed devspec version '{status.installed}' is newer than package version '{status.package}'")
 
     for item in files:
         if not (target / as_local_path(item.path)).exists():
@@ -415,6 +434,36 @@ def profile_from_manifest(target: Path) -> str | None:
     return profile if isinstance(profile, str) else None
 
 
+def version_status(manifest: dict | None) -> VersionStatus:
+    if manifest is None:
+        return VersionStatus(installed=None, package=__version__, status="not-installed", label="not installed")
+
+    installed = manifest.get("devspec_version")
+    if not isinstance(installed, str):
+        return VersionStatus(installed=None, package=__version__, status="unknown", label="unknown")
+
+    installed_version = parse_semver(installed)
+    package_version = parse_semver(__version__)
+    if installed_version is None or package_version is None:
+        return VersionStatus(installed=installed, package=__version__, status="unknown", label="unknown")
+    if installed_version == package_version:
+        return VersionStatus(installed=installed, package=__version__, status="same", label="up to date")
+    if installed_version < package_version:
+        return VersionStatus(installed=installed, package=__version__, status="upgrade", label="upgrade available")
+    return VersionStatus(installed=installed, package=__version__, status="downgrade", label="newer than package")
+
+
+def parse_semver(value: str) -> tuple[int, int, int] | None:
+    parts = value.split(".")
+    if len(parts) != 3:
+        return None
+    try:
+        parsed = tuple(int(part) for part in parts)
+    except ValueError:
+        return None
+    return parsed if all(part >= 0 for part in parsed) else None
+
+
 def diff_files(files: list[PayloadFile], target: Path, manifest: dict | None, profile: str) -> dict[str, list[str]]:
     report = {"missing": [], "modified": [], "stale": [], "protected": [], "profile": []}
     manifest_files = {entry["path"]: entry for entry in (manifest or {}).get("files", []) if isinstance(entry, dict) and "path" in entry}
@@ -512,6 +561,16 @@ def expanded_profile_names(payload: Payload, profile: str) -> set[str]:
 
 def strip_markdown_code(value: str) -> str:
     return value.strip().strip("`")
+
+
+def print_version_status(status: VersionStatus) -> None:
+    if status.status == "not-installed":
+        installed = "not installed"
+    else:
+        installed = status.installed or "unknown"
+    print(f"Installed version: {installed}")
+    print(f"Package version: {status.package}")
+    print(f"Version status: {status.label}")
 
 
 def print_diff_report(report: dict[str, list[str]]) -> None:
