@@ -43,7 +43,7 @@ jobs:
         run: |
           mkdir -p dist/framework
           zip -r "dist/devspec-framework-${GITHUB_REF_NAME:-local}.zip" \
-            AGENTS.md GEMINI.md README.md docs devspec .github .claude .cursor .gemini .agents packaging/devspec-profiles.json
+            AGENTS.md GEMINI.md README.md devspec .github .claude .cursor .gemini .agents packaging/devspec-profiles.json
           sha256sum dist/* > dist/checksums.txt
 
       - name: Upload artifacts

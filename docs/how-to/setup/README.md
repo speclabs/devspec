@@ -154,7 +154,6 @@ devspec/
 .github/prompts/
 .github/agents/
 AGENTS.md
-docs/how-to/
 ```
 
 If you installed `--profile all`, it should also include adapter folders such as `.claude/`, `.cursor/`, `.gemini/`, and `.agents/`.

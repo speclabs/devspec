@@ -46,7 +46,6 @@ packages = ["src/devspec_installer"]
 "AGENTS.md" = "src/devspec_installer/payload/AGENTS.md"
 "GEMINI.md" = "src/devspec_installer/payload/GEMINI.md"
 "README.md" = "src/devspec_installer/payload/README.md"
-"docs" = "src/devspec_installer/payload/docs"
 "devspec" = "src/devspec_installer/payload/devspec"
 ".github" = "src/devspec_installer/payload/.github"
 ".claude" = "src/devspec_installer/payload/.claude"

@@ -17,6 +17,8 @@ def test_profiles_resolve_core_and_all_payloads() -> None:
     assert ".github/agents/devspec.story.agent.md" in core_paths
     assert "AGENTS.md" in core_paths
     assert "README.md" not in core_paths
+    assert "docs/how-to/README.md" not in core_paths
+    assert "docs/how-to/README.md" not in all_paths
     assert ".claude/skills/devspec-story/SKILL.md" in all_paths
     assert ".gemini/commands/devspec/story.toml" in all_paths
     assert ".agents/skills/devspec-story.md" in all_paths

@@ -54,7 +54,7 @@ Choose the smallest profile that matches the tools your team uses.
 
 | Profile | Installs |
 | --- | --- |
-| `core` | `devspec/`, `.github/prompts/`, `.github/agents/`, `AGENTS.md`, and docs. |
+| `core` | `devspec/`, `.github/prompts/`, `.github/agents/`, and `AGENTS.md`. |
 | `copilot` | Core plus `.github/skills/`. |
 | `codex` | Core Codex-ready instructions through `AGENTS.md` and adapter docs. |
 | `cursor` | Core plus `.cursor/`. |
@@ -450,7 +450,6 @@ AGENTS.md
 GEMINI.md
 devspec/adapters/
 devspec/**/_template/
-docs/how-to/
 ```
 
 Project-owned files should be migrated or merged, not overwritten:

@@ -2,13 +2,12 @@
   "version": 1,
   "profiles": {
     "core": {
-      "description": "Core devspec framework, Copilot reference prompts and agents, shared instructions, and docs.",
+      "description": "Core devspec framework, Copilot reference prompts and agents, and shared instructions.",
       "includes": [
         "devspec/**",
         ".github/prompts/**",
         ".github/agents/**",
-        "AGENTS.md",
-        "docs/**"
+        "AGENTS.md"
       ]
     },
     "copilot": {

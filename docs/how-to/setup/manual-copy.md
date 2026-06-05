@@ -35,7 +35,6 @@ devspec/
 .github/prompts/
 .github/agents/
 AGENTS.md
-docs/how-to/
 ```
 
 Then copy only the adapter files your team uses:
@@ -96,7 +95,6 @@ devspec/
 .agents/
 AGENTS.md
 GEMINI.md
-docs/how-to/
 ```
 
 Manual copy for GitHub Copilot only:
@@ -107,7 +105,6 @@ devspec/
 .github/agents/
 .github/skills/
 AGENTS.md
-docs/how-to/
 ```
 
 Manual copy for Codex only:
@@ -117,7 +114,6 @@ devspec/
 .github/prompts/
 .github/agents/
 AGENTS.md
-docs/how-to/
 ```
 
 Manual copy for Cursor only:
@@ -128,7 +124,6 @@ devspec/
 .github/agents/
 .cursor/
 AGENTS.md
-docs/how-to/
 ```
 
 ## Argument Reference
@@ -153,6 +148,6 @@ Manual copy does not use CLI arguments. If you later use the CLI, these are the 
 | Problem | What to try |
 | --- | --- |
 | You are not sure what to copy. | Start with the core list, then add only the row for your AI coding tool. |
-| You accidentally copied the framework README over your project README. | Restore the project README from Git, then copy only `docs/how-to/`. |
+| You accidentally copied the framework README over your project README. | Restore the project README from Git, then copy only the framework files listed above. |
 | Git shows too many unrelated files. | Check that you copied only the listed files and did not include `.git/`, `.venv/`, `dist/`, or build output. |
 | The AI tool does not recognize commands. | Use the command as chat intent, for example `Run /devspec.extract for this repository.` |
