@@ -506,6 +506,15 @@ powershell -ExecutionPolicy Bypass -File scripts/test-local-install.ps1
 bash scripts/test-local-install.sh
 ```
 
+Use provider-specific GitHub workflow filenames and display names. The current Python package workflows are:
+
+```text
+.github/workflows/python-package-ci.yml
+.github/workflows/python-package-publish.yml
+```
+
+Future package-provider workflows should follow the same pattern, such as `homebrew-package-publish.yml`, `winget-package-publish.yml`, or `npm-package-publish.yml`.
+
 When adapter files are added, removed, or moved, update:
 
 ```text
