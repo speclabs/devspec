@@ -2,7 +2,7 @@
 
 Use this guide on Windows when your machine allows approved WinGet packages. WinGet is Windows' package installer for command-line and desktop tools.
 
-The WinGet package identifier is a placeholder until the public package is finalized.
+The planned public WinGet package identifier is `SpecLabs.Devspec`. Until Microsoft approves the package submission, use `uvx devspec ...` or manual copy as the fallback.
 
 ## Before You Start
 
@@ -31,7 +31,7 @@ cd D:\code\my-app
 Install the CLI:
 
 ```text
-winget install <publisher>.devspec
+winget install SpecLabs.Devspec
 ```
 
 Install devspec files into your repository:
@@ -122,7 +122,7 @@ devspec init --target D:\code\my-app --profile all --repo-state existing
 | Argument | Meaning | Beginner explanation |
 | --- | --- | --- |
 | `winget --version` | Print the WinGet version. | Confirms WinGet is available on the machine. |
-| `winget install <publisher>.devspec` | Install the devspec CLI. | The `<publisher>` placeholder will become the real WinGet publisher/package ID after release. |
+| `winget install SpecLabs.Devspec` | Install the devspec CLI. | Installs the approved WinGet package after Microsoft accepts the package submission. |
 | `version` | Print the devspec CLI version. | Use this to confirm the command runs. It does not change files. |
 | `init` | Install devspec files. | Copies framework files into your repo. |
 | `--target .` | Target repo folder. | `.` means the folder your terminal is currently in. |
@@ -139,7 +139,7 @@ devspec init --target D:\code\my-app --profile all --repo-state existing
 | Problem | What to try |
 | --- | --- |
 | `winget` is not found. | Use Windows App Installer or ask your IT team whether WinGet is disabled. |
-| `<publisher>.devspec` is not found. | The package ID may still be a placeholder. Use `uvx devspec ...` until the package is published. |
+| `SpecLabs.Devspec` is not found. | The package may still be awaiting Microsoft approval. Use `uvx devspec ...` until the package is published. |
 | `devspec` is not found after install. | Close and reopen PowerShell so PATH changes reload. |
 | PowerShell blocks a command. | Ask your team about execution policy or approved package sources. |
 | Corporate software policy blocks WinGet. | Use [uv and uvx](uv.md) if allowed, or [manual copy](manual-copy.md). |

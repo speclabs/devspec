@@ -506,14 +506,30 @@ powershell -ExecutionPolicy Bypass -File scripts/test-local-install.ps1
 bash scripts/test-local-install.sh
 ```
 
-Use provider-specific GitHub workflow filenames and display names. The current Python package workflows are:
+Use provider-specific GitHub workflow filenames and display names. The current package-provider workflows are:
 
 ```text
 .github/workflows/python-package-ci.yml
 .github/workflows/python-package-publish.yml
+.github/workflows/winget-package-publish.yml
 ```
 
-Future package-provider workflows should follow the same pattern, such as `homebrew-package-publish.yml`, `winget-package-publish.yml`, or `npm-package-publish.yml`.
+Future package-provider workflows should follow the same pattern, such as `homebrew-package-publish.yml` or `npm-package-publish.yml`.
+
+For WinGet releases, publish the Windows portable executable from GitHub Releases and submit the generated manifest to `microsoft/winget-pkgs`:
+
+```text
+dist/winget/devspec.exe
+dist/winget/devspec.exe.sha256
+dist/winget/devspec.yaml
+```
+
+Validate the generated manifest on Windows before submission:
+
+```text
+winget validate <path-to-generated-devspec.yaml>
+winget install --manifest <path-to-generated-devspec.yaml>
+```
 
 When adapter files are added, removed, or moved, update:
 
