@@ -1,0 +1,103 @@
+name: WinGet Package Publish
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  winget-package:
+    name: Build WinGet portable package
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run tests
+        run: uv run pytest
+
+      - name: Build Python wheel
+        run: uv build
+
+      - name: Build devspec.exe
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $wheel = Get-ChildItem dist -Filter "*.whl" | Select-Object -First 1
+          if (-not $wheel) {
+            throw "No wheel found in dist."
+          }
+
+          uv venv .venv-winget --python 3.12 --clear
+          uv pip install --python .\.venv-winget\Scripts\python.exe "pyinstaller>=6.0" $wheel.FullName
+
+          New-Item -ItemType Directory -Force -Path build\winget | Out-Null
+          @(
+            "from devspec_installer.cli import main"
+            ""
+            "raise SystemExit(main())"
+          ) | Set-Content -Path build\winget\devspec-entry.py -Encoding UTF8
+
+          .\.venv-winget\Scripts\pyinstaller.exe `
+            --noconfirm `
+            --clean `
+            --onefile `
+            --name devspec `
+            --distpath dist\winget `
+            --workpath build\pyinstaller `
+            --specpath build\pyinstaller `
+            --collect-data devspec_installer `
+            build\winget\devspec-entry.py
+
+      - name: Smoke test devspec.exe
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $target = Join-Path $env:RUNNER_TEMP "devspec-winget-smoke"
+          New-Item -ItemType Directory -Force -Path $target | Out-Null
+
+          .\dist\winget\devspec.exe version
+          .\dist\winget\devspec.exe init --target $target --profile core --repo-state existing
+          .\dist\winget\devspec.exe doctor --target $target --profile core
+
+      - name: Compute devspec.exe SHA256
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $hash = (Get-FileHash dist\winget\devspec.exe -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  devspec.exe" | Set-Content -Path dist\winget\devspec.exe.sha256 -Encoding ASCII
+
+          $manifest = Get-Content packaging\winget\devspec.yaml -Raw
+          $manifest = $manifest.Replace("REPLACE_WITH_RELEASE_SHA256", $hash)
+          $manifest | Set-Content -Path dist\winget\devspec.yaml -Encoding UTF8
+
+          Write-Host "devspec.exe SHA256: $hash"
+
+      - name: Upload WinGet package artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: devspec-winget-package
+          path: |
+            dist/winget/devspec.exe
+            dist/winget/devspec.exe.sha256
+            dist/winget/devspec.yaml
+
+      - name: Attach WinGet package artifacts
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/winget/devspec.exe
+            dist/winget/devspec.exe.sha256
+            dist/winget/devspec.yaml

@@ -1,14 +1,14 @@
-PackageIdentifier: OWNER.devspec
+PackageIdentifier: SpecLabs.Devspec
 PackageVersion: 0.1.0
 PackageLocale: en-US
-Publisher: devspec contributors
+Publisher: SpecLabs
 PackageName: devspec
 License: Apache-2.0
 ShortDescription: Installer and synchronizer CLI for the devspec workflow framework.
 Installers:
   - Architecture: x64
     InstallerType: portable
-    InstallerUrl: https://github.com/OWNER/devspec/releases/download/v0.1.0/devspec.exe
+    InstallerUrl: https://github.com/speclabs/devspec/releases/download/v0.1.0/devspec.exe
     InstallerSha256: REPLACE_WITH_RELEASE_SHA256
 ManifestType: singleton
 ManifestVersion: 1.6.0
