@@ -71,18 +71,25 @@ jobs:
           .\dist\winget\devspec.exe init --target $target --profile core --repo-state existing
           .\dist\winget\devspec.exe doctor --target $target --profile core
 
-      - name: Compute devspec.exe SHA256
+      - name: Generate WinGet manifests
         shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
           $hash = (Get-FileHash dist\winget\devspec.exe -Algorithm SHA256).Hash.ToLowerInvariant()
           "$hash  devspec.exe" | Set-Content -Path dist\winget\devspec.exe.sha256 -Encoding ASCII
 
-          $manifest = Get-Content packaging\winget\devspec.yaml -Raw
+          $sourceRoot = "packaging\winget\manifests\s\SpecLabs\Devspec\0.1.0"
+          $manifestRoot = "dist\winget\manifests\s\SpecLabs\Devspec\0.1.0"
+          New-Item -ItemType Directory -Force -Path $manifestRoot | Out-Null
+          Copy-Item -Path "$sourceRoot\*.yaml" -Destination $manifestRoot
+
+          $installerManifest = Join-Path $manifestRoot "SpecLabs.Devspec.installer.yaml"
+          $manifest = Get-Content $installerManifest -Raw
           $manifest = $manifest.Replace("REPLACE_WITH_RELEASE_SHA256", $hash)
-          $manifest | Set-Content -Path dist\winget\devspec.yaml -Encoding UTF8
+          $manifest | Set-Content -Path $installerManifest -Encoding UTF8
 
           Write-Host "devspec.exe SHA256: $hash"
+          Write-Host "WinGet manifests: $manifestRoot"
 
       - name: Upload WinGet package artifacts
         uses: actions/upload-artifact@v4
@@ -91,7 +98,7 @@ jobs:
           path: |
             dist/winget/devspec.exe
             dist/winget/devspec.exe.sha256
-            dist/winget/devspec.yaml
+            dist/winget/manifests/**/*.yaml
 
       - name: Attach WinGet package artifacts
         if: startsWith(github.ref, 'refs/tags/v')
@@ -100,4 +107,4 @@ jobs:
           files: |
             dist/winget/devspec.exe
             dist/winget/devspec.exe.sha256
-            dist/winget/devspec.yaml
+            dist/winget/manifests/**/*.yaml
