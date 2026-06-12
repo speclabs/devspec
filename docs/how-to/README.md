@@ -516,6 +516,32 @@ Use provider-specific GitHub workflow filenames and display names. The current p
 
 Future package-provider workflows should follow the same pattern, such as `homebrew-package-publish.yml` or `npm-package-publish.yml`.
 
+For Homebrew releases, publish the source formula through `speclabs/homebrew-tap` first. The tap-ready files live in:
+
+```text
+packaging/homebrew/tap/Formula/devspec.rb
+packaging/homebrew/tap/README.md
+```
+
+Copy the formula to `Formula/devspec.rb` in the tap repository, then validate it from the tap checkout:
+
+```text
+brew audit --new --formula Formula/devspec.rb
+brew install --build-from-source Formula/devspec.rb
+brew test devspec
+devspec version
+devspec init --target "$(mktemp -d)" --profile core --repo-state existing
+```
+
+After pushing the tap, verify the public install path:
+
+```text
+brew install speclabs/tap/devspec
+devspec doctor --target . --profile core
+```
+
+The first Homebrew release is source-only. Add bottles later after macOS and Linux source installs are stable.
+
 For WinGet releases, publish the Windows portable executable from GitHub Releases and submit the generated manifest to `microsoft/winget-pkgs`:
 
 ```text
