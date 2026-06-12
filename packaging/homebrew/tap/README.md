@@ -12,7 +12,7 @@ Create or update the public tap repository:
 brew tap-new speclabs/tap
 ```
 
-Copy this directory into the tap repository so the formula lands at:
+For release publishing, use the generated formula from the `Homebrew Package Publish` workflow. Copy `dist/homebrew/Formula/devspec.rb` into the tap repository so it lands at:
 
 ```text
 Formula/devspec.rb
@@ -48,6 +48,6 @@ devspec doctor --target . --profile core
 For each new `devspec` tag:
 
 1. Update `url` to the new GitHub tag tarball.
-2. Update `sha256` with the tag tarball checksum.
+2. Use the `Homebrew Package Publish` workflow artifact to get the tag tarball checksum.
 3. Run `brew update-python-resources --print-only devspec` from the tap when dependencies change.
 4. Re-run the validation checks.

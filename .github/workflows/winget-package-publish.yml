@@ -75,11 +75,12 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
+          $version = if ($env:GITHUB_REF_NAME -match "^v(.+)$") { $Matches[1] } else { "0.1.1" }
           $hash = (Get-FileHash dist\winget\devspec.exe -Algorithm SHA256).Hash.ToLowerInvariant()
           "$hash  devspec.exe" | Set-Content -Path dist\winget\devspec.exe.sha256 -Encoding ASCII
 
-          $sourceRoot = "packaging\winget\manifests\s\SpecLabs\Devspec\0.1.0"
-          $manifestRoot = "dist\winget\manifests\s\SpecLabs\Devspec\0.1.0"
+          $sourceRoot = "packaging\winget\manifests\s\SpecLabs\Devspec\$version"
+          $manifestRoot = "dist\winget\manifests\s\SpecLabs\Devspec\$version"
           New-Item -ItemType Directory -Force -Path $manifestRoot | Out-Null
           Copy-Item -Path "$sourceRoot\*.yaml" -Destination $manifestRoot
 
