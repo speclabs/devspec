@@ -439,7 +439,7 @@ devspec sync --target . --profile all
 `diff` and `sync --dry-run` report version context before the file report:
 
 ```text
-Installed version: 0.1.0
+Installed version: 0.1.1
 Package version: 0.2.0
 Version status: upgrade available
 ```
@@ -511,26 +511,53 @@ Use provider-specific GitHub workflow filenames and display names. The current p
 ```text
 .github/workflows/python-package-ci.yml
 .github/workflows/python-package-publish.yml
+.github/workflows/homebrew-package-publish.yml
 .github/workflows/winget-package-publish.yml
 ```
 
 Future package-provider workflows should follow the same pattern, such as `homebrew-package-publish.yml` or `npm-package-publish.yml`.
+
+For Homebrew releases, publish the source formula through `speclabs/homebrew-tap` first. The tap-ready template files live in:
+
+```text
+packaging/homebrew/tap/Formula/devspec.rb
+packaging/homebrew/tap/README.md
+```
+
+On `v*` tags, `.github/workflows/homebrew-package-publish.yml` generates `dist/homebrew/Formula/devspec.rb` with the tag-specific tarball URL and SHA256. Copy that generated formula to `Formula/devspec.rb` in the tap repository, then validate it from the tap checkout:
+
+```text
+brew audit --new --formula Formula/devspec.rb
+brew install --build-from-source Formula/devspec.rb
+brew test devspec
+devspec version
+devspec init --target "$(mktemp -d)" --profile core --repo-state existing
+```
+
+After pushing the tap, verify the public install path:
+
+```text
+brew install speclabs/tap/devspec
+devspec doctor --target . --profile core
+```
+
+The first Homebrew release is source-only. Add bottles later after macOS and Linux source installs are stable.
 
 For WinGet releases, publish the Windows portable executable from GitHub Releases and submit the generated manifest to `microsoft/winget-pkgs`:
 
 ```text
 dist/winget/devspec.exe
 dist/winget/devspec.exe.sha256
-dist/winget/manifests/s/SpecLabs/Devspec/0.1.0/SpecLabs.Devspec.yaml
-dist/winget/manifests/s/SpecLabs/Devspec/0.1.0/SpecLabs.Devspec.locale.en-US.yaml
-dist/winget/manifests/s/SpecLabs/Devspec/0.1.0/SpecLabs.Devspec.installer.yaml
+dist/winget/manifests/s/SpecLabs/Devspec/0.1.1/SpecLabs.Devspec.yaml
+dist/winget/manifests/s/SpecLabs/Devspec/0.1.1/SpecLabs.Devspec.locale.en-US.yaml
+dist/winget/manifests/s/SpecLabs/Devspec/0.1.1/SpecLabs.Devspec.installer.yaml
 ```
 
 The manifest path is case-sensitive and must match `PackageIdentifier: SpecLabs.Devspec`. Validate the generated manifest directory on Windows before submission:
 
 ```text
-winget validate dist/winget/manifests/s/SpecLabs/Devspec/0.1.0
-winget install --manifest dist/winget/manifests/s/SpecLabs/Devspec/0.1.0
+winget validate dist/winget/manifests/s/SpecLabs/Devspec/0.1.1
+winget install --manifest dist/winget/manifests/s/SpecLabs/Devspec/0.1.1
 ```
 
 When adapter files are added, removed, or moved, update:

@@ -1,0 +1,54 @@
+name: Homebrew Package Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version without the leading v"
+        required: true
+        default: "0.1.1"
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  homebrew-package:
+    name: Generate Homebrew formula artifact
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Homebrew formula
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          version="${GITHUB_REF_NAME#v}"
+          if [[ "${GITHUB_REF_TYPE:-}" != "tag" ]]; then
+            version="${{ github.event.inputs.version }}"
+          fi
+
+          tarball_url="https://github.com/speclabs/devspec/archive/refs/tags/v${version}.tar.gz"
+          sha256="$(curl -fsSL "${tarball_url}" | sha256sum | awk '{print $1}')"
+
+          mkdir -p "dist/homebrew/Formula"
+          cp packaging/homebrew/devspec.rb "dist/homebrew/Formula/devspec.rb"
+          sed -i \
+            -e "s#https://github.com/speclabs/devspec/archive/refs/tags/v[0-9][0-9.]*.tar.gz#${tarball_url}#g" \
+            -e "s#REPLACE_WITH_V[0-9_]*_RELEASE_SHA256#${sha256}#g" \
+            "dist/homebrew/Formula/devspec.rb"
+
+          echo "${sha256}  devspec-v${version}.tar.gz" > "dist/homebrew/devspec-v${version}.tar.gz.sha256"
+          echo "Homebrew formula: dist/homebrew/Formula/devspec.rb"
+          echo "Source tarball SHA256: ${sha256}"
+
+      - name: Upload Homebrew package artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: devspec-homebrew-package
+          path: |
+            dist/homebrew/Formula/devspec.rb
+            dist/homebrew/*.sha256

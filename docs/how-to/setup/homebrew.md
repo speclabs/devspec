@@ -2,12 +2,12 @@
 
 Use this guide when your macOS or Linux team already uses Homebrew. Homebrew is a developer package manager: it installs command-line tools and can update them later.
 
-The Homebrew package name is a placeholder until the public tap and release are finalized.
+The initial Homebrew package is published through the SpecLabs tap as a source formula. Bottled packages may be added after source installs are stable on macOS and Linux.
 
 ## Before You Start
 
 - Homebrew must be installed. Use the official site: [Install Homebrew](https://brew.sh/).
-- The devspec Homebrew tap or formula must be available.
+- The SpecLabs Homebrew tap must be reachable from your machine.
 - Open your target repository in a terminal.
 
 ## Open A Terminal
@@ -25,8 +25,10 @@ cd /Users/me/code/my-app
 Install the CLI:
 
 ```text
-brew install <tap>/devspec/devspec
+brew install speclabs/tap/devspec
 ```
+
+If your environment cannot use the Homebrew tap yet, use [uv and uvx](uv.md) as the fallback.
 
 Install devspec files into your repository:
 
@@ -115,7 +117,7 @@ devspec init --target /Users/me/code/my-app --profile all --repo-state existing
 
 | Argument | Meaning | Beginner explanation |
 | --- | --- | --- |
-| `brew install <tap>/devspec/devspec` | Install the devspec CLI. | The `<tap>` placeholder will become the real Homebrew tap name after release. |
+| `brew install speclabs/tap/devspec` | Install the devspec CLI. | Installs from the public SpecLabs tap. Initial releases build from source. |
 | `brew upgrade devspec` | Update the devspec CLI. | Updates the command-line tool. Run `devspec sync --dry-run` afterward to preview framework file changes. |
 | `version` | Print the devspec CLI version. | Use this to confirm the command runs. It does not change files. |
 | `init` | Install devspec files. | Copies framework files into your repo. |
@@ -133,6 +135,6 @@ devspec init --target /Users/me/code/my-app --profile all --repo-state existing
 | Problem | What to try |
 | --- | --- |
 | `brew` is not found. | Install Homebrew, or use [uv and uvx](uv.md). |
-| The `<tap>` command fails. | The tap name may still be a placeholder. Use `uvx devspec ...` until the tap is published. |
+| `brew install speclabs/tap/devspec` fails. | Confirm the tap is reachable and Homebrew can access GitHub. Use `uvx devspec ...` as the fallback. |
 | `devspec` is not found after install. | Run `brew doctor`, then close and reopen your terminal. |
 | Your team does not use Homebrew. | Use [uv and uvx](uv.md) instead. |
