@@ -492,7 +492,7 @@ During an upgrade:
 | Problem | What to do |
 | --- | --- |
 | `devspec` is not found after installation. | Prefer `uvx devspec ...` for one-off usage, or verify the user-local tool directory is on PATH. |
-| Package managers are blocked by corporate policy. | Use the GitHub Release ZIP or [Manual Copy Setup](setup/manual-copy.md), then run the normal foundation flow. |
+| Package managers are blocked by corporate policy. | Use the GitHub Release ZIP as the source for [Manual Copy Setup](setup/manual-copy.md), then run the normal foundation flow. |
 | `devspec init` reports existing file conflicts. | Review the files, keep local changes when intentional, and use `--force` only for reviewed framework-owned files. |
 | `devspec diff` reports a profile mismatch. | Re-run with the intended profile or update the installation with `devspec sync --target . --profile <profile> --dry-run`. |
 | `devspec doctor` reports missing adapter files. | Reinstall or sync with the adapter profile your team uses. |
@@ -524,7 +524,7 @@ Use provider-specific GitHub workflow filenames and display names. The current p
 
 Future package-provider workflows should follow the same pattern, such as `homebrew-package-publish.yml` or `npm-package-publish.yml`.
 
-For Homebrew releases, publish the source formula through `speclabs/homebrew-tap` first. The tap-ready template files live in:
+For Homebrew releases, publish the generated source formula through `speclabs/homebrew-tap` before documenting the tap as available. The tap-ready template files live in:
 
 ```text
 packaging/homebrew/tap/Formula/devspec.rb

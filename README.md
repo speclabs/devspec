@@ -167,14 +167,13 @@ Related docs:
 
 ## Manual Copy Fallback
 
-Use manual copy only when the CLI, `uvx`, package managers, and release ZIP automation are blocked. Copy these core files and folders from the `devspec` release into the target repository root:
+Use manual copy only when the CLI, `uvx`, package managers, and release ZIP automation are blocked. Copy these core framework files and folders from the `devspec` release into the target repository root:
 
 ```text
 devspec/
 .github/prompts/
 .github/agents/
 AGENTS.md
-docs/how-to/
 ```
 
 Then copy only the adapter files your team uses:
@@ -188,7 +187,7 @@ Then copy only the adapter files your team uses:
 | Gemini CLI | `GEMINI.md`, `.gemini/` |
 | Google Antigravity | `.agents/` |
 
-Do not copy this framework repository's root `README.md` over a target project's README. Keep credentials, provider tokens, local auth files, and personal settings outside copied framework files.
+The release payload may also include this repository's `README.md` and `docs/how-to/` for reference. Do not copy them into the target repository as installed framework files, and do not overwrite a target project's root `README.md`. Keep credentials, provider tokens, local auth files, and personal settings outside copied framework files.
 
 ## Operating Rules
 
@@ -264,7 +263,6 @@ Framework-owned files may be replaced or diff-applied during upgrades:
 - `GEMINI.md`
 - `devspec/adapters/`
 - `devspec/**/_template/`
-- `docs/how-to/`
 
 Project-owned files should be migrated or merged, not overwritten:
 
