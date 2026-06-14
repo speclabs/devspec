@@ -50,6 +50,8 @@ flowchart TD
     classDef actor fill:#1e293b,stroke:#94a3b8,color:#e2e8f0
     classDef gen fill:#1e293b,stroke:#64748b,color:#e2e8f0
 
+    %% Pad all node labels and edge labels with &nbsp; on each side for readability
+    %% e.g.  Svc["&nbsp;Auth Service&nbsp;"]   -->|"&nbsp;Validates&nbsp;"|
     %% nodes and subgraphs here
     %% cross-subgraph arrows after all subgraph...end blocks
     %% class assignments at the end: class Node1,Node2 className

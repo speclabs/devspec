@@ -57,26 +57,26 @@ flowchart TD
     classDef gen fill:#1e293b,stroke:#64748b,color:#e2e8f0
 
     %% Actors — use stadium shape
-    UserA(["User"])
+    UserA(["&nbsp;User&nbsp;"])
 
-    subgraph FE["Frontend Layer"]
-        App["Web App"]
+    subgraph FE["&nbsp;Frontend Layer&nbsp;"]
+        App["&nbsp;Web App&nbsp;"]
     end
 
-    subgraph BE["Backend Services"]
-        AuthSvc["Auth Service"]
-        CoreSvc["Core Service"]
+    subgraph BE["&nbsp;Backend Services&nbsp;"]
+        AuthSvc["&nbsp;Auth Service&nbsp;"]
+        CoreSvc["&nbsp;Core Service&nbsp;"]
     end
 
-    subgraph Data["Data Layer"]
-        MainDb[("Main DB")]
+    subgraph Data["&nbsp;Data Layer&nbsp;"]
+        MainDb[("&nbsp;Main DB&nbsp;")]
     end
 
     %% Cross-subgraph arrows drawn after all subgraph...end blocks
-    UserA -->|"Requests"| App
-    App -->|"Authenticates"| AuthSvc
-    App -->|"Calls"| CoreSvc
-    CoreSvc -->|"Reads/Writes"| MainDb
+    UserA -->|"&nbsp;Requests&nbsp;"| App
+    App -->|"&nbsp;Authenticates&nbsp;"| AuthSvc
+    App -->|"&nbsp;Calls&nbsp;"| CoreSvc
+    CoreSvc -->|"&nbsp;Reads/Writes&nbsp;"| MainDb
 
     %% classDef class assignments — batch syntax, one line per class
     class App ui

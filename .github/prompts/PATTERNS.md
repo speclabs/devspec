@@ -221,18 +221,19 @@ Standard stage-specific option sets:
 
 | Architectural role | Mermaid shape | Example |
 | --- | --- | --- |
-| Service / Component | Rectangle | `Svc["Auth Service"]` |
-| User / Actor | Stadium | `User(["User"])` |
-| Database / Store | Cylinder | `Db[("User DB")]` |
+| Service / Component | Rectangle | `Svc["&nbsp;Auth Service&nbsp;"]` |
+| User / Actor | Stadium | `User(["&nbsp;User&nbsp;"])` |
+| Database / Store | Cylinder | `Db[("&nbsp;User DB&nbsp;")]` |
 | Start / End terminal | Circle | `Start(((" ")))` |
-| Event / Message | Hexagon | `Evt{{"Order Placed"}}` |
-| Background Job / Worker | Subroutine | `Job[["Report Job"]]` |
-| Decision gate | Diamond | `Dec{"Approved?"}` — only when explicitly requested |
-| External API / SaaS | Asymmetric flag | `Ext>["Stripe API"]` |
+| Event / Message | Hexagon | `Evt{{"&nbsp;Order Placed&nbsp;"}}` |
+| Background Job / Worker | Subroutine | `Job[["&nbsp;Report Job&nbsp;"]]` |
+| Decision gate | Diamond | `Dec{"&nbsp;Approved?&nbsp;"}` — only when explicitly requested |
+| External API / SaaS | Asymmetric flag | `Ext>["&nbsp;Stripe API&nbsp;"]` |
 
 - Never use diamond shapes for any purpose other than an explicit user-requested decision gate.
 - Use rectangle as the default shape when no role-specific shape clearly applies.
 - Do not mix shape meanings; once a shape carries a role in a diagram, every node of that shape must share the same role.
+- Pad every node label and every edge label with a single `&nbsp;` on each side so text has visible breathing room inside its shape and along its connector: `Svc["&nbsp;Auth Service&nbsp;"]`, `-->|"&nbsp;Validates Session&nbsp;"|`. This applies to all node shapes (rectangle, stadium, cylinder, hexagon, subroutine) and to every Mermaid diagram family where `&nbsp;` is supported. Subgraph title labels follow the same rule: `subgraph BE["&nbsp;Backend Services&nbsp;"]`.
 
 ### Subgraph Structuring Rules
 
