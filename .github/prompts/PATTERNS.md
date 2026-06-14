@@ -174,6 +174,82 @@ Standard stage-specific option sets:
 - Omit standard framework wiring such as controller registration, middleware setup, dependency injection setup, CORS, logging, SQL connection factories, or configuration plumbing unless the requested diagram is specifically about startup, request-pipeline, or infrastructure-layer behavior.
 - Prefer domain, capability, service, component, actor, and data-store names over file names, route names, package names, and implementation noise.
 - Keep generated Mermaid valid inside a fenced `mermaid` block. If a user asks for "only Mermaid", apply that restriction to the Mermaid content itself while preserving required devspec artifact metadata outside the diagram block.
+- Apply the [Mermaid Visual Quality Pattern](#mermaid-visual-quality-pattern) for semantic color coding, node shapes, subgraph boundaries, and complexity guardrails in every generated diagram.
+
+## Mermaid Visual Quality Pattern
+
+- Use this pattern when `/devspec.diagram` generates or updates any Mermaid `flowchart`, `stateDiagram-v2`, `classDiagram`, or `erDiagram`.
+- Apply semantic `classDef` color coding, dark theme initialization, role-appropriate node shapes, and `subgraph` boundaries to produce clean, information-dense diagrams free of visual noise.
+- This pattern complements the [Mermaid Internal Naming and Readability Pattern](#mermaid-internal-naming-and-readability-pattern); visual quality rules add color, shape, and layout structure without overriding naming or anti-bloat constraints.
+- Every generated flowchart must: (1) open with the theme init block, (2) declare only the `classDef` classes whose roles appear in the diagram, (3) use role-appropriate node shapes, (4) wrap boundaries of 3+ nodes in a named `subgraph`, (5) assign `classDef` classes in a batch block at the end, and (6) stay within complexity guardrails.
+
+### Theme Initialization
+
+- Open every `flowchart` block with the dark theme init directive so renderers that support it (VS Code, Mermaid Live Editor, Cursor, most AI chat surfaces) apply consistent dark theming. GitHub and GitLab silently ignore `%%{init:...}%%` and render with their default theme; `classDef` colors are the portable styling fallback that works on both.
+- Use this exact init block unless the user requests a light or custom theme:
+
+```
+%%{init: {'theme': 'dark', 'themeVariables': {'primaryColor': '#1e293b', 'primaryTextColor': '#f8fafc', 'lineColor': '#64748b', 'clusterBkg': '#0f172a', 'clusterBorder': '#334155'}}}%%
+```
+
+- Do not add `%%{init:...}%%` to `sequenceDiagram`, `journey`, `classDiagram`, or `erDiagram` blocks; those diagram families rely on renderer-managed defaults.
+- For `stateDiagram-v2`, include the init block only when the rendering context is confirmed to support it; omit it otherwise.
+
+### Semantic `classDef` Palette
+
+- Assign each node a semantic class based on its architectural role using this fixed Mermaid-adapted palette, which mirrors Cocoon-AI's component-type color vocabulary:
+
+| Role | Class name | Fill | Stroke |
+| --- | --- | --- | --- |
+| Frontend / UI | `ui` | `#083344` | `#22d3ee` |
+| Backend / Service | `svc` | `#064e3b` | `#34d399` |
+| Database / Store | `db` | `#4c1d95` | `#a78bfa` |
+| Cloud / External | `ext` | `#78350f` | `#fbbf24` |
+| Security / Auth | `sec` | `#881337` | `#fb7185` |
+| Events / Messages | `evt` | `#7c2d12` | `#fb923c` |
+| Actor / User | `actor` | `#1e293b` | `#94a3b8` |
+| Generic / Unknown | `gen` | `#1e293b` | `#64748b` |
+
+- Write the `classDef` block immediately after the `%%{init:...}%%` line and before any node or `subgraph` definitions. Include only declarations for roles that actually appear in the diagram; omit unused class names.
+- Use the fixed class names (`ui`, `svc`, `db`, `ext`, `sec`, `evt`, `actor`, `gen`) across all diagrams so color meaning is consistent and predictable.
+- Assign classes at the end of the diagram using batch syntax on a single line per class: `class Node1,Node2 svc`. Place all class assignments after the last node, edge, and `end` keyword.
+- For `classDiagram` and `erDiagram`, skip `classDef` and use `style` directives only when the user explicitly requests semantic color coding; structural defaults are acceptable for those families.
+
+### Node Shape Vocabulary
+
+- Select node shape based on architectural role so shape carries meaning independent of color:
+
+| Architectural role | Mermaid shape | Example |
+| --- | --- | --- |
+| Service / Component | Rectangle | `Svc["Auth Service"]` |
+| User / Actor | Stadium | `User(["User"])` |
+| Database / Store | Cylinder | `Db[("User DB")]` |
+| Start / End terminal | Circle | `Start(((" ")))` |
+| Event / Message | Hexagon | `Evt{{"Order Placed"}}` |
+| Background Job / Worker | Subroutine | `Job[["Report Job"]]` |
+| Decision gate | Diamond | `Dec{"Approved?"}` — only when explicitly requested |
+| External API / SaaS | Asymmetric flag | `Ext>["Stripe API"]` |
+
+- Never use diamond shapes for any purpose other than an explicit user-requested decision gate.
+- Use rectangle as the default shape when no role-specific shape clearly applies.
+- Do not mix shape meanings; once a shape carries a role in a diagram, every node of that shape must share the same role.
+
+### Subgraph Structuring Rules
+
+- Use `subgraph` to group nodes by system boundary, architectural layer, service ownership zone, or deployment region — the Mermaid equivalent of Cocoon-AI's dashed region and security-group boundaries.
+- Wrap any logical boundary containing 3 or more nodes in a named `subgraph`. Use 1-3 word boundary labels: `subgraph FE["Frontend Layer"]`, `subgraph BE["Backend Services"]`, `subgraph Cloud["Cloud Services"]`.
+- Limit subgraph nesting to one outer boundary and one inner cluster at most; never nest more than 2 levels deep.
+- Draw all cross-subgraph arrows after all `subgraph...end` blocks so edge lines render clearly over boundary boxes rather than being obscured by them.
+- Do not use `subgraph` to cluster unrelated nodes for aesthetic grouping; every subgraph must represent a real architectural boundary, ownership group, or deployment zone.
+- For diagrams with fewer than 3 nodes total, omit `subgraph`; flat structure is cleaner at that scale.
+
+### Complexity Guardrails
+
+- Cap flowchart node count at 15. Beyond 15 nodes, split at the clearest responsibility boundary into two diagrams and cross-link them via the `devspec/architecture/overview.md` Diagram Reference Index.
+- Cap `sequenceDiagram` participant count at 6. Beyond 6, collapse pass-through intermediary components per the Mermaid Internal Naming and Readability Pattern.
+- Cap `stateDiagram-v2` state count at 12. Beyond 12, extract sub-state regions into a child diagram and reference them from the parent.
+- These are hard limits, not guidelines. If evidence demands more nodes, narrow the diagram scope: a focused diagram always delivers more value than an overloaded one.
+- When splitting a diagram, record both halves as separate queue rows with cross-reference notes in `Next action or notes`.
 
 ## Process Flow Extraction Pattern
 
