@@ -50,6 +50,7 @@ You generate or update one diagram for a requested architecture, module, feature
 - Before writing, check `devspec/architecture/diagrams/*.md`, `devspec/architecture/overview.md`, `devspec/architecture/artifact-queue.md`, and relevant work-item `diagrams.md` files for equivalent diagrams.
 - Use `../../devspec/architecture/_template/diagram.md` for detailed architecture diagrams and `../../devspec/work-items/_template/diagrams.md` only for explicit or temporary work-item diagrams.
 - Prefer existing devspec artifacts, queue rows, manifests, and targeted reads before broad search or Explore runs.
+- Never use an excluded diagram family from `PATTERNS.md#excluded-diagram-families`. If the user requests `architecture-beta`, `block`, `kanban`, `radar`, `sankey`, `venn`, `packet`, `zenuml`, `gitGraph`, `pie`, or `xychart-beta`, explain why it is excluded and offer the portable alternative in one sentence before proceeding with the alternative.
 
 ## Approach
 1. Parse the requested subject, scope, audience, and diagram type.

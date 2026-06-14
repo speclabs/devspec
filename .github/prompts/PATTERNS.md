@@ -294,6 +294,24 @@ Use this language-neutral priority catalog for extraction. Queue a candidate onl
 
 Optional evidence-specific diagrams may include `layered-architecture`, `<entity-slug>-lifecycle`, `<domain-slug>-domain-structure`, `background-jobs-schedulers`, or `<feature-slug>-workflow` when the user asks or repository evidence makes the specialized diagram more useful than a default catalog item. Catalog rows 17–20 are optional: queue them only when evidence shows a release plan, sprint timeline, 2D scoring need, or domain brainstorming gap that a core flowchart catalog item (rows 1–16) cannot adequately serve.
 
+### Excluded Diagram Families
+
+Do not use the following Mermaid families regardless of the requested subject. For each, use the stated portable alternative instead.
+
+| Family | Reason excluded | Use instead |
+| --- | --- | --- |
+| `architecture-beta` | Requires Mermaid v11.1.0+; GitHub and GitLab render at v10.x and will silently fail or error. Still officially beta (`-beta` suffix, experimental). Icon system requires `iconify.design` registration — not portable across environments. Layout has known node-collision bugs (mermaid issue #6120). `flowchart` with `subgraph` blocks covers all the same layouts portably. | `flowchart TD` or `flowchart LR` with named `subgraph` blocks and the semantic `classDef` palette |
+| `block` | Experimental (🔥), non-standard layout model, no `classDef` support, poor renderer coverage outside Mermaid Live. | `flowchart` |
+| `kanban` | Experimental (🔥), project-management board — not an architecture artifact. | Work-item task list in `tasks.md` |
+| `radar` | Experimental (🔥), data-chart family — not structural or flow-based. | `quadrantChart` for 2D scoring, or a plain markdown table |
+| `sankey` | Experimental (🔥), data-flow volume chart — not a software architecture diagram. | `flowchart LR` for directional flows |
+| `venn` | Experimental (🔥), limited renderer support, no devspec architecture use case. | `flowchart` with overlapping `subgraph` boundaries |
+| `packet` | Experimental (🔥), network packet format — not a general architecture diagram. | `sequenceDiagram` for protocol interactions |
+| `zenuml` | Non-standard sequence syntax, poor coverage outside Mermaid Live. | `sequenceDiagram` |
+| `gitGraph` | SDLC artifact — branch and commit history, not architecture. | Source-control docs or a plain markdown table |
+| `pie` | Data-chart family — not architectural. | Markdown table or `quadrantChart` |
+| `xychart-beta` | Experimental (🔥), data-chart family — not architectural. | Markdown table |
+
 ## Exploration Recovery Pattern
 
 - When `.github/skills/exploration-recovery/SKILL.md` is available, use it as the operational procedure.
