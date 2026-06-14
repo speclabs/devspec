@@ -92,14 +92,14 @@ flowchart TD
 
 - Use this section when `Output format` is `svg` or `mermaid+svg`.
 - Store the durable SVG at `devspec/architecture/images/dia-NNN-<diagram-name>.svg`.
-- Use `devspec/architecture/_template/diagram.svg` as the starting point unless a documented constraint requires a smaller custom SVG.
+- Use `devspec/architecture/_template/process-flow-diagram.svg` for process-flow SVGs. Use `devspec/architecture/_template/architecture-diagram.svg` for all other SVG diagram output unless a documented constraint requires a smaller custom SVG.
 - Generated SVG must be standalone XML with inline styles and no external assets, `<script>`, `<iframe>`, `<foreignObject>`, remote fonts, remote images, secrets, credentials, internal-only URLs, or unresolved placeholders.
 - Validate the SVG as XML before reporting generation complete.
 
 | Field | Value |
 | --- | --- |
 | SVG target | |
-| Template used | `devspec/architecture/_template/diagram.svg` |
+| Template used | `devspec/architecture/_template/architecture-diagram.svg` or `devspec/architecture/_template/process-flow-diagram.svg` |
 | Validation | pending |
 
 ## Source Evidence and Assumptions

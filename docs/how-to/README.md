@@ -358,7 +358,7 @@ flowchart LR
     ProviderSvc -->|"Reads Profile"| UserDb["User Database"]
 ```
 
-Generated SVG diagrams should be standalone XML created from `devspec/architecture/_template/diagram.svg`, with inline styles, no external assets, no `<script>`, no `<iframe>`, no `<foreignObject>`, no secrets, and no unresolved placeholders in generated output. Validate SVG files as XML before marking the queue row generated.
+Generated SVG diagrams should be standalone XML created from `devspec/architecture/_template/architecture-diagram.svg` or, for process-flow SVGs, `devspec/architecture/_template/process-flow-diagram.svg`, with inline styles, no external assets, no `<script>`, no `<iframe>`, no `<foreignObject>`, no secrets, and no unresolved placeholders in generated output. Validate SVG files as XML before marking the queue row generated.
 
 ## Multi-Repo Work
 

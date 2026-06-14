@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 import xml.etree.ElementTree as ET
@@ -23,7 +23,9 @@ def test_profiles_resolve_core_and_all_payloads() -> None:
     all_paths = {str(item.path) for item in payload.resolve_profile_files("all")}
 
     assert "devspec/adapters/command-registry.md" in core_paths
-    assert "devspec/architecture/_template/diagram.svg" in core_paths
+    assert "devspec/architecture/_template/architecture-diagram.svg" in core_paths
+    assert "devspec/architecture/_template/process-flow-diagram.svg" in core_paths
+    assert "devspec/architecture/_template/diagram.svg" not in core_paths
     assert "devspec/architecture/images/README.md" in core_paths
     assert ".github/prompts/devspec.story.prompt.md" in core_paths
     assert ".github/agents/devspec.story.agent.md" in core_paths
@@ -40,25 +42,44 @@ def test_ownership_classification_preserves_project_artifacts() -> None:
     assert classify_ownership(PurePosixPath("devspec/foundation/project-context.md")) == "project-owned"
     assert classify_ownership(PurePosixPath("devspec/architecture/overview.md")) == "project-owned"
     assert classify_ownership(PurePosixPath("devspec/architecture/images/dia-001-system-context.svg")) == "project-owned"
-    assert classify_ownership(PurePosixPath("devspec/architecture/_template/diagram.svg")) == "framework-owned"
+    assert classify_ownership(PurePosixPath("devspec/architecture/_template/architecture-diagram.svg")) == "framework-owned"
+    assert classify_ownership(PurePosixPath("devspec/architecture/_template/process-flow-diagram.svg")) == "framework-owned"
     assert classify_ownership(PurePosixPath("devspec/constitution.md")) == "project-owned"
     assert classify_ownership(PurePosixPath("devspec/work-items/123-example/story.md")) == "project-owned"
     assert classify_ownership(PurePosixPath("devspec/work-items/_template/story.md")) == "framework-owned"
     assert classify_ownership(PurePosixPath(".github/prompts/devspec.story.prompt.md")) == "framework-owned"
 
 
-def test_svg_diagram_template_is_standalone_xml() -> None:
-    template = Path("devspec/architecture/_template/diagram.svg")
-    text = template.read_text(encoding="utf-8")
-    root = ET.fromstring(text)
+def test_svg_diagram_templates_are_standalone_xml() -> None:
+    templates = [
+        Path("devspec/architecture/_template/architecture-diagram.svg"),
+        Path("devspec/architecture/_template/process-flow-diagram.svg"),
+    ]
 
-    assert root.tag.endswith("svg")
-    assert root.attrib["viewBox"]
-    assert root.attrib["role"] == "img"
-    assert root.attrib["aria-labelledby"] == "title desc"
-    assert "http://www.w3.org/2000/svg" in root.tag
-    for forbidden in ("<script", "<iframe", "<foreignObject"):
-        assert forbidden.lower() not in text.lower()
+    for template in templates:
+        text = template.read_text(encoding="utf-8")
+        root = ET.fromstring(text)
+
+        assert root.tag.endswith("svg")
+        assert root.attrib["viewBox"]
+        assert root.attrib["role"] == "img"
+        assert root.attrib["aria-labelledby"] == "title desc"
+        assert "http://www.w3.org/2000/svg" in root.tag
+        assert root.find("{http://www.w3.org/2000/svg}title") is not None
+        assert root.find("{http://www.w3.org/2000/svg}desc") is not None
+        for forbidden in ("<script", "<iframe", "<foreignObject"):
+            assert forbidden.lower() not in text.lower()
+
+
+def test_process_flow_svg_template_has_clean_ascii_source() -> None:
+    template = Path("devspec/architecture/_template/process-flow-diagram.svg")
+    text = template.read_text(encoding="utf-8")
+
+    assert text.isascii()
+    for mojibake in ("\u00e2", "\u00c3", "\ufffd"):
+        assert mojibake not in text
+    for process_role in ("step-manual", "step-automated", "step-integration", "decision", "exception-node", "artifact"):
+        assert process_role in text
 
 
 def test_init_writes_manifest_and_doctor_passes(tmp_path: Path) -> None:

@@ -20,7 +20,7 @@ Queue `Diagram type` records the logical diagram family only. The generated diag
 - `/devspec.diagram format=svg <subject>` generates SVG-only visual output plus the required Markdown metadata artifact.
 - `/devspec.diagram format=mermaid+svg <subject>` generates both the Mermaid block and the SVG companion file.
 - For SVG-only output, keep the Markdown artifact for resume state, metadata, evidence, assumptions, queue linkage, and SVG target reference.
-- Use `devspec/architecture/_template/diagram.svg` as the starting point for durable SVG output and validate generated SVG as XML before reporting success.
+- Use `devspec/architecture/_template/process-flow-diagram.svg` for process-flow SVG output, and `devspec/architecture/_template/architecture-diagram.svg` for other durable SVG output. Validate generated SVG as XML before reporting success.
 
 ## Mermaid Readability
 

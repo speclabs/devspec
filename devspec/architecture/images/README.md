@@ -12,7 +12,7 @@ Mermaid remains the default diagram output. Durable Markdown diagram artifacts l
 
 ## Generation Rules
 
-- Use `devspec/architecture/_template/diagram.svg` as the starting point unless a documented constraint requires a smaller custom SVG.
+- Use `devspec/architecture/_template/process-flow-diagram.svg` for process-flow SVGs. Use `devspec/architecture/_template/architecture-diagram.svg` for all other SVG diagram output unless a documented constraint requires a smaller custom SVG.
 - Keep SVG files standalone: inline styles, inline markers, no remote assets, no scripts, no iframes, and no `foreignObject`.
 - Keep visible labels short and evidence-backed. Do not include secrets, credentials, private keys, internal-only URLs, or unresolved placeholders in generated SVG files.
 - Validate generated SVG as XML before marking the queue row generated.

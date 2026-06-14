@@ -46,7 +46,7 @@ Developers invoke registered slash commands from this directory. Agent names are
 - `../../devspec/adapters/gemini-cli.md` and `../../devspec/adapters/antigravity.md`: Gemini CLI and Google Antigravity adapter guidance.
 - `PATTERNS.md#artifact-content-pattern`: shared structure rules for developer-facing artifacts, source labels, optional sections, and table/bullet/list usage.
 - `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, naming, output format, Mermaid declaration, SVG target, evidence, confidence, dedupe, tags, and diagram queue rules.
-- `PATTERNS.md#svg-output-pattern`: standalone SVG output rules, folders, template use, validation, and forbidden elements.
+- `PATTERNS.md#svg-output-pattern`: standalone SVG output rules, folders, template selection, validation, and forbidden elements.
 - `PATTERNS.md#process-flow-extraction-pattern`: process-flow discovery, tagging, hybrid user-to-data operational flow, and batch-generation rules.
 - `../../devspec/foundation/rules.md`: operational rules, work-item handling rules, exceptions, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
