@@ -1,6 +1,6 @@
 ---
 name: "devspec.diagram"
-description: "Use to generate or update one evidence-backed Mermaid diagram for architecture, workflows, journeys, sequences, states, or stable domain structures."
+description: "Use to generate or update one evidence-backed Mermaid diagram for architecture, workflows, journeys, sequences, states, timelines, planning views, or stable domain structures."
 tools: [read, edit, search, vscode/askQuestions]
 model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
@@ -33,8 +33,8 @@ You generate or update one diagram for a requested architecture, module, feature
 - For logical architecture diagrams, exclude SDLC actors, CI/CD, build artifacts, and source-code project files; enforce sensible C4-style system boundaries and keep owned application databases inside the system boundary.
 - Avoid API, Swagger, tech stack, version, library, hosting, and framework boilerplate details in flowchart nodes unless the requested diagram specifically needs startup, request-pipeline, infrastructure-layer, or physical deployment detail.
 - If the user asks for "only Mermaid", apply that restriction to the Mermaid content inside `Mermaid Diagram`; still preserve required devspec artifact metadata, source evidence, assumptions, and maintenance notes in the generated artifact.
-- Keep queue `Diagram type` as the Mermaid family. Choose the full Mermaid declaration for the generated artifact from queue notes, catalog guidance, or evidence, such as `flowchart LR`, `flowchart TD`, `flowchart BT`, `sequenceDiagram`, `stateDiagram-v2`, or `erDiagram`.
-- Prefer `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines; `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping; `sequenceDiagram` for interactions over time; `journey` for user-facing flows; `stateDiagram-v2` for lifecycle behavior; `classDiagram` for stable domain or structural relationships; and `erDiagram` for entity relationship models.
+- Keep queue `Diagram type` as the Mermaid family. Choose the full Mermaid declaration for the generated artifact from queue notes, catalog guidance, or evidence, such as `flowchart LR`, `flowchart TD`, `flowchart BT`, `sequenceDiagram`, `stateDiagram-v2`, `erDiagram`, `gantt`, `quadrantChart`, `mindmap`, or `timeline`.
+- Prefer `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines; `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping; `sequenceDiagram` for interactions over time; `journey` for user-facing flows; `stateDiagram-v2` for lifecycle behavior; `classDiagram` for stable domain or structural relationships; `erDiagram` for entity relationship models; `gantt` for sprint plans and release schedules; `timeline` for historical milestones and event sequences; `quadrantChart` for 2D priority or risk scoring; and `mindmap` for exploratory domain brainstorming when formal structure is not yet available.
 - Reuse matching queue metadata for subject, scope, diagram type, target location, evidence, and confidence instead of reclassifying from scratch unless the queued row is stale, contradicted, or incomplete.
 - Store stable system, module, feature workflow, user journey, sequence, state, class/domain, process-flow, and cross-feature diagrams under `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md` by default.
 - Store work-item diagrams only for explicit requests or clearly temporary bug reproduction, migration path, security incident or threat flow, implementation plan, or experiment flows that should not become durable architecture.

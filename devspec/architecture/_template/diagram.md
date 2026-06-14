@@ -26,8 +26,8 @@ Use this artifact for one durable architecture, module, feature, workflow, proce
 | ID | |
 | Display title | `DIA-NNN - <Title Case Diagram Name>` |
 | Scope | architecture, module, feature, workflow, user-journey |
-| Diagram type | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram, erDiagram |
-| Mermaid declaration | flowchart TD, flowchart LR, flowchart BT, sequenceDiagram, journey, stateDiagram-v2, classDiagram, erDiagram |
+| Diagram type | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram, erDiagram, gantt, quadrantChart, mindmap, timeline |
+| Mermaid declaration | flowchart TD, flowchart LR, flowchart BT, sequenceDiagram, journey, stateDiagram-v2, classDiagram, erDiagram, gantt, quadrantChart, mindmap, timeline |
 | Subject | `dia-NNN-<diagram-name>` |
 | Confidence | observed, high-confidence, low-confidence |
 | Tags | |
