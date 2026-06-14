@@ -13,4 +13,4 @@ Execute canonical command `/devspec.review`.
 
 Command input comes from the user's current message.
 
-Platform note: Claude Code may not register `/devspec.review` as a native slash command. Treat the command name as workflow intent and use this skill as the invocation mechanism. This command has `review-write` mutation level — it writes review artifacts only and must not change implementation code. Record any unsupported behavior in `devspec/adapters/compatibility-matrix.md`.
+Platform note: Claude Code may not register `/devspec.review` as a native slash command. Treat the command name as workflow intent and use this skill as the invocation mechanism. This command has `review-write` mutation level - it writes review artifacts only and must not change implementation code. Record any unsupported behavior in `devspec/adapters/compatibility-matrix.md`.

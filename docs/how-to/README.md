@@ -318,7 +318,7 @@ Use these examples as starting points. The command registry remains authoritativ
 | `/devspec.tasks` | Ready `finalize.md`; optional task-planning guidance | Work-item `tasks.md` | `/devspec.implement` |
 | `/devspec.implement` | Ready `finalize.md` and `tasks.md`; optional validation guidance | Work-item `implement.md` and code changes when allowed | `/devspec.review` |
 | `/devspec.review` | `finalize.md` and `implement.md`; optional review focus | Work-item `review.md` | Return to `/devspec.implement` for changes or close the work item |
-| `/devspec.diagram` | Diagram subject, work item, explicit process-flow batch request, or optional `format=svg` / `format=mermaid+svg` | Architecture or work-item Mermaid diagram artifacts, with opt-in SVG images | Continue the current workflow |
+| `/devspec.diagram` | Diagram subject, work item, explicit process-flow batch request, or optional `format=svg` / `format=mermaid+svg` | Architecture or work-item Markdown diagram artifacts, with Mermaid by default and opt-in SVG images | Continue the current workflow |
 
 ## Diagrams
 

@@ -242,7 +242,7 @@ Standard stage-specific option sets:
 | Start / End terminal | Circle | `Start(((" ")))` |
 | Event / Message | Hexagon | `Evt{{"&nbsp;Order Placed&nbsp;"}}` |
 | Background Job / Worker | Subroutine | `Job[["&nbsp;Report Job&nbsp;"]]` |
-| Decision gate | Diamond | `Dec{"&nbsp;Approved?&nbsp;"}` — only when explicitly requested |
+| Decision gate | Diamond | `Dec{"&nbsp;Approved?&nbsp;"}` - only when explicitly requested |
 | External API / SaaS | Asymmetric flag | `Ext>["&nbsp;Stripe API&nbsp;"]` |
 
 - Never use diamond shapes for any purpose other than an explicit user-requested decision gate.
@@ -252,7 +252,7 @@ Standard stage-specific option sets:
 
 ### Subgraph Structuring Rules
 
-- Use `subgraph` to group nodes by system boundary, architectural layer, service ownership zone, or deployment region — the Mermaid equivalent of Cocoon-AI's dashed region and security-group boundaries.
+- Use `subgraph` to group nodes by system boundary, architectural layer, service ownership zone, or deployment region - the Mermaid equivalent of Cocoon-AI's dashed region and security-group boundaries.
 - Wrap any logical boundary containing 3 or more nodes in a named `subgraph`. Use 1-3 word boundary labels with `&nbsp;` padding: `subgraph FE["&nbsp;Frontend Layer&nbsp;"]`, `subgraph BE["&nbsp;Backend Services&nbsp;"]`, `subgraph Cloud["&nbsp;Cloud Services&nbsp;"]`.
 - Limit subgraph nesting to one outer boundary and one inner cluster at most; never nest more than 2 levels deep.
 - Draw all cross-subgraph arrows after all `subgraph...end` blocks so edge lines render clearly over boundary boxes rather than being obscured by them.
@@ -307,7 +307,7 @@ Use this language-neutral priority catalog for extraction. Queue a candidate onl
 | 19 | Risk and Priority Quadrant | `dia-NNN-risk-priority-quadrant` | architecture | `quadrantChart` | `quadrantChart` | `devspec/architecture/diagrams/dia-NNN-risk-priority-quadrant.md` |
 | 20 | Domain Capability Mindmap | `dia-NNN-domain-capability-mindmap` | architecture | `mindmap` | `mindmap` | `devspec/architecture/diagrams/dia-NNN-domain-capability-mindmap.md` |
 
-Optional evidence-specific diagrams may include `layered-architecture`, `<entity-slug>-lifecycle`, `<domain-slug>-domain-structure`, `background-jobs-schedulers`, or `<feature-slug>-workflow` when the user asks or repository evidence makes the specialized diagram more useful than a default catalog item. Catalog rows 17–20 are optional: queue them only when evidence shows a release plan, sprint timeline, 2D scoring need, or domain brainstorming gap that a core flowchart catalog item (rows 1–16) cannot adequately serve.
+Optional evidence-specific diagrams may include `layered-architecture`, `<entity-slug>-lifecycle`, `<domain-slug>-domain-structure`, `background-jobs-schedulers`, or `<feature-slug>-workflow` when the user asks or repository evidence makes the specialized diagram more useful than a default catalog item. Catalog rows 17-20 are optional: queue them only when evidence shows a release plan, sprint timeline, 2D scoring need, or domain brainstorming gap that a core flowchart catalog item (rows 1-16) cannot adequately serve.
 
 ### Excluded Diagram Families
 
@@ -315,17 +315,17 @@ Do not use the following Mermaid families regardless of the requested subject. F
 
 | Family | Reason excluded | Use instead |
 | --- | --- | --- |
-| `architecture-beta` | Requires Mermaid v11.1.0+; GitHub and GitLab render at v10.x and will silently fail or error. Still officially beta (`-beta` suffix, experimental). Icon system requires `iconify.design` registration — not portable across environments. Layout has known node-collision bugs (mermaid issue #6120). `flowchart` with `subgraph` blocks covers all the same layouts portably. | `flowchart TD` or `flowchart LR` with named `subgraph` blocks and the semantic `classDef` palette |
-| `block` | Experimental (🔥), non-standard layout model, no `classDef` support, poor renderer coverage outside Mermaid Live. | `flowchart` |
-| `kanban` | Experimental (🔥), project-management board — not an architecture artifact. | Work-item task list in `tasks.md` |
-| `radar` | Experimental (🔥), data-chart family — not structural or flow-based. | `quadrantChart` for 2D scoring, or a plain markdown table |
-| `sankey` | Experimental (🔥), data-flow volume chart — not a software architecture diagram. | `flowchart LR` for directional flows |
-| `venn` | Experimental (🔥), limited renderer support, no devspec architecture use case. | `flowchart` with overlapping `subgraph` boundaries |
-| `packet` | Experimental (🔥), network packet format — not a general architecture diagram. | `sequenceDiagram` for protocol interactions |
+| `architecture-beta` | Requires Mermaid v11.1.0+; GitHub and GitLab render at v10.x and will silently fail or error. Still officially beta (`-beta` suffix, experimental). Icon system requires `iconify.design` registration - not portable across environments. Layout has known node-collision bugs (mermaid issue #6120). `flowchart` with `subgraph` blocks covers all the same layouts portably. | `flowchart TD` or `flowchart LR` with named `subgraph` blocks and the semantic `classDef` palette |
+| `block` | Experimental, non-standard layout model, no `classDef` support, poor renderer coverage outside Mermaid Live. | `flowchart` |
+| `kanban` | Experimental, project-management board - not an architecture artifact. | Work-item task list in `tasks.md` |
+| `radar` | Experimental, data-chart family - not structural or flow-based. | `quadrantChart` for 2D scoring, or a plain markdown table |
+| `sankey` | Experimental, data-flow volume chart - not a software architecture diagram. | `flowchart LR` for directional flows |
+| `venn` | Experimental, limited renderer support, no devspec architecture use case. | `flowchart` with overlapping `subgraph` boundaries |
+| `packet` | Experimental, network packet format - not a general architecture diagram. | `sequenceDiagram` for protocol interactions |
 | `zenuml` | Non-standard sequence syntax, poor coverage outside Mermaid Live. | `sequenceDiagram` |
-| `gitGraph` | SDLC artifact — branch and commit history, not architecture. | Source-control docs or a plain markdown table |
-| `pie` | Data-chart family — not architectural. | Markdown table or `quadrantChart` |
-| `xychart-beta` | Experimental (🔥), data-chart family — not architectural. | Markdown table |
+| `gitGraph` | SDLC artifact - branch and commit history, not architecture. | Source-control docs or a plain markdown table |
+| `pie` | Data-chart family - not architectural. | Markdown table or `quadrantChart` |
+| `xychart-beta` | Experimental, data-chart family - not architectural. | Markdown table |
 
 ## Exploration Recovery Pattern
 

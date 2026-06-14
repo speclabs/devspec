@@ -42,7 +42,7 @@ Do not keep a separate diagram index or status here. `devspec/architecture/artif
 ```mermaid
 %%{init: {'theme': 'dark', 'themeVariables': {'primaryColor': '#1e293b', 'primaryTextColor': '#f8fafc', 'lineColor': '#64748b', 'clusterBkg': '#0f172a', 'clusterBorder': '#334155'}}}%%
 flowchart TD
-    %% classDef palette — include only roles present in this diagram
+    %% classDef palette - include only roles present in this diagram
     classDef ui fill:#083344,stroke:#22d3ee,color:#e2e8f0
     classDef svc fill:#064e3b,stroke:#34d399,color:#e2e8f0
     classDef db fill:#4c1d95,stroke:#a78bfa,color:#e2e8f0

@@ -1,6 +1,6 @@
 ---
 name: devspec-implement
-description: Run /devspec.implement using the canonical devspec command registry. The only code-write command — edits target repository code when the upstream work item and repository access allow it. Supports mono-repo and multi-repo workspaces. Works across GitHub Copilot, Claude Code, OpenAI Codex, Cursor, and other AI agents.
+description: Run /devspec.implement using the canonical devspec command registry. The only code-write command - edits target repository code when the upstream work item and repository access allow it. Supports mono-repo and multi-repo workspaces. Works across GitHub Copilot, Claude Code, OpenAI Codex, Cursor, and other AI agents.
 ---
 
 Execute canonical command `/devspec.implement`.
@@ -13,4 +13,4 @@ Execute canonical command `/devspec.implement`.
 
 Command input comes from the user's current message.
 
-Platform note: Claude Code may not register `/devspec.implement` as a native slash command. Treat the command name as workflow intent and use this skill as the invocation mechanism. This command requires `code-write` access — confirm repository permissions before proceeding. Record any unsupported behavior in `devspec/adapters/compatibility-matrix.md`.
+Platform note: Claude Code may not register `/devspec.implement` as a native slash command. Treat the command name as workflow intent and use this skill as the invocation mechanism. This command requires `code-write` access - confirm repository permissions before proceeding. Record any unsupported behavior in `devspec/adapters/compatibility-matrix.md`.

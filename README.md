@@ -121,7 +121,7 @@ flowchart TD
 | `/devspec.tasks` | A ready brief needs executable tasks. | Work-item `tasks.md` |
 | `/devspec.implement` | Pending tasks should be implemented and recorded. | Work-item `implement.md` and code changes when applicable |
 | `/devspec.review` | Implemented work needs review against the finalized brief. | Work-item `review.md` |
-| `/devspec.diagram` | A diagram should be created or updated. | Architecture or work-item Mermaid diagram artifacts, with opt-in SVG images via `format=svg` or `format=mermaid+svg` |
+| `/devspec.diagram` | A diagram should be created or updated. | Architecture or work-item Markdown diagram artifacts, with Mermaid by default and opt-in SVG images via `format=svg` or `format=mermaid+svg` |
 
 For exact command contracts, see `devspec/adapters/command-registry.md`.
 
