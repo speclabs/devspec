@@ -17,6 +17,7 @@ Follow these rules:
 - Use `devspec/glossary.md` for status values.
 - Use `devspec/foundation/codebase-structure.md` for repository access requirements.
 - Use `devspec/adapters/validation-flows.md` for enterprise acceptance checks.
+- For `/devspec.diagram`, keep Mermaid as the default output and treat `format=svg` or `format=mermaid+svg` as canonical command input, not a separate workflow.
 - Keep provider credentials, tokens, user settings, and secrets outside prompt, rule, skill, and artifact files.
 - Record unsupported Antigravity behavior as a limitation instead of changing workflow semantics.
 

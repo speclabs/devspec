@@ -15,6 +15,7 @@ OpenAI Codex support starts with root `AGENTS.md`, which gives Codex the always-
 - Read `AGENTS.md` and `devspec/adapters/command-registry.md` before executing a `devspec` workflow.
 - Preserve Copilot prompt and agent intent from the canonical files listed in the registry.
 - Use Git-tracked `devspec` artifacts for recovery and handoff decisions.
+- `/devspec.diagram` keeps Mermaid as the default output; pass `format=svg` for SVG-only output or `format=mermaid+svg` for both outputs without creating a separate Codex command.
 - Treat Codex-specific slash commands, local/cloud modes, sandboxing, and approvals as platform mechanics, not workflow changes.
 
 ## Validation

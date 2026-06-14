@@ -324,6 +324,8 @@ def classify_ownership(path: PurePosixPath) -> str:
         return PROJECT_OWNED
     if len(parts) >= 4 and parts[:3] == ("devspec", "architecture", "diagrams") and path.suffix == ".md":
         return PROJECT_OWNED
+    if len(parts) >= 4 and parts[:3] == ("devspec", "architecture", "images") and path.suffix == ".svg":
+        return PROJECT_OWNED
     if len(parts) >= 3 and parts[:2] == ("devspec", "work-items") and parts[2] != "_template":
         return PROJECT_OWNED
     return FRAMEWORK_OWNED
