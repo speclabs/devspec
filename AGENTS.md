@@ -10,7 +10,7 @@ Before running or continuing any `devspec` workflow:
 
 1. Read `devspec/adapters/command-registry.md` for the requested command.
 2. Read the canonical Copilot prompt and agent files named in that registry row.
-3. Follow `.github/prompts/PATTERNS.md` for shared workflow, recovery, output, discovery, and recommendation behavior.
+3. Follow `.github/prompts/PATTERNS.md` for shared workflow, recovery, output, discovery, and recommendation behavior. For diagram generation, also apply `PATTERNS.md#mermaid-visual-quality-pattern` (dark theme init, semantic `classDef` palette, role-appropriate node shapes, subgraph boundaries, complexity guardrails), `PATTERNS.md#mermaid-internal-naming-and-readability-pattern`, and `PATTERNS.md#excluded-diagram-families` (do not generate or queue excluded families such as `architecture-beta`; use the portable alternative).
 4. Recover from existing `devspec/` artifacts before relying on memory.
 5. Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
 
