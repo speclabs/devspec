@@ -1,6 +1,6 @@
 # Architecture Diagram
 
-Use this artifact for one durable architecture, module, feature, workflow, process-flow, user journey, sequence, state, or domain diagram. Keep diagram status in `devspec/architecture/artifact-queue.md`; keep only generated content, supporting evidence, assumptions, and maintenance notes here.
+Use this artifact for one durable architecture, module, feature, workflow, process-flow, user journey, sequence, state, or domain diagram. Mermaid is the default output; SVG output is opt-in with `format=svg` or `format=mermaid+svg`. Keep diagram status in `devspec/architecture/artifact-queue.md`; keep generated content references, supporting evidence, assumptions, and maintenance notes here.
 
 ## Resume State
 
@@ -27,7 +27,9 @@ Use this artifact for one durable architecture, module, feature, workflow, proce
 | Display title | `DIA-NNN - <Title Case Diagram Name>` |
 | Scope | architecture, module, feature, workflow, user-journey |
 | Diagram type | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram, erDiagram, gantt, quadrantChart, mindmap, timeline |
+| Output format | mermaid, svg, mermaid+svg |
 | Mermaid declaration | flowchart TD, flowchart LR, flowchart BT, sequenceDiagram, journey, stateDiagram-v2, classDiagram, erDiagram, gantt, quadrantChart, mindmap, timeline |
+| SVG target | `devspec/architecture/images/dia-NNN-<diagram-name>.svg` when output format includes svg |
 | Subject | `dia-NNN-<diagram-name>` |
 | Confidence | observed, high-confidence, low-confidence |
 | Tags | |
@@ -35,6 +37,7 @@ Use this artifact for one durable architecture, module, feature, workflow, proce
 
 ## Mermaid Diagram
 
+- Omit this section's diagram block when `Output format` is `svg`; keep the heading and record `Not generated; SVG-only output requested.`.
 - Keep durable `DIA-*` IDs and `dia-NNN-*` subjects in metadata and filenames only; Mermaid content uses simple internal naming.
 - Use short alphanumeric node IDs, double-quoted node labels of 1-4 words, and 2-3 word edge labels. Do not use `\n` or `<br>` inside node labels or edge labels.
 - Keep architectural flowcharts focused on one primary domain at macro level, structurally unidirectional, and adjacent by layer. Do not include overloaded graphs, cross-layer arrows, decision diamonds, UI micro-interactions, or return/error paths unless the diagram is explicitly an algorithm or activity flowchart.
@@ -84,6 +87,20 @@ flowchart TD
     class MainDb db
     class UserA actor
 ```
+
+## SVG Diagram
+
+- Use this section when `Output format` is `svg` or `mermaid+svg`.
+- Store the durable SVG at `devspec/architecture/images/dia-NNN-<diagram-name>.svg`.
+- Use `devspec/architecture/_template/diagram.svg` as the starting point unless a documented constraint requires a smaller custom SVG.
+- Generated SVG must be standalone XML with inline styles and no external assets, `<script>`, `<iframe>`, `<foreignObject>`, remote fonts, remote images, secrets, credentials, internal-only URLs, or unresolved placeholders.
+- Validate the SVG as XML before reporting generation complete.
+
+| Field | Value |
+| --- | --- |
+| SVG target | |
+| Template used | `devspec/architecture/_template/diagram.svg` |
+| Validation | pending |
 
 ## Source Evidence and Assumptions
 

@@ -14,11 +14,11 @@ Use this section for confirmed architecture facts that affect system understandi
 
 ## Diagram Reference Index
 
-Use this section for confirmed high-level diagrams in this file and links to durable detailed diagrams. Do not mirror queue status here; track proposed, confirmed, generated, skipped, or blocked diagram work in `devspec/architecture/artifact-queue.md`.
+Use this section for confirmed high-level diagrams in this file and links to durable detailed diagrams and optional SVG images. Do not mirror queue status here; track proposed, confirmed, generated, skipped, or blocked diagram work in `devspec/architecture/artifact-queue.md`.
 
 | ID | Scope | Diagram type | Subject | Link or section | Usage notes |
 | --- | --- | --- | --- | --- | --- |
-|  | architecture, module, feature, workflow, user-journey | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram, erDiagram |  | `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md` or section anchor |  |
+|  | architecture, module, feature, workflow, user-journey | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram, erDiagram |  | `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md`, optional `devspec/architecture/images/dia-NNN-<diagram-name>.svg`, or section anchor |  |
 
 ## Decision Reference Index
 

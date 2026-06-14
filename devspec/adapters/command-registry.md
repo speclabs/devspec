@@ -9,7 +9,7 @@ This registry is the provider-neutral contract for all `devspec` adapters. The G
 | `artifact-write` | May create or update `devspec/` artifacts only. |
 | `code-write` | May edit target repository code when the upstream work item and repository access allow it. |
 | `review-write` | May write review artifacts and report findings, but should not change implementation code. |
-| `diagram-write` | May create or update Mermaid diagram artifacts and related queue state. |
+| `diagram-write` | May create or update Mermaid and opt-in SVG diagram artifacts and related queue state. |
 
 ## Registered Commands
 
@@ -27,7 +27,7 @@ This registry is the provider-neutral contract for all `devspec` adapters. The G
 | `/devspec.tasks` | Break a ready finalized brief into ordered executable implementation tasks with planning basis, validation, and done criteria. | `finalize.md` marked `ready`; optional task-planning input. | `.github/prompts/devspec.tasks.prompt.md` | `.github/agents/devspec.tasks.agent.md` | `devspec/work-items/<work-item-folder>/tasks.md` | `artifact-write` | `/devspec.implement` |
 | `/devspec.implement` | Implement pending tasks for the current ready work item, update implementation checkpoints, and confirm after each task. | `finalize.md` marked `ready` and `tasks.md`; optional implementation or validation guidance. | `.github/prompts/devspec.implement.prompt.md` | `.github/agents/devspec.implement-task.agent.md` | `devspec/work-items/<work-item-folder>/implement.md`, code changes when applicable | `code-write` | `/devspec.review` when complete |
 | `/devspec.review` | Review implemented work against the finalized brief and record review outcome. | `finalize.md` and `implement.md`; optional review focus. | `.github/prompts/devspec.review.prompt.md` | `.github/agents/devspec.review.agent.md` | `devspec/work-items/<work-item-folder>/review.md` | `review-write` | Return to `/devspec.implement` for changes or close the work item |
-| `/devspec.diagram` | Generate or update one evidence-backed Mermaid diagram, or batch-generate queued process-flow diagrams when explicitly requested. | Diagram subject, related work item, or explicit process-flow batch request. | `.github/prompts/devspec.diagram.prompt.md` | `.github/agents/devspec.diagram.agent.md` | `devspec/architecture/diagrams/dia-NNN-*.md`, `devspec/architecture/overview.md` for high-level diagrams, or work-item `diagrams.md` for temporary work-item diagrams | `diagram-write` | Continue the current workflow |
+| `/devspec.diagram` | Generate or update one evidence-backed diagram, defaulting to Mermaid with opt-in SVG output, or batch-generate queued process-flow diagrams when explicitly requested. | Diagram subject, related work item, explicit process-flow batch request, and optional `format=svg` or `format=mermaid+svg` token. | `.github/prompts/devspec.diagram.prompt.md` | `.github/agents/devspec.diagram.agent.md` | `devspec/architecture/diagrams/dia-NNN-*.md`, optional `devspec/architecture/images/dia-NNN-*.svg`, `devspec/architecture/overview.md` for high-level diagrams, or work-item `diagrams.md` and optional work-item `images/*.svg` for temporary work-item diagrams | `diagram-write` | Continue the current workflow |
 
 ## Required Flow Gates
 

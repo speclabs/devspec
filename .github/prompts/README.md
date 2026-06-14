@@ -45,7 +45,8 @@ Developers invoke registered slash commands from this directory. Agent names are
 - `../../devspec/adapters/validation-flows.md`: enterprise acceptance checklists for new repository, existing repository, story lifecycle, and cross-tool recovery validation.
 - `../../devspec/adapters/gemini-cli.md` and `../../devspec/adapters/antigravity.md`: Gemini CLI and Google Antigravity adapter guidance.
 - `PATTERNS.md#artifact-content-pattern`: shared structure rules for developer-facing artifacts, source labels, optional sections, and table/bullet/list usage.
-- `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, naming, Mermaid declaration, evidence, confidence, dedupe, tags, and diagram queue rules.
+- `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, naming, output format, Mermaid declaration, SVG target, evidence, confidence, dedupe, tags, and diagram queue rules.
+- `PATTERNS.md#svg-output-pattern`: standalone SVG output rules, folders, template use, validation, and forbidden elements.
 - `PATTERNS.md#process-flow-extraction-pattern`: process-flow discovery, tagging, hybrid user-to-data operational flow, and batch-generation rules.
 - `../../devspec/foundation/rules.md`: operational rules, work-item handling rules, exceptions, and delivery gates.
 - `../../devspec/foundation/codebase-structure.md`: multi-repo source of truth.
@@ -79,7 +80,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent front 
 | `devspec.tasks.prompt.md` | Break a ready brief into executable implementation tasks with planning basis, validation, and done criteria. | `tasks.md` |
 | `devspec.implement.prompt.md` | Implement pending tasks and record implementation task ledger state, implementation evidence, execution history, and handoff details. | `implement.md`, code changes |
 | `devspec.review.prompt.md` | Review implemented work against the finalized brief. | `review.md` |
-| `devspec.diagram.prompt.md` | Generate or update one evidence-backed Mermaid diagram, or batch-generate queued process-flow diagrams, using canonical naming and Mermaid declaration guidance. | `architecture/diagrams/dia-NNN-*.md` by default; `architecture/overview.md` for high-level architecture diagrams; work-item `diagrams.md` for explicit or clearly temporary work-item-specific diagram content |
+| `devspec.diagram.prompt.md` | Generate or update one evidence-backed diagram, defaulting to Mermaid with opt-in SVG output, or batch-generate queued process-flow diagrams. | `architecture/diagrams/dia-NNN-*.md` by default; optional `architecture/images/dia-NNN-*.svg` for `format=svg` or `format=mermaid+svg`; `architecture/overview.md` for high-level architecture diagrams; work-item `diagrams.md` and optional `images/*.svg` for explicit or clearly temporary work-item-specific diagram content |
 
 ## Maintenance
 

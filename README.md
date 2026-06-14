@@ -69,7 +69,7 @@ Then run the work-item flow:
 /devspec.review
 ```
 
-Use `/devspec.clarify` only when a work item records a blocking question. Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, or domain behavior.
+Use `/devspec.clarify` only when a work item records a blocking question. Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, or domain behavior; Mermaid is the default, with opt-in SVG via `format=svg` or `format=mermaid+svg`.
 
 ## How It Works
 
@@ -121,7 +121,7 @@ flowchart TD
 | `/devspec.tasks` | A ready brief needs executable tasks. | Work-item `tasks.md` |
 | `/devspec.implement` | Pending tasks should be implemented and recorded. | Work-item `implement.md` and code changes when applicable |
 | `/devspec.review` | Implemented work needs review against the finalized brief. | Work-item `review.md` |
-| `/devspec.diagram` | A diagram should be created or updated. | Architecture or work-item Mermaid diagram artifacts |
+| `/devspec.diagram` | A diagram should be created or updated. | Architecture or work-item Mermaid diagram artifacts, with opt-in SVG images via `format=svg` or `format=mermaid+svg` |
 
 For exact command contracts, see `devspec/adapters/command-registry.md`.
 
@@ -154,7 +154,7 @@ Related docs:
 | --- | --- |
 | `devspec/constitution.md` | Durable project principles across all work items and agents. |
 | `devspec/foundation/` | Product context, stack, structure, standards, rules, exclusions, and provider policy. |
-| `devspec/architecture/` | Architecture overview, diagrams, ADR templates, and artifact queue. |
+| `devspec/architecture/` | Architecture overview, Markdown diagrams, optional SVG images, ADR templates, and artifact queue. |
 | `devspec/work-items/` | One folder per feature, bug, or security work item. |
 | `devspec/adapters/` | Multi-agent registry, compatibility, validation, and governance docs. |
 | `docs/how-to/` | User manual with install, workflow, AI coding agent, multi-repo, provider, validation, and upgrade examples. |
@@ -271,6 +271,7 @@ Project-owned files should be migrated or merged, not overwritten:
 - `devspec/foundation/*.md`
 - `devspec/architecture/*.md`
 - `devspec/architecture/diagrams/*.md`
+- `devspec/architecture/images/*.svg`
 - `devspec/work-items/**`
 - `devspec/constitution.md`
 - `devspec/glossary.md`
