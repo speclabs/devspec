@@ -118,11 +118,11 @@ devspec init --target /Users/me/code/my-app --profile all --repo-state existing
 | Argument | Meaning | Beginner explanation |
 | --- | --- | --- |
 | `brew install speclabs/tap/devspec` | Install the devspec CLI. | Installs from the public SpecLabs tap when the formula is published. Initial releases build from source. |
-| `brew upgrade devspec` | Update the devspec CLI. | Updates the command-line tool. Run `devspec sync --dry-run` afterward to preview framework file changes. |
+| `brew upgrade devspec` | Update the devspec CLI. | Updates the command-line tool. Run `devspec sync --target . --profile all --dry-run` afterward to preview framework file changes. |
 | `version` | Print the devspec CLI version. | Use this to confirm the command runs. It does not change files. |
 | `init` | Install devspec files. | Copies framework files into your repo. |
 | `--target .` | Target repo folder. | `.` means the folder your terminal is currently in. |
-| `--profile all` | Install or check profile. | `all` installs every supported adapter. Required for `init` and `sync`; optional for `diff` and `doctor`. |
+| `--profile all` | Install or check profile. | `all` installs every supported adapter. Required for `init` and `sync`; optional for `diff` and `doctor`, where omission uses the installed manifest profile or falls back to `all`. |
 | `--repo-state existing` | Repo type. | Required for `init`. Use `existing` for most projects and `new` for empty or early repos. |
 | `doctor` | Validate install. | Checks that the expected files exist. |
 | `diff` | Compare files. | Shows installed/package version context, then checksum-based missing, modified, stale, protected, or profile-mismatched files without writing changes. |

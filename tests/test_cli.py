@@ -155,6 +155,22 @@ def test_diff_prints_version_summary(tmp_path: Path, capsys) -> None:
     assert "Version status: up to date" in output
 
 
+def test_diff_and_doctor_default_to_manifest_profile(tmp_path: Path, capsys) -> None:
+    target = tmp_path / "target"
+    target.mkdir()
+
+    assert main(["init", "--target", str(target), "--profile", "core", "--repo-state", "existing"]) == 0
+    capsys.readouterr()
+
+    assert main(["diff", "--target", str(target)]) == 0
+    diff_output = capsys.readouterr().out
+    assert "Profile mismatches" not in diff_output
+
+    assert main(["doctor", "--target", str(target)]) == 0
+    doctor_output = capsys.readouterr().out
+    assert "devspec doctor passed for profile 'core'" in doctor_output
+
+
 def test_sync_dry_run_prints_version_summary_without_mutating_manifest(tmp_path: Path, capsys) -> None:
     target = tmp_path / "target"
     target.mkdir()

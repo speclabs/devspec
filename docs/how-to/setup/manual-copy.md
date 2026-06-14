@@ -135,7 +135,7 @@ Manual copy does not use CLI arguments. If you later use the CLI, these are the 
 | `version` | Print the devspec CLI version. | Use this to confirm the command runs if the CLI becomes available later. |
 | `init` | Install devspec files. | Copies framework files into your repo. |
 | `--target .` | Target repo folder. | `.` means the folder your terminal is currently in. |
-| `--profile all` | Install or check profile. | `all` installs every supported adapter. Required for `init` and `sync`; optional for `diff` and `doctor`. |
+| `--profile all` | Install or check profile. | `all` installs every supported adapter. Required for `init` and `sync`; optional for `diff` and `doctor`, where omission uses the installed manifest profile or falls back to `all`. |
 | `--repo-state existing` | Repo type. | Required for `init`. Use `existing` for most projects and `new` for empty or early repos. |
 | `doctor` | Validate install. | Checks that expected files exist. |
 | `diff` | Compare files. | Shows installed/package version context, then checksum-based missing, modified, stale, protected, or profile-mismatched files without writing changes. |

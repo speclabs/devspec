@@ -98,7 +98,7 @@ def add_target(parser: argparse.ArgumentParser) -> None:
 
 
 def add_profile(parser: argparse.ArgumentParser, required: bool = True) -> None:
-    parser.add_argument("--profile", default=None if required else "all", required=required, help="Install profile.")
+    parser.add_argument("--profile", default=None, required=required, help="Install profile.")
 
 
 def cmd_version(_args: argparse.Namespace) -> int:
