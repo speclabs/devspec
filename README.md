@@ -110,11 +110,11 @@ flowchart TD
 | Command | Use when | Main output |
 | --- | --- | --- |
 | `/devspec.extract` | Existing code/docs should seed the foundation. | Foundation, architecture, extraction, and diagram queue artifacts. |
-| `/devspec.projectcontext` | Product and business context must be recorded. | `devspec/foundation/project-context.md` |
+| `/devspec.projectcontext` | Product and business context must be recorded; durable principles and operational governance route to their own artifacts. | `devspec/foundation/project-context.md` |
 | `/devspec.techstack` | Stack, runtime, hosting, tooling, or support status must be recorded. | `devspec/foundation/tech-stack.md` |
 | `/devspec.codebase-structure` | Repository layout, boundaries, multi-repo access, or integration contracts must be recorded. | `devspec/foundation/codebase-structure.md` |
 | `/devspec.coding-standards` | Engineering standards and observed patterns must be recorded. | `devspec/foundation/coding-standards.md` |
-| `/devspec.rules` | Operational rules, compliance requirements, and gates must be recorded. | `devspec/foundation/rules.md` |
+| `/devspec.rules` | Operational rules, compliance requirements, governance procedures, and gates must be recorded. | `devspec/foundation/rules.md` |
 | `/devspec.story` | A feature, bug, security issue, task, PBI, or provider reference needs intake. | Work-item `meta.md`, `story.md`, `decisions.md`, `notes.md` |
 | `/devspec.clarify` | A blocking question must be resolved. | Work-item `clarify.md` |
 | `/devspec.finalize` | A work item needs an implementation-ready brief. | Work-item `finalize.md` |
@@ -152,8 +152,8 @@ Related docs:
 
 | Path | Purpose |
 | --- | --- |
-| `devspec/constitution.md` | Durable project principles across all work items and agents. |
-| `devspec/foundation/` | Product context, stack, structure, standards, rules, exclusions, and provider policy. |
+| `devspec/constitution.md` | Rare durable project principles across all work items and agents; principle changes require explicit confirmation. |
+| `devspec/foundation/` | Product context, stack, structure, standards, operational rules, exclusions, and provider policy. |
 | `devspec/architecture/` | Architecture overview, Markdown diagrams, optional SVG images, ADR templates, and artifact queue. |
 | `devspec/work-items/` | One folder per feature, bug, or security work item. |
 | `devspec/adapters/` | Multi-agent registry, compatibility, validation, and governance docs. |
@@ -196,6 +196,7 @@ The release payload may also include this repository's `README.md` and `docs/how
 - Store workflow state in Git-tracked `devspec/` artifacts, not chat memory.
 - Use `devspec/glossary.md` for status values.
 - Use `devspec/foundation/codebase-structure.md` for repository access requirements.
+- Keep product facts in `devspec/foundation/project-context.md`, durable principles in `devspec/constitution.md`, and operational gates, compliance rules, enforcement details, and evolving governance in `devspec/foundation/rules.md`.
 - Keep secrets and provider credentials outside prompt, agent, adapter, and artifact files.
 - Record blockers instead of guessing.
 - Recommend only registered `/devspec.*` commands.

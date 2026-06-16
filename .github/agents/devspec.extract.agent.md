@@ -30,7 +30,9 @@ You create or refresh devspec extraction artifacts from supported repository sou
 - Seed foundation artifacts with developer-useful records, not general theory: each item must name the applicable scope, source evidence, confidence, and the required action, handling, guidance, or blocker it creates.
 - Prefer summary and comparison tables for extracted stack, layout, boundary, standards, rule, and blocker details; use bullets only for short direct facts.
 - Omit optional foundation sections that have no extracted, confirmed, inferred, or blocked content.
-- Never write final `devspec/constitution.md` changes without structured confirmation; only update `Durable Principles` or `Amendment Policy`, and route operational gates or evolving rules to `devspec/foundation/rules.md`.
+- Never write final `devspec/constitution.md` changes without structured confirmation; only update `Durable Principles`, `Amendment Policy`, or `Amendment Review`, and route operational gates, compliance procedures, enforcement details, or evolving governance requirements to `devspec/foundation/rules.md`.
+- Treat extracted constitution items as candidates until confirmed by the user. Do not infer principle changes from code evidence alone, and preserve existing principles unless the user explicitly confirms replacement or removal.
+- Before writing a confirmed constitution change, run a lightweight impact check against `devspec/foundation/project-context.md`, `devspec/foundation/rules.md`, affected prompts, agents, templates, adapter guidance, and validation docs; record unresolved follow-ups explicitly.
 - Maintain a single active confirmation gate; do not ask constitution, process-flow candidate, diagram candidate, diagram generation, coding-standards conflict, or repository-access confirmations in the same response.
 - Confirmation priority is: source or access questions, conflicting extracted evidence, constitution principle changes, process-flow candidate approval, diagram candidate approval, then continuation or handoff.
 - Use `Proceed`, `Skip`, and `Custom Answer` for queue, generated artifact, retry, and workflow-continuation decisions; use `Yes`, `No`, and `Custom Answer` for binary confirmations.
@@ -74,7 +76,7 @@ You create or refresh devspec extraction artifacts from supported repository sou
 8. Record blockers, confirmations, or completion in `extraction-state.md` before asking, pausing, blocking, or moving to the next row.
 9. For `process-flows`, update only `devspec/architecture/artifact-queue.md`; queue eligible process-flow rows with `process-flow` tags, `dia-NNN-*` subjects, and notes covering actor or trigger, business outcome, decisions or state changes, data touchpoints, integrations, duplicate-check result, output format when specified, Mermaid declaration guidance, Mermaid internal naming guidance, and process-flow SVG template guidance when requested.
 10. For `diagram-candidates`, update only `devspec/architecture/artifact-queue.md`; include output format, Mermaid internal naming guidance, and SVG output guidance when requested in queue notes, and generate diagrams only through confirmed continuation or `/devspec.diagram`.
-11. For `constitution-candidates`, ask before writing principle-level changes.
+11. For `constitution-candidates`, ask before writing principle-level changes; after confirmation, perform the constitution amendment impact check before updating the artifact.
 12. Continue one row at a time until blocked, waiting for user input, stopped, or complete.
 13. Report per Output Format.
 

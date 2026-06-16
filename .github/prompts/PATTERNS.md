@@ -110,6 +110,16 @@ Standard stage-specific option sets:
 - Use source labels consistently: `confirmed` for user-provided or approved facts, `observed` for direct repository evidence, `inferred` for reasoned conclusions from evidence, and `blocked` for unresolved gaps.
 - Preserve useful existing content, but replace stale, vague, or duplicative prose with compact structured records.
 
+## Constitution Amendment Pattern
+
+- Use `devspec/constitution.md` only for rare, durable principles that apply across work items and agents.
+- Do not overwrite the full constitution or replace existing principles unless the user explicitly confirms the replacement or removal.
+- Do not infer settled principle changes from repository evidence alone. Treat extracted or observed principles as candidates until the user confirms them.
+- Route operational gates, compliance procedures, enforcement details, and evolving governance requirements to `devspec/foundation/rules.md`; route product purpose, audiences, outcomes, scope, and metrics to `devspec/foundation/project-context.md`.
+- Before writing a confirmed constitution change, check affected prompts, agents, templates, adapter guidance, validation docs, `devspec/foundation/project-context.md`, and `devspec/foundation/rules.md` for conflicts with the changed principle.
+- Do not leave unexplained template placeholders or bracketed tokens in live constitution content.
+- Record unresolved amendment follow-ups explicitly in the affected artifact using `TODO(<FIELD_NAME>): <next action>` instead of hidden prose.
+
 ## Readiness Gap Scan Pattern
 
 - Use this pattern during `/devspec.finalize` before marking a work item `ready`; other stages may record obvious blockers, but they must not run a broad readiness audit unless their command contract says so.
@@ -353,6 +363,7 @@ Do not use the following Mermaid families regardless of the requested subject. F
 - Required user input is mandatory.
 - Ask one structured `clarification` question at a time when required details are missing or ambiguous, following the Interactive Question Pattern.
 - Follow the [Artifact Content Pattern](#artifact-content-pattern).
+- Follow the [Constitution Amendment Pattern](#constitution-amendment-pattern) when user input or repository evidence proposes durable principle changes.
 - Use the matching `devspec/foundation/_template/*.md` or `devspec/architecture/_template/*.md` file as the section contract when one exists.
 - Treat live `devspec/foundation/*.md` and `devspec/architecture/*.md` files as project-owned; update them in place and never replace them wholesale from templates.
 - If a live foundation or architecture artifact is missing, initialize it from the matching `_template` file before applying user-provided or extracted content.

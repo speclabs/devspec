@@ -307,11 +307,11 @@ Use these examples as starting points. The command registry remains authoritativ
 | Canonical command | Common input examples | Main output | Next handoff |
 | --- | --- | --- | --- |
 | `/devspec.extract` | Blank for current root; `D:\path\to\repo`; `UI - D:\repo-ui, API - D:\repo-api` | Extraction state, foundation artifacts, architecture overview, artifact queue | `/devspec.projectcontext` |
-| `/devspec.projectcontext` | Product brief, audience notes, business goals, scope boundaries | `devspec/foundation/project-context.md` | `/devspec.techstack` |
+| `/devspec.projectcontext` | Product brief, audience notes, business goals, scope boundaries | `devspec/foundation/project-context.md`; durable principles stay in `devspec/constitution.md`, operational governance stays in `devspec/foundation/rules.md` | `/devspec.techstack` |
 | `/devspec.techstack` | Runtime, framework, hosting, tooling, CI, support constraints | `devspec/foundation/tech-stack.md` | `/devspec.codebase-structure` |
 | `/devspec.codebase-structure` | Repository layout, work areas, integration boundaries, access requirements | `devspec/foundation/codebase-structure.md` | `/devspec.coding-standards` |
 | `/devspec.coding-standards` | Style guides, observed patterns, testing expectations, anti-patterns | `devspec/foundation/coding-standards.md` | `/devspec.rules` |
-| `/devspec.rules` | Compliance requirements, delivery gates, forbidden patterns, governance rules | `devspec/foundation/rules.md` | `/devspec.story` |
+| `/devspec.rules` | Compliance requirements, delivery gates, forbidden patterns, operational governance rules | `devspec/foundation/rules.md` | `/devspec.story` |
 | `/devspec.story` | `https://github.com/example/repo/issues/123`; `owner/repo#123`; `JIRA-123`; manual bug report | Work-item `meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
 | `/devspec.clarify` | Existing work item with a recorded blocker | Work-item `clarify.md` | Repeat until unblocked, then `/devspec.finalize` |
 | `/devspec.finalize` | Existing story artifacts plus optional readiness input | Work-item `finalize.md` | `/devspec.tasks` when ready |
