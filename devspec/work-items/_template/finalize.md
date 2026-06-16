@@ -32,7 +32,7 @@ Use this artifact as the implementation readiness brief. Keep only details that 
 | Decision note | |
 | Decision inputs | `story.md`, `clarify.md`, accepted `decisions.md` records, `devspec/foundation/rules.md` |
 
-Use readiness gates only for checks that decide whether task planning may proceed. Record the missing fact or blocking action here; record implementation content in `Implementation Brief`.
+Use readiness gates only for checks that decide whether task planning may proceed. Populate gates from the Readiness Gap Scan, using only readiness values from `devspec/glossary.md#readiness-status-values`. Record the missing fact or blocking action here; record implementation content in `Implementation Brief`.
 
 | ID | Check | Evidence source | Ready condition | Status | Blocking action |
 | --- | --- | --- | --- | --- | --- |

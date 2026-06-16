@@ -14,4 +14,6 @@ Before acting:
 3. Read the canonical `.github/prompts/*.prompt.md` and `.github/agents/*.agent.md` files named by the registry.
 4. Follow `AGENTS.md` for recovery, no-intent-drift, structured question behavior, and platform limitation handling.
 
+Preserve artifact boundaries: product context belongs in `devspec/foundation/project-context.md`, durable principles in `devspec/constitution.md`, and operational governance or delivery gates in `devspec/foundation/rules.md`.
+
 Do not assume Copilot prompt files register as Codex slash commands. Treat the command name as workflow intent unless the active Codex surface provides its own matching command mechanism.

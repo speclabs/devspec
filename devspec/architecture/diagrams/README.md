@@ -1,8 +1,8 @@
 # Architecture Diagrams
 
-Use this folder for durable Mermaid diagrams that are more specific than the high-level architecture context in `devspec/architecture/overview.md`.
+Use this folder for durable Markdown diagram artifacts that are more specific than the high-level architecture context in `devspec/architecture/overview.md`. Mermaid is the default generated diagram content; SVG output is opt-in with `format=svg` or `format=mermaid+svg`.
 
-Store module, feature workflow, process-flow, user journey, sequence, state, class/domain, and cross-feature diagrams as one Markdown file per subject. Track proposed, generated, skipped, or blocked diagram work with evidence, confidence, and tags in `devspec/architecture/artifact-queue.md`.
+Store module, feature workflow, process-flow, user journey, sequence, state, class/domain, and cross-feature diagrams as one Markdown file per subject. Store durable SVG images under `devspec/architecture/images/dia-NNN-<diagram-name>.svg` when requested. Track proposed, generated, skipped, or blocked diagram work with evidence, confidence, output format, and tags in `devspec/architecture/artifact-queue.md`.
 
 ## File and Queue Naming
 
@@ -10,9 +10,17 @@ Use Title Case for diagram display names and lowercase sequence-prefixed kebab-c
 
 Keep default subjects language-neutral after the sequence prefix, such as `dia-NNN-system-context`, `dia-NNN-runtime-containers`, `dia-NNN-dependency-graph`, or `dia-NNN-authentication-authorization-flow`. Use `dia-NNN-hybrid-user-to-data-operational-flow` for the durable hybrid flow that connects user entry points, application boundaries, services, data stores, validations, operational states, and outcomes.
 
-Queue `Diagram type` records the Mermaid family only. The generated diagram artifact records the full Mermaid declaration, such as `flowchart LR`, `flowchart TD`, `sequenceDiagram`, `stateDiagram-v2`, or `erDiagram`.
+Queue `Diagram type` records the logical diagram family only. The generated diagram artifact records the output format, and records the full Mermaid declaration such as `flowchart LR`, `flowchart TD`, `sequenceDiagram`, `stateDiagram-v2`, or `erDiagram` when Mermaid output is selected.
 
-`DIA-*` IDs, `dia-NNN-*` subjects, and `dia-NNN-*` filenames are durable diagram file and diagram queue naming conventions. They must not leak into Mermaid internal naming unless they are part of metadata outside the diagram block.
+`DIA-*` IDs, `dia-NNN-*` subjects, and `dia-NNN-*` filenames are durable diagram file and diagram queue naming conventions. They must not leak into Mermaid internal naming or SVG visible labels unless they are part of metadata outside the diagram content.
+
+## SVG Output
+
+- `/devspec.diagram <subject>` generates Mermaid by default.
+- `/devspec.diagram format=svg <subject>` generates SVG-only visual output plus the required Markdown metadata artifact.
+- `/devspec.diagram format=mermaid+svg <subject>` generates both the Mermaid block and the SVG companion file.
+- For SVG-only output, keep the Markdown artifact for resume state, metadata, evidence, assumptions, queue linkage, and SVG target reference.
+- Use `devspec/architecture/_template/process-flow-diagram.svg` for process-flow SVG output, and `devspec/architecture/_template/architecture-diagram.svg` for other durable SVG output. Validate generated SVG as XML before reporting success.
 
 ## Mermaid Readability
 

@@ -16,7 +16,9 @@ Follow these rules:
 - Preserve structured question behavior from `.github/prompts/PATTERNS.md#interactive-question-pattern`; if clickable options are unavailable, render the same option labels as text and preserve the recommended option.
 - Use `devspec/glossary.md` for status values.
 - Use `devspec/foundation/codebase-structure.md` for repository access requirements.
+- Keep product context in `devspec/foundation/project-context.md`, durable principles in `devspec/constitution.md`, and operational governance, compliance rules, enforcement details, and delivery gates in `devspec/foundation/rules.md`.
 - Use `devspec/adapters/validation-flows.md` for enterprise acceptance checks.
+- For `/devspec.diagram`, keep Mermaid as the default output and treat `format=svg` or `format=mermaid+svg` as canonical command input, not a separate workflow.
 - Keep provider credentials, tokens, user settings, and secrets outside prompt, rule, skill, and artifact files.
 - Record unsupported Antigravity behavior as a limitation instead of changing workflow semantics.
 

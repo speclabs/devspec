@@ -25,6 +25,8 @@ Google Antigravity support is implemented through workspace rules under `.agents
 - `.agents/rules/devspec-workflow.md` provides always-on workspace guidance.
 - `.agents/skills/devspec-*.md` provides command-like wrappers for each canonical command.
 - Each skill references `devspec/adapters/command-registry.md` and the matching Copilot prompt and agent files.
+- Preserve artifact boundaries: product context belongs in `devspec/foundation/project-context.md`, durable principles in `devspec/constitution.md`, and operational governance or delivery gates in `devspec/foundation/rules.md`.
+- `/devspec.diagram` keeps Mermaid as the default output; pass `format=svg` for SVG-only output or `format=mermaid+svg` for both outputs without creating a separate Antigravity skill.
 - Do not add Antigravity workflow files until the target workflow file location and format are confirmed for the team.
 - Antigravity artifacts, task lists, and implementation plans are transient helpers; Git-tracked `devspec/` artifacts remain canonical.
 

@@ -69,7 +69,7 @@ Then run the work-item flow:
 /devspec.review
 ```
 
-Use `/devspec.clarify` only when a work item records a blocking question. Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, or domain behavior.
+Use `/devspec.clarify` only when a work item records a blocking question. Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, or domain behavior; Mermaid is the default, with opt-in SVG via `format=svg` or `format=mermaid+svg`.
 
 ## How It Works
 
@@ -110,18 +110,18 @@ flowchart TD
 | Command | Use when | Main output |
 | --- | --- | --- |
 | `/devspec.extract` | Existing code/docs should seed the foundation. | Foundation, architecture, extraction, and diagram queue artifacts. |
-| `/devspec.projectcontext` | Product and business context must be recorded. | `devspec/foundation/project-context.md` |
+| `/devspec.projectcontext` | Product and business context must be recorded; durable principles and operational governance route to their own artifacts. | `devspec/foundation/project-context.md` |
 | `/devspec.techstack` | Stack, runtime, hosting, tooling, or support status must be recorded. | `devspec/foundation/tech-stack.md` |
 | `/devspec.codebase-structure` | Repository layout, boundaries, multi-repo access, or integration contracts must be recorded. | `devspec/foundation/codebase-structure.md` |
 | `/devspec.coding-standards` | Engineering standards and observed patterns must be recorded. | `devspec/foundation/coding-standards.md` |
-| `/devspec.rules` | Operational rules, compliance requirements, and gates must be recorded. | `devspec/foundation/rules.md` |
+| `/devspec.rules` | Operational rules, compliance requirements, governance procedures, and gates must be recorded. | `devspec/foundation/rules.md` |
 | `/devspec.story` | A feature, bug, security issue, task, PBI, or provider reference needs intake. | Work-item `meta.md`, `story.md`, `decisions.md`, `notes.md` |
 | `/devspec.clarify` | A blocking question must be resolved. | Work-item `clarify.md` |
 | `/devspec.finalize` | A work item needs an implementation-ready brief. | Work-item `finalize.md` |
 | `/devspec.tasks` | A ready brief needs executable tasks. | Work-item `tasks.md` |
 | `/devspec.implement` | Pending tasks should be implemented and recorded. | Work-item `implement.md` and code changes when applicable |
 | `/devspec.review` | Implemented work needs review against the finalized brief. | Work-item `review.md` |
-| `/devspec.diagram` | A diagram should be created or updated. | Architecture or work-item Mermaid diagram artifacts |
+| `/devspec.diagram` | A diagram should be created or updated. | Architecture or work-item Markdown diagram artifacts, with Mermaid by default and opt-in SVG images via `format=svg` or `format=mermaid+svg` |
 
 For exact command contracts, see `devspec/adapters/command-registry.md`.
 
@@ -152,9 +152,9 @@ Related docs:
 
 | Path | Purpose |
 | --- | --- |
-| `devspec/constitution.md` | Durable project principles across all work items and agents. |
-| `devspec/foundation/` | Product context, stack, structure, standards, rules, exclusions, and provider policy. |
-| `devspec/architecture/` | Architecture overview, diagrams, ADR templates, and artifact queue. |
+| `devspec/constitution.md` | Rare durable project principles across all work items and agents; principle changes require explicit confirmation. |
+| `devspec/foundation/` | Product context, stack, structure, standards, operational rules, exclusions, and provider policy. |
+| `devspec/architecture/` | Architecture overview, Markdown diagrams, optional SVG images, ADR templates, and artifact queue. |
 | `devspec/work-items/` | One folder per feature, bug, or security work item. |
 | `devspec/adapters/` | Multi-agent registry, compatibility, validation, and governance docs. |
 | `docs/how-to/` | User manual with install, workflow, AI coding agent, multi-repo, provider, validation, and upgrade examples. |
@@ -167,14 +167,13 @@ Related docs:
 
 ## Manual Copy Fallback
 
-Use manual copy only when the CLI, `uvx`, package managers, and release ZIP automation are blocked. Copy these core files and folders from the `devspec` release into the target repository root:
+Use manual copy only when the CLI, `uvx`, package managers, and release ZIP automation are blocked. Copy these core framework files and folders from the `devspec` release into the target repository root:
 
 ```text
 devspec/
 .github/prompts/
 .github/agents/
 AGENTS.md
-docs/how-to/
 ```
 
 Then copy only the adapter files your team uses:
@@ -188,7 +187,7 @@ Then copy only the adapter files your team uses:
 | Gemini CLI | `GEMINI.md`, `.gemini/` |
 | Google Antigravity | `.agents/` |
 
-Do not copy this framework repository's root `README.md` over a target project's README. Keep credentials, provider tokens, local auth files, and personal settings outside copied framework files.
+The release payload may also include this repository's `README.md` and `docs/how-to/` for reference. Do not copy them into the target repository as installed framework files, and do not overwrite a target project's root `README.md`. Keep credentials, provider tokens, local auth files, and personal settings outside copied framework files.
 
 ## Operating Rules
 
@@ -197,6 +196,7 @@ Do not copy this framework repository's root `README.md` over a target project's
 - Store workflow state in Git-tracked `devspec/` artifacts, not chat memory.
 - Use `devspec/glossary.md` for status values.
 - Use `devspec/foundation/codebase-structure.md` for repository access requirements.
+- Keep product facts in `devspec/foundation/project-context.md`, durable principles in `devspec/constitution.md`, and operational gates, compliance rules, enforcement details, and evolving governance in `devspec/foundation/rules.md`.
 - Keep secrets and provider credentials outside prompt, agent, adapter, and artifact files.
 - Record blockers instead of guessing.
 - Recommend only registered `/devspec.*` commands.
@@ -264,13 +264,13 @@ Framework-owned files may be replaced or diff-applied during upgrades:
 - `GEMINI.md`
 - `devspec/adapters/`
 - `devspec/**/_template/`
-- `docs/how-to/`
 
 Project-owned files should be migrated or merged, not overwritten:
 
 - `devspec/foundation/*.md`
 - `devspec/architecture/*.md`
 - `devspec/architecture/diagrams/*.md`
+- `devspec/architecture/images/*.svg`
 - `devspec/work-items/**`
 - `devspec/constitution.md`
 - `devspec/glossary.md`

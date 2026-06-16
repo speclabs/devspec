@@ -2,9 +2,9 @@
 
 Use this file only for explicit or clearly temporary work-item diagrams, such as a one-off bug reproduction flow, migration path, security incident or threat flow, temporary implementation plan, or experiment.
 
-Reusable process flows, feature workflows, module workflows, user journeys, sequences, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item.
+Reusable process flows, feature workflows, module workflows, user journeys, sequences, and state diagrams should live under `devspec/architecture/diagrams/` and be referenced from the work item. Durable SVG companions should live under `devspec/architecture/images/`.
 
-Do not keep a separate diagram index or status here. `devspec/architecture/artifact-queue.md` owns diagram status from `devspec/glossary.md#artifact-status-values`. This file owns only temporary work-item-specific diagram content and the resume state needed to continue the diagram command.
+Do not keep a separate diagram index or status here. `devspec/architecture/artifact-queue.md` owns diagram status from `devspec/glossary.md#artifact-status-values`. This file owns only temporary work-item-specific diagram content and the resume state needed to continue the diagram command. Temporary SVG images belong under `devspec/work-items/<work-item-folder>/images/`.
 
 ## Resume State
 
@@ -30,7 +30,9 @@ Do not keep a separate diagram index or status here. `devspec/architecture/artif
 | Field | Value |
 | --- | --- |
 | Type | |
+| Output format | mermaid, svg, mermaid+svg |
 | Subject | |
+| SVG target | `devspec/work-items/<work-item-folder>/images/<diagram-name>.svg` when output format includes svg |
 | Queue source | `devspec/architecture/artifact-queue.md` |
 | Evidence sources | |
 | Confidence | observed, high-confidence, low-confidence |
@@ -38,5 +40,23 @@ Do not keep a separate diagram index or status here. `devspec/architecture/artif
 | Notes | |
 
 ```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': {'primaryColor': '#1e293b', 'primaryTextColor': '#f8fafc', 'lineColor': '#64748b', 'clusterBkg': '#0f172a', 'clusterBorder': '#334155'}}}%%
 flowchart TD
+    %% classDef palette - include only roles present in this diagram
+    classDef ui fill:#083344,stroke:#22d3ee,color:#e2e8f0
+    classDef svc fill:#064e3b,stroke:#34d399,color:#e2e8f0
+    classDef db fill:#4c1d95,stroke:#a78bfa,color:#e2e8f0
+    classDef ext fill:#78350f,stroke:#fbbf24,color:#e2e8f0
+    classDef sec fill:#881337,stroke:#fb7185,color:#e2e8f0
+    classDef evt fill:#7c2d12,stroke:#fb923c,color:#e2e8f0
+    classDef actor fill:#1e293b,stroke:#94a3b8,color:#e2e8f0
+    classDef gen fill:#1e293b,stroke:#64748b,color:#e2e8f0
+
+    %% Pad all node labels and edge labels with &nbsp; on each side for readability
+    %% e.g.  Svc["&nbsp;Auth Service&nbsp;"]   -->|"&nbsp;Validates&nbsp;"|
+    %% nodes and subgraphs here
+    %% cross-subgraph arrows after all subgraph...end blocks
+    %% class assignments at the end: class Node1,Node2 className
 ```
+
+For `format=svg`, omit the Mermaid block content and reference the generated SVG target above. For `format=mermaid+svg`, keep both the Mermaid block and SVG target reference.

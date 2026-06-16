@@ -307,22 +307,22 @@ Use these examples as starting points. The command registry remains authoritativ
 | Canonical command | Common input examples | Main output | Next handoff |
 | --- | --- | --- | --- |
 | `/devspec.extract` | Blank for current root; `D:\path\to\repo`; `UI - D:\repo-ui, API - D:\repo-api` | Extraction state, foundation artifacts, architecture overview, artifact queue | `/devspec.projectcontext` |
-| `/devspec.projectcontext` | Product brief, audience notes, business goals, scope boundaries | `devspec/foundation/project-context.md` | `/devspec.techstack` |
+| `/devspec.projectcontext` | Product brief, audience notes, business goals, scope boundaries | `devspec/foundation/project-context.md`; durable principles stay in `devspec/constitution.md`, operational governance stays in `devspec/foundation/rules.md` | `/devspec.techstack` |
 | `/devspec.techstack` | Runtime, framework, hosting, tooling, CI, support constraints | `devspec/foundation/tech-stack.md` | `/devspec.codebase-structure` |
 | `/devspec.codebase-structure` | Repository layout, work areas, integration boundaries, access requirements | `devspec/foundation/codebase-structure.md` | `/devspec.coding-standards` |
 | `/devspec.coding-standards` | Style guides, observed patterns, testing expectations, anti-patterns | `devspec/foundation/coding-standards.md` | `/devspec.rules` |
-| `/devspec.rules` | Compliance requirements, delivery gates, forbidden patterns, governance rules | `devspec/foundation/rules.md` | `/devspec.story` |
+| `/devspec.rules` | Compliance requirements, delivery gates, forbidden patterns, operational governance rules | `devspec/foundation/rules.md` | `/devspec.story` |
 | `/devspec.story` | `https://github.com/example/repo/issues/123`; `owner/repo#123`; `JIRA-123`; manual bug report | Work-item `meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
 | `/devspec.clarify` | Existing work item with a recorded blocker | Work-item `clarify.md` | Repeat until unblocked, then `/devspec.finalize` |
 | `/devspec.finalize` | Existing story artifacts plus optional readiness input | Work-item `finalize.md` | `/devspec.tasks` when ready |
 | `/devspec.tasks` | Ready `finalize.md`; optional task-planning guidance | Work-item `tasks.md` | `/devspec.implement` |
 | `/devspec.implement` | Ready `finalize.md` and `tasks.md`; optional validation guidance | Work-item `implement.md` and code changes when allowed | `/devspec.review` |
 | `/devspec.review` | `finalize.md` and `implement.md`; optional review focus | Work-item `review.md` | Return to `/devspec.implement` for changes or close the work item |
-| `/devspec.diagram` | Diagram subject, work item, or explicit process-flow batch request | Architecture or work-item Mermaid diagram artifacts | Continue the current workflow |
+| `/devspec.diagram` | Diagram subject, work item, explicit process-flow batch request, or optional `format=svg` / `format=mermaid+svg` | Architecture or work-item Markdown diagram artifacts, with Mermaid by default and opt-in SVG images | Continue the current workflow |
 
 ## Diagrams
 
-Use `/devspec.diagram` when a Mermaid diagram would clarify architecture, workflow, state, sequence, domain behavior, user journey, or a work-item-specific flow.
+Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, domain behavior, user journey, or a work-item-specific flow. Mermaid is the default output.
 
 Examples:
 
@@ -330,13 +330,17 @@ Examples:
 /devspec.diagram checkout payment flow
 /devspec.diagram authentication state transitions
 /devspec.diagram batch-generate queued process-flow diagrams
+/devspec.diagram format=svg checkout payment flow
+/devspec.diagram format=mermaid+svg authentication state transitions
 ```
 
-Durable detailed diagrams live under `devspec/architecture/diagrams/`. High-level architecture diagram references belong in `devspec/architecture/overview.md`. Temporary work-item-specific diagrams belong in `devspec/work-items/<work-item-folder>/diagrams.md`.
+Durable detailed Markdown diagram artifacts live under `devspec/architecture/diagrams/`. Durable SVG images live under `devspec/architecture/images/` when `format=svg` or `format=mermaid+svg` is requested. High-level architecture diagram references belong in `devspec/architecture/overview.md`. Temporary work-item-specific diagrams belong in `devspec/work-items/<work-item-folder>/diagrams.md`, with temporary SVGs under `devspec/work-items/<work-item-folder>/images/`.
 
-Extraction may seed diagram candidates into `devspec/architecture/artifact-queue.md`. Use `/devspec.diagram` as the normal follow-up when a queued diagram should be generated.
+Extraction may seed diagram candidates into `devspec/architecture/artifact-queue.md`. Use `/devspec.diagram` as the normal follow-up when a queued diagram should be generated. `/devspec.extract` preserves `format=svg` and `format=mermaid+svg` preferences in queue notes and may generate at most one approved diagram artifact set during extraction, matching the Mermaid approval gate.
 
-Generated diagrams should follow the shared Mermaid readability rules:
+Use `format=svg` for SVG-only visual output. The command still creates or updates the Markdown diagram artifact for resume state, metadata, evidence, assumptions, queue linkage, and SVG target reference. Use `format=mermaid+svg` when both the Mermaid block and SVG companion are needed.
+
+Generated Mermaid diagrams should follow the shared readability rules:
 
 - Keep `DIA-*` and `dia-NNN-*` names for the durable diagram file and diagram queue, not for Mermaid nodes.
 - Use short alphanumeric node IDs, double-quoted node labels of 1-4 words, no `\n` or `<br>` line breaks, and 2-3 word edge labels.
@@ -353,6 +357,8 @@ flowchart LR
     AuthCtrl["Authentication Controller"] -->|"Validates Session"| ProviderSvc["Provider Service"]
     ProviderSvc -->|"Reads Profile"| UserDb["User Database"]
 ```
+
+Generated SVG diagrams should be standalone XML created from `devspec/architecture/_template/architecture-diagram.svg` or, for process-flow SVGs, `devspec/architecture/_template/process-flow-diagram.svg`, with inline styles, no external assets, no `<script>`, no `<iframe>`, no `<foreignObject>`, no secrets, and no unresolved placeholders in generated output. Validate SVG files as XML before marking the queue row generated.
 
 ## Multi-Repo Work
 
@@ -466,6 +472,7 @@ Project-owned files should be migrated or merged, not overwritten:
 devspec/foundation/*.md
 devspec/architecture/*.md
 devspec/architecture/diagrams/*.md
+devspec/architecture/images/*.svg
 devspec/work-items/**
 devspec/constitution.md
 devspec/glossary.md
@@ -485,7 +492,7 @@ During an upgrade:
 | Problem | What to do |
 | --- | --- |
 | `devspec` is not found after installation. | Prefer `uvx devspec ...` for one-off usage, or verify the user-local tool directory is on PATH. |
-| Package managers are blocked by corporate policy. | Use the GitHub Release ZIP or [Manual Copy Setup](setup/manual-copy.md), then run the normal foundation flow. |
+| Package managers are blocked by corporate policy. | Use the GitHub Release ZIP as the source for [Manual Copy Setup](setup/manual-copy.md), then run the normal foundation flow. |
 | `devspec init` reports existing file conflicts. | Review the files, keep local changes when intentional, and use `--force` only for reviewed framework-owned files. |
 | `devspec diff` reports a profile mismatch. | Re-run with the intended profile or update the installation with `devspec sync --target . --profile <profile> --dry-run`. |
 | `devspec doctor` reports missing adapter files. | Reinstall or sync with the adapter profile your team uses. |
@@ -494,7 +501,7 @@ During an upgrade:
 | A work item cannot move to `/devspec.tasks`. | Check whether `finalize.md` is marked `ready`; resolve blockers first. |
 | `/devspec.implement` wants to edit the wrong repository. | Check `devspec/foundation/codebase-structure.md` repository configuration and access requirements. |
 | Provider lookup fails. | Classify the failure as not found, access denied, malformed input, or integration unavailable; use manual intake only after explicit user choice. |
-| Diagram generation creates duplicate subjects. | Check `devspec/architecture/artifact-queue.md` and existing files under `devspec/architecture/diagrams/` before creating a new diagram. |
+| Diagram generation creates duplicate subjects. | Check `devspec/architecture/artifact-queue.md`, existing files under `devspec/architecture/diagrams/`, and existing SVGs under `devspec/architecture/images/` before creating a new diagram. |
 
 ## Deployment Contributor Checks
 
@@ -517,7 +524,7 @@ Use provider-specific GitHub workflow filenames and display names. The current p
 
 Future package-provider workflows should follow the same pattern, such as `homebrew-package-publish.yml` or `npm-package-publish.yml`.
 
-For Homebrew releases, publish the source formula through `speclabs/homebrew-tap` first. The tap-ready template files live in:
+For Homebrew releases, publish the generated source formula through `speclabs/homebrew-tap` before documenting the tap as available. The tap-ready template files live in:
 
 ```text
 packaging/homebrew/tap/Formula/devspec.rb

@@ -17,6 +17,7 @@ You create or update `devspec/foundation/project-context.md`.
 - Use `../../devspec/foundation/_template/project-context.md` as the section contract; write only to `devspec/foundation/project-context.md`.
 - Capture product overview facts, audiences and stakeholders, outcomes and scope, and delivery context when known.
 - Keep each fact in one home: product purpose/problem/target outcome in `Product Overview`, users and stakeholders in `Audiences and Stakeholders`, goals/scope exclusions/metrics in `Outcomes and Scope`, and product constraints or blockers in `Delivery Context`.
+- Keep `project-context.md` focused on product facts. Route durable principles to `../../devspec/constitution.md` and require explicit confirmation before any principle-level change. Route operational gates, compliance rules, enforcement details, and evolving governance requirements to `../../devspec/foundation/rules.md`.
 - Merge direct user input and extracted content into the same structured tables, preserving source and confidence labels.
 - Omit optional sections when there are no real project facts to record.
 
@@ -24,8 +25,9 @@ You create or update `devspec/foundation/project-context.md`.
 1. Read the existing artifact.
 2. Ask one structured `clarification` question at a time if required input is incomplete or ambiguous.
 3. Check discovery exclusions and optional exploration state for the same repository or product area.
-4. Merge the input into the project-context structure and record reusable discovery methods.
-5. Write the artifact and report per Output Format.
+4. Classify input before writing: product purpose, users, outcomes, scope, metrics, and product constraints stay in `project-context.md`; durable principles are deferred for confirmed constitution handling; operational gates and enforcement rules are deferred to `/devspec.rules`.
+5. Merge the product-context input into the project-context structure and record reusable discovery methods.
+6. Write the artifact and report per Output Format.
 
 ## Output Format
 - Artifact updated

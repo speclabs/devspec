@@ -1,6 +1,6 @@
 # SpecLabs Homebrew Tap Package
 
-This directory contains the tap-ready files for `speclabs/homebrew-tap`.
+This directory contains the tap-ready template files for `speclabs/homebrew-tap`.
 
 Initial deployment is source-only. Bottles should be added after the formula has passed source install validation on macOS and Linux.
 

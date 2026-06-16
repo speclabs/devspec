@@ -110,6 +110,25 @@ Standard stage-specific option sets:
 - Use source labels consistently: `confirmed` for user-provided or approved facts, `observed` for direct repository evidence, `inferred` for reasoned conclusions from evidence, and `blocked` for unresolved gaps.
 - Preserve useful existing content, but replace stale, vague, or duplicative prose with compact structured records.
 
+## Constitution Amendment Pattern
+
+- Use `devspec/constitution.md` only for rare, durable principles that apply across work items and agents.
+- Do not overwrite the full constitution or replace existing principles unless the user explicitly confirms the replacement or removal.
+- Do not infer settled principle changes from repository evidence alone. Treat extracted or observed principles as candidates until the user confirms them.
+- Route operational gates, compliance procedures, enforcement details, and evolving governance requirements to `devspec/foundation/rules.md`; route product purpose, audiences, outcomes, scope, and metrics to `devspec/foundation/project-context.md`.
+- Before writing a confirmed constitution change, check affected prompts, agents, templates, adapter guidance, validation docs, `devspec/foundation/project-context.md`, and `devspec/foundation/rules.md` for conflicts with the changed principle.
+- Do not leave unexplained template placeholders or bracketed tokens in live constitution content.
+- Record unresolved amendment follow-ups explicitly in the affected artifact using `TODO(<FIELD_NAME>): <next action>` instead of hidden prose.
+
+## Readiness Gap Scan Pattern
+
+- Use this pattern during `/devspec.finalize` before marking a work item `ready`; other stages may record obvious blockers, but they must not run a broad readiness audit unless their command contract says so.
+- Scan the upstream work-item artifacts, accepted decisions, applicable foundation artifacts, and available repository evidence for gaps in scope boundaries, acceptance criteria, actors or personas, domain and data rules, lifecycle or state behavior, UX/error/empty/loading states, non-functional needs, integrations and external dependencies, security/privacy/compliance, validation testability, terminology consistency, TODO markers, and ambiguous placeholders.
+- Treat a gap as blocking only when resolving it would materially change implementation scope, task decomposition, validation design, repository readiness, delivery risk, compliance handling, or type-specific rule handling.
+- Do not ask about low-impact preferences, purely stylistic choices, implementation tactics better left to `/devspec.tasks`, or facts already captured in upstream artifacts.
+- When one or more blocking gaps remain, prioritize by highest implementation impact and uncertainty, then surface only the top unresolved blocking clarification through the current stage's single-question or handoff flow.
+- Record scan outcomes through existing readiness gates, implementation brief rows, validation plan rows, blockers, or handoff state. Do not create a separate speculative audit artifact or invent coverage/status values outside `devspec/glossary.md`.
+
 ## Discovery Exclusion Pattern
 
 - Before repository search, extraction, code-pattern discovery, layout mapping, validation-surface discovery, or generated helper scripts, read `devspec/foundation/discovery-exclusions.md` when present.
@@ -125,29 +144,44 @@ Standard stage-specific option sets:
 - Use this pattern when extraction proposes diagram candidates or `/devspec.diagram` generates or updates a diagram.
 - Queue only candidates backed by concrete repository evidence from owned routes, modules, workflows, state transitions, services, integrations, ADRs, docs, infrastructure, runtime config, or manifests.
 - Each queued candidate must include ID, scope, diagram type, subject, target location, evidence, confidence, status, tags, and next action or notes. Record the equivalent-diagram check result in `Next action or notes`.
+- Diagram output format defaults to `mermaid`. Accept only `format=mermaid`, `format=svg`, or `format=mermaid+svg` in user input or queue notes. Ask one structured `clarification` question for unsupported `format=` values before writing output.
 - Use stable IDs such as `DIA-001`, `DIA-002`, preserving existing IDs and assigning the next available number for new rows.
 - Keep subjects specific enough to become one diagram file. Use Title Case for display names and lowercase kebab-case for subject slugs.
-- For durable architecture diagram queue rows, use the queue ID as the sequence anchor: `DIA-001` maps to subject `dia-001-<diagram-name>`, target `devspec/architecture/diagrams/dia-001-<diagram-name>.md`, and display title `DIA-001 - <Title Case Diagram Name>`.
-- Never renumber existing `DIA-*` rows or generated `dia-NNN-*` diagram files. New diagrams get the next available `DIA-*` ID and matching lowercase `dia-NNN-*` subject prefix.
+- For durable architecture diagram queue rows, use the queue ID as the sequence anchor: `DIA-001` maps to subject `dia-001-<diagram-name>`, Markdown target `devspec/architecture/diagrams/dia-001-<diagram-name>.md`, optional SVG target `devspec/architecture/images/dia-001-<diagram-name>.svg`, and display title `DIA-001 - <Title Case Diagram Name>`.
+- Never renumber existing `DIA-*` rows, generated `dia-NNN-*` diagram files, or generated `dia-NNN-*` SVG files. New diagrams get the next available `DIA-*` ID and matching lowercase `dia-NNN-*` subject prefix.
 - Avoid language, framework, vendor, or platform names in default diagram subjects. Use language-specific evidence only as supporting evidence unless the user explicitly requests a specialized diagram.
-- Prefer reusable architecture, module, feature, workflow, sequence, state, or user-journey diagrams over temporary work-item diagrams. Use work-item `diagrams.md` only for explicit or clearly temporary work-item-specific diagram content, and keep diagram status in `devspec/architecture/artifact-queue.md`.
+- Prefer reusable architecture, module, feature, workflow, sequence, state, or user-journey diagrams over temporary work-item diagrams. Use work-item `diagrams.md` and optional `devspec/work-items/<work-item-folder>/images/<diagram-name>.svg` only for explicit or clearly temporary work-item-specific diagram content, and keep diagram status in `devspec/architecture/artifact-queue.md`.
 - Use queue `Tags` for durable selection and batch processing. Process-flow rows must include `process-flow`; add narrower tags such as `business-process`, `user-journey`, `lifecycle-flow`, or `hybrid-user-to-data-operational-flow` when they apply.
-- Use queue `Diagram type` for the Mermaid family only: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, `classDiagram`, or `erDiagram`. Record orientation such as `LR`, `TD`, or `BT` in `Next action or notes` when useful, and write the full Mermaid declaration in the generated artifact.
+- Use queue `Diagram type` for the logical diagram family only: `flowchart`, `sequenceDiagram`, `journey`, `stateDiagram`, `classDiagram`, `erDiagram`, `gantt`, `quadrantChart`, `mindmap`, or `timeline`. Record orientation such as `LR`, `TD`, or `BT` and output format such as `format=svg` or `format=mermaid+svg` in `Next action or notes` when useful. Write the full Mermaid declaration in the generated Markdown artifact when Mermaid output is selected.
 - Use `flowchart LR` for relationship maps, dependency graphs, event flows, and pipelines. Use `flowchart TD` for context, topology, hierarchy, data movement, and risk grouping. Use `flowchart BT` only for optional layer dependency views where lower layers should appear as foundations.
 - Use `sequenceDiagram` for actor, service, workflow, or security interactions over time; `journey` for user-facing paths; `stateDiagram-v2` for lifecycle or status transitions; `classDiagram` for stable domain or structural relationships; and `erDiagram` for entity relationship models.
 - Use confidence values consistently: `observed` for directly supported code, docs, config, or ADR evidence; `high-confidence` for inference from multiple local evidence points; `low-confidence` only when useful but incomplete evidence must be recorded as an assumption.
 - Do not queue vague subjects, candidates without source evidence, duplicate or equivalent existing diagrams, or temporary work-item diagrams without an explicit request.
 - Use `blocked` when a diagram idea is useful but evidence is insufficient; use `skipped` only after the user declines generation.
-- Before queueing or writing, check `devspec/architecture/artifact-queue.md`, `devspec/architecture/overview.md`, `devspec/architecture/diagrams/*.md`, and relevant work-item `diagrams.md` files for equivalent subject, scope, diagram type, or target location.
+- Before queueing or writing, check `devspec/architecture/artifact-queue.md`, `devspec/architecture/overview.md`, `devspec/architecture/diagrams/*.md`, `devspec/architecture/images/*.svg`, and relevant work-item `diagrams.md` and `images/*.svg` files for equivalent subject, scope, diagram type, or target location.
 - Avoid duplicate overview diagrams unless `devspec/architecture/overview.md` lacks a confirmed architecture context or diagram reference entry.
 - During `/devspec.extract`, seed candidates in `devspec/architecture/artifact-queue.md` and ask only about the next unresolved candidate after higher-priority confirmations. Generate diagrams later through `/devspec.diagram` unless the user explicitly continues through the confirmed queue.
-- During `/devspec.diagram`, reuse matching queue metadata instead of reclassifying the same subject from scratch. Generate exactly one evidence-backed Mermaid artifact per run unless the user requests process-flow batch generation.
+- During `/devspec.extract`, honor `format=svg` and `format=mermaid+svg` as generation preferences only after explicit approval; extraction may generate at most one approved diagram artifact set before stopping or asking for continuation.
+- During `/devspec.diagram`, reuse matching queue metadata instead of reclassifying the same subject from scratch. Generate exactly one evidence-backed diagram artifact set per run unless the user requests process-flow batch generation. A `mermaid+svg` request is one artifact set with both outputs.
+
+## SVG Output Pattern
+
+- Use this pattern when `/devspec.diagram` or approved `/devspec.extract` continuation generates SVG output.
+- Mermaid remains the default output. `format=svg` generates an SVG file and a metadata Markdown artifact without a Mermaid block. `format=mermaid+svg` generates both the Mermaid block and an SVG companion. `format=mermaid` is equivalent to the default.
+- Store durable SVG files under `devspec/architecture/images/dia-NNN-<diagram-name>.svg`. Store temporary work-item SVG files under `devspec/work-items/<work-item-folder>/images/<diagram-name>.svg`.
+- For SVG-only output, still create or update the Markdown diagram artifact for `Resume State`, `Diagram Metadata`, source evidence, assumptions, maintenance notes, queue row, and SVG target reference. Do not skip devspec metadata.
+- Select the SVG template deterministically. Use `devspec/architecture/_template/process-flow-diagram.svg` when the queue row has `process-flow`, `business-process`, `user-journey`, `lifecycle-flow`, or `hybrid-user-to-data-operational-flow` tags, or when the request explicitly asks for a process-flow SVG. Use `devspec/architecture/_template/architecture-diagram.svg` for architecture, component, topology, dependency, domain, state, sequence companion, and general workflow SVGs.
+- Generated SVG files must be standalone XML with `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 WIDTH HEIGHT" role="img" aria-labelledby="title desc">`, inline `<defs>` and `<style>`, and no external assets.
+- Do not include `<script>`, `<iframe>`, `<foreignObject>`, remote images, remote fonts, external stylesheets, secrets, tokens, credentials, internal-only URLs, or visible placeholder tokens in generated SVG output.
+- Keep visible SVG text short: noun labels for nodes, protocol or action labels for arrows, and no paragraphs. Use semantic colors consistently with the Mermaid visual palette.
+- Draw arrows behind nodes, keep labels clear of connectors, keep the legend outside major boundaries, and ensure the diagram remains readable at README width and when exported to PNG or PDF.
+- Before reporting success, validate the generated SVG as XML and check required root attributes, forbidden elements, unresolved placeholders, obvious text overlap, and evidence-backed content.
 
 ## Mermaid Internal Naming and Readability Pattern
 
 - Use this pattern when `/devspec.diagram` generates or updates Mermaid content, and when `/devspec.extract` records generation guidance for queued diagram candidates.
 - Keep durable diagram file naming separate from Mermaid internal naming. `DIA-*` IDs and `dia-NNN-*` subjects name queue rows and files; Mermaid node IDs, node labels, edge labels, classes, methods, and layout must stay simple and readable.
-- Choose the best Mermaid family for the evidence: `flowchart`, `sequenceDiagram`, `classDiagram`, `stateDiagram`, `journey`, or `erDiagram`. Use `flowchart TD` for hierarchy, topology, data movement, and risk grouping. Use `flowchart LR` for interactions, relationship maps, process flows, event flows, and pipelines. Use `stateDiagram-v2` as the generated declaration for state diagrams.
+- Choose the best Mermaid family for the evidence: `flowchart`, `sequenceDiagram`, `classDiagram`, `stateDiagram`, `journey`, `erDiagram`, `gantt`, `quadrantChart`, `mindmap`, or `timeline`. Use `flowchart TD` for hierarchy, topology, data movement, and risk grouping. Use `flowchart LR` for interactions, relationship maps, process flows, event flows, and pipelines. Use `stateDiagram-v2` as the generated declaration for state diagrams. Use `gantt` for sprint plans, release schedules, and task-duration timelines; `timeline` for historical milestones and event sequences; `quadrantChart` for 2D priority or risk scoring matrices; and `mindmap` for exploratory domain or capability brainstorming only when formal flowchart evidence is not yet available.
 - For flowcharts, use short alphanumeric node IDs with no spaces or punctuation, such as `AuthCtrl`, `ProviderSvc`, `OrderDb`, or `JobRunner`.
 - Wrap every human-readable flowchart node label in double quotes and keep it to 1-4 words, such as `AuthCtrl["Authentication Controller"]` or `ProviderSvc["Provider Service"]`.
 - Do not use `\n` or `<br>` line breaks inside node labels or edge labels under any circumstance. If a label needs a line break, it violates the 1-4 word node label rule or 2-3 word edge label rule.
@@ -174,6 +208,83 @@ Standard stage-specific option sets:
 - Omit standard framework wiring such as controller registration, middleware setup, dependency injection setup, CORS, logging, SQL connection factories, or configuration plumbing unless the requested diagram is specifically about startup, request-pipeline, or infrastructure-layer behavior.
 - Prefer domain, capability, service, component, actor, and data-store names over file names, route names, package names, and implementation noise.
 - Keep generated Mermaid valid inside a fenced `mermaid` block. If a user asks for "only Mermaid", apply that restriction to the Mermaid content itself while preserving required devspec artifact metadata outside the diagram block.
+- Apply the [Mermaid Visual Quality Pattern](#mermaid-visual-quality-pattern) for semantic color coding, node shapes, subgraph boundaries, and complexity guardrails in every generated diagram.
+
+## Mermaid Visual Quality Pattern
+
+- Use this pattern when `/devspec.diagram` generates or updates any Mermaid diagram. Apply the full pattern (theme init, `classDef` palette, shapes, subgraphs, guardrails) to `flowchart` and `stateDiagram-v2`. Apply complexity guardrails only to `sequenceDiagram`, `classDiagram`, `erDiagram`, `gantt`, `quadrantChart`, `mindmap`, and `timeline`.
+- Apply semantic `classDef` color coding, dark theme initialization, role-appropriate node shapes, and `subgraph` boundaries to produce clean, information-dense diagrams free of visual noise.
+- This pattern complements the [Mermaid Internal Naming and Readability Pattern](#mermaid-internal-naming-and-readability-pattern); visual quality rules add color, shape, and layout structure without overriding naming or anti-bloat constraints.
+- Every generated flowchart must: (1) open with the theme init block, (2) declare only the `classDef` classes whose roles appear in the diagram, (3) use role-appropriate node shapes, (4) wrap boundaries of 3+ nodes in a named `subgraph`, (5) assign `classDef` classes in a batch block at the end, and (6) stay within complexity guardrails.
+
+### Theme Initialization
+
+- Open every `flowchart` block with the dark theme init directive so renderers that support it (VS Code, Mermaid Live Editor, Cursor, most AI chat surfaces) apply consistent dark theming. GitHub and GitLab silently ignore `%%{init:...}%%` and render with their default theme; `classDef` colors are the portable styling fallback that works on both.
+- Use this exact init block unless the user requests a light or custom theme:
+
+```
+%%{init: {'theme': 'dark', 'themeVariables': {'primaryColor': '#1e293b', 'primaryTextColor': '#f8fafc', 'lineColor': '#64748b', 'clusterBkg': '#0f172a', 'clusterBorder': '#334155'}}}%%
+```
+
+- Do not add `%%{init:...}%%` to `sequenceDiagram`, `journey`, `classDiagram`, `erDiagram`, `gantt`, `quadrantChart`, `mindmap`, or `timeline` blocks; those diagram families rely on renderer-managed defaults.
+- For `stateDiagram-v2`, include the init block only when the rendering context is confirmed to support it; omit it otherwise.
+
+### Semantic `classDef` Palette
+
+- Assign each node a semantic class based on its architectural role using this fixed Mermaid-adapted palette, which mirrors Cocoon-AI's component-type color vocabulary:
+
+| Role | Class name | Fill | Stroke |
+| --- | --- | --- | --- |
+| Frontend / UI | `ui` | `#083344` | `#22d3ee` |
+| Backend / Service | `svc` | `#064e3b` | `#34d399` |
+| Database / Store | `db` | `#4c1d95` | `#a78bfa` |
+| Cloud / External | `ext` | `#78350f` | `#fbbf24` |
+| Security / Auth | `sec` | `#881337` | `#fb7185` |
+| Events / Messages | `evt` | `#7c2d12` | `#fb923c` |
+| Actor / User | `actor` | `#1e293b` | `#94a3b8` |
+| Generic / Unknown | `gen` | `#1e293b` | `#64748b` |
+
+- Write the `classDef` block immediately after the `%%{init:...}%%` line and before any node or `subgraph` definitions. Include only declarations for roles that actually appear in the diagram; omit unused class names.
+- Use the fixed class names (`ui`, `svc`, `db`, `ext`, `sec`, `evt`, `actor`, `gen`) across all diagrams so color meaning is consistent and predictable.
+- Assign classes at the end of the diagram using batch syntax on a single line per class: `class Node1,Node2 svc`. Place all class assignments after the last node, edge, and `end` keyword.
+- For `classDiagram` and `erDiagram`, skip `classDef` and use `style` directives only when the user explicitly requests semantic color coding; structural defaults are acceptable for those families.
+
+### Node Shape Vocabulary
+
+- Select node shape based on architectural role so shape carries meaning independent of color:
+
+| Architectural role | Mermaid shape | Example |
+| --- | --- | --- |
+| Service / Component | Rectangle | `Svc["&nbsp;Auth Service&nbsp;"]` |
+| User / Actor | Stadium | `User(["&nbsp;User&nbsp;"])` |
+| Database / Store | Cylinder | `Db[("&nbsp;User DB&nbsp;")]` |
+| Start / End terminal | Circle | `Start(((" ")))` |
+| Event / Message | Hexagon | `Evt{{"&nbsp;Order Placed&nbsp;"}}` |
+| Background Job / Worker | Subroutine | `Job[["&nbsp;Report Job&nbsp;"]]` |
+| Decision gate | Diamond | `Dec{"&nbsp;Approved?&nbsp;"}` - only when explicitly requested |
+| External API / SaaS | Asymmetric flag | `Ext>["&nbsp;Stripe API&nbsp;"]` |
+
+- Never use diamond shapes for any purpose other than an explicit user-requested decision gate.
+- Use rectangle as the default shape when no role-specific shape clearly applies.
+- Do not mix shape meanings; once a shape carries a role in a diagram, every node of that shape must share the same role.
+- Pad every node label and every edge label with a single `&nbsp;` on each side so text has visible breathing room inside its shape and along its connector: `Svc["&nbsp;Auth Service&nbsp;"]`, `-->|"&nbsp;Validates Session&nbsp;"|`. This applies to all node shapes (rectangle, stadium, cylinder, hexagon, subroutine) and to every Mermaid diagram family where `&nbsp;` is supported. Subgraph title labels follow the same rule: `subgraph BE["&nbsp;Backend Services&nbsp;"]`.
+
+### Subgraph Structuring Rules
+
+- Use `subgraph` to group nodes by system boundary, architectural layer, service ownership zone, or deployment region - the Mermaid equivalent of Cocoon-AI's dashed region and security-group boundaries.
+- Wrap any logical boundary containing 3 or more nodes in a named `subgraph`. Use 1-3 word boundary labels with `&nbsp;` padding: `subgraph FE["&nbsp;Frontend Layer&nbsp;"]`, `subgraph BE["&nbsp;Backend Services&nbsp;"]`, `subgraph Cloud["&nbsp;Cloud Services&nbsp;"]`.
+- Limit subgraph nesting to one outer boundary and one inner cluster at most; never nest more than 2 levels deep.
+- Draw all cross-subgraph arrows after all `subgraph...end` blocks so edge lines render clearly over boundary boxes rather than being obscured by them.
+- Do not use `subgraph` to cluster unrelated nodes for aesthetic grouping; every subgraph must represent a real architectural boundary, ownership group, or deployment zone.
+- For diagrams with fewer than 3 nodes total, omit `subgraph`; flat structure is cleaner at that scale.
+
+### Complexity Guardrails
+
+- Cap flowchart node count at 15. Beyond 15 nodes, split at the clearest responsibility boundary into two diagrams and cross-link them via the `devspec/architecture/overview.md` Diagram Reference Index.
+- Cap `sequenceDiagram` participant count at 6. Beyond 6, collapse pass-through intermediary components per the Mermaid Internal Naming and Readability Pattern.
+- Cap `stateDiagram-v2` state count at 12. Beyond 12, extract sub-state regions into a child diagram and reference them from the parent.
+- These are hard limits, not guidelines. If evidence demands more nodes, narrow the diagram scope: a focused diagram always delivers more value than an overloaded one.
+- When splitting a diagram, record both halves as separate queue rows with cross-reference notes in `Next action or notes`.
 
 ## Process Flow Extraction Pattern
 
@@ -182,17 +293,18 @@ Standard stage-specific option sets:
 - Include user journeys, lifecycle flows, cross-service process sequences, and hybrid user-to-data operational flows when they explain an end-to-end business process.
 - Do not treat pure structural maps, generic CRUD paths, deployment pipelines, CI/CD, authentication or configuration flows, or one-off work-item diagrams as process flows unless the user explicitly requests them.
 - Discover process-flow evidence from owned routes, controllers, service methods, state transitions, jobs, event handlers, tests, docs, ADRs, integration boundaries, domain terms, user-facing actions, data stores, validations, and business outcomes.
-- Queue one row per distinct durable process flow, with `process-flow` in `Tags`, a `dia-NNN-<diagram-name>` subject, a matching target under `devspec/architecture/diagrams/`, and notes that name the actor or trigger, business outcome, major decisions or state changes, data touchpoints, integrations, duplicate-check result, and suggested Mermaid declaration.
+- Queue one row per distinct durable process flow, with `process-flow` in `Tags`, a `dia-NNN-<diagram-name>` subject, a matching Markdown target under `devspec/architecture/diagrams/`, and notes that name the actor or trigger, business outcome, major decisions or state changes, data touchpoints, integrations, duplicate-check result, suggested Mermaid declaration, and any requested SVG output format.
 - Queue the default hybrid candidate when evidence can connect user entry points to application boundaries, services, integrations, data stores, validations, operational states, and outcomes:
   `Hybrid User-to-Data Operational Flow`, subject `dia-NNN-hybrid-user-to-data-operational-flow`, scope `workflow`, diagram type `flowchart`, declaration `flowchart TD`, tags `process-flow, business-process, hybrid-user-to-data-operational-flow`.
 - Use `observed` only when source evidence directly supports the process flow. Use `high-confidence` when multiple local evidence points support the flow. Use `low-confidence` for useful but incomplete process-flow candidates and leave them queued rather than generating them in batch mode.
-- When `/devspec.diagram` receives a process-flow batch request, process eligible rows in `DIA-*` order. Eligible rows must include `process-flow`, have status `proposed` or `confirmed`, confidence `observed` or `high-confidence`, a target matching `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md`, and a passing duplicate check.
+- When `/devspec.diagram` receives a process-flow batch request, process eligible rows in `DIA-*` order. Eligible rows must include `process-flow`, have status `proposed` or `confirmed`, confidence `observed` or `high-confidence`, a target matching `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md`, a valid output format when specified, and a passing duplicate check.
+- When SVG output is selected for a process flow, use `devspec/architecture/_template/process-flow-diagram.svg`. Keep the happy path visually obvious, use distinct visual roles for start/end, manual, automated, integration, decision, exception, and artifact steps, draw exception paths as labeled dashed rose arrows, label loop-backs or rework paths, and ensure every branch ends at a step, state, or loop-back.
 
 ### Default Diagram Candidate Catalog
 
 Use this language-neutral priority catalog for extraction. Queue a candidate only when concrete evidence exists and duplicate checks pass.
 
-| Priority | Display name | Subject slug | Scope | Queue type | Mermaid declaration | Default target |
+| Priority | Display name | Subject slug | Scope | Diagram type | Mermaid declaration | Default target |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 | System Context | `dia-NNN-system-context` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-system-context.md` |
 | 2 | Domain and Capability Map | `dia-NNN-domain-capability-map` | architecture | `flowchart` | `flowchart LR` | `devspec/architecture/diagrams/dia-NNN-domain-capability-map.md` |
@@ -210,8 +322,30 @@ Use this language-neutral priority catalog for extraction. Queue a candidate onl
 | 14 | Configuration and Secrets Flow | `dia-NNN-configuration-secrets-flow` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-configuration-secrets-flow.md` |
 | 15 | Risk and Hotspot Map | `dia-NNN-risk-hotspot-map` | architecture | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-risk-hotspot-map.md` |
 | 16 | Hybrid User-to-Data Operational Flow | `dia-NNN-hybrid-user-to-data-operational-flow` | workflow | `flowchart` | `flowchart TD` | `devspec/architecture/diagrams/dia-NNN-hybrid-user-to-data-operational-flow.md` |
+| 17 | Release or Migration Timeline | `dia-NNN-release-migration-timeline` | architecture | `timeline` | `timeline` | `devspec/architecture/diagrams/dia-NNN-release-migration-timeline.md` |
+| 18 | Sprint and Release Gantt | `dia-NNN-sprint-release-gantt` | workflow | `gantt` | `gantt` | `devspec/architecture/diagrams/dia-NNN-sprint-release-gantt.md` |
+| 19 | Risk and Priority Quadrant | `dia-NNN-risk-priority-quadrant` | architecture | `quadrantChart` | `quadrantChart` | `devspec/architecture/diagrams/dia-NNN-risk-priority-quadrant.md` |
+| 20 | Domain Capability Mindmap | `dia-NNN-domain-capability-mindmap` | architecture | `mindmap` | `mindmap` | `devspec/architecture/diagrams/dia-NNN-domain-capability-mindmap.md` |
 
-Optional evidence-specific diagrams may include `layered-architecture`, `<entity-slug>-lifecycle`, `<domain-slug>-domain-structure`, `background-jobs-schedulers`, or `<feature-slug>-workflow` when the user asks or repository evidence makes the specialized diagram more useful than a default catalog item.
+Optional evidence-specific diagrams may include `layered-architecture`, `<entity-slug>-lifecycle`, `<domain-slug>-domain-structure`, `background-jobs-schedulers`, or `<feature-slug>-workflow` when the user asks or repository evidence makes the specialized diagram more useful than a default catalog item. Catalog rows 17-20 are optional: queue them only when evidence shows a release plan, sprint timeline, 2D scoring need, or domain brainstorming gap that a core flowchart catalog item (rows 1-16) cannot adequately serve.
+
+### Excluded Diagram Families
+
+Do not use the following Mermaid families regardless of the requested subject. For each, use the stated portable alternative instead.
+
+| Family | Reason excluded | Use instead |
+| --- | --- | --- |
+| `architecture-beta` | Requires Mermaid v11.1.0+; GitHub and GitLab render at v10.x and will silently fail or error. Still officially beta (`-beta` suffix, experimental). Icon system requires `iconify.design` registration - not portable across environments. Layout has known node-collision bugs (mermaid issue #6120). `flowchart` with `subgraph` blocks covers all the same layouts portably. | `flowchart TD` or `flowchart LR` with named `subgraph` blocks and the semantic `classDef` palette |
+| `block` | Experimental, non-standard layout model, no `classDef` support, poor renderer coverage outside Mermaid Live. | `flowchart` |
+| `kanban` | Experimental, project-management board - not an architecture artifact. | Work-item task list in `tasks.md` |
+| `radar` | Experimental, data-chart family - not structural or flow-based. | `quadrantChart` for 2D scoring, or a plain markdown table |
+| `sankey` | Experimental, data-flow volume chart - not a software architecture diagram. | `flowchart LR` for directional flows |
+| `venn` | Experimental, limited renderer support, no devspec architecture use case. | `flowchart` with overlapping `subgraph` boundaries |
+| `packet` | Experimental, network packet format - not a general architecture diagram. | `sequenceDiagram` for protocol interactions |
+| `zenuml` | Non-standard sequence syntax, poor coverage outside Mermaid Live. | `sequenceDiagram` |
+| `gitGraph` | SDLC artifact - branch and commit history, not architecture. | Source-control docs or a plain markdown table |
+| `pie` | Data-chart family - not architectural. | Markdown table or `quadrantChart` |
+| `xychart-beta` | Experimental, data-chart family - not architectural. | Markdown table |
 
 ## Exploration Recovery Pattern
 
@@ -229,6 +363,7 @@ Optional evidence-specific diagrams may include `layered-architecture`, `<entity
 - Required user input is mandatory.
 - Ask one structured `clarification` question at a time when required details are missing or ambiguous, following the Interactive Question Pattern.
 - Follow the [Artifact Content Pattern](#artifact-content-pattern).
+- Follow the [Constitution Amendment Pattern](#constitution-amendment-pattern) when user input or repository evidence proposes durable principle changes.
 - Use the matching `devspec/foundation/_template/*.md` or `devspec/architecture/_template/*.md` file as the section contract when one exists.
 - Treat live `devspec/foundation/*.md` and `devspec/architecture/*.md` files as project-owned; update them in place and never replace them wholesale from templates.
 - If a live foundation or architecture artifact is missing, initialize it from the matching `_template` file before applying user-provided or extracted content.

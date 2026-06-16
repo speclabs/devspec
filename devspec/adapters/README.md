@@ -10,6 +10,7 @@ Use this directory to keep multi-agent support additive. GitHub Copilot prompt a
 | Command registry | Use `devspec/adapters/command-registry.md` for provider-neutral command names, required inputs, outputs, mutation levels, and handoffs. |
 | State source | Recover from Git-tracked `devspec/` artifacts before relying on chat history or tool memory. |
 | Intent preservation | Do not change command purpose, required input, output artifacts, status values, handoff order, readiness gates, review gates, or recovery behavior. |
+| Artifact boundaries | Keep product context in `devspec/foundation/project-context.md`, durable principles in `devspec/constitution.md`, and operational rules or gates in `devspec/foundation/rules.md`. |
 | Platform gaps | Document unsupported behavior as a limitation; do not hide gaps by changing `devspec` semantics. |
 | Integration model | Keep provider lookup, CI, scanners, and enterprise systems behind MCP servers, approved connectors, or equivalent internal tools. |
 
@@ -47,6 +48,7 @@ An adapter has drifted when it does any of the following:
 - relaxes readiness, review, repository-access, or security gates
 - renames or invents status values outside `devspec/glossary.md`
 - changes the registered next command or handoff order
+- merges product context, durable principles, and operational governance into the wrong artifact
 - treats platform-specific limitations as workflow changes
 - relies on chat memory when a Git-tracked `devspec` artifact exists
 

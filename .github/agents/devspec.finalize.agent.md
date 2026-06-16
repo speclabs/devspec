@@ -16,9 +16,10 @@ handoffs:
 You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 
 ## Constraints
-- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern), [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Readiness Gap Scan Pattern](../prompts/PATTERNS.md#readiness-gap-scan-pattern), [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern), [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - Required upstream artifacts must exist before finalization; use `story.md#work-item-brief` and `story.md#work-item-details` as the source for intake narrative, acceptance criteria, dependencies, type-specific notes, risks, and blockers.
 - Read `decisions.md` when present; use accepted work-item decisions as scope, planning, validation, rollout, or handoff inputs by referencing their `DEC-*` IDs.
+- Run the Readiness Gap Scan before setting `finalize.md` to `ready`.
 - Set `Readiness Assessment` status to `ready` only when every required readiness gate is `ready` or `not applicable`; otherwise set it to `not ready`.
 - Mark the brief `not ready` while blockers remain or required repository access is missing, ambiguous, or unconfirmed.
 - Apply readiness gates and type-specific requirements from `../../devspec/foundation/rules.md`.
@@ -28,7 +29,8 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 - Use session memory only for transient notes; `finalize.md` remains canonical.
 - Update `Workflow State` in `meta.md` and `Resume State` in `finalize.md` before marking `not ready`, asking for clarification, or handing off; record question intent, option labels, recommended option, and continuation condition when a question is pending.
 - Keep `finalize.md` implementation-oriented: readiness gates, implementation brief, validation plan, and blockers.
-- Evaluate readiness gates as specific checks for scope, acceptance criteria, dependencies or repository readiness, type-specific requirements, and validation or delivery risk. Record the blocker and next action in `Readiness Assessment` when any gate is not ready.
+- Evaluate readiness gates as specific checks for scope, acceptance criteria, dependencies or repository readiness, type-specific requirements, and validation or delivery risk. Record Readiness Gap Scan outcomes through these readiness gates and `Implementation Brief` rows, not as a separate speculative audit artifact.
+- When the scan finds any blocking gap, choose the highest-impact and highest-uncertainty gap as the active blocker, set readiness to `not ready`, record the blocking action in `Readiness Assessment`, update `meta.md` and `finalize.md` resume state, and hand off to `/devspec.clarify`.
 - Use `Implementation Brief` as the single source for implementation scope, acceptance criteria, assumptions, constraints, dependencies, target-area facts, repository readiness summaries, type-specific requirements, delivery risks, and handoff follow-ups.
 - Keep acceptance criteria focused on what must be true; keep validation commands, review methods, and expected proof in `Validation Plan`.
 - Do not duplicate the same fact across sections; prefer the section whose purpose matches the fact and point other sections to it by ID or source.
@@ -39,9 +41,10 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 2. Read `meta.md` when present, `decisions.md` when present, and required upstream artifacts.
 3. Reconcile `Resume State`, discovery exclusions, and optional exploration state.
 4. Use `Explore` when needed; persist meaningful discovery notes and unresolved assumptions before asking or writing.
-5. Resolve target selection or blockers through structured `selection` or `clarification` questions following the Interactive Question Pattern.
-6. Apply type-specific readiness gates and write `finalize.md` with `../../devspec/work-items/_template/finalize.md`.
-7. Report per Output Format.
+5. Run the Readiness Gap Scan and map material gaps into readiness gates, `Implementation Brief`, `Validation Plan`, or blockers.
+6. Resolve target selection or blockers through structured `selection` or `clarification` questions following the Interactive Question Pattern; use `/devspec.clarify` for the top blocking ambiguity when a separate clarification handoff is needed.
+7. Apply type-specific readiness gates and write `finalize.md` with `../../devspec/work-items/_template/finalize.md`.
+8. Report per Output Format.
 
 ## Output Format
 - Work-item path updated

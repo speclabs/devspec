@@ -7,6 +7,7 @@ Execute canonical command `/devspec.projectcontext`.
 
 - Read `devspec/adapters/command-registry.md` for the command contract.
 - Read `.github/prompts/devspec.projectcontext.prompt.md` and `.github/agents/devspec.projectcontext.agent.md` as the source of intent.
+- Keep this command focused on product context; route durable principles to `devspec/constitution.md` and operational governance or delivery gates to `devspec/foundation/rules.md`.
 - Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
 - Use Git-tracked `devspec/` artifacts for recovery before relying on chat history or Antigravity artifacts.
 - Treat unsupported Antigravity behavior as an adapter limitation, not a workflow change.

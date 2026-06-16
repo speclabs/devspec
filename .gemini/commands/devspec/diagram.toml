@@ -8,7 +8,9 @@ Before acting:
 3. Follow `.github/prompts/PATTERNS.md` for shared workflow, recovery, output, discovery, and recommendation behavior.
 4. Recover from existing Git-tracked `devspec/` artifacts before relying on Gemini session memory.
 5. Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
-6. Treat Gemini-specific command syntax as platform mechanics, not a workflow change.
+6. Preserve Mermaid as the default output, pass through `format=svg` for SVG-only output, and pass through `format=mermaid+svg` for both Mermaid and SVG.
+7. For SVG output, use `devspec/architecture/_template/process-flow-diagram.svg` for process-flow rows or explicit process-flow SVG requests, otherwise use `devspec/architecture/_template/architecture-diagram.svg`. Durable targets stay under `devspec/architecture/images/`, and validation follows `.github/prompts/PATTERNS.md#svg-output-pattern`.
+8. Treat Gemini-specific command syntax as platform mechanics, not a workflow change.
 
 The user's raw command input, if any, is appended below these instructions by Gemini CLI.
 """

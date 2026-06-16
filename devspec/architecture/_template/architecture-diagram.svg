@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
+  <title id="title">[DIAGRAM_TITLE]</title>
+  <desc id="desc">[DIAGRAM_DESCRIPTION]</desc>
+
+  <defs>
+    <style><![CDATA[
+      svg {
+        background: #020617;
+        font-family: "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+      }
+
+      .page-bg { fill: #020617; }
+      .grid-line { stroke: #1e293b; stroke-width: 0.6; opacity: 0.7; }
+      .surface { fill: #0f172a; stroke: #1e293b; stroke-width: 1.2; filter: url(#soft-shadow); }
+      .title { fill: #f8fafc; font-size: 30px; font-weight: 800; }
+      .subtitle { fill: #94a3b8; font-size: 13px; font-weight: 500; }
+      .eyebrow { fill: #67e8f9; font-size: 11px; font-weight: 700; letter-spacing: 1.4px; }
+      .footer { fill: #64748b; font-size: 10px; }
+
+      .boundary { fill: rgba(15, 23, 42, 0.18); stroke-width: 1.4; stroke-dasharray: 8 5; }
+      .boundary-app { stroke: #34d399; }
+      .boundary-cloud { stroke: #fbbf24; }
+      .boundary-security { stroke: #fb7185; stroke-dasharray: 5 5; }
+      .boundary-title { font-size: 12px; font-weight: 800; letter-spacing: 0.6px; }
+      .boundary-title.app { fill: #6ee7b7; }
+      .boundary-title.cloud { fill: #fcd34d; }
+      .boundary-title.security { fill: #fda4af; }
+
+      .node-mask { fill: #0f172a; }
+      .node { stroke-width: 1.6; filter: url(#node-glow); }
+      .node-frontend { fill: rgba(8, 51, 68, 0.42); stroke: #22d3ee; }
+      .node-backend { fill: rgba(6, 78, 59, 0.42); stroke: #34d399; }
+      .node-data { fill: rgba(76, 29, 149, 0.42); stroke: #a78bfa; }
+      .node-cloud { fill: rgba(120, 53, 15, 0.36); stroke: #fbbf24; }
+      .node-security { fill: rgba(136, 19, 55, 0.42); stroke: #fb7185; }
+      .node-event { fill: rgba(124, 45, 18, 0.40); stroke: #fb923c; }
+      .node-external { fill: rgba(30, 41, 59, 0.62); stroke: #94a3b8; }
+      .node-tooling { fill: rgba(49, 46, 129, 0.42); stroke: #818cf8; }
+
+      .node-title { fill: #f8fafc; font-size: 13px; font-weight: 800; }
+      .node-meta { fill: #cbd5e1; font-size: 10px; font-weight: 600; }
+      .node-tag { fill: #94a3b8; font-size: 9px; font-weight: 600; }
+
+      .flow { fill: none; stroke: #64748b; stroke-width: 1.8; opacity: 0.95; }
+      .flow-security { stroke: #fb7185; stroke-dasharray: 6 5; }
+      .flow-event { stroke: #fb923c; stroke-dasharray: 7 4; }
+      .flow-tooling { stroke: #818cf8; stroke-dasharray: 3 5; }
+      .flow-label { fill: #cbd5e1; font-size: 9px; font-weight: 700; }
+      .flow-label.security { fill: #fda4af; }
+      .flow-label.event { fill: #fdba74; }
+      .flow-label.tooling { fill: #a5b4fc; }
+
+      .badge { fill: rgba(15, 23, 42, 0.82); stroke: #334155; stroke-width: 1; }
+      .badge-text { fill: #cbd5e1; font-size: 9px; font-weight: 700; }
+      .legend-title { fill: #f8fafc; font-size: 11px; font-weight: 800; }
+      .legend-text { fill: #cbd5e1; font-size: 10px; font-weight: 600; }
+    ]]></style>
+
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path class="grid-line" d="M 40 0 L 0 0 0 40" fill="none"/>
+    </pattern>
+
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+
+    <filter id="node-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#38bdf8" flood-opacity="0.18"/>
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+
+    <marker id="arrow-security" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fb7185"/>
+    </marker>
+
+    <marker id="arrow-event" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fb923c"/>
+    </marker>
+  </defs>
+
+  <rect class="page-bg" width="1200" height="820"/>
+  <rect width="1200" height="820" fill="url(#grid)" opacity="0.45"/>
+  <rect class="surface" x="32" y="32" width="1136" height="756" rx="18"/>
+
+  <text class="eyebrow" x="72" y="82">[PROJECT_NAME]</text>
+  <text class="title" x="72" y="122">[DIAGRAM_TITLE]</text>
+  <text class="subtitle" x="72" y="148">[DIAGRAM_DESCRIPTION]</text>
+
+  <!-- Draw arrows before boundaries and nodes so connectors stay behind component boxes. -->
+  <path class="flow" d="M 280 310 C 345 310, 365 310, 430 310" marker-end="url(#arrow)"/>
+  <text class="flow-label" x="355" y="296" text-anchor="middle">HTTPS</text>
+  <path class="flow flow-security" d="M 610 285 C 665 230, 725 230, 780 285" marker-end="url(#arrow-security)"/>
+  <text class="flow-label security" x="695" y="222" text-anchor="middle">OIDC</text>
+  <path class="flow flow-event" d="M 610 410 C 670 470, 740 470, 800 410" marker-end="url(#arrow-event)"/>
+  <text class="flow-label event" x="705" y="486" text-anchor="middle">Event</text>
+
+  <g class="boundary-group" data-boundary="system-boundary">
+    <rect class="boundary boundary-app" x="400" y="200" width="430" height="310" rx="16"/>
+    <text class="boundary-title app" x="424" y="228">[SYSTEM_BOUNDARY]</text>
+  </g>
+
+  <g class="boundary-group" data-boundary="external-boundary">
+    <rect class="boundary boundary-cloud" x="870" y="200" width="210" height="310" rx="16"/>
+    <text class="boundary-title cloud" x="894" y="228">External Systems</text>
+  </g>
+
+  <g class="component" data-component="user-client">
+    <rect class="node-mask" x="120" y="268" width="160" height="84" rx="10"/>
+    <rect class="node node-frontend" x="120" y="268" width="160" height="84" rx="10"/>
+    <text class="node-title" x="200" y="298" text-anchor="middle">Client App</text>
+    <text class="node-meta" x="200" y="318" text-anchor="middle">User Entry</text>
+    <text class="node-tag" x="200" y="336" text-anchor="middle">Replace me</text>
+  </g>
+
+  <g class="component" data-component="api-service">
+    <rect class="node-mask" x="430" y="268" width="180" height="84" rx="10"/>
+    <rect class="node node-backend" x="430" y="268" width="180" height="84" rx="10"/>
+    <text class="node-title" x="520" y="298" text-anchor="middle">API Service</text>
+    <text class="node-meta" x="520" y="318" text-anchor="middle">Business Logic</text>
+    <text class="node-tag" x="520" y="336" text-anchor="middle">Replace me</text>
+  </g>
+
+  <g class="component" data-component="data-store">
+    <rect class="node-mask" x="430" y="390" width="180" height="84" rx="10"/>
+    <rect class="node node-data" x="430" y="390" width="180" height="84" rx="10"/>
+    <text class="node-title" x="520" y="420" text-anchor="middle">Data Store</text>
+    <text class="node-meta" x="520" y="440" text-anchor="middle">Owned Data</text>
+    <text class="node-tag" x="520" y="458" text-anchor="middle">Replace me</text>
+  </g>
+
+  <g class="component" data-component="identity-provider">
+    <rect class="node-mask" x="780" y="268" width="170" height="84" rx="10"/>
+    <rect class="node node-security" x="780" y="268" width="170" height="84" rx="10"/>
+    <text class="node-title" x="865" y="298" text-anchor="middle">Identity</text>
+    <text class="node-meta" x="865" y="318" text-anchor="middle">Trust Boundary</text>
+    <text class="node-tag" x="865" y="336" text-anchor="middle">Replace me</text>
+  </g>
+
+  <g class="component" data-component="external-system">
+    <rect class="node-mask" x="900" y="390" width="150" height="84" rx="10"/>
+    <rect class="node node-external" x="900" y="390" width="150" height="84" rx="10"/>
+    <text class="node-title" x="975" y="420" text-anchor="middle">External API</text>
+    <text class="node-meta" x="975" y="440" text-anchor="middle">Third Party</text>
+    <text class="node-tag" x="975" y="458" text-anchor="middle">Replace me</text>
+  </g>
+
+  <g class="legend" transform="translate(72 650)">
+    <text class="legend-title" x="0" y="0">Legend</text>
+    <rect class="node node-frontend" x="0" y="18" width="20" height="12" rx="4"/>
+    <text class="legend-text" x="32" y="29">Frontend / Client</text>
+    <rect class="node node-backend" x="190" y="18" width="20" height="12" rx="4"/>
+    <text class="legend-text" x="222" y="29">Backend / Service</text>
+    <rect class="node node-data" x="390" y="18" width="20" height="12" rx="4"/>
+    <text class="legend-text" x="422" y="29">Data / Storage</text>
+    <rect class="node node-security" x="570" y="18" width="20" height="12" rx="4"/>
+    <text class="legend-text" x="602" y="29">Security / Identity</text>
+    <rect class="node node-external" x="790" y="18" width="20" height="12" rx="4"/>
+    <text class="legend-text" x="822" y="29">External</text>
+  </g>
+
+  <text class="footer" x="72" y="748">Generated by devspec - [DATE_OR_VERSION]</text>
+</svg>

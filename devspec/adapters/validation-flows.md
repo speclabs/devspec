@@ -19,6 +19,7 @@ Acceptance checklist:
 - No extraction step is required.
 - Every generated artifact uses its live foundation file, not the `_template` file as the final output.
 - Every command records blockers or confidence gaps instead of guessing.
+- Durable principle changes require explicit confirmation and a consistency review against project context, operational rules, prompts, agents, templates, adapter guidance, and validation docs.
 - The next recommended action follows `devspec/adapters/command-registry.md`.
 
 ## Existing Repository Flow
@@ -37,7 +38,7 @@ Validate the foundation path for a repository or multi-repo system that already 
 Acceptance checklist:
 
 - Discovery exclusions from `devspec/foundation/discovery-exclusions.md` are respected.
-- Extraction does not rewrite `devspec/constitution.md` principles from code inference without confirmation.
+- Extraction does not rewrite `devspec/constitution.md` principles from code inference without confirmation and constitution amendment consistency review.
 - Missing evidence, access issues, and unresolved provider lookup paths are recorded as blockers.
 - Extracted facts are placed in their target artifacts, not left only in extraction notes.
 

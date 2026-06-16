@@ -25,6 +25,7 @@ Claude Code support is implemented through project skills under `.claude/skills/
 - Each skill is a thin wrapper around the canonical command registry.
 - Each skill references the matching Copilot prompt and agent files instead of redefining command behavior.
 - Dotted command names are preserved as canonical `devspec` vocabulary even when Claude invokes hyphenated skill names.
+- `/devspec.diagram` keeps Mermaid as the default output; pass `format=svg` for SVG-only output or `format=mermaid+svg` for both outputs without creating a separate adapter command.
 - Platform limitations belong in `devspec/adapters/compatibility-matrix.md`.
 
 ## Validation

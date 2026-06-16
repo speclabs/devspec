@@ -98,7 +98,7 @@ def add_target(parser: argparse.ArgumentParser) -> None:
 
 
 def add_profile(parser: argparse.ArgumentParser, required: bool = True) -> None:
-    parser.add_argument("--profile", default=None if required else "all", required=required, help="Install profile.")
+    parser.add_argument("--profile", default=None, required=required, help="Install profile.")
 
 
 def cmd_version(_args: argparse.Namespace) -> int:
@@ -323,6 +323,8 @@ def classify_ownership(path: PurePosixPath) -> str:
     if len(parts) == 3 and parts[0] == "devspec" and parts[1] == "architecture" and path.suffix == ".md":
         return PROJECT_OWNED
     if len(parts) >= 4 and parts[:3] == ("devspec", "architecture", "diagrams") and path.suffix == ".md":
+        return PROJECT_OWNED
+    if len(parts) >= 4 and parts[:3] == ("devspec", "architecture", "images") and path.suffix == ".svg":
         return PROJECT_OWNED
     if len(parts) >= 3 and parts[:2] == ("devspec", "work-items") and parts[2] != "_template":
         return PROJECT_OWNED
