@@ -110,6 +110,15 @@ Standard stage-specific option sets:
 - Use source labels consistently: `confirmed` for user-provided or approved facts, `observed` for direct repository evidence, `inferred` for reasoned conclusions from evidence, and `blocked` for unresolved gaps.
 - Preserve useful existing content, but replace stale, vague, or duplicative prose with compact structured records.
 
+## Readiness Gap Scan Pattern
+
+- Use this pattern during `/devspec.finalize` before marking a work item `ready`; other stages may record obvious blockers, but they must not run a broad readiness audit unless their command contract says so.
+- Scan the upstream work-item artifacts, accepted decisions, applicable foundation artifacts, and available repository evidence for gaps in scope boundaries, acceptance criteria, actors or personas, domain and data rules, lifecycle or state behavior, UX/error/empty/loading states, non-functional needs, integrations and external dependencies, security/privacy/compliance, validation testability, terminology consistency, TODO markers, and ambiguous placeholders.
+- Treat a gap as blocking only when resolving it would materially change implementation scope, task decomposition, validation design, repository readiness, delivery risk, compliance handling, or type-specific rule handling.
+- Do not ask about low-impact preferences, purely stylistic choices, implementation tactics better left to `/devspec.tasks`, or facts already captured in upstream artifacts.
+- When one or more blocking gaps remain, prioritize by highest implementation impact and uncertainty, then surface only the top unresolved blocking clarification through the current stage's single-question or handoff flow.
+- Record scan outcomes through existing readiness gates, implementation brief rows, validation plan rows, blockers, or handoff state. Do not create a separate speculative audit artifact or invent coverage/status values outside `devspec/glossary.md`.
+
 ## Discovery Exclusion Pattern
 
 - Before repository search, extraction, code-pattern discovery, layout mapping, validation-surface discovery, or generated helper scripts, read `devspec/foundation/discovery-exclusions.md` when present.

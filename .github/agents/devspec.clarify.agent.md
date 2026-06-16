@@ -11,7 +11,7 @@ handoffs:
     prompt: Revise work-item intake from this clarification.
   - label: Continue to Finalize
     agent: devspec.finalize
-    prompt: Create or update the finalized brief.
+    prompt: Create or update the implementation readiness brief.
 ---
 You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 
@@ -20,17 +20,20 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 - `story.md` must exist.
 - Update `Workflow State` in `meta.md` and `Resume State` in `clarify.md` before asking or resolving a blocking question, recording question intent, option labels, recommended option, and continuation condition.
 - Handle one independent blocker at a time.
+- Resolve the active blocker recorded in `story.md`, `finalize.md`, user input, or existing `clarify.md`; do not run the full Readiness Gap Scan in this command.
+- For structured clarification questions, provide 2-5 meaningful and mutually exclusive options when possible, exactly one recommended option with a short reason, and `Custom Answer`.
 - Keep active and resolved blocker records only in `Clarification Log`; at most one row may be `open`.
 - Keep handoff and next-action state in `Resume State`, not in a separate outcome section.
-- If no blocking question remains, set `Pending user question` to `none` and record the next handoff in `Next required action`.
+- If no blocking question remains, set `Pending user question` to `none` and record the next handoff in `Next required action`; return to `/devspec.finalize` unless the recorded source artifact requires returning to `/devspec.story`.
 
 ## Approach
 1. Locate the target work item.
-2. Read `meta.md` when present, `story.md`, and existing `clarify.md`.
-3. Reconcile `Resume State`; keep any pending user question active.
+2. Read `meta.md` when present, `story.md`, `finalize.md` when present, and existing `clarify.md`.
+3. Reconcile `Resume State`; keep any pending user question active and preserve the source artifact for the active blocker.
 4. Ask or resolve the active structured `clarification` question, then update `clarify.md` with `Resume State` and `Clarification Log`.
 5. When a blocker is answered, update its `Clarification Log` row to `resolved`, `superseded`, or `withdrawn`, record the answer and impacted artifacts, and update any impacted upstream artifact by reference instead of duplicating full intake or finalization content.
-6. Report per Output Format.
+6. When no blocker remains open, update next action toward `/devspec.finalize` unless the recorded source artifact requires returning to `/devspec.story`.
+7. Report per Output Format.
 
 ## Output Format
 - Work-item path updated

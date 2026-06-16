@@ -9,6 +9,9 @@ handoffs:
   - label: Continue to Clarify
     agent: devspec.clarify
     prompt: Resolve the next blocking clarification.
+  - label: Continue to Finalize
+    agent: devspec.finalize
+    prompt: Create or update the implementation readiness brief.
 ---
 You create or update work-item intake artifacts under `devspec/work-items/<work-item-folder>/`.
 
@@ -33,6 +36,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 - Capture bug and security facts required by `../../devspec/foundation/rules.md#work-item-handling-rules`.
 - Initialize `decisions.md` and `notes.md` for new work-item folders; use `decisions.md` as the only work-item decision log and `notes.md` only for temporary working notes that have not been promoted to a canonical artifact.
 - Ask targeted structured questions one at a time before writing when required facts are missing.
+- Hand off to `/devspec.clarify` when a blocking clarification remains; otherwise hand off to `/devspec.finalize`.
 
 ## Approach
 1. Validate the incoming reference against supported provider formats.
