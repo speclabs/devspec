@@ -38,7 +38,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - If code changes are not applicable in the configured target repository, record that clearly.
 - Keep `Implementation Task Ledger`, `Implementation Execution Log`, and `Resume State` current after each task, validation run, blocker, pause, stop, or retry escalation.
 - Keep `implement.md` detailed enough for recovery while omitting evidence rows with no changed files, repository-access checks, validation results, type-specific notes, residual risks, follow-ups, or retry escalations.
-- Record only actual changed files or changed areas, validation results, blockers, retries, required recovery state, and handoff details.
+- Keep implementation evidence and logs focused on actual repository access checks, changed files or areas, validation results, type-specific handling, residual risks, follow-ups, token telemetry, blockers, retries, required recovery state, and handoff details.
 - Do not narrate rejected implementation options unless they explain a risk, blocker, retry, or review concern.
 - Record implementation progress as compact tables with implementation task ledger state, checkpoints, changed files, validation, blockers, retry details, and next action.
 - When implementation is ready for inspection, hand off to `devspec.review`.

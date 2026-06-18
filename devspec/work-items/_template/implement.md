@@ -47,7 +47,8 @@ Record only evidence that exists. Use this section for repository access checks,
 | Type | Applies to | Item | Evidence or notes | Status |
 | --- | --- | --- | --- | --- |
 | Repository access | <repository-name> | <access-requirement-and-status> | <confirmation-or-blocker-notes> | confirmed, missing, blocked |
-| Changed file or area | <task-id> | <path-or-area> | <change-summary-and-validation> | modified |
+| Changed file | <task-id> | <path> | <change-summary-and-validation> | modified |
+| Changed area | <task-id> | <area-or-glob> | <change-summary-and-validation> | modified |
 | Validation | <task-id-or-scope> | <command-or-method> | <result-or-expected-signal> | pending, passed, failed, skipped |
 | Type-specific handling | <bug-security-or-rule> | <handling-note> | <rule-source-or-audit-note> | pending, complete |
 | Risk or follow-up | <task-id-or-work-item> | <risk-or-follow-up> | <owner-or-next-action> | open, pending, complete |
