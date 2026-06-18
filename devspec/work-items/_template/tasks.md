@@ -1,6 +1,6 @@
 # Implementation Task Plan
 
-Use this artifact as the executable implementation plan. Keep lifecycle recovery in `Resume State`, source references in `Planning Basis`, and all executable task details in `Implementation Tasks`. Each task should include target, dependency, impacted area, validation, and done condition.
+Use this artifact for executable implementation checkpoints. Keep recovery in `Resume State`; keep all task details in `Implementation Tasks`.
 
 ## Resume State
 
@@ -21,19 +21,11 @@ Use this artifact as the executable implementation plan. Keep lifecycle recovery
 
 ## Planning Basis
 
-| Field | Value |
-| --- | --- |
-| Implementation brief source | `finalize.md#implementation-brief` |
-| Validation source | `finalize.md#validation-plan` |
-| Readiness source | `finalize.md#readiness-assessment` |
-| Access requirement source | `devspec/foundation/codebase-structure.md` |
-| Type-specific rule source | `devspec/foundation/rules.md` |
+Sources: `finalize.md#implementation-brief`, `finalize.md#validation-plan`, `finalize.md#readiness-assessment`, `devspec/foundation/codebase-structure.md`, and `devspec/foundation/rules.md`.
 
 ## Implementation Tasks
 
-Use one row per executable checkpoint. Put likely files or areas, validation steps, and done criteria on the task that owns them. Keep validation commands or methods specific enough for `implement.md` to execute or record.
-
-Keep rows compact and executable. Do not duplicate acceptance criteria, repository lists, or validation details already referenced from `finalize.md`; include only the target, validation, and done evidence needed to implement and recover the checkpoint.
+Use one row per executable checkpoint. Keep rows compact; do not duplicate acceptance criteria, repository lists, or validation details already referenced from `finalize.md`.
 
 | ID | Task | Target repository | Target area or files | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

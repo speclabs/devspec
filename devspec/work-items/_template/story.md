@@ -1,6 +1,6 @@
 # Work-Item Intake
 
-Use this artifact for detailed work-item intake. Keep identity, classification, source provenance, and routing summaries in `meta.md`; keep work-item decisions in `decisions.md`; keep implementation-ready scope in `finalize.md`.
+Use this artifact for intake narrative and raw work-item facts. Keep identity and routing in `meta.md`; keep decisions in `decisions.md`; keep implementation-ready scope in `finalize.md`.
 
 ## Resume State
 
@@ -33,7 +33,7 @@ Use this artifact for detailed work-item intake. Keep identity, classification, 
 
 ## Work-Item Brief
 
-Use this section for the durable work-item narrative. Keep it concise but specific enough for clarification and finalization.
+Keep the narrative concise and specific enough for clarification and finalization.
 
 | Field | Value |
 | --- | --- |
@@ -45,7 +45,7 @@ Use this section for the durable work-item narrative. Keep it concise but specif
 
 ## Work-Item Details
 
-Use this table for facts that affect clarification, readiness, task planning, or validation. Keep repository paths and access requirements in `devspec/foundation/codebase-structure.md`; keep rule definitions in `devspec/foundation/rules.md`.
+Record facts that affect clarification, readiness, task planning, or validation. Omit unused placeholder rows; keep repository access in `devspec/foundation/codebase-structure.md` and rules in `devspec/foundation/rules.md`.
 
 | Type | ID | Item | Source | Status |
 | --- | --- | --- | --- | --- |

@@ -1,6 +1,6 @@
 # Clarification Record
 
-Use this artifact only for blocking ambiguity resolution. Keep resumability, handoff, and next action in `Resume State`. Keep active and resolved blockers in `Clarification Log`. Do not duplicate intake or finalization details; reference the impacted artifact and section instead.
+Use this artifact only for blocking ambiguity resolution. Keep state in `Resume State`; keep active and resolved blockers in `Clarification Log`.
 
 ## Resume State
 
@@ -21,7 +21,7 @@ Use this artifact only for blocking ambiguity resolution. Keep resumability, han
 
 ## Clarification Log
 
-Use one row per blocker. Keep at most one row with `open` status; resolved, superseded, and withdrawn rows are the history. When no blocker is active, set `Pending user question` in `Resume State` to `none` and use `Next required action` for the handoff target. Open blockers must preserve the structured question intent, exact option labels, `Custom Answer`, and the recommended option with its reason.
+Use one row per blocker and at most one `open` row. Open blockers must preserve question intent, option labels including `Custom Answer`, and the recommended option with reason. When no blocker is active, set `Pending user question` to `none` and put the handoff in `Next required action`.
 
 | ID | Status | Source artifact | Blocking gap | Question | Options | Recommended option and reason | User answer | Impacted artifacts | Updated |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

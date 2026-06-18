@@ -1,6 +1,6 @@
 # Implementation Record
 
-Use this artifact for recovery, audit, and handoff during implementation. Keep lifecycle recovery in `Resume State`, per-task progress in `Implementation Task Ledger`, changed files and validation evidence in `Implementation Evidence`, and attempt history in `Implementation Execution Log`. Omit optional evidence rows with no entries.
+Use this artifact for implementation recovery, evidence, and handoff. Keep task targets in `tasks.md`; omit evidence rows with no entries.
 
 ## Resume State
 
@@ -21,7 +21,7 @@ Use this artifact for recovery, audit, and handoff during implementation. Keep l
 
 ## Implementation Task Ledger
 
-Use this as the single recovery view for implementation progress, current task, last safe checkpoint, and next handoff. Keep one row per task from `tasks.md`.
+Use this as the implementation recovery view. Keep one row per task from `tasks.md`; target repository, area, and dependency details stay in `tasks.md`.
 
 | Field | Value |
 | --- | --- |
@@ -36,13 +36,13 @@ Use this as the single recovery view for implementation progress, current task, 
 | Roll-forward notes | |
 | Completion note | |
 
-| Task | Target repository | Target area | Depends on | Status | Attempt count | Last checkpoint | Validation last run | Next action |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T-001 |  |  |  | pending | 0 |  |  | |
+| Task | Status | Attempt count | Last checkpoint | Validation last run | Next action |
+| --- | --- | --- | --- | --- | --- |
+| T-001 | pending | 0 |  |  | |
 
 ## Implementation Evidence
 
-Record only evidence that exists. Use this section for repository access checks, changed files or changed areas, validation results, type-specific handling, residual risks, follow-ups, and review/audit snippets. Use `Changed file` for small targeted edits and `Changed area` for broad mechanical edits where listing each file would add noise. Repository path and access requirement source is `devspec/foundation/codebase-structure.md`; type-specific rule source is `devspec/foundation/rules.md`.
+Record only evidence that exists. Use `Changed file` for targeted edits and `Changed area` for broad mechanical edits. Repository access source is `devspec/foundation/codebase-structure.md`; type-specific rule source is `devspec/foundation/rules.md`.
 
 | Type | Applies to | Item | Evidence or notes | Status |
 | --- | --- | --- | --- | --- |
@@ -57,8 +57,8 @@ Record only evidence that exists. Use this section for repository access checks,
 
 ## Implementation Execution Log
 
-Record one row per task attempt, validation run, blocker, retry escalation, pause, skip, completion, or handoff. Failed methods, retry conditions, and next safer methods belong here.
+Record one row per task attempt, validation run, blocker, retry escalation, pause, skip, completion, or handoff. Put blockers, failed method/reason, retry condition, safer method, confirmation, or handoff in `Summary` or `Next action`.
 
-| Date | Task | Event | Attempt count | Status | Summary | Evidence refs | Blockers | Failed method and reason | Retry condition or next safer method | Confirmation or handoff |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-|  | T-001 | attempt, validation, blocker, retry-escalation, pause, skip, completion, handoff | 0 | pending |  |  |  |  |  |  |
+| Date | Task | Event | Attempt | Status | Summary | Evidence refs | Next action |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  | T-001 | attempt, validation, blocker, retry-escalation, pause, skip, completion, handoff | 0 | pending |  |  |  |
