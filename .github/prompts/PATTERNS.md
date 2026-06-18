@@ -99,6 +99,14 @@ Standard stage-specific option sets:
 - Do not duplicate content already captured in another devspec artifact. Link or name the source instead.
 - Preserve user-authored content with targeted edits instead of whole-file rewrites.
 
+## Minimum Necessary Implementation Pattern
+
+- Before planning or changing code, confirm whether the current task requires a repository code change or can be satisfied by artifact updates, configuration already present, documentation, validation, or no action.
+- Prefer existing repository patterns, language or platform capabilities, and already-installed dependencies before introducing new abstractions, helper layers, generated code, or dependencies.
+- Choose the smallest change that satisfies `finalize.md`, `tasks.md`, applicable validation, and `devspec/foundation/rules.md`; do not add speculative flexibility, cleanup, refactors, or future work unless the finalized brief requires it.
+- Never reduce repository access checks, readiness gates, validation, error handling, security, privacy, accessibility, compliance handling, or required recovery state to save tokens or lines.
+- Record the selected implementation path, evidence, blockers, validation, and material tradeoffs; omit rejected alternatives unless they explain a risk, blocker, retry, or review finding.
+
 ## Artifact Content Pattern
 
 - Write artifacts for developers who need to plan, implement, review, or recover work. Every captured item should make clear what is true, where it applies, what evidence or source supports it, and what a developer should do with it.

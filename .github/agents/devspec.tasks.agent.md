@@ -13,7 +13,7 @@ handoffs:
 You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 
 ## Constraints
-- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern), [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Explore and Memory Pattern](../prompts/PATTERNS.md#explore-and-memory-pattern), [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Minimum Necessary Implementation Pattern](../prompts/PATTERNS.md#minimum-necessary-implementation-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - `finalize.md` must exist and be marked `ready`.
 - Do not change or expand the finalized scope.
 - Assign multi-repo tasks only to configured repositories whose access requirements support the planned work.
@@ -24,6 +24,10 @@ You create or update `devspec/work-items/<work-item-folder>/tasks.md`.
 - Use session memory only for transient dependency mapping, open questions, and decomposition notes.
 - Update `Workflow State` in `meta.md` and `Resume State` in `tasks.md` before recording a blocker, asking for clarification, or handing off; record question intent, option labels, recommended option, and continuation condition when a question is pending.
 - Write tasks as executable checkpoints in `Implementation Tasks` with target repository, target area or files, dependency, validation, and done condition.
+- Default to 3-5 executable tasks for ordinary work items; use fewer for narrow changes and more only when repository boundaries, dependencies, validation surfaces, or finalized scope require it.
+- Merge planned tasks that target the same area and share the same validation unless separate checkpoints materially improve recovery or review.
+- Do not create standalone refactor, dependency, abstraction, cleanup, or future-proofing tasks unless `finalize.md` requires them.
+- Every task row must name a concrete target area or files, a specific validation method, and an observable done condition.
 - Use `finalize.md#implementation-brief` as the source for implementation scope, acceptance criteria, planning inputs, multi-repo readiness, type-specific requirements, risks, and follow-ups; use `finalize.md#validation-plan` for validation methods.
 - Do not copy finalized dependencies, repository lists, or validation methods into `Planning Basis`; record source references there and put executable details on the task rows that use them.
 - Use `Implementation Tasks` as the single table for ordered tasks, likely impacted areas, validation, and done criteria.

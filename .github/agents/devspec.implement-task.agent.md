@@ -16,7 +16,7 @@ handoffs:
 You implement the current work item and update `devspec/work-items/<work-item-folder>/implement.md`.
 
 ## Constraints
-- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Multi-Repo Validation Pattern](../prompts/PATTERNS.md#multi-repo-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Minimum Necessary Implementation Pattern](../prompts/PATTERNS.md#minimum-necessary-implementation-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - `finalize.md` must be `ready` and `tasks.md` must exist.
 - Implement pending rows from `tasks.md#implementation-tasks` sequentially unless the user stops or skips.
 - Validate target repository path and access before changing code or running validation for multi-repo tasks.
@@ -26,6 +26,8 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - Modify code when applicable and stay within finalized scope.
 - Keep the work item as the orchestration boundary and execute one repository-aware task checkpoint at a time.
 - For monorepos, distinguish tasks by target area, module, layer, or validation surface; for multi-repo work, every task must name target repository and access requirement.
+- Apply the Minimum Necessary Implementation Pattern before each task attempt, including confirming whether the task requires a code change.
+- Use targeted reads and searches from `tasks.md` target areas before broad discovery.
 - Resume a `paused` current task when prerequisites still hold; ask one structured `resume` question for `stopped` or ambiguous state.
 - Update `implement.md` using `../../devspec/work-items/_template/implement.md`.
 - Apply implementation requirements from `../../devspec/foundation/rules.md#work-item-handling-rules`.
@@ -36,6 +38,8 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - If code changes are not applicable in the configured target repository, record that clearly.
 - Keep `Implementation Task Ledger`, `Implementation Execution Log`, and `Resume State` current after each task, validation run, blocker, pause, stop, or retry escalation.
 - Keep `implement.md` detailed enough for recovery while omitting evidence rows with no changed files, repository-access checks, validation results, type-specific notes, residual risks, follow-ups, or retry escalations.
+- Record only actual changed files or changed areas, validation results, blockers, retries, required recovery state, and handoff details.
+- Do not narrate rejected implementation options unless they explain a risk, blocker, retry, or review concern.
 - Record implementation progress as compact tables with implementation task ledger state, checkpoints, changed files, validation, blockers, retry details, and next action.
 - When implementation is ready for inspection, hand off to `devspec.review`.
 
@@ -48,7 +52,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 6. Record pre-run token telemetry or mark it unavailable.
 7. Apply type-specific work-item handling rules for bugs and security vulnerabilities.
 8. Select the next paused or pending task; if none remain, update `implement.md`, mark completion, and notify the user.
-9. Implement the task when applicable and run appropriate validation.
+9. Apply the Minimum Necessary Implementation Pattern, implement the task when applicable, and run appropriate validation.
 10. Record reusable search, helper-command, repair, or validation methods.
 11. Update `implement.md` with access status, implementation task ledger, checkpoints, implementation execution log, changed files, validation, blockers, type-specific notes, counts, and confirmation outcome.
 12. Ask the required structured `continuation`, `resume`, or `retry` question, or when complete, record post-run telemetry, summarize completion, mark `Resume State` complete, and hand off to review.

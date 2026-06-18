@@ -42,12 +42,12 @@ Use this as the single recovery view for implementation progress, current task, 
 
 ## Implementation Evidence
 
-Record only evidence that exists. Use this section for repository access checks, changed files, validation results, type-specific handling, residual risks, follow-ups, and review/audit snippets. Repository path and access requirement source is `devspec/foundation/codebase-structure.md`; type-specific rule source is `devspec/foundation/rules.md`.
+Record only evidence that exists. Use this section for repository access checks, changed files or changed areas, validation results, type-specific handling, residual risks, follow-ups, and review/audit snippets. Use `Changed file` for small targeted edits and `Changed area` for broad mechanical edits where listing each file would add noise. Repository path and access requirement source is `devspec/foundation/codebase-structure.md`; type-specific rule source is `devspec/foundation/rules.md`.
 
 | Type | Applies to | Item | Evidence or notes | Status |
 | --- | --- | --- | --- | --- |
 | Repository access | <repository-name> | <access-requirement-and-status> | <confirmation-or-blocker-notes> | confirmed, missing, blocked |
-| Changed file | <task-id> | <path> | <change-summary-and-validation> | modified |
+| Changed file or area | <task-id> | <path-or-area> | <change-summary-and-validation> | modified |
 | Validation | <task-id-or-scope> | <command-or-method> | <result-or-expected-signal> | pending, passed, failed, skipped |
 | Type-specific handling | <bug-security-or-rule> | <handling-note> | <rule-source-or-audit-note> | pending, complete |
 | Risk or follow-up | <task-id-or-work-item> | <risk-or-follow-up> | <owner-or-next-action> | open, pending, complete |
