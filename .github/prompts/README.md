@@ -77,7 +77,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent front 
 | `devspec.codebase-structure.prompt.md` | Capture selective repository trees, repository configuration, work areas and boundaries, integration contracts, and structure gaps or blockers. | `foundation/codebase-structure.md` |
 | `devspec.coding-standards.prompt.md` | Capture an evidence-backed standards catalog with scoped rules, observed patterns, anti-patterns, source links, and optional short examples. | `foundation/coding-standards.md` |
 | `devspec.rules.prompt.md` | Capture actionable operational rules, compliance requirements, forbidden patterns, delivery gates, work-item handling rules, exceptions, enforcement points, source, and confidence. | `foundation/rules.md` |
-| `devspec.story.prompt.md` | Create or update work-item intake artifacts. | `meta.md`, `story.md`, `decisions.md`, `notes.md` |
+| `devspec.story.prompt.md` | Create or update one work-item intake. | `meta.md`, `story.md`, `decisions.md`, `notes.md` |
 | `devspec.clarify.prompt.md` | Ask, resolve, and record one active blocking clarification. | `clarify.md` |
 | `devspec.finalize.prompt.md` | Create or update a structured implementation readiness brief with readiness assessment, foundation and architecture alignment, implementation brief, validation plan, and blockers. | `finalize.md` |
 | `devspec.tasks.prompt.md` | Break a ready brief into executable implementation tasks with planning basis, validation, and done criteria. | `tasks.md` |

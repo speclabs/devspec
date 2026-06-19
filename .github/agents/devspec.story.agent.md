@@ -1,6 +1,6 @@
 ---
 name: "devspec.story"
-description: "Use to create or update a devspec work item from a provider URL, identifier, or manual intake."
+description: "Use to create or update one devspec work item from a provider URL, identifier, or manual intake."
 tools: [read, edit, search, vscode/askQuestions]
 model: ["GPT-5.4 (copilot)", "GPT-5.3-Codex (copilot)", "Claude Sonnet 4.6 (copilot)", "Claude Haiku 4.5 (copilot)"]
 user-invocable: true
@@ -24,13 +24,17 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 - If provider lookup is unavailable, intentionally skipped, or the item cannot be resolved confidently, do not guess; record the attempt and offer manual intake only as an explicit fallback.
 - Manual intake requires an external reference, manual description, and manual acceptance criteria before creating the work item.
 - Classify the work item as `feature`, `bug`, or `security-vulnerability`; ask one structured `selection` question if unclear.
+- Handle exactly one work item or story per run. If the input contains multiple independent stories, features, bugs, or security issues, ask one structured `selection` question to choose the item for this run or record a split blocker; do not create a combined work item.
 - Create the work-item folder only during work-item intake and only after its name is valid.
 - Write or update `meta.md` and `story.md` using `../../devspec/work-items/_template/` as the section contract.
 - Keep `meta.md` as the work-item control record: `Work-Item Record`, `Triage Index`, and `Workflow State`.
-- Keep source confirmation and manual intake details in `story.md#intake-source-record`; keep problem, outcome, and impact in `story.md#work-item-brief`; keep dependencies, type-specific notes, acceptance criteria, assumptions, constraints, risks, and blockers in `story.md#work-item-details`; keep work-item decision records in `decisions.md`; do not duplicate those details in `meta.md`.
+- Keep source confirmation and manual intake details in `story.md#source-record`; keep the concise requested outcome in `story.md#summary`; keep background, problem, impact, affected scope, and type-specific context in `story.md#description`; keep completion checks in `story.md#acceptance-criteria`; keep behavior in `story.md#functional-requirements`; keep quality attributes in `story.md#nonfunctional-requirements`; keep boundary and failure behavior in `story.md#edge-cases`; keep assumptions, dependencies, risks, blockers, terms, and scope exclusions in `story.md#planning-signals`; keep work-item decision records in `decisions.md`; do not duplicate those details in `meta.md`.
 - Update `Workflow State` in `meta.md` and `Resume State` in `story.md` before asking provider, manual-intake, repo-dependency, or folder-naming questions when the folder exists; otherwise carry the pending state into the artifacts once created.
 - Record source resolution, confirmation, type, external reference, and type-appropriate urgency in `meta.md`; for features, record priority instead of severity.
-- Record impact and affected scope details in `story.md#work-item-brief`, with only a compact routing summary in `meta.md#triage-index`.
+- Record impact and affected scope details in `story.md#description`, with only a compact routing summary in `meta.md#triage-index`.
+- Before writing story content, ask yourself: "Is this required? Does it help or improve the process?" Omit low-impact notes, speculative implementation tactics, and duplicate facts.
+- Acceptance criteria must be observable and testable. If the available criteria are vague enough to block safe handoff, ask one structured question or record the blocker.
+- Do not add implementation tactics unless they are explicit constraints from user input, provider evidence, foundation artifacts, rules, or constitution.
 - Confirm multi-repo dependencies; record the yes/no flag and related repository names in `meta.md`, dependency details in `story.md`, and repository paths or access requirements only in `devspec/foundation/codebase-structure.md`.
 - Do not assume repository access requirements during intake; missing or ambiguous requirements must be handled through `/devspec.codebase-structure`.
 - Capture bug and security facts required by `../../devspec/foundation/rules.md#work-item-handling-rules`.
@@ -46,10 +50,11 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 4. For existing work items, read `meta.md` and `story.md` and reconcile `Resume State`.
 5. Ask one structured `clarification`, `confirmation`, or `selection` question when required.
 6. Collect manual intake fields if manual intake is chosen.
-7. Determine type, priority or severity, impacted scope, and multi-repo dependencies.
-8. Validate multi-repo configuration when dependencies exist.
-9. Derive and validate the folder name before creating or updating artifacts.
-10. Write the intake artifacts and report per Output Format.
+7. Confirm the input is one story or work item; if not, ask the user to select one item or record a split blocker.
+8. Determine type, priority or severity, impacted scope, acceptance criteria, functional requirements, nonfunctional requirements, edge cases, planning signals, and multi-repo dependencies.
+9. Validate multi-repo configuration when dependencies exist.
+10. Derive and validate the folder name before creating or updating artifacts.
+11. Write the intake artifacts and report per Output Format.
 
 ## Output Format
 - Work-item path updated

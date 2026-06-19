@@ -25,6 +25,7 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 - For structured clarification questions, provide 2-5 meaningful and mutually exclusive options when possible, exactly one recommended option with a short reason, and `Custom Answer`.
 - Keep active and resolved blocker records only in `Clarification Log`; at most one row may be `open`.
 - Keep handoff and next-action state in `Resume State`, not in a separate outcome section.
+- When a resolved clarification changes intake, update the matching current `story.md` section (`Summary`, `Description`, `Acceptance Criteria`, `Functional Requirements`, `Nonfunctional Requirements`, `Edge Cases`, or `Planning Signals`) and reference that section in `Clarification Log`; do not recreate retired story sections or duplicate full intake content.
 - If no blocking question remains, set `Pending user question` to `none` and record the next handoff in `Next required action`; return to `/devspec.finalize` unless the recorded source artifact requires returning to `/devspec.story`.
 
 ## Approach

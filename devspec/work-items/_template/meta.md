@@ -37,7 +37,7 @@ Use this section for routing and lookup only; details live in `story.md`.
 | --- | --- |
 | Customer impact summary | |
 | Routing scope summary | |
-| Affected versions source | `story.md#work-item-brief` |
+| Affected versions source | `story.md#description` |
 | Multi-repo dependency | yes, no |
 | Related repositories | repository names only |
 | Detail source | `story.md` |

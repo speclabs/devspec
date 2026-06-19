@@ -48,7 +48,7 @@ Validate one full feature, bug, or security-vulnerability lifecycle after the fo
 
 | Step | Command | Expected evidence |
 | --- | --- | --- |
-| 1 | `/devspec.story` | `meta.md`, `story.md`, `decisions.md`, and `notes.md` exist under one valid work-item folder. |
+| 1 | `/devspec.story` | `meta.md`, `story.md`, `decisions.md`, and `notes.md` exist under one valid work-item folder; `story.md` records one-story scope, readable intake sections, and observable acceptance criteria or a recorded blocker. |
 | 2 | `/devspec.clarify` when blocked | `clarify.md` records the active question, answer, resolution, and remaining blockers. |
 | 3 | `/devspec.finalize` | `finalize.md` records readiness, foundation and architecture alignment, implementation brief, validation plan, assumptions, and blockers. |
 | 4 | `/devspec.tasks` | `tasks.md` records executable tasks with repository, target area, validation, done criteria, dependencies, and status. |
@@ -58,6 +58,9 @@ Validate one full feature, bug, or security-vulnerability lifecycle after the fo
 Acceptance checklist:
 
 - Work-item state uses values from `devspec/glossary.md`.
+- `/devspec.story` handles one independent story, feature, bug, security issue, task, or PBI per work-item folder.
+- `story.md` keeps source tracking, summary, description, acceptance criteria, functional requirements, nonfunctional requirements, edge cases, and planning signals in distinct sections without duplicating routing details from `meta.md`.
+- Acceptance criteria captured during intake are specific and testable, or the missing criteria are recorded as a blocker.
 - `finalize.md` must be `ready` before `/devspec.tasks` plans implementation tasks.
 - `/devspec.finalize` records or blocks on applicable constitution, foundation, architecture, delivery-gate, repository-readiness, and validation-traceability gaps before marking `ready`.
 - `/devspec.tasks` does not expand scope beyond the finalized brief.
