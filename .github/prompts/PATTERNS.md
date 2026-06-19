@@ -8,7 +8,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Before asking, follow the [Question Basis Pattern](#question-basis-pattern).
 - Use a structured multiple-choice question whenever a finite decision can be offered; use free-form wording only when meaningful options cannot be provided.
 - Use clickable multiple-choice options whenever the platform supports them. When clickable options are unavailable, render the same option labels as text and ask the user to reply with one label or `Custom Answer`.
-- Every structured question must include question intent, prompt text, option labels, exactly one recommended option with a short reason, fallback rendering, and the state that must be recorded before waiting for the answer.
+- Every structured question must include question intent, prompt text, option labels, exactly one recommended option with a short reason, fallback rendering, and the recorded state required by the Question Basis Pattern.
 - Always include a `Custom Answer` option for user-facing choices.
 - Use stage-specific option sets only when the stage defines them in a pattern, agent, or artifact policy; otherwise use the standard option set for the question intent.
 - Wait for the user's answer before asking another question.
@@ -35,12 +35,12 @@ Standard stage-specific option sets:
 
 ## Question Basis Pattern
 
-- Use this pattern before asking any structured user or developer question.
+- Use this pattern to justify and record any structured user or developer question.
 - Ask only when durable artifacts, configured sources, or repository evidence cannot resolve the issue and the answer would materially change intake, readiness, task planning, validation, repository access, compliance handling, delivery risk, or handoff.
 - Identify the source artifact, source section, source row or ID, user input, provider evidence, repository evidence, or failed lookup that created the question.
 - Name the missing, ambiguous, conflicting, or unconfirmed fact and the material impact of leaving it unresolved.
 - Ask only the highest-priority unresolved question; defer lower-impact questions until the active one is answered or withdrawn.
-- Provide meaningful mutually exclusive options when possible, exactly one recommended option with reason, and `Custom Answer`.
+- Use the [Interactive Question Pattern](#interactive-question-pattern) for option labels, recommended option, `Custom Answer`, and fallback rendering.
 - Before waiting for the answer, record question intent, question source, blocking gap, material impact, option labels, recommended option and reason, impacted artifacts, continuation condition, and next required action in the current `Resume State`, queue row, blocker row, or clarification log.
 - Do not ask about low-impact preferences, implementation tactics better handled by `/devspec.tasks`, or facts already captured in upstream artifacts.
 
@@ -79,7 +79,7 @@ Standard stage-specific option sets:
 - Use `paused` when the user expects to continue from the same task or question.
 - Use `stopped` when the run intentionally ended and should ask one structured `resume` question before resuming.
 - Use `blocked` only when evidence, access, or prerequisites are insufficient; record the blocker and continuation condition.
-- Before any blocking question, handoff, retry-loop stop, or run end, update `Resume State` with stage, item, last completed step, question basis, question intent, pending question, exact option labels, recommended option, impacted artifacts when applicable, resume command, continuation condition, and next required action.
+- Before any blocking question, handoff, retry-loop stop, or run end, update `Resume State` with stage, item, last completed step, resume command, and the applicable fields required by the [Question Basis Pattern](#question-basis-pattern).
 - On rerun, resume a `paused` item directly when prerequisites still hold; for `stopped` or ambiguous state, ask one structured `resume` question first.
 - Retry only when the recorded retry condition is met, the user gives custom direction, or the method materially changed. Do not replay recorded failed methods just because the session changed.
 - When stage tasks or queue items are complete, mark the stage `complete` and hand off to the next registered command or configured agent.
@@ -99,7 +99,7 @@ Standard stage-specific option sets:
 - Use `extraction-state.md` only for the extraction queue, resume state, blockers, and confirmations.
 - Keep exactly one extraction queue row `active`. Use existing task status values from `devspec/glossary.md#task-status-values`.
 - Process extraction queue rows in ID order unless a blocker, confirmation, or explicit user direction changes the next action.
-- Before asking a question, blocking, pausing, or handing off, update `Resume State`, the active extraction queue row, and `Blockers and Confirmations` with the question basis, intent, exact option labels, recommended option, impacted artifacts when applicable, continuation condition, and next required action.
+- Before asking a question, blocking, pausing, or handing off, update `Resume State`, the active extraction queue row, and `Blockers and Confirmations` with the applicable fields required by the [Question Basis Pattern](#question-basis-pattern).
 - Do not store extracted facts in `extraction-state.md`; write them to the target artifact named by the active queue row.
 - Do not store reusable discovery methods in `extraction-state.md`; use `devspec/foundation/exploration-state.md`.
 - Do not store diagram queue state in `extraction-state.md`; use `devspec/architecture/artifact-queue.md`.

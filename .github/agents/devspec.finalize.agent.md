@@ -31,12 +31,12 @@ You create or update `devspec/work-items/<work-item-folder>/finalize.md`.
 - Do not invent missing requirements or silently change scope.
 - Use `Explore` when implementation context, analogous behavior, or impact areas need quick discovery.
 - Use session memory only for transient notes; `finalize.md` remains canonical.
-- Update `Workflow State` in `meta.md` and `Resume State` in `finalize.md` before marking `not ready`, asking for clarification, or handing off; record the question basis, intent, option labels, recommended option, impacted artifacts, continuation condition, and next action when a question is pending.
+- Update `Workflow State` in `meta.md` and `Resume State` in `finalize.md` before marking `not ready`, asking for clarification, or handing off.
 - Keep `finalize.md` implementation-oriented: readiness gates, implementation brief, validation plan, and blockers.
 - Do not create a separate command or readiness/alignment artifact for this stage; preserve required `meta.md` workflow-state updates and keep readiness evidence in `finalize.md`.
 - Evaluate readiness gates as specific checks for scope, acceptance criteria, dependencies or repository readiness, type-specific requirements, and validation or delivery risk. Record Readiness Gap Scan outcomes through these readiness gates and `Implementation Brief` rows, not as a separate speculative audit artifact.
 - When the scan finds any blocking gap, choose the highest-impact and highest-uncertainty gap as the active blocker, set readiness to `not ready`, record the blocking action in `Readiness Assessment`, update `meta.md` and `finalize.md` resume state, and hand off to `/devspec.clarify`.
-- Before surfacing a readiness blocker or structured question, apply the Question Basis Pattern and record the source evidence, unresolved fact, material impact, options, recommendation, impacted artifacts, continuation condition, and next action.
+- Before surfacing a readiness blocker or structured question, apply the Question Basis Pattern.
 - Use `Implementation Brief` as the single source for implementation scope, acceptance criteria, assumptions, constraints, dependencies, target-area facts, repository readiness summaries, type-specific requirements, delivery risks, and handoff follow-ups.
 - Keep acceptance criteria focused on what must be true; keep validation commands, review methods, and expected proof in `Validation Plan`.
 - Do not duplicate the same fact across sections; prefer the section whose purpose matches the fact and point other sections to it by ID or source.

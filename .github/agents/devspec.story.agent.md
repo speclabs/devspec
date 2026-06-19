@@ -28,7 +28,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 - Write or update `meta.md` and `story.md` using `../../devspec/work-items/_template/` as the section contract.
 - Keep `meta.md` as the work-item control record: `Work-Item Record`, `Triage Index`, and `Workflow State`.
 - Keep source confirmation and manual intake details in `story.md#intake-source-record`; keep problem, outcome, and impact in `story.md#work-item-brief`; keep dependencies, type-specific notes, acceptance criteria, assumptions, constraints, risks, and blockers in `story.md#work-item-details`; keep work-item decision records in `decisions.md`; do not duplicate those details in `meta.md`.
-- Update `Workflow State` in `meta.md` and `Resume State` in `story.md` before asking provider, manual-intake, repo-dependency, or folder-naming questions when the folder exists; record the question basis, intent, option labels, recommended option, impacted artifacts, continuation condition, and next action. Otherwise carry the pending state into the artifacts once created.
+- Update `Workflow State` in `meta.md` and `Resume State` in `story.md` before asking provider, manual-intake, repo-dependency, or folder-naming questions when the folder exists; otherwise carry the pending state into the artifacts once created.
 - Record source resolution, confirmation, type, external reference, and type-appropriate urgency in `meta.md`; for features, record priority instead of severity.
 - Record impact and affected scope details in `story.md#work-item-brief`, with only a compact routing summary in `meta.md#triage-index`.
 - Confirm multi-repo dependencies; record the yes/no flag and related repository names in `meta.md`, dependency details in `story.md`, and repository paths or access requirements only in `devspec/foundation/codebase-structure.md`.
@@ -36,7 +36,7 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 - Capture bug and security facts required by `../../devspec/foundation/rules.md#work-item-handling-rules`.
 - Initialize `decisions.md` and `notes.md` for new work-item folders; use `decisions.md` as the only work-item decision log and `notes.md` only for temporary working notes that have not been promoted to a canonical artifact.
 - Ask targeted structured questions one at a time before writing when required facts are missing.
-- Use the Question Basis Pattern before provider, manual-intake, type, repository-dependency, or folder-name questions; record the source evidence, unresolved fact, material impact, options, recommendation, impacted artifacts, continuation condition, and next action.
+- Use the Question Basis Pattern before provider, manual-intake, type, repository-dependency, or folder-name questions.
 - Hand off to `/devspec.clarify` when a blocking clarification remains; otherwise hand off to `/devspec.finalize`.
 
 ## Approach
