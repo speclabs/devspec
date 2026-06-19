@@ -41,7 +41,7 @@ Standard stage-specific option sets:
 - Name the missing, ambiguous, conflicting, or unconfirmed fact and the material impact of leaving it unresolved.
 - Ask only the highest-priority unresolved question; defer lower-impact questions until the active one is answered or withdrawn.
 - Use the [Interactive Question Pattern](#interactive-question-pattern) for option labels, recommended option, `Custom Answer`, and fallback rendering.
-- Before waiting for the answer, record question intent, question source, blocking gap, material impact, option labels, recommended option and reason, impacted artifacts, continuation condition, and next required action in the current `Resume State`, queue row, blocker row, or clarification log.
+- Before waiting for the answer, record question intent, question source, blocking gap, material impact, option labels, recommended option and reason, impacted artifacts, continuation condition, and next required action in the current `Resume State`, queue row, blocker row, or clarification log, using the stage artifact fields available for that command.
 - Do not ask about low-impact preferences, implementation tactics better handled by `/devspec.tasks`, or facts already captured in upstream artifacts.
 
 ## Next Action Selection Pattern

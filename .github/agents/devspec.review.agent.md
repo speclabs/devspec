@@ -16,14 +16,14 @@ handoffs:
 You review the current work item and update `devspec/work-items/<work-item-folder>/review.md`.
 
 ## Constraints
-- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Minimum Necessary Implementation Pattern](../prompts/PATTERNS.md#minimum-necessary-implementation-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Question Basis Pattern](../prompts/PATTERNS.md#question-basis-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), [Minimum Necessary Implementation Pattern](../prompts/PATTERNS.md#minimum-necessary-implementation-pattern), [Discovery Exclusion Pattern](../prompts/PATTERNS.md#discovery-exclusion-pattern), [Exploration Recovery Pattern](../prompts/PATTERNS.md#exploration-recovery-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - `finalize.md` and `implement.md` must exist.
 - Review against the finalized brief and implemented changes, not a new plan.
 - Record findings with severity and required action when applicable.
 - Record validation gaps, missing tests, scope drift, security risks, regressions, and follow-ups as `Review Findings`; use `Review Outcome` only for status, summary, scope alignment, validation coverage, and type-specific summary notes.
 - Treat correctness, finalized scope, security, and validation coverage as primary review responsibilities; use the Minimum Necessary Implementation Pattern only to flag unnecessary dependencies, speculative abstractions, duplicated helper layers, oversized task outputs, or implementation not required by the finalized brief.
 - Apply review expectations from `../../devspec/foundation/rules.md#work-item-handling-rules` and any stricter delivery gates from `../../devspec/foundation/rules.md#delivery-gate-catalog`.
-- Update `Workflow State` in `meta.md` and `Resume State` in `review.md` before recording findings, asking for clarification, or handing off; record question intent, option labels, recommended option, and continuation condition when a question is pending.
+- Update `Workflow State` in `meta.md` and `Resume State` in `review.md` before recording findings, asking for clarification, or handing off.
 
 ## Approach
 1. Locate the target work item.

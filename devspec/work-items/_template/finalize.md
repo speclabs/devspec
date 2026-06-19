@@ -1,6 +1,6 @@
 # Implementation Readiness Brief
 
-Use this artifact for readiness, foundation and architecture alignment, implementation scope, validation expectations, and handoff. Omit unused placeholder rows and reference facts already owned by upstream artifacts.
+Use this artifact for readiness, foundation and architecture alignment, implementation scope, validation expectations, and handoff. Keep lifecycle recovery in `Resume State`, readiness gating in `Readiness Assessment`, task-planning facts in `Implementation Brief`, and proof expectations in `Validation Plan`. Omit unused placeholder rows and reference facts already owned by upstream artifacts.
 
 ## Resume State
 
@@ -45,7 +45,7 @@ Use readiness gates only for checks that decide whether task planning may procee
 
 ## Implementation Brief
 
-Use this as the single task-planning input table. Keep local paths and access values in `devspec/foundation/codebase-structure.md`; put validation methods in `Validation Plan`.
+Use this as the single task-planning input table. Include only facts that affect scope, task decomposition, repository readiness, type-specific requirements, delivery risk, validation, or handoff. Keep local paths and access values in `devspec/foundation/codebase-structure.md`; put validation methods in `Validation Plan`.
 
 | Type | ID | Item | Source | Task effect | Status |
 | --- | --- | --- | --- | --- | --- |
