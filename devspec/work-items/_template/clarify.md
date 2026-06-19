@@ -21,8 +21,8 @@ Use this artifact only for blocking ambiguity resolution. Keep state in `Resume 
 
 ## Clarification Log
 
-Use one row per blocker and at most one `open` row. Open blockers must preserve question intent, option labels including `Custom Answer`, and the recommended option with reason. When no blocker is active, set `Pending user question` to `none` and put the handoff in `Next required action`.
+Use one row per blocker and at most one `open` row. Open blockers must preserve the question basis: source artifact or evidence, blocking gap, material impact, question intent, option labels including `Custom Answer`, recommended option with reason, impacted artifacts, continuation condition, and next action. When no blocker is active, set `Pending user question` to `none` and put the handoff in `Next required action`.
 
-| ID | Status | Source artifact | Blocking gap | Question | Options | Recommended option and reason | User answer | Impacted artifacts | Updated |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| CLAR-001 | open, resolved, superseded, withdrawn | `story.md`, `finalize.md`, user input, or other source |  |  | intent; option labels including `Custom Answer` |  |  |  |  |
+| ID | Status | Source artifact or evidence | Blocking gap | Material impact | Question | Options | Recommended option and reason | User answer | Impacted artifacts | Continuation condition or next action | Updated |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CLAR-001 | open, resolved, superseded, withdrawn | `story.md`, `finalize.md`, user input, provider evidence, repository evidence, or other source |  |  |  | intent; option labels including `Custom Answer` |  |  |  |  |  |
