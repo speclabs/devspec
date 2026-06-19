@@ -50,7 +50,7 @@ Validate one full feature, bug, or security-vulnerability lifecycle after the fo
 | --- | --- | --- |
 | 1 | `/devspec.story` | `meta.md`, `story.md`, `decisions.md`, and `notes.md` exist under one valid work-item folder. |
 | 2 | `/devspec.clarify` when blocked | `clarify.md` records the active question, answer, resolution, and remaining blockers. |
-| 3 | `/devspec.finalize` | `finalize.md` records readiness, implementation brief, validation plan, assumptions, and blockers. |
+| 3 | `/devspec.finalize` | `finalize.md` records readiness, foundation and architecture alignment, implementation brief, validation plan, assumptions, and blockers. |
 | 4 | `/devspec.tasks` | `tasks.md` records executable tasks with repository, target area, validation, done criteria, dependencies, and status. |
 | 5 | `/devspec.implement` | `implement.md` records repository access checks, task ledger, attempts, changed files or areas, validation results, blockers, and resume state. |
 | 6 | `/devspec.review` | `review.md` records findings, scope adherence, validation gaps, rule violations, and review status. |
@@ -59,6 +59,7 @@ Acceptance checklist:
 
 - Work-item state uses values from `devspec/glossary.md`.
 - `finalize.md` must be `ready` before `/devspec.tasks` plans implementation tasks.
+- `/devspec.finalize` records or blocks on applicable constitution, foundation, architecture, delivery-gate, repository-readiness, and validation-traceability gaps before marking `ready`.
 - `/devspec.tasks` does not expand scope beyond the finalized brief.
 - `/devspec.implement` respects repository access requirements from `devspec/foundation/codebase-structure.md`.
 - `/devspec.review` reviews against the finalized brief instead of re-planning.

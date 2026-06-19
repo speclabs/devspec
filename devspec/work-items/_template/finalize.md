@@ -1,6 +1,6 @@
 # Implementation Readiness Brief
 
-Use this artifact for readiness, implementation scope, validation expectations, and handoff. Omit unused placeholder rows and reference facts already owned by upstream artifacts.
+Use this artifact for readiness, foundation and architecture alignment, implementation scope, validation expectations, and handoff. Omit unused placeholder rows and reference facts already owned by upstream artifacts.
 
 ## Resume State
 
@@ -28,11 +28,11 @@ Use this artifact for readiness, implementation scope, validation expectations, 
 | Priority | features should record priority |
 | Status | See `devspec/glossary.md#readiness-status-values`; use only `ready` or `not ready` for the overall decision |
 | Blocking gates | gate IDs or none |
-| Next action | `/devspec.tasks` when ready; `/devspec.clarify` or required foundation update when not ready |
+| Next action | `/devspec.tasks` when ready; `/devspec.clarify` or required `devspec/foundation/*` or `devspec/architecture/*` artifact update when not ready |
 | Decision note | |
-| Decision inputs | `story.md`, `clarify.md`, accepted `decisions.md` records, `devspec/foundation/rules.md` |
+| Decision inputs | `story.md`, `clarify.md`, accepted `decisions.md` records, `devspec/constitution.md`, applicable foundation artifacts, `devspec/architecture/overview.md`, applicable `devspec/architecture/decisions/*.md`, `devspec/foundation/rules.md` |
 
-Use readiness gates only for checks that decide whether task planning may proceed. Use readiness values from `devspec/glossary.md#readiness-status-values`; put implementation facts in `Implementation Brief`.
+Use readiness gates only for checks that decide whether task planning may proceed. Use readiness values from `devspec/glossary.md#readiness-status-values`; put implementation facts in `Implementation Brief`. Overall readiness is `ready` only when every applicable gate is `ready` or `not applicable`.
 
 | ID | Check | Evidence source | Status | Blocking action |
 | --- | --- | --- | --- | --- |
@@ -41,6 +41,7 @@ Use readiness gates only for checks that decide whether task planning may procee
 | RG-003 | Dependencies and repository readiness | Implementation Brief; `devspec/foundation/codebase-structure.md` | See `devspec/glossary.md#readiness-status-values` | |
 | RG-004 | Type-specific facts | Implementation Brief; `devspec/foundation/rules.md` | See `devspec/glossary.md#readiness-status-values` | |
 | RG-005 | Validation and delivery risk | Implementation Brief; Validation Plan | See `devspec/glossary.md#readiness-status-values` | |
+| RG-006 | Foundation and architecture alignment | `devspec/constitution.md`; applicable foundation artifacts; `devspec/architecture/overview.md`; applicable ADRs | See `devspec/glossary.md#readiness-status-values` | |
 
 ## Implementation Brief
 
@@ -52,6 +53,11 @@ Use this as the single task-planning input table. Keep local paths and access va
 | Scope: out | SCOPE-OUT-001 | <non-goal> | <source-or-id> | exclude | confirmed |
 | Acceptance criterion | AC-001 | <observable-outcome> | <source-or-id> | implement and validate | pending |
 | Planning input | PI-001 | <assumption-constraint-dependency-or-target-area> | <source-or-id> | <task impact> | pending |
+| Foundation constraint | FC-001 | <principle-product-stack-or-operational-constraint> | <source-path-section-or-id> | <task-or-validation-impact> | pending |
+| Architecture constraint | ARCH-001 | <architecture-boundary-contract-decision-or-gap> | <source-path-section-or-adr-id> | <task-or-validation-impact> | pending |
+| Standards constraint | STD-001 | <coding-testing-review-or-anti-pattern-guidance> | <source-path-section-or-id> | <task-or-review-impact> | pending |
+| Delivery gate | DG-001 | <gate-or-compliance-requirement> | <source-path-section-or-id> | <readiness-or-validation-impact> | pending |
+| Validation requirement | VR-001 | <proof-needed-for-criterion-risk-or-gate> | <source-or-id> | validate before completion | pending |
 | Repository readiness | MR-001 | <repo-readiness-summary-or-n/a> | `devspec/foundation/codebase-structure.md` | blocks if missing | pending |
 | Type-specific requirement | TS-001 | <bug-security-or-rule-fact> | <source-or-id> | plan, validate, or release | pending |
 | Risk or follow-up | RISK-001 | <risk-or-handoff-item> | <source-or-id> | <delivery effect> | open |

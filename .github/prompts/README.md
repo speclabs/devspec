@@ -79,7 +79,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent front 
 | `devspec.rules.prompt.md` | Capture actionable operational rules, compliance requirements, forbidden patterns, delivery gates, work-item handling rules, exceptions, enforcement points, source, and confidence. | `foundation/rules.md` |
 | `devspec.story.prompt.md` | Create or update work-item intake artifacts. | `meta.md`, `story.md`, `decisions.md`, `notes.md` |
 | `devspec.clarify.prompt.md` | Ask, resolve, and record one active blocking clarification. | `clarify.md` |
-| `devspec.finalize.prompt.md` | Create or update a structured implementation readiness brief with readiness assessment, implementation brief, validation plan, and blockers. | `finalize.md` |
+| `devspec.finalize.prompt.md` | Create or update a structured implementation readiness brief with readiness assessment, foundation and architecture alignment, implementation brief, validation plan, and blockers. | `finalize.md` |
 | `devspec.tasks.prompt.md` | Break a ready brief into executable implementation tasks with planning basis, validation, and done criteria. | `tasks.md` |
 | `devspec.implement.prompt.md` | Implement pending tasks and record implementation task ledger state, implementation evidence, execution history, and handoff details. | `implement.md`, code changes |
 | `devspec.review.prompt.md` | Review implemented work against the finalized brief. | `review.md` |
