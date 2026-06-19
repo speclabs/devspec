@@ -7,5 +7,7 @@ agent: "devspec.tasks"
 
 Create or update `devspec/work-items/<work-item-folder>/tasks.md` for the current work item with planning basis and executable implementation tasks.
 
+Apply the [Minimum Necessary Implementation Pattern](PATTERNS.md#minimum-necessary-implementation-pattern): keep tasks scoped to the finalized brief, merge checkpoints that target the same area and validation surface, and avoid standalone refactor, dependency, abstraction, cleanup, or future-proofing tasks unless `finalize.md` requires them.
+
 Optional user input:
 ${input:tasksInput:Optional: add task decomposition guidance}

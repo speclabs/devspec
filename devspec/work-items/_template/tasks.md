@@ -25,7 +25,7 @@ Sources: `finalize.md#implementation-brief`, `finalize.md#validation-plan`, `fin
 
 ## Implementation Tasks
 
-Use one row per executable checkpoint. Keep rows compact; do not duplicate acceptance criteria, repository lists, or validation details already referenced from `finalize.md`.
+Use one row per executable checkpoint. Keep rows compact; reference finalized acceptance criteria by ID, keep repository lists in `devspec/foundation/codebase-structure.md`, and put only the executable validation method or evidence needed for the task.
 
 | ID | Task | Target repository | Target area or files | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
