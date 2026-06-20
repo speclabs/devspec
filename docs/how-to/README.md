@@ -555,16 +555,16 @@ For WinGet releases, publish the Windows portable executable from GitHub Release
 ```text
 dist/winget/devspec.exe
 dist/winget/devspec.exe.sha256
-dist/winget/manifests/s/SpecLabs/Devspec/0.1.1/SpecLabs.Devspec.yaml
-dist/winget/manifests/s/SpecLabs/Devspec/0.1.1/SpecLabs.Devspec.locale.en-US.yaml
-dist/winget/manifests/s/SpecLabs/Devspec/0.1.1/SpecLabs.Devspec.installer.yaml
+dist/winget/manifests/s/SpecLabs/Devspec/0.1.2/SpecLabs.Devspec.yaml
+dist/winget/manifests/s/SpecLabs/Devspec/0.1.2/SpecLabs.Devspec.locale.en-US.yaml
+dist/winget/manifests/s/SpecLabs/Devspec/0.1.2/SpecLabs.Devspec.installer.yaml
 ```
 
 The manifest path is case-sensitive and must match `PackageIdentifier: SpecLabs.Devspec`. Validate the generated manifest directory on Windows before submission:
 
 ```text
-winget validate dist/winget/manifests/s/SpecLabs/Devspec/0.1.1
-winget install --manifest dist/winget/manifests/s/SpecLabs/Devspec/0.1.1
+winget validate dist/winget/manifests/s/SpecLabs/Devspec/0.1.2
+winget install --manifest dist/winget/manifests/s/SpecLabs/Devspec/0.1.2
 ```
 
 When adapter files are added, removed, or moved, update:
