@@ -1,6 +1,6 @@
 # Implementation Task Plan
 
-Use this artifact as the executable implementation plan. Keep lifecycle recovery in `Resume State`, source references in `Planning Basis`, and all executable task details in `Implementation Tasks`. Each task should include target, dependency, impacted area, validation, and done condition.
+Use this artifact for executable implementation checkpoints. Keep recovery in `Resume State`; keep all task details in `Implementation Tasks`.
 
 ## Resume State
 
@@ -21,18 +21,23 @@ Use this artifact as the executable implementation plan. Keep lifecycle recovery
 
 ## Planning Basis
 
-| Field | Value |
-| --- | --- |
-| Implementation brief source | `finalize.md#implementation-brief` |
-| Validation source | `finalize.md#validation-plan` |
-| Readiness source | `finalize.md#readiness-assessment` |
-| Access requirement source | `devspec/foundation/codebase-structure.md` |
-| Type-specific rule source | `devspec/foundation/rules.md` |
+Sources: `finalize.md#implementation-brief`, `finalize.md#validation-plan`, `finalize.md#readiness-assessment`, `devspec/foundation/codebase-structure.md`, and `devspec/foundation/rules.md`.
+
+## Task Quality Review
+
+Use this gate before handing off. Record material blockers in `Resume State`.
+
+| Check | Evidence or gap | Next action |
+| --- | --- | --- |
+| Scope and source coverage | <finalized-scope-and-source-refs-covered-or-gap> | <none-or-blocker-action> |
+| Validation coverage | <validation-plan-refs-covered-or-gap> | <none-or-blocker-action> |
+| Dependency order and granularity | <sequencing-and-checkpoint-sizing-summary-or-gap> | <none-or-blocker-action> |
+| Blockers, ambiguity, and risk | <access-target-scope-risk-or-follow-up-gap> | <none-or-blocker-action> |
 
 ## Implementation Tasks
 
-Use one row per executable checkpoint. Put likely files or areas, validation steps, and done criteria on the task that owns them. Keep validation commands or methods specific enough for `implement.md` to execute or record.
+Use one row per executable checkpoint. Keep rows compact; put traceability in `Source refs`, repository lists in `devspec/foundation/codebase-structure.md`, and only executable proof in `Validation`.
 
-| ID | Task | Target repository | Target area or files | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T-001 | <developer-action> | <repository-name> | <path-module-or-area> | See `devspec/glossary.md#access-requirement-values` | <task-id-or-none> | <command-method-or-review-signal-and-expected-result> | <observable-completion-condition-and-evidence> | pending | 0 | |
+| ID | Task | Source refs | Target repository | Target area or files | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| T-001 | <developer-action> | <AC-PI-RISK-VAL-refs> | <repository-name> | <path-module-or-area> | See `devspec/glossary.md#access-requirement-values` | <task-id-or-none> | <command-method-or-review-signal-and-expected-result> | <observable-completion-condition-and-evidence> | pending | 0 | |

@@ -5,9 +5,10 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 ## Interactive Question Pattern
 
 - Ask exactly one user question at a time.
+- Before asking, follow the [Question Basis Pattern](#question-basis-pattern).
 - Use a structured multiple-choice question whenever a finite decision can be offered; use free-form wording only when meaningful options cannot be provided.
 - Use clickable multiple-choice options whenever the platform supports them. When clickable options are unavailable, render the same option labels as text and ask the user to reply with one label or `Custom Answer`.
-- Every structured question must include question intent, prompt text, option labels, exactly one recommended option with a short reason, fallback rendering, and the state that must be recorded before waiting for the answer.
+- Every structured question must include question intent, prompt text, option labels, exactly one recommended option with a short reason, fallback rendering, and the recorded state required by the Question Basis Pattern.
 - Always include a `Custom Answer` option for user-facing choices.
 - Use stage-specific option sets only when the stage defines them in a pattern, agent, or artifact policy; otherwise use the standard option set for the question intent.
 - Wait for the user's answer before asking another question.
@@ -31,6 +32,17 @@ Standard stage-specific option sets:
 - Repository access confirmation uses the values in `devspec/glossary.md#access-requirement-values` plus `Custom Answer`.
 - Workflow continuation, queue processing, task continuation, generated artifact approval, and retry decisions use `Proceed`, `Skip`, and `Custom Answer` unless a narrower stage-specific set applies.
 - Resume from `stopped` or ambiguous state uses `Continue`, `Pause`, `Skip`, and `Custom Answer`.
+
+## Question Basis Pattern
+
+- Use this pattern to justify and record any structured user or developer question.
+- Ask only when durable artifacts, configured sources, or repository evidence cannot resolve the issue and the answer would materially change intake, readiness, task planning, validation, repository access, compliance handling, delivery risk, or handoff.
+- Identify the source artifact, source section, source row or ID, user input, provider evidence, repository evidence, or failed lookup that created the question.
+- Name the missing, ambiguous, conflicting, or unconfirmed fact and the material impact of leaving it unresolved.
+- Ask only the highest-priority unresolved question; defer lower-impact questions until the active one is answered or withdrawn.
+- Use the [Interactive Question Pattern](#interactive-question-pattern) for option labels, recommended option, `Custom Answer`, and fallback rendering.
+- Before waiting for the answer, record question intent, question source, blocking gap, material impact, option labels, recommended option and reason, impacted artifacts, continuation condition, and next required action in the current `Resume State`, queue row, blocker row, or clarification log, using the stage artifact fields available for that command.
+- Do not ask about low-impact preferences, implementation tactics better handled by `/devspec.tasks`, or facts already captured in upstream artifacts.
 
 ## Next Action Selection Pattern
 
@@ -67,7 +79,7 @@ Standard stage-specific option sets:
 - Use `paused` when the user expects to continue from the same task or question.
 - Use `stopped` when the run intentionally ended and should ask one structured `resume` question before resuming.
 - Use `blocked` only when evidence, access, or prerequisites are insufficient; record the blocker and continuation condition.
-- Before any blocking question, handoff, retry-loop stop, or run end, update `Resume State` with stage, item, last completed step, question intent, pending question, exact option labels, recommended option, resume command, continuation condition, and next required action.
+- Before any blocking question, handoff, retry-loop stop, or run end, update `Resume State` with stage, item, last completed step, resume command, and the applicable fields required by the [Question Basis Pattern](#question-basis-pattern).
 - On rerun, resume a `paused` item directly when prerequisites still hold; for `stopped` or ambiguous state, ask one structured `resume` question first.
 - Retry only when the recorded retry condition is met, the user gives custom direction, or the method materially changed. Do not replay recorded failed methods just because the session changed.
 - When stage tasks or queue items are complete, mark the stage `complete` and hand off to the next registered command or configured agent.
@@ -87,7 +99,7 @@ Standard stage-specific option sets:
 - Use `extraction-state.md` only for the extraction queue, resume state, blockers, and confirmations.
 - Keep exactly one extraction queue row `active`. Use existing task status values from `devspec/glossary.md#task-status-values`.
 - Process extraction queue rows in ID order unless a blocker, confirmation, or explicit user direction changes the next action.
-- Before asking a question, blocking, pausing, or handing off, update `Resume State`, the active extraction queue row, and `Blockers and Confirmations` with the question intent, exact option labels, recommended option, and continuation condition.
+- Before asking a question, blocking, pausing, or handing off, update `Resume State`, the active extraction queue row, and `Blockers and Confirmations` with the applicable fields required by the [Question Basis Pattern](#question-basis-pattern).
 - Do not store extracted facts in `extraction-state.md`; write them to the target artifact named by the active queue row.
 - Do not store reusable discovery methods in `extraction-state.md`; use `devspec/foundation/exploration-state.md`.
 - Do not store diagram queue state in `extraction-state.md`; use `devspec/architecture/artifact-queue.md`.
@@ -98,6 +110,26 @@ Standard stage-specific option sets:
 - Keep stage artifacts concise: record decisions, evidence, blockers, validation, and handoffs; omit narrative filler.
 - Do not duplicate content already captured in another devspec artifact. Link or name the source instead.
 - Preserve user-authored content with targeted edits instead of whole-file rewrites.
+
+## Minimum Necessary Implementation Pattern
+
+- Before planning or changing code, confirm whether the current task requires a repository code change or can be satisfied by artifact updates, configuration already present, documentation, validation, or no action.
+- Prefer existing repository patterns, language or platform capabilities, and already-installed dependencies before introducing new abstractions, helper layers, generated code, or dependencies.
+- Choose the smallest change that satisfies `finalize.md`, `tasks.md`, applicable validation, and `devspec/foundation/rules.md`; do not add speculative flexibility, cleanup, refactors, or future work unless the finalized brief requires it.
+- Never reduce repository access checks, readiness gates, validation, error handling, security, privacy, accessibility, compliance handling, or required recovery state to save tokens or lines.
+- Record the selected implementation path, evidence, blockers, validation, and material tradeoffs; omit rejected alternatives unless they explain a risk, blocker, retry, or review finding.
+
+## Task Quality Gate Pattern
+
+- Use this pattern across `/devspec.tasks`, `/devspec.implement`, and `/devspec.review` to keep task planning, execution, and review aligned with the finalized brief.
+- Keep sequencing, dependency, and traceability information in task rows.
+- During `/devspec.tasks`, record a compact `Task Quality Review` before `Implementation Tasks` covering scope/source coverage, validation coverage, dependency order, granularity, blockers, ambiguity, and implementation-risk gaps.
+- Every executable task must include `Source refs` pointing to the finalized acceptance criteria, implementation brief rows, validation plan rows, risks, or follow-ups that justify the task.
+- Keep tasks actionable, independently verifiable where practical, and sized for one meaningful checkpoint. Split tasks that are too broad to validate safely; merge tasks that are too small to produce useful implementation or review evidence.
+- Sequence task rows so dependencies appear before dependents. Use the `Depends on` column for required predecessors, and use `none` only when the task can start without another task's output.
+- Treat missing coverage, impossible sequencing, vague done criteria, missing validation, ambiguous target areas, unresolved access, and external blockers as task-planning blockers when they would materially change implementation or review.
+- During `/devspec.implement`, before each task attempt, confirm the task is still actionable, within finalized scope, unblocked, specific enough to implement, and ordered after its dependencies. If implementation reveals task ambiguity, a blocking dependency, or oversized scope, update `implement.md`, update the task checkpoint or status when applicable, and stop for the required structured question instead of silently expanding scope.
+- During `/devspec.review`, compare `finalize.md`, `tasks.md`, `implement.md`, and changed code or artifacts. Flag missing source coverage, incomplete or skipped tasks without rationale, blocked tasks treated as done, missing validation evidence, source-ref drift, and implementation beyond task scope as review findings when they affect correctness, delivery risk, or readiness to close.
 
 ## Artifact Content Pattern
 
@@ -123,7 +155,7 @@ Standard stage-specific option sets:
 ## Readiness Gap Scan Pattern
 
 - Use this pattern during `/devspec.finalize` before marking a work item `ready`; other stages may record obvious blockers, but they must not run a broad readiness audit unless their command contract says so.
-- Scan the upstream work-item artifacts, accepted decisions, applicable foundation artifacts, and available repository evidence for gaps in scope boundaries, acceptance criteria, actors or personas, domain and data rules, lifecycle or state behavior, UX/error/empty/loading states, non-functional needs, integrations and external dependencies, security/privacy/compliance, validation testability, terminology consistency, TODO markers, and ambiguous placeholders.
+- Scan the upstream work-item artifacts, accepted decisions, applicable foundation artifacts, `devspec/constitution.md`, `devspec/architecture/overview.md`, relevant `devspec/architecture/decisions/*.md`, and available repository evidence for gaps in scope boundaries, acceptance criteria, actors or personas, domain and data rules, lifecycle or state behavior, UX/error/empty/loading states, non-functional needs, integrations and external dependencies, security/privacy/compliance, validation testability, terminology consistency, TODO markers, ambiguous placeholders, and conflicts with durable principles, foundation constraints, delivery gates, or architecture decisions.
 - Treat a gap as blocking only when resolving it would materially change implementation scope, task decomposition, validation design, repository readiness, delivery risk, compliance handling, or type-specific rule handling.
 - Do not ask about low-impact preferences, purely stylistic choices, implementation tactics better left to `/devspec.tasks`, or facts already captured in upstream artifacts.
 - When one or more blocking gaps remain, prioritize by highest implementation impact and uncertainty, then surface only the top unresolved blocking clarification through the current stage's single-question or handoff flow.

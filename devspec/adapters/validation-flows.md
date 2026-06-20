@@ -48,20 +48,28 @@ Validate one full feature, bug, or security-vulnerability lifecycle after the fo
 
 | Step | Command | Expected evidence |
 | --- | --- | --- |
-| 1 | `/devspec.story` | `meta.md`, `story.md`, `decisions.md`, and `notes.md` exist under one valid work-item folder. |
+| 1 | `/devspec.story` | `meta.md`, `story.md`, `decisions.md`, and `notes.md` exist under one valid work-item folder; `story.md` records one-story scope, readable intake sections, and observable acceptance criteria or a recorded blocker. |
 | 2 | `/devspec.clarify` when blocked | `clarify.md` records the active question, answer, resolution, and remaining blockers. |
-| 3 | `/devspec.finalize` | `finalize.md` records readiness, implementation brief, validation plan, assumptions, and blockers. |
-| 4 | `/devspec.tasks` | `tasks.md` records executable tasks with repository, target area, validation, done criteria, dependencies, and status. |
-| 5 | `/devspec.implement` | `implement.md` records repository access checks, task ledger, attempts, changed files or areas, validation results, blockers, and resume state. |
-| 6 | `/devspec.review` | `review.md` records findings, scope adherence, validation gaps, rule violations, and review status. |
+| 3 | `/devspec.finalize` | `finalize.md` records readiness, foundation and architecture alignment, implementation brief, validation plan, assumptions, and blockers. |
+| 4 | `/devspec.tasks` | `tasks.md` records task-quality review, source refs, executable tasks with repository, target area, validation, done criteria, dependencies, and status. |
+| 5 | `/devspec.implement` | `implement.md` records repository access checks, task quality checks, task ledger, attempts, changed files or areas, validation results, blockers, and resume state; `tasks.md` task-row progress fields stay aligned. |
+| 6 | `/devspec.review` | `review.md` records findings, scope adherence, task completion alignment, source-ref alignment, validation gaps, rule violations, and review status. |
 
 Acceptance checklist:
 
 - Work-item state uses values from `devspec/glossary.md`.
+- `/devspec.story` handles one independent story, feature, bug, security issue, task, or PBI per work-item folder.
+- `story.md` keeps source tracking, summary, description, acceptance criteria, functional requirements, nonfunctional requirements, edge cases, and planning signals in distinct sections without duplicating routing details from `meta.md`.
+- Acceptance criteria captured during intake are specific and testable, or the missing criteria are recorded as a blocker.
 - `finalize.md` must be `ready` before `/devspec.tasks` plans implementation tasks.
-- `/devspec.tasks` does not expand scope beyond the finalized brief.
+- `/devspec.finalize` records or blocks on applicable constitution, foundation, architecture, delivery-gate, repository-readiness, and validation-traceability gaps before marking `ready`.
+- `/devspec.tasks` does not expand scope beyond the finalized brief and records task-quality checks before implementation handoff.
+- `/devspec.tasks` includes source refs from finalized acceptance criteria, implementation brief rows, validation plan rows, risks, or follow-ups for every executable task.
 - `/devspec.implement` respects repository access requirements from `devspec/foundation/codebase-structure.md`.
-- `/devspec.review` reviews against the finalized brief instead of re-planning.
+- `/devspec.implement` keeps `tasks.md` task-row status, attempt count, and checkpoint fields aligned with `implement.md`.
+- `/devspec.implement` records blockers, ambiguity, skipped tasks, oversized task scope, and validation outcomes without silently expanding task scope.
+- `/devspec.review` reviews against the finalized brief, tasks, implementation record, and changed work instead of re-planning.
+- `/devspec.review` flags missing task coverage, skipped or blocked tasks without rationale, missing validation evidence, source-ref drift, and implementation beyond task scope when they affect close readiness.
 
 ## Cross-Tool Recovery Scenario
 

@@ -1,6 +1,6 @@
 # Review Record
 
-Use this artifact for review outcome, actionable findings, and handoff. Keep lifecycle recovery in `Resume State`, overall review judgment and non-actionable notes in `Review Outcome`, and required changes or tracked gaps in `Review Findings`.
+Use this artifact for review outcome, actionable findings, and handoff. Omit placeholder finding rows when there are no findings.
 
 ## Resume State
 
@@ -29,13 +29,15 @@ Use this artifact for review outcome, actionable findings, and handoff. Keep lif
 | Summary | |
 | Finalized scope alignment | aligned, drift found, not reviewed |
 | Validation coverage | complete, gaps found, not reviewed |
+| Task completion alignment | aligned, gaps found, not reviewed |
+| Source-ref alignment | aligned, drift found, not reviewed |
 | Type-specific review notes | bug/security/rule notes or n/a |
 | Follow-up summary | |
 
 ## Review Findings
 
-Record required changes, validation gaps, missing tests, scope drift, security risks, regressions, and follow-ups here. Use `Status` values such as `open`, `fixed`, `accepted-risk`, or `follow-up`.
+Record only actionable findings; omit placeholder rows when there are none.
 
 | ID | Severity | Category | Details | Required action | Evidence | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| F-001 | critical, high, medium, low | bug, regression, security, validation, test-gap, scope, maintainability, follow-up |  |  |  | open |
+| F-001 | critical, high, medium, low | bug, regression, security, validation, test-gap, scope, task-coverage, source-ref, maintainability, follow-up |  |  |  | open |

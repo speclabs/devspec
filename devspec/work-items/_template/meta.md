@@ -1,10 +1,10 @@
 # Work-Item Metadata
 
-Use this artifact as the work-item control record. Keep only the stable work-item record, routing index, and current workflow state. Put detailed intake content in `story.md`, work-item decisions in `decisions.md`, implementation readiness in `finalize.md`, and execution state in `tasks.md` or `implement.md`.
+Use this artifact for identity, routing, and workflow state only. Keep narrative, criteria, dependencies, and execution details in their stage artifacts.
 
 ## Work-Item Record
 
-Use this section for durable identity, classification, intake provenance, ownership, dates, and links.
+Use this section for stable identity, classification, ownership, dates, and links.
 
 | Field | Value |
 | --- | --- |
@@ -31,13 +31,13 @@ Use this section for durable identity, classification, intake provenance, owners
 
 ## Triage Index
 
-Use this section for routing and lookup only. Keep narrative impact, acceptance criteria, and dependency details in `story.md`.
+Use this section for routing and lookup only; details live in `story.md`.
 
 | Field | Value |
 | --- | --- |
 | Customer impact summary | |
-| Affected scope | |
-| Affected versions | |
+| Routing scope summary | |
+| Affected versions source | `story.md#description` |
 | Multi-repo dependency | yes, no |
 | Related repositories | repository names only |
 | Detail source | `story.md` |

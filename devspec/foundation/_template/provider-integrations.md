@@ -89,6 +89,6 @@ Offer only these structured `confirmation` actions:
 | Manual intake | Require external reference, manual description, and manual acceptance criteria. |
 | Resolved items | Require structured confirmation after showing resolved details. |
 | Blocked status | Use when input is invalid or required resolution failed. |
-| Confirmation result | Record it in `meta.md` and record the shown summary in `story.md`. |
+| Confirmation result | Record it in `meta.md` and record the shown provider summary in `story.md#source-record`. |
 | Provider policy ownership | Keep provider-specific details here instead of duplicating them across prompt files. |
 | Maintenance trigger | Update this file when provider formats, supported tools, authentication expectations, or fallback policy changes. |

@@ -16,14 +16,16 @@ handoffs:
 You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 
 ## Constraints
-- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Question Basis Pattern](../prompts/PATTERNS.md#question-basis-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - `story.md` must exist.
-- Update `Workflow State` in `meta.md` and `Resume State` in `clarify.md` before asking or resolving a blocking question, recording question intent, option labels, recommended option, and continuation condition.
+- Update `Workflow State` in `meta.md` and `Resume State` in `clarify.md` before asking or resolving a blocking question.
 - Handle one independent blocker at a time.
 - Resolve the active blocker recorded in `story.md`, `finalize.md`, user input, or existing `clarify.md`; do not run the full Readiness Gap Scan in this command.
+- Preserve and apply the Question Basis Pattern for the active blocker.
 - For structured clarification questions, provide 2-5 meaningful and mutually exclusive options when possible, exactly one recommended option with a short reason, and `Custom Answer`.
 - Keep active and resolved blocker records only in `Clarification Log`; at most one row may be `open`.
 - Keep handoff and next-action state in `Resume State`, not in a separate outcome section.
+- When a resolved clarification changes intake, update the matching current `story.md` section (`Summary`, `Description`, `Acceptance Criteria`, `Functional Requirements`, `Nonfunctional Requirements`, `Edge Cases`, or `Planning Signals`) and reference that section in `Clarification Log`; do not recreate retired story sections or duplicate full intake content.
 - If no blocking question remains, set `Pending user question` to `none` and record the next handoff in `Next required action`; return to `/devspec.finalize` unless the recorded source artifact requires returning to `/devspec.story`.
 
 ## Approach

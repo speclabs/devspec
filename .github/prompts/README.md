@@ -45,6 +45,7 @@ Developers invoke registered slash commands from this directory. Agent names are
 - `../../devspec/adapters/validation-flows.md`: enterprise acceptance checklists for new repository, existing repository, story lifecycle, and cross-tool recovery validation.
 - `../../devspec/adapters/gemini-cli.md` and `../../devspec/adapters/antigravity.md`: Gemini CLI and Google Antigravity adapter guidance.
 - `PATTERNS.md#artifact-content-pattern`: shared structure rules for developer-facing artifacts, source labels, optional sections, and table/bullet/list usage.
+- `PATTERNS.md#task-quality-gate-pattern`: shared task planning, implementation, and review alignment rules for source refs, dependency order, granularity, blockers, validation evidence, and task-scope drift.
 - `PATTERNS.md#constitution-amendment-pattern`: confirmation-gated durable principle changes, artifact routing, consistency review, and placeholder safety.
 - `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, naming, output format, Mermaid declaration, SVG target, evidence, confidence, dedupe, tags, and diagram queue rules.
 - `PATTERNS.md#svg-output-pattern`: standalone SVG output rules, folders, template selection, validation, and forbidden elements.
@@ -77,12 +78,12 @@ See [Model recommendations](../../README.md#model-recommendations). Agent front 
 | `devspec.codebase-structure.prompt.md` | Capture selective repository trees, repository configuration, work areas and boundaries, integration contracts, and structure gaps or blockers. | `foundation/codebase-structure.md` |
 | `devspec.coding-standards.prompt.md` | Capture an evidence-backed standards catalog with scoped rules, observed patterns, anti-patterns, source links, and optional short examples. | `foundation/coding-standards.md` |
 | `devspec.rules.prompt.md` | Capture actionable operational rules, compliance requirements, forbidden patterns, delivery gates, work-item handling rules, exceptions, enforcement points, source, and confidence. | `foundation/rules.md` |
-| `devspec.story.prompt.md` | Create or update work-item intake artifacts. | `meta.md`, `story.md`, `decisions.md`, `notes.md` |
+| `devspec.story.prompt.md` | Create or update one work-item intake. | `meta.md`, `story.md`, `decisions.md`, `notes.md` |
 | `devspec.clarify.prompt.md` | Ask, resolve, and record one active blocking clarification. | `clarify.md` |
-| `devspec.finalize.prompt.md` | Create or update a structured implementation readiness brief with readiness assessment, implementation brief, validation plan, and blockers. | `finalize.md` |
-| `devspec.tasks.prompt.md` | Break a ready brief into executable implementation tasks with planning basis, validation, and done criteria. | `tasks.md` |
-| `devspec.implement.prompt.md` | Implement pending tasks and record implementation task ledger state, implementation evidence, execution history, and handoff details. | `implement.md`, code changes |
-| `devspec.review.prompt.md` | Review implemented work against the finalized brief. | `review.md` |
+| `devspec.finalize.prompt.md` | Create or update a structured implementation readiness brief with readiness assessment, foundation and architecture alignment, implementation brief, validation plan, and blockers. | `finalize.md` |
+| `devspec.tasks.prompt.md` | Break a ready brief into source-referenced executable implementation tasks with task-quality review, validation, and done criteria. | `tasks.md` |
+| `devspec.implement.prompt.md` | Implement pending tasks and record task-quality checks, task-row progress, implementation evidence, execution history, and handoff details. | `implement.md`, `tasks.md` status updates, code changes |
+| `devspec.review.prompt.md` | Review implemented work against the finalized brief, tasks, and implementation record. | `review.md` |
 | `devspec.diagram.prompt.md` | Generate or update one evidence-backed diagram, defaulting to Mermaid with opt-in SVG output, or batch-generate queued process-flow diagrams. | `architecture/diagrams/dia-NNN-*.md` by default; optional `architecture/images/dia-NNN-*.svg` for `format=svg` or `format=mermaid+svg`; `architecture/overview.md` for high-level architecture diagrams; work-item `diagrams.md` and optional `images/*.svg` for explicit or clearly temporary work-item-specific diagram content |
 
 ## Maintenance

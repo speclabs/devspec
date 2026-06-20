@@ -1,6 +1,6 @@
 # Work-Item Intake
 
-Use this artifact for detailed work-item intake. Keep identity, classification, source provenance, and routing summaries in `meta.md`; keep work-item decisions in `decisions.md`; keep implementation-ready scope in `finalize.md`.
+Use this artifact for one work item or story at a time. Keep identity and routing in `meta.md`; keep decisions in `decisions.md`; keep implementation-ready scope in `finalize.md`.
 
 ## Resume State
 
@@ -19,7 +19,7 @@ Use this artifact for detailed work-item intake. Keep identity, classification, 
 | Resume notes | |
 | Updated | |
 
-## Intake Source Record
+## Source Record
 
 | Field | Value |
 | --- | --- |
@@ -31,29 +31,66 @@ Use this artifact for detailed work-item intake. Keep identity, classification, 
 | Manual description | |
 | Manual acceptance criteria | |
 
-## Work-Item Brief
+## Summary
 
-Use this section for the durable work-item narrative. Keep it concise but specific enough for clarification and finalization.
+Use one short statement of the requested story and intended outcome.
 
 | Field | Value |
 | --- | --- |
-| Problem | |
-| Intended outcome | |
+| Summary | |
+
+## Description
+
+Record background, user or customer problem, affected scope, impact, and type-specific context. Keep repository access in `devspec/foundation/codebase-structure.md` and rules in `devspec/foundation/rules.md`.
+
+| Field | Value |
+| --- | --- |
+| Problem or opportunity | |
 | User or customer impact | |
 | Affected components | |
 | Affected versions | |
+| Type-specific context | |
 
-## Work-Item Details
+## Acceptance Criteria
 
-Use this table for facts that affect clarification, readiness, task planning, or validation. Keep repository paths and access requirements in `devspec/foundation/codebase-structure.md`; keep rule definitions in `devspec/foundation/rules.md`.
+Record specific, testable conditions that must be true for completion.
+
+| ID | Criterion | Source | Status |
+| --- | --- | --- | --- |
+| AC-001 |  | confirmed, provider, manual, user | pending |
+
+## Functional Requirements
+
+Record expected system behavior.
+
+| ID | Requirement | Source | Status |
+| --- | --- | --- | --- |
+| FR-001 |  | confirmed, provider, manual, user, discovery | open |
+
+## Nonfunctional Requirements
+
+Record quality attributes such as security, performance, reliability, accessibility, compliance, or scalability.
+
+| ID | Requirement | Source | Status |
+| --- | --- | --- | --- |
+| NFR-001 |  | foundation, intake, rule, user, discovery | open |
+
+## Edge Cases
+
+Record boundary conditions, failure paths, unusual states, and exception handling.
+
+| ID | Case | Source | Status |
+| --- | --- | --- | --- |
+| EDGE-001 |  | confirmed, provider, manual, user, discovery | open |
+
+## Planning Signals
+
+Record assumptions, dependencies, risks, blockers, type-specific facts, terms, and scope exclusions that affect clarification, finalization, planning, or validation. Omit low-impact notes and unused placeholder rows.
 
 | Type | ID | Item | Source | Status |
 | --- | --- | --- | --- | --- |
-| Acceptance criterion | AC-001 |  | confirmed, provider, manual, user | pending |
 | Assumption | ASM-001 |  | confirmed, inferred, user | open |
-| Constraint | CON-001 |  | foundation, intake, user | open |
 | Dependency | DEP-001 | <dependency-or-none> | intake, user, discovery | open |
 | Multi-repo dependency | DEP-REPO-001 | yes, no; related repositories: <repository-names-only> | confirmed, user | open |
-| Type-specific note | TS-001 | <bug-or-security-note>; rule source: `devspec/foundation/rules.md` | intake, user, rule | open |
 | Risk | RISK-001 |  | intake, user, discovery | open |
 | Blocker | BLK-001 |  | intake, user, discovery | open |
