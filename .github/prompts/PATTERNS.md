@@ -119,6 +119,18 @@ Standard stage-specific option sets:
 - Never reduce repository access checks, readiness gates, validation, error handling, security, privacy, accessibility, compliance handling, or required recovery state to save tokens or lines.
 - Record the selected implementation path, evidence, blockers, validation, and material tradeoffs; omit rejected alternatives unless they explain a risk, blocker, retry, or review finding.
 
+## Task Quality Gate Pattern
+
+- Use this pattern across `/devspec.tasks`, `/devspec.implement`, and `/devspec.review` to keep task planning, execution, and review aligned with the finalized brief.
+- Keep sequencing, dependency, and traceability information in task rows.
+- During `/devspec.tasks`, record a compact `Task Quality Review` before `Implementation Tasks` covering scope/source coverage, validation coverage, dependency order, granularity, blockers, ambiguity, and implementation-risk gaps.
+- Every executable task must include `Source refs` pointing to the finalized acceptance criteria, implementation brief rows, validation plan rows, risks, or follow-ups that justify the task.
+- Keep tasks actionable, independently verifiable where practical, and sized for one meaningful checkpoint. Split tasks that are too broad to validate safely; merge tasks that are too small to produce useful implementation or review evidence.
+- Sequence task rows so dependencies appear before dependents. Use the `Depends on` column for required predecessors, and use `none` only when the task can start without another task's output.
+- Treat missing coverage, impossible sequencing, vague done criteria, missing validation, ambiguous target areas, unresolved access, and external blockers as task-planning blockers when they would materially change implementation or review.
+- During `/devspec.implement`, before each task attempt, confirm the task is still actionable, within finalized scope, unblocked, specific enough to implement, and ordered after its dependencies. If implementation reveals task ambiguity, a blocking dependency, or oversized scope, update `implement.md`, update the task checkpoint or status when applicable, and stop for the required structured question instead of silently expanding scope.
+- During `/devspec.review`, compare `finalize.md`, `tasks.md`, `implement.md`, and changed code or artifacts. Flag missing source coverage, incomplete or skipped tasks without rationale, blocked tasks treated as done, missing validation evidence, source-ref drift, and implementation beyond task scope as review findings when they affect correctness, delivery risk, or readiness to close.
+
 ## Artifact Content Pattern
 
 - Write artifacts for developers who need to plan, implement, review, or recover work. Every captured item should make clear what is true, where it applies, what evidence or source supports it, and what a developer should do with it.

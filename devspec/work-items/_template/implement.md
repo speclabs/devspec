@@ -21,7 +21,7 @@ Use this artifact for implementation recovery, evidence, and handoff. Keep task 
 
 ## Implementation Task Ledger
 
-Use this as the implementation recovery view. Keep one row per task from `tasks.md`; target repository, area, and dependency details stay in `tasks.md`.
+Use this as the recovery view. Keep one row per task from `tasks.md`; source refs, targets, and dependencies stay there.
 
 | Field | Value |
 | --- | --- |
@@ -36,13 +36,13 @@ Use this as the implementation recovery view. Keep one row per task from `tasks.
 | Roll-forward notes | |
 | Completion note | |
 
-| Task | Status | Attempt count | Last checkpoint | Validation last run | Next action |
-| --- | --- | --- | --- | --- | --- |
-| T-001 | pending | 0 |  |  | |
+| Task | Status | Attempt count | Last checkpoint | Task quality notes | Validation last run | Next action |
+| --- | --- | --- | --- | --- | --- | --- |
+| T-001 | pending | 0 |  | <actionable-or-blocker-summary> |  | |
 
 ## Implementation Evidence
 
-Record only evidence that exists. Use `Changed file` for targeted edits and `Changed area` for broad mechanical edits. Repository access source is `devspec/foundation/codebase-structure.md`; type-specific rule source is `devspec/foundation/rules.md`.
+Record only evidence that exists. Use `Changed file` for targeted edits and `Changed area` for broad edits.
 
 | Type | Applies to | Item | Evidence or notes | Status |
 | --- | --- | --- | --- | --- |
@@ -57,8 +57,8 @@ Record only evidence that exists. Use `Changed file` for targeted edits and `Cha
 
 ## Implementation Execution Log
 
-Record one row per task attempt, validation run, blocker, retry escalation, pause, skip, completion, or handoff. Put blockers, failed method/reason, retry condition, safer method, confirmation, or handoff in `Summary` or `Next action`.
+Record one row per task-quality check, attempt, validation, blocker, retry escalation, pause, skip, completion, or handoff. Put recovery details in `Summary` or `Next action`.
 
 | Date | Task | Event | Attempt | Status | Summary | Evidence refs | Next action |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-|  | T-001 | attempt, validation, blocker, retry-escalation, pause, skip, completion, handoff | 0 | pending |  |  |  |
+|  | T-001 | task-quality-check, attempt, validation, blocker, retry-escalation, pause, skip, completion, handoff | 0 | pending |  |  |  |

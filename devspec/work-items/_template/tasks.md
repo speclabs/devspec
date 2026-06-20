@@ -23,10 +23,21 @@ Use this artifact for executable implementation checkpoints. Keep recovery in `R
 
 Sources: `finalize.md#implementation-brief`, `finalize.md#validation-plan`, `finalize.md#readiness-assessment`, `devspec/foundation/codebase-structure.md`, and `devspec/foundation/rules.md`.
 
+## Task Quality Review
+
+Use this gate before handing off. Record material blockers in `Resume State`.
+
+| Check | Evidence or gap | Next action |
+| --- | --- | --- |
+| Scope and source coverage | <finalized-scope-and-source-refs-covered-or-gap> | <none-or-blocker-action> |
+| Validation coverage | <validation-plan-refs-covered-or-gap> | <none-or-blocker-action> |
+| Dependency order and granularity | <sequencing-and-checkpoint-sizing-summary-or-gap> | <none-or-blocker-action> |
+| Blockers, ambiguity, and risk | <access-target-scope-risk-or-follow-up-gap> | <none-or-blocker-action> |
+
 ## Implementation Tasks
 
-Use one row per executable checkpoint. Keep rows compact; reference finalized acceptance criteria by ID, keep repository lists in `devspec/foundation/codebase-structure.md`, and put only the executable validation method or evidence needed for the task.
+Use one row per executable checkpoint. Keep rows compact; put traceability in `Source refs`, repository lists in `devspec/foundation/codebase-structure.md`, and only executable proof in `Validation`.
 
-| ID | Task | Target repository | Target area or files | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T-001 | <developer-action> | <repository-name> | <path-module-or-area> | See `devspec/glossary.md#access-requirement-values` | <task-id-or-none> | <command-method-or-review-signal-and-expected-result> | <observable-completion-condition-and-evidence> | pending | 0 | |
+| ID | Task | Source refs | Target repository | Target area or files | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| T-001 | <developer-action> | <AC-PI-RISK-VAL-refs> | <repository-name> | <path-module-or-area> | See `devspec/glossary.md#access-requirement-values` | <task-id-or-none> | <command-method-or-review-signal-and-expected-result> | <observable-completion-condition-and-evidence> | pending | 0 | |
