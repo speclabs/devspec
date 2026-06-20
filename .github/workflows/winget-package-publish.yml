@@ -75,7 +75,7 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
-          $version = if ($env:GITHUB_REF_NAME -match "^v(.+)$") { $Matches[1] } else { "0.1.1" }
+          $version = if ($env:GITHUB_REF_NAME -match "^v(.+)$") { $Matches[1] } else { "0.1.2" }
           $hash = (Get-FileHash dist\winget\devspec.exe -Algorithm SHA256).Hash.ToLowerInvariant()
           "$hash  devspec.exe" | Set-Content -Path dist\winget\devspec.exe.sha256 -Encoding ASCII
 
