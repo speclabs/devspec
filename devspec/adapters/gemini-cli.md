@@ -28,7 +28,7 @@ Gemini uses colon namespacing for project commands. Keep canonical dotted `/devs
 - Each TOML command is a thin wrapper around `devspec/adapters/command-registry.md`.
 - Each TOML command names the matching Copilot prompt and agent files as the source of intent.
 - Gemini CLI command arguments are passed through the native custom-command argument behavior.
-- `/devspec.diagram` keeps Mermaid as the default output; pass `format=svg` for SVG-only output or `format=mermaid+svg` for both outputs without creating a separate Gemini command.
+- `/devspec.diagram` defaults to SVG output. `format=` may contain any non-duplicated `+` combination of `svg`, `html`, and `mermaid`. Example: `format=svg`, `format=html`, `format=mermaid`, `format=svg+html`, `format=svg+mermaid`, `format=svg+html+mermaid`, `format=html+mermaid`.
 - Do not use Gemini shell injection in devspec command wrappers; let the agent read files through normal tool access and approvals.
 
 ## Enterprise Safety

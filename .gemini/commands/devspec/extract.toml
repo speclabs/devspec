@@ -8,7 +8,7 @@ Before acting:
 3. Follow `.github/prompts/PATTERNS.md` for shared workflow, recovery, output, discovery, and recommendation behavior.
 4. Recover from existing Git-tracked `devspec/` artifacts before relying on Gemini session memory.
 5. Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
-6. Preserve `format=svg` and `format=mermaid+svg` as diagram generation preferences in queue notes; extraction remains queue-first and may generate at most one approved diagram artifact set only after the canonical approval gate.
+6. Preserve any non-duplicated diagram `format=` combination of `svg`, `html`, and `mermaid` in queue notes; extraction remains queue-first and may generate at most one approved diagram artifact set only after the canonical approval gate.
 7. Treat Gemini-specific command syntax as platform mechanics, not a workflow change.
 
 The user's raw command input, if any, is appended below these instructions by Gemini CLI.

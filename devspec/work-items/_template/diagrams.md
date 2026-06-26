@@ -1,8 +1,8 @@
 # Work-Item Diagrams
 
-Use this file only for explicit or clearly temporary work-item diagrams.
+Use this optional Markdown file only for explicit or clearly temporary work-item diagrams when the selected output set includes `mermaid`.
 
-Reusable diagrams live under `devspec/architecture/diagrams/`; durable SVGs live under `devspec/architecture/images/`. `devspec/architecture/artifact-queue.md` owns diagram status. Temporary SVGs for this work item belong under `devspec/work-items/<work-item-folder>/images/`.
+Reusable default SVG diagrams live under `devspec/architecture/images/`; optional durable Mermaid Markdown diagrams live under `devspec/architecture/diagrams/`; optional durable HTML diagrams live under `devspec/architecture/html/`. `devspec/architecture/artifact-queue.md` owns diagram status. Temporary SVGs for this work item belong under `devspec/work-items/<work-item-folder>/images/`; temporary HTML files belong under `devspec/work-items/<work-item-folder>/html/`.
 
 ## Resume State
 
@@ -28,9 +28,10 @@ Reusable diagrams live under `devspec/architecture/diagrams/`; durable SVGs live
 | Field | Value |
 | --- | --- |
 | Type | |
-| Output format | mermaid, svg, mermaid+svg |
+| Output format | mermaid, svg+mermaid, html+mermaid, or svg+html+mermaid |
 | Subject | |
 | SVG target | `devspec/work-items/<work-item-folder>/images/<diagram-name>.svg` when output format includes svg |
+| HTML target | `devspec/work-items/<work-item-folder>/html/<diagram-name>.html` when output format includes html |
 | Queue source | `devspec/architecture/artifact-queue.md` |
 | Evidence sources | |
 | Confidence | observed, high-confidence, low-confidence |
@@ -44,4 +45,4 @@ flowchart TD
     Placeholder["&nbsp;<diagram content>&nbsp;"]
 ```
 
-For `format=svg`, omit the Mermaid block content and reference the generated SVG target above. For `format=mermaid+svg`, keep both the Mermaid block and SVG target reference.
+Create this Markdown file only when the selected output set includes `mermaid`. For SVG-only or HTML-only output, store targets in the queue row and generated files instead.

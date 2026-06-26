@@ -47,8 +47,9 @@ Developers invoke registered slash commands from this directory. Agent names are
 - `PATTERNS.md#artifact-content-pattern`: shared structure rules for developer-facing artifacts, source labels, optional sections, and table/bullet/list usage.
 - `PATTERNS.md#task-quality-gate-pattern`: shared task planning, implementation, and review alignment rules for source refs, dependency order, granularity, blockers, validation evidence, and task-scope drift.
 - `PATTERNS.md#constitution-amendment-pattern`: confirmation-gated durable principle changes, artifact routing, consistency review, and placeholder safety.
-- `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, naming, output format, Mermaid declaration, SVG target, evidence, confidence, dedupe, tags, and diagram queue rules.
-- `PATTERNS.md#svg-output-pattern`: standalone SVG output rules, folders, template selection, validation, and forbidden elements.
+- `PATTERNS.md#diagram-extraction-consistency-pattern`: shared diagram candidate, naming, default SVG output, optional Mermaid or HTML output, evidence, confidence, dedupe, tags, and diagram queue rules.
+- `PATTERNS.md#architecture-diagram-intake-pattern`: structured architecture prompt fields, editable SVG inference, authoritative listed-component handling, and compact neutral example.
+- `PATTERNS.md#svg-output-pattern`: standalone SVG output rules, optional Mermaid or HTML outputs, folders, template selection, validation, and forbidden elements.
 - `PATTERNS.md#process-flow-extraction-pattern`: process-flow discovery, tagging, hybrid user-to-data operational flow, and batch-generation rules.
 - `../../devspec/constitution.md`: rare durable principles across work items and agents; principle-level changes require confirmation and consistency review.
 - `../../devspec/foundation/project-context.md`: product purpose, audiences, outcomes, scope, metrics, and product delivery context.
@@ -84,7 +85,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent front 
 | `devspec.tasks.prompt.md` | Break a ready brief into source-referenced executable implementation tasks with task-quality review, validation, and done criteria. | `tasks.md` |
 | `devspec.implement.prompt.md` | Implement pending tasks and record task-quality checks, task-row progress, implementation evidence, execution history, and handoff details. | `implement.md`, `tasks.md` status updates, code changes |
 | `devspec.review.prompt.md` | Review implemented work against the finalized brief, tasks, and implementation record. | `review.md` |
-| `devspec.diagram.prompt.md` | Generate or update one evidence-backed diagram, defaulting to Mermaid with opt-in SVG output, or batch-generate queued process-flow diagrams. | `architecture/diagrams/dia-NNN-*.md` by default; optional `architecture/images/dia-NNN-*.svg` for `format=svg` or `format=mermaid+svg`; `architecture/overview.md` for high-level architecture diagrams; work-item `diagrams.md` and optional `images/*.svg` for explicit or clearly temporary work-item-specific diagram content |
+| `devspec.diagram.prompt.md` | Generate or update one evidence-backed diagram, defaulting to SVG with optional Mermaid or HTML output, or batch-generate queued process-flow diagrams. | `architecture/images/dia-NNN-*.svg` by default; optional `architecture/diagrams/dia-NNN-*.md` for Mermaid and `architecture/html/dia-NNN-*.html`; `architecture/overview.md` for high-level diagram references; work-item `images/*.svg`, optional `diagrams.md`, and optional `html/*.html` for explicit or clearly temporary work-item-specific diagram content |
 
 ## Maintenance
 

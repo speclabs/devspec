@@ -18,7 +18,7 @@ Use this section for confirmed high-level diagrams in this file and links to dur
 
 | ID | Scope | Diagram type | Subject | Link or section | Usage notes |
 | --- | --- | --- | --- | --- | --- |
-|  | architecture, module, feature, workflow, user-journey | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram, erDiagram |  | `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md`, optional `devspec/architecture/images/dia-NNN-<diagram-name>.svg`, or section anchor |  |
+|  | architecture, module, feature, workflow, user-journey | flowchart, sequenceDiagram, journey, stateDiagram, classDiagram, erDiagram |  | `devspec/architecture/images/dia-NNN-<diagram-name>.svg`, optional `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md`, optional `devspec/architecture/html/dia-NNN-<diagram-name>.html`, or section anchor |  |
 
 ## Decision Reference Index
 

@@ -69,7 +69,7 @@ Then run the work-item flow:
 /devspec.review
 ```
 
-Use `/devspec.clarify` only when a work item records a blocking question. Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, or domain behavior; Mermaid is the default, with opt-in SVG via `format=svg` or `format=mermaid+svg`.
+Use `/devspec.clarify` only when a work item records a blocking question. Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, or domain behavior; SVG is the default, with optional Mermaid or HTML via `format=` combinations. Example: `format=svg`, `format=html`, `format=mermaid`, `format=svg+html`, `format=svg+mermaid`, `format=svg+html+mermaid`, `format=html+mermaid`.
 
 ## How It Works
 
@@ -121,7 +121,7 @@ flowchart TD
 | `/devspec.tasks` | A ready brief needs executable tasks. | Work-item `tasks.md` |
 | `/devspec.implement` | Pending tasks should be implemented and recorded. | Work-item `implement.md` and code changes when applicable |
 | `/devspec.review` | Implemented work needs review against the finalized brief. | Work-item `review.md` |
-| `/devspec.diagram` | A diagram should be created or updated. | Architecture or work-item Markdown diagram artifacts, with Mermaid by default and opt-in SVG images via `format=svg` or `format=mermaid+svg` |
+| `/devspec.diagram` | A diagram should be created or updated. | Architecture or work-item SVG diagram artifacts by default, with optional Mermaid or HTML artifacts |
 
 For exact command contracts, see `devspec/adapters/command-registry.md`.
 
@@ -154,7 +154,7 @@ Related docs:
 | --- | --- |
 | `devspec/constitution.md` | Rare durable project principles across all work items and agents; principle changes require explicit confirmation. |
 | `devspec/foundation/` | Product context, stack, structure, standards, operational rules, exclusions, and provider policy. |
-| `devspec/architecture/` | Architecture overview, Markdown diagrams, optional SVG images, ADR templates, and artifact queue. |
+| `devspec/architecture/` | Architecture overview, default SVG diagrams, optional Mermaid or HTML diagrams, ADR templates, and artifact queue. |
 | `devspec/work-items/` | One folder per feature, bug, or security work item. |
 | `devspec/adapters/` | Multi-agent registry, compatibility, validation, and governance docs. |
 | `docs/how-to/` | User manual with install, workflow, AI coding agent, multi-repo, provider, validation, and upgrade examples. |
@@ -275,6 +275,7 @@ Project-owned files should be migrated or merged, not overwritten:
 - `devspec/architecture/*.md`
 - `devspec/architecture/diagrams/*.md`
 - `devspec/architecture/images/*.svg`
+- `devspec/architecture/html/*.html`
 - `devspec/work-items/**`
 - `devspec/constitution.md`
 - `devspec/glossary.md`
