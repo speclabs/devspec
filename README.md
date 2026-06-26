@@ -131,7 +131,7 @@ GitHub Copilot prompt and agent files are the reference implementation. Other ad
 
 | Tool | Files | Notes |
 | --- | --- | --- |
-| GitHub Copilot | `.github/prompts/`, `.github/agents/` | Native `/devspec.*` command implementation. |
+| GitHub Copilot | `.github/prompts/`, `.github/agents/`; optional `.github/skills/` | Native `/devspec.*` command implementation. |
 | Claude Code | `.claude/skills/devspec-*/SKILL.md` | Project skills for canonical commands. |
 | OpenAI Codex | `AGENTS.md`, `devspec/adapters/codex.md` | Repository instructions and Codex guidance. |
 | Cursor | `.cursor/rules/devspec-workflow.mdc`, `AGENTS.md` | Project rules plus shared fallback instructions. |
@@ -188,6 +188,8 @@ Then copy only the adapter files your team uses:
 | Google Antigravity | `.agents/` |
 
 The release payload may also include this repository's `README.md` and `docs/how-to/` for reference. Do not copy them into the target repository as installed framework files, and do not overwrite a target project's root `README.md`. Keep credentials, provider tokens, local auth files, and personal settings outside copied framework files.
+
+Do not copy `.github/workflows/` into target repositories. Those workflows are this framework repository's CI/release automation, and target projects should own their own CI/CD configuration.
 
 ## Operating Rules
 
@@ -264,6 +266,8 @@ Framework-owned files may be replaced or diff-applied during upgrades:
 - `GEMINI.md`
 - `devspec/adapters/`
 - `devspec/**/_template/`
+
+The `.github/workflows/` directory is intentionally excluded from setup and sync. Those files are this repository's CI/release automation, and target projects should own their own CI/CD configuration.
 
 Project-owned files should be migrated or merged, not overwritten:
 

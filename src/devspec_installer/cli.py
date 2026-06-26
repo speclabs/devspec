@@ -307,6 +307,8 @@ def should_exclude_payload(path: PurePosixPath) -> bool:
     parts = path.parts
     if any(part in {".git", ".vs", "__pycache__", ".pytest_cache", ".ruff_cache", "dist", "build"} for part in parts):
         return True
+    if len(parts) >= 2 and parts[:2] == (".github", "workflows"):
+        return True
     if path.name.endswith((".pyc", ".pyo")):
         return True
     if path == MANIFEST_PATH:
