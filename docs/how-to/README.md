@@ -63,6 +63,8 @@ Choose the smallest profile that matches the tools your team uses.
 | `antigravity` | Core plus `.agents/`. |
 | `all` | Every supported adapter profile. Recommended for multi-agent teams. |
 
+No install profile includes `.github/workflows/`. Those files are this repository's release and validation automation, not target-repository setup content.
+
 ## AI Coding Agent Setup
 
 | AI coding agent | Installed files | Notes |
@@ -466,6 +468,8 @@ devspec/adapters/
 devspec/**/_template/
 ```
 
+The `.github/workflows/` directory is intentionally excluded from setup and sync. Those files are this repository's CI/release automation, and target projects should own their own CI/CD configuration.
+
 Project-owned files should be migrated or merged, not overwritten:
 
 ```text
@@ -523,6 +527,8 @@ Use provider-specific GitHub workflow filenames and display names. The current p
 ```
 
 Future package-provider workflows should follow the same pattern, such as `homebrew-package-publish.yml` or `npm-package-publish.yml`.
+
+These `.github/workflows/` files belong to this repository's release automation. Do not add them to install profiles or manual-copy setup instructions.
 
 For Homebrew releases, publish the generated source formula through `speclabs/homebrew-tap` before documenting the tap as available. The tap-ready template files live in:
 

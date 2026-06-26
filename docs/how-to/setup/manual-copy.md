@@ -49,6 +49,7 @@ Then copy only the adapter files your team uses:
 | Google Antigravity | `.agents/` |
 
 Do not copy this framework repository's root `README.md` over your target project's README.
+Do not copy `.github/workflows/`; those workflows publish and validate the devspec framework itself, not target repositories.
 
 ## Validate The Install
 

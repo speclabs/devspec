@@ -12,6 +12,7 @@ from devspec_installer.cli import (
     diff_files,
     main,
     sha256_file,
+    should_exclude_payload,
     version_status,
 )
 
@@ -29,6 +30,8 @@ def test_profiles_resolve_core_and_all_payloads() -> None:
     assert "devspec/architecture/images/README.md" in core_paths
     assert ".github/prompts/devspec.story.prompt.md" in core_paths
     assert ".github/agents/devspec.story.agent.md" in core_paths
+    assert not any(path.startswith(".github/workflows/") for path in core_paths)
+    assert not any(path.startswith(".github/workflows/") for path in all_paths)
     assert "AGENTS.md" in core_paths
     assert "README.md" not in core_paths
     assert "docs/how-to/README.md" not in core_paths
@@ -36,6 +39,21 @@ def test_profiles_resolve_core_and_all_payloads() -> None:
     assert ".claude/skills/devspec-story/SKILL.md" in all_paths
     assert ".gemini/commands/devspec/story.toml" in all_paths
     assert ".agents/skills/devspec-story.md" in all_paths
+
+
+def test_payload_excludes_github_workflows_even_from_broad_patterns() -> None:
+    payload = Payload()
+    payload.profiles["broad-github"] = {
+        "description": "Temporary broad GitHub pattern for regression coverage.",
+        "includes": [".github/**"],
+    }
+
+    paths = {str(item.path) for item in payload.resolve_profile_files("broad-github")}
+
+    assert ".github/prompts/devspec.story.prompt.md" in paths
+    assert ".github/agents/devspec.story.agent.md" in paths
+    assert not any(path.startswith(".github/workflows/") for path in paths)
+    assert should_exclude_payload(PurePosixPath(".github/workflows/python-package-ci.yml"))
 
 
 def test_ownership_classification_preserves_project_artifacts() -> None:

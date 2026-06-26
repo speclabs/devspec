@@ -160,6 +160,8 @@ AGENTS.md
 
 If you installed `--profile all`, it should also include adapter folders such as `.claude/`, `.cursor/`, `.gemini/`, and `.agents/`.
 
+Setup does not copy `.github/workflows/`. Those CI/CD files belong to this framework repository, and target repositories should keep their own workflows.
+
 ## Troubleshooting
 
 | Problem | What to try |

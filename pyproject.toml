@@ -47,7 +47,9 @@ packages = ["src/devspec_installer"]
 "GEMINI.md" = "src/devspec_installer/payload/GEMINI.md"
 "README.md" = "src/devspec_installer/payload/README.md"
 "devspec" = "src/devspec_installer/payload/devspec"
-".github" = "src/devspec_installer/payload/.github"
+".github/prompts" = "src/devspec_installer/payload/.github/prompts"
+".github/agents" = "src/devspec_installer/payload/.github/agents"
+".github/skills" = "src/devspec_installer/payload/.github/skills"
 ".claude" = "src/devspec_installer/payload/.claude"
 ".cursor" = "src/devspec_installer/payload/.cursor"
 ".gemini" = "src/devspec_installer/payload/.gemini"
@@ -60,7 +62,9 @@ include = [
   "/tests",
   "/scripts",
   "/packaging",
-  "/.github",
+  "/.github/prompts",
+  "/.github/agents",
+  "/.github/skills",
   "/.claude",
   "/.cursor",
   "/.gemini",
