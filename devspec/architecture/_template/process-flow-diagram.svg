@@ -6,7 +6,7 @@
     <style><![CDATA[
       svg {
         background: #020617;
-        font-family: "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+        font-family: "JetBrains Mono", "Cascadia Code", monospace;
       }
 
       .page-bg { fill: #020617; }
