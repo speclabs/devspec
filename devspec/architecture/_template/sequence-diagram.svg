@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">[DIAGRAM_TITLE] - Sequence Diagram</title>
+  <desc id="desc">[DIAGRAM_DESCRIPTION]</desc>
+
+  <defs>
+    <style><![CDATA[
+      svg {
+        background: #020617;
+        font-family: "JetBrains Mono", "Cascadia Code", monospace;
+      }
+
+      .page-bg { fill: #020617; }
+      .grid-line { stroke: #1e293b; stroke-width: 0.7; opacity: 0.65; }
+      .surface { fill: #0f172a; stroke: #1e293b; stroke-width: 1.4; filter: url(#soft-shadow); }
+      .title { fill: #f8fafc; font-size: 38px; font-weight: 800; }
+      .subtitle { fill: #cbd5e1; font-size: 16px; font-weight: 500; }
+      .eyebrow { fill: #67e8f9; font-size: 13px; font-weight: 800; letter-spacing: 1.6px; }
+      .footer { fill: #64748b; font-size: 12px; }
+
+      .participant { stroke-width: 1.8; filter: url(#node-glow); }
+      .participant-actor { fill: rgba(30, 41, 59, 0.66); stroke: #94a3b8; }
+      .participant-ui { fill: rgba(8, 51, 68, 0.46); stroke: #22d3ee; }
+      .participant-service { fill: rgba(6, 78, 59, 0.46); stroke: #34d399; }
+      .participant-data { fill: rgba(76, 29, 149, 0.46); stroke: #a78bfa; }
+      .participant-external { fill: rgba(120, 53, 15, 0.40); stroke: #fbbf24; }
+      .participant-title { fill: #f8fafc; font-size: 15px; font-weight: 800; }
+      .participant-meta { fill: #cbd5e1; font-size: 11px; font-weight: 600; }
+
+      .lifeline { stroke: #334155; stroke-width: 1.5; stroke-dasharray: 8 8; }
+      .activation { fill: rgba(15, 23, 42, 0.92); stroke: #64748b; stroke-width: 1.2; }
+      .message { fill: none; stroke: #e2e8f0; stroke-width: 2.2; opacity: 0.92; }
+      .message-return { stroke: #94a3b8; stroke-dasharray: 7 5; }
+      .message-security { stroke: #fb7185; stroke-dasharray: 7 6; }
+      .message-label-bg { fill: #0f172a; stroke: #334155; stroke-width: 1; }
+      .message-label { fill: #f8fafc; font-size: 12px; font-weight: 800; }
+      .step-badge { fill: #2563eb; stroke: #93c5fd; stroke-width: 1.4; }
+      .step-text { fill: #eff6ff; font-size: 13px; font-weight: 900; }
+
+      .note-panel { fill: rgba(15, 23, 42, 0.86); stroke: #334155; stroke-width: 1.2; }
+      .note-title { fill: #f8fafc; font-size: 14px; font-weight: 800; }
+      .note-text { fill: #cbd5e1; font-size: 12px; font-weight: 600; }
+      .legend-panel { fill: rgba(15, 23, 42, 0.86); stroke: #334155; stroke-width: 1.2; }
+      .legend-title { fill: #f8fafc; font-size: 14px; font-weight: 800; }
+      .legend-text { fill: #cbd5e1; font-size: 12px; font-weight: 600; }
+    ]]></style>
+
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path class="grid-line" d="M 48 0 L 0 0 0 48" fill="none"/>
+    </pattern>
+
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000000" flood-opacity="0.34"/>
+    </filter>
+
+    <filter id="node-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#38bdf8" flood-opacity="0.16"/>
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e2e8f0"/>
+    </marker>
+
+    <marker id="arrow-secondary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+
+    <marker id="arrow-security" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fb7185"/>
+    </marker>
+  </defs>
+
+  <rect class="page-bg" width="1600" height="900"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.42"/>
+  <rect class="surface" x="48" y="42" width="1504" height="816" rx="20"/>
+
+  <text class="eyebrow" x="92" y="92">[PROJECT_NAME]</text>
+  <text class="title" x="92" y="138">[DIAGRAM_TITLE]</text>
+  <text class="subtitle" x="92" y="168">[DIAGRAM_DESCRIPTION]</text>
+
+  <!-- Draw message arrows before participant headers so connectors stay visually behind the actors. -->
+  <line class="lifeline" x1="190" y1="290" x2="190" y2="700"/>
+  <line class="lifeline" x1="470" y1="290" x2="470" y2="700"/>
+  <line class="lifeline" x1="750" y1="290" x2="750" y2="700"/>
+  <line class="lifeline" x1="1030" y1="290" x2="1030" y2="700"/>
+  <line class="lifeline" x1="1310" y1="290" x2="1310" y2="700"/>
+
+  <rect class="activation" x="462" y="352" width="16" height="252" rx="6"/>
+  <rect class="activation" x="742" y="418" width="16" height="172" rx="6"/>
+  <rect class="activation" x="1022" y="482" width="16" height="104" rx="6"/>
+
+  <path class="message message-security" d="M 190 340 L 470 340" marker-end="url(#arrow-security)"/>
+  <g transform="translate(318 340)">
+    <circle class="step-badge" cx="0" cy="0" r="15"/>
+    <text class="step-text" x="0" y="5" text-anchor="middle">1</text>
+  </g>
+  <rect class="message-label-bg" x="348" y="328" width="104" height="24" rx="7"/>
+  <text class="message-label" x="400" y="345" text-anchor="middle">Authenticate</text>
+
+  <path class="message" d="M 470 410 L 750 410" marker-end="url(#arrow)"/>
+  <g transform="translate(592 410)">
+    <circle class="step-badge" cx="0" cy="0" r="15"/>
+    <text class="step-text" x="0" y="5" text-anchor="middle">2</text>
+  </g>
+  <rect class="message-label-bg" x="622" y="398" width="94" height="24" rx="7"/>
+  <text class="message-label" x="669" y="415" text-anchor="middle">Request</text>
+
+  <path class="message" d="M 750 480 L 1030 480" marker-end="url(#arrow)"/>
+  <g transform="translate(872 480)">
+    <circle class="step-badge" cx="0" cy="0" r="15"/>
+    <text class="step-text" x="0" y="5" text-anchor="middle">3</text>
+  </g>
+  <rect class="message-label-bg" x="902" y="468" width="100" height="24" rx="7"/>
+  <text class="message-label" x="952" y="485" text-anchor="middle">Persist</text>
+
+  <path class="message" d="M 750 560 L 1310 560" marker-end="url(#arrow)"/>
+  <g transform="translate(1012 560)">
+    <circle class="step-badge" cx="0" cy="0" r="15"/>
+    <text class="step-text" x="0" y="5" text-anchor="middle">4</text>
+  </g>
+  <rect class="message-label-bg" x="1042" y="548" width="96" height="24" rx="7"/>
+  <text class="message-label" x="1090" y="565" text-anchor="middle">Notify</text>
+
+  <path class="message message-return" d="M 750 640 L 470 640" marker-end="url(#arrow-secondary)"/>
+  <rect class="message-label-bg" x="555" y="628" width="110" height="24" rx="7"/>
+  <text class="message-label" x="610" y="645" text-anchor="middle">Response</text>
+
+  <g data-participant="actor">
+    <rect class="participant participant-actor" x="100" y="230" width="180" height="64" rx="12"/>
+    <text class="participant-title" x="190" y="258" text-anchor="middle">[Actor]</text>
+    <text class="participant-meta" x="190" y="280" text-anchor="middle">Requester</text>
+  </g>
+
+  <g data-participant="client">
+    <rect class="participant participant-ui" x="380" y="230" width="180" height="64" rx="12"/>
+    <text class="participant-title" x="470" y="258" text-anchor="middle">[Client]</text>
+    <text class="participant-meta" x="470" y="280" text-anchor="middle">UI Boundary</text>
+  </g>
+
+  <g data-participant="service">
+    <rect class="participant participant-service" x="660" y="230" width="180" height="64" rx="12"/>
+    <text class="participant-title" x="750" y="258" text-anchor="middle">[Service]</text>
+    <text class="participant-meta" x="750" y="280" text-anchor="middle">Application</text>
+  </g>
+
+  <g data-participant="store">
+    <rect class="participant participant-data" x="940" y="230" width="180" height="64" rx="12"/>
+    <text class="participant-title" x="1030" y="258" text-anchor="middle">[Data Store]</text>
+    <text class="participant-meta" x="1030" y="280" text-anchor="middle">Persistence</text>
+  </g>
+
+  <g data-participant="external">
+    <rect class="participant participant-external" x="1220" y="230" width="180" height="64" rx="12"/>
+    <text class="participant-title" x="1310" y="258" text-anchor="middle">[External]</text>
+    <text class="participant-meta" x="1310" y="280" text-anchor="middle">Integration</text>
+  </g>
+
+  <g class="note" transform="translate(92 724)">
+    <rect class="note-panel" x="0" y="0" width="620" height="72" rx="14"/>
+    <text class="note-title" x="24" y="31">Interaction Notes</text>
+    <text class="note-text" x="24" y="56">Show happy-path messages between distinct participants; keep implementation detail out of labels.</text>
+  </g>
+
+  <g class="legend" transform="translate(1050 704)">
+    <rect class="legend-panel" x="0" y="0" width="420" height="112" rx="14"/>
+    <text class="legend-title" x="24" y="32">Legend</text>
+    <line class="message" x1="24" y1="62" x2="72" y2="62" marker-end="url(#arrow)"/>
+    <text class="legend-text" x="88" y="67">Synchronous call</text>
+    <line class="message message-return" x1="230" y1="62" x2="278" y2="62" marker-end="url(#arrow-secondary)"/>
+    <text class="legend-text" x="294" y="67">Return</text>
+    <line class="message message-security" x1="24" y1="88" x2="72" y2="88" marker-end="url(#arrow-security)"/>
+    <text class="legend-text" x="88" y="93">Security-sensitive step</text>
+  </g>
+
+  <text class="footer" x="92" y="830">Generated by devspec - [DATE_OR_VERSION]</text>
+</svg>

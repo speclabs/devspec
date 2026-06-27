@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">[DIAGRAM_TITLE] - Journey Map Diagram</title>
+  <desc id="desc">[DIAGRAM_DESCRIPTION]</desc>
+
+  <defs>
+    <style><![CDATA[
+      svg {
+        background: #020617;
+        font-family: "JetBrains Mono", "Cascadia Code", monospace;
+      }
+
+      .page-bg { fill: #020617; }
+      .grid-line { stroke: #1e293b; stroke-width: 0.7; opacity: 0.65; }
+      .surface { fill: #0f172a; stroke: #1e293b; stroke-width: 1.4; filter: url(#soft-shadow); }
+      .title { fill: #f8fafc; font-size: 38px; font-weight: 800; }
+      .subtitle { fill: #cbd5e1; font-size: 16px; font-weight: 500; }
+      .eyebrow { fill: #67e8f9; font-size: 13px; font-weight: 800; letter-spacing: 1.6px; }
+      .footer { fill: #64748b; font-size: 12px; }
+
+      .stage-column { fill: rgba(15, 23, 42, 0.22); stroke: #334155; stroke-width: 1.2; }
+      .stage-title { fill: #67e8f9; font-size: 13px; font-weight: 900; letter-spacing: 0.8px; }
+      .stage-meta { fill: #94a3b8; font-size: 11px; font-weight: 650; }
+      .row-label { fill: #cbd5e1; font-size: 13px; font-weight: 900; letter-spacing: 0.7px; }
+
+      .touchpoint-mask { fill: #0f172a; }
+      .touchpoint { stroke-width: 1.8; filter: url(#node-glow); }
+      .touchpoint-actor { fill: rgba(30, 41, 59, 0.66); stroke: #94a3b8; }
+      .touchpoint-manual { fill: rgba(6, 78, 59, 0.46); stroke: #34d399; }
+      .touchpoint-system { fill: rgba(76, 29, 149, 0.46); stroke: #a78bfa; }
+      .touchpoint-external { fill: rgba(120, 53, 15, 0.40); stroke: #fbbf24; }
+      .touchpoint-outcome { fill: rgba(8, 51, 68, 0.46); stroke: #22d3ee; }
+      .touch-title { fill: #f8fafc; font-size: 13px; font-weight: 900; }
+      .touch-detail { fill: #cbd5e1; font-size: 10px; font-weight: 650; }
+
+      .flow { fill: none; stroke: #e2e8f0; stroke-width: 2.2; opacity: 0.92; }
+      .flow-secondary { stroke: #94a3b8; stroke-dasharray: 7 5; }
+      .emotion-line { fill: none; stroke: #22d3ee; stroke-width: 2; stroke-dasharray: 8 6; }
+      .emotion-dot { fill: #22d3ee; stroke: #93c5fd; stroke-width: 1.4; filter: url(#node-glow); }
+      .outcome-band { fill: rgba(15, 23, 42, 0.72); stroke: #334155; stroke-width: 1.1; }
+      .outcome-text { fill: #cbd5e1; font-size: 11px; font-weight: 650; }
+
+      .legend-panel { fill: rgba(15, 23, 42, 0.86); stroke: #334155; stroke-width: 1.2; }
+      .legend-title { fill: #f8fafc; font-size: 14px; font-weight: 800; }
+      .legend-text { fill: #cbd5e1; font-size: 12px; font-weight: 600; }
+    ]]></style>
+
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path class="grid-line" d="M 48 0 L 0 0 0 48" fill="none"/>
+    </pattern>
+
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000000" flood-opacity="0.34"/>
+    </filter>
+
+    <filter id="node-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#38bdf8" flood-opacity="0.16"/>
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e2e8f0"/>
+    </marker>
+
+    <marker id="arrow-secondary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect class="page-bg" width="1600" height="900"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.42"/>
+  <rect class="surface" x="48" y="42" width="1504" height="816" rx="20"/>
+
+  <text class="eyebrow" x="92" y="92">[PROJECT_NAME]</text>
+  <text class="title" x="92" y="138">[DIAGRAM_TITLE]</text>
+  <text class="subtitle" x="92" y="168">[DIAGRAM_DESCRIPTION]</text>
+
+  <text class="row-label" x="100" y="348">ACTOR</text>
+  <text class="row-label" x="100" y="494">SYSTEM</text>
+  <text class="row-label" x="100" y="648">OUTCOME</text>
+
+  <g data-stage="discover">
+    <rect class="stage-column" x="205" y="236" width="250" height="450" rx="18"/>
+    <text class="stage-title" x="232" y="270">1. DISCOVER</text>
+    <text class="stage-meta" x="232" y="294">Trigger and intent</text>
+  </g>
+
+  <g data-stage="act">
+    <rect class="stage-column" x="485" y="236" width="250" height="450" rx="18"/>
+    <text class="stage-title" x="512" y="270">2. ACT</text>
+    <text class="stage-meta" x="512" y="294">User action</text>
+  </g>
+
+  <g data-stage="process">
+    <rect class="stage-column" x="765" y="236" width="250" height="450" rx="18"/>
+    <text class="stage-title" x="792" y="270">3. PROCESS</text>
+    <text class="stage-meta" x="792" y="294">System work</text>
+  </g>
+
+  <g data-stage="resolve">
+    <rect class="stage-column" x="1045" y="236" width="250" height="450" rx="18"/>
+    <text class="stage-title" x="1072" y="270">4. RESOLVE</text>
+    <text class="stage-meta" x="1072" y="294">Outcome visible</text>
+  </g>
+
+  <!-- Draw journey arrows before touchpoint cards. -->
+  <path class="flow" d="M 355 356 C 425 356, 455 356, 525 356" marker-end="url(#arrow)"/>
+  <path class="flow" d="M 635 356 C 705 356, 735 482, 805 482" marker-end="url(#arrow)"/>
+  <path class="flow" d="M 915 482 C 985 482, 1015 356, 1085 356" marker-end="url(#arrow)"/>
+  <path class="flow-secondary" d="M 355 514 C 425 514, 455 514, 525 514" marker-end="url(#arrow-secondary)"/>
+  <path class="flow-secondary" d="M 635 514 C 705 514, 735 514, 805 514" marker-end="url(#arrow-secondary)"/>
+  <path class="flow-secondary" d="M 915 514 C 985 514, 1015 514, 1085 514" marker-end="url(#arrow-secondary)"/>
+  <path class="emotion-line" d="M 270 744 C 430 700, 580 710, 730 736 C 880 770, 1035 730, 1190 704"/>
+
+  <g data-touchpoint="actor-discover">
+    <rect class="touchpoint-mask" x="245" y="316" width="170" height="76" rx="12"/>
+    <rect class="touchpoint touchpoint-actor" x="245" y="316" width="170" height="76" rx="12"/>
+    <text class="touch-title" x="330" y="348" text-anchor="middle">Need Appears</text>
+    <text class="touch-detail" x="330" y="370" text-anchor="middle">question / trigger</text>
+  </g>
+
+  <g data-touchpoint="actor-act">
+    <rect class="touchpoint-mask" x="525" y="316" width="170" height="76" rx="12"/>
+    <rect class="touchpoint touchpoint-manual" x="525" y="316" width="170" height="76" rx="12"/>
+    <text class="touch-title" x="610" y="348" text-anchor="middle">Submit Input</text>
+    <text class="touch-detail" x="610" y="370" text-anchor="middle">manual step</text>
+  </g>
+
+  <g data-touchpoint="system-process">
+    <rect class="touchpoint-mask" x="805" y="448" width="170" height="76" rx="12"/>
+    <rect class="touchpoint touchpoint-system" x="805" y="448" width="170" height="76" rx="12"/>
+    <text class="touch-title" x="890" y="480" text-anchor="middle">Process</text>
+    <text class="touch-detail" x="890" y="502" text-anchor="middle">validate + route</text>
+  </g>
+
+  <g data-touchpoint="actor-resolve">
+    <rect class="touchpoint-mask" x="1085" y="316" width="170" height="76" rx="12"/>
+    <rect class="touchpoint touchpoint-outcome" x="1085" y="316" width="170" height="76" rx="12"/>
+    <text class="touch-title" x="1170" y="348" text-anchor="middle">Receive Result</text>
+    <text class="touch-detail" x="1170" y="370" text-anchor="middle">decision / artifact</text>
+  </g>
+
+  <g data-touchpoint="system-act">
+    <rect class="touchpoint-mask" x="525" y="474" width="170" height="76" rx="12"/>
+    <rect class="touchpoint touchpoint-system" x="525" y="474" width="170" height="76" rx="12"/>
+    <text class="touch-title" x="610" y="506" text-anchor="middle">Capture</text>
+    <text class="touch-detail" x="610" y="528" text-anchor="middle">store request</text>
+  </g>
+
+  <g data-touchpoint="external-resolve">
+    <rect class="touchpoint-mask" x="1085" y="474" width="170" height="76" rx="12"/>
+    <rect class="touchpoint touchpoint-external" x="1085" y="474" width="170" height="76" rx="12"/>
+    <text class="touch-title" x="1170" y="506" text-anchor="middle">Notify</text>
+    <text class="touch-detail" x="1170" y="528" text-anchor="middle">external handoff</text>
+  </g>
+
+  <rect class="outcome-band" x="245" y="618" width="1010" height="46" rx="14"/>
+  <text class="outcome-text" x="270" y="646">Outcome: [business result, artifact, or user-visible state]</text>
+
+  <circle class="emotion-dot" cx="270" cy="744" r="8"/>
+  <circle class="emotion-dot" cx="610" cy="718" r="8"/>
+  <circle class="emotion-dot" cx="890" cy="760" r="8"/>
+  <circle class="emotion-dot" cx="1170" cy="710" r="8"/>
+
+  <g class="legend" transform="translate(1040 704)">
+    <rect class="legend-panel" x="0" y="0" width="420" height="112" rx="14"/>
+    <text class="legend-title" x="24" y="32">Legend</text>
+    <rect class="touchpoint touchpoint-manual" x="24" y="52" width="22" height="14" rx="4"/>
+    <text class="legend-text" x="58" y="64">Actor action</text>
+    <rect class="touchpoint touchpoint-system" x="230" y="52" width="22" height="14" rx="4"/>
+    <text class="legend-text" x="264" y="64">System action</text>
+    <line class="emotion-line" x1="24" y1="88" x2="66" y2="88"/>
+    <text class="legend-text" x="82" y="92">Experience signal</text>
+  </g>
+
+  <text class="footer" x="92" y="812">Generated by devspec - [DATE_OR_VERSION]</text>
+</svg>

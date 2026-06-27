@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">[DIAGRAM_TITLE] - Domain Model Diagram</title>
+  <desc id="desc">[DIAGRAM_DESCRIPTION]</desc>
+
+  <defs>
+    <style><![CDATA[
+      svg {
+        background: #020617;
+        font-family: "JetBrains Mono", "Cascadia Code", monospace;
+      }
+
+      .page-bg { fill: #020617; }
+      .grid-line { stroke: #1e293b; stroke-width: 0.7; opacity: 0.65; }
+      .surface { fill: #0f172a; stroke: #1e293b; stroke-width: 1.4; filter: url(#soft-shadow); }
+      .title { fill: #f8fafc; font-size: 38px; font-weight: 800; }
+      .subtitle { fill: #cbd5e1; font-size: 16px; font-weight: 500; }
+      .eyebrow { fill: #67e8f9; font-size: 13px; font-weight: 800; letter-spacing: 1.6px; }
+      .footer { fill: #64748b; font-size: 12px; }
+
+      .aggregate { fill: rgba(15, 23, 42, 0.20); stroke-width: 1.7; stroke-dasharray: 10 7; }
+      .aggregate-core { stroke: #34d399; }
+      .aggregate-external { stroke: #fbbf24; }
+      .aggregate-title { font-size: 14px; font-weight: 800; letter-spacing: 0.7px; }
+      .aggregate-title.core { fill: #6ee7b7; }
+      .aggregate-title.external { fill: #fcd34d; }
+
+      .entity-mask { fill: #0f172a; }
+      .entity { stroke-width: 1.8; filter: url(#node-glow); }
+      .entity-core { fill: rgba(6, 78, 59, 0.46); stroke: #34d399; }
+      .entity-data { fill: rgba(76, 29, 149, 0.46); stroke: #a78bfa; }
+      .entity-external { fill: rgba(120, 53, 15, 0.40); stroke: #fbbf24; }
+      .entity-generic { fill: rgba(30, 41, 59, 0.66); stroke: #94a3b8; }
+      .entity-header { fill: rgba(2, 6, 23, 0.32); stroke: rgba(203, 213, 225, 0.20); stroke-width: 1; }
+      .entity-title { fill: #f8fafc; font-size: 15px; font-weight: 900; }
+      .entity-field { fill: #cbd5e1; font-size: 11px; font-weight: 650; }
+      .entity-key { fill: #67e8f9; font-size: 11px; font-weight: 850; }
+
+      .relation { fill: none; stroke: #e2e8f0; stroke-width: 2.2; opacity: 0.92; }
+      .relation-secondary { stroke: #94a3b8; stroke-dasharray: 7 5; }
+      .relation-label-bg { fill: #0f172a; stroke: #334155; stroke-width: 1; }
+      .relation-label { fill: #f8fafc; font-size: 12px; font-weight: 800; }
+      .cardinality { fill: #cbd5e1; font-size: 12px; font-weight: 900; }
+
+      .legend-panel { fill: rgba(15, 23, 42, 0.86); stroke: #334155; stroke-width: 1.2; }
+      .legend-title { fill: #f8fafc; font-size: 14px; font-weight: 800; }
+      .legend-text { fill: #cbd5e1; font-size: 12px; font-weight: 600; }
+    ]]></style>
+
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path class="grid-line" d="M 48 0 L 0 0 0 48" fill="none"/>
+    </pattern>
+
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000000" flood-opacity="0.34"/>
+    </filter>
+
+    <filter id="node-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#38bdf8" flood-opacity="0.16"/>
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e2e8f0"/>
+    </marker>
+
+    <marker id="arrow-secondary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect class="page-bg" width="1600" height="900"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.42"/>
+  <rect class="surface" x="48" y="42" width="1504" height="816" rx="20"/>
+
+  <text class="eyebrow" x="92" y="92">[PROJECT_NAME]</text>
+  <text class="title" x="92" y="138">[DIAGRAM_TITLE]</text>
+  <text class="subtitle" x="92" y="168">[DIAGRAM_DESCRIPTION]</text>
+
+  <!-- Draw relationships before aggregates and entity cards so connectors stay behind domain boxes. -->
+  <path class="relation" d="M 415 400 C 520 400, 600 400, 705 400" marker-end="url(#arrow)"/>
+  <text class="cardinality" x="442" y="388">1</text>
+  <text class="cardinality" x="670" y="388">*</text>
+  <rect class="relation-label-bg" x="540" y="388" width="84" height="24" rx="7"/>
+  <text class="relation-label" x="582" y="405" text-anchor="middle">Owns</text>
+
+  <path class="relation" d="M 955 400 C 1060 400, 1140 400, 1245 400" marker-end="url(#arrow)"/>
+  <text class="cardinality" x="982" y="388">1</text>
+  <text class="cardinality" x="1210" y="388">*</text>
+  <rect class="relation-label-bg" x="1080" y="388" width="84" height="24" rx="7"/>
+  <text class="relation-label" x="1122" y="405" text-anchor="middle">Uses</text>
+
+  <path class="relation relation-secondary" d="M 830 550 C 830 625, 830 655, 830 730" marker-end="url(#arrow-secondary)"/>
+  <rect class="relation-label-bg" x="852" y="632" width="94" height="24" rx="7"/>
+  <text class="relation-label" x="899" y="649" text-anchor="middle">Stores</text>
+
+  <g data-aggregate="core-domain">
+    <rect class="aggregate aggregate-core" x="104" y="250" width="900" height="365" rx="20"/>
+    <text class="aggregate-title core" x="132" y="282">[CORE_DOMAIN]</text>
+  </g>
+
+  <g data-aggregate="external-domain">
+    <rect class="aggregate aggregate-external" x="1130" y="250" width="320" height="240" rx="20"/>
+    <text class="aggregate-title external" x="1158" y="282">[EXTERNAL_CONTEXT]</text>
+  </g>
+
+  <g data-entity="aggregate-root">
+    <rect class="entity-mask" x="155" y="330" width="260" height="140" rx="14"/>
+    <rect class="entity entity-core" x="155" y="330" width="260" height="140" rx="14"/>
+    <rect class="entity-header" x="155" y="330" width="260" height="38" rx="14"/>
+    <text class="entity-title" x="285" y="356" text-anchor="middle">[Aggregate Root]</text>
+    <text class="entity-key" x="178" y="392">+ id</text>
+    <text class="entity-field" x="178" y="417">+ [business field]</text>
+    <text class="entity-field" x="178" y="442">+ [status field]</text>
+  </g>
+
+  <g data-entity="child-entity">
+    <rect class="entity-mask" x="705" y="330" width="250" height="140" rx="14"/>
+    <rect class="entity entity-data" x="705" y="330" width="250" height="140" rx="14"/>
+    <rect class="entity-header" x="705" y="330" width="250" height="38" rx="14"/>
+    <text class="entity-title" x="830" y="356" text-anchor="middle">[Child Entity]</text>
+    <text class="entity-key" x="728" y="392">+ id</text>
+    <text class="entity-field" x="728" y="417">+ [owned field]</text>
+    <text class="entity-field" x="728" y="442">+ [rule field]</text>
+  </g>
+
+  <g data-entity="external-entity">
+    <rect class="entity-mask" x="1245" y="330" width="180" height="140" rx="14"/>
+    <rect class="entity entity-external" x="1245" y="330" width="180" height="140" rx="14"/>
+    <rect class="entity-header" x="1245" y="330" width="180" height="38" rx="14"/>
+    <text class="entity-title" x="1335" y="356" text-anchor="middle">[External]</text>
+    <text class="entity-key" x="1268" y="392">+ ref</text>
+    <text class="entity-field" x="1268" y="417">+ [contract]</text>
+    <text class="entity-field" x="1268" y="442">+ [owner]</text>
+  </g>
+
+  <g data-entity="data-store">
+    <rect class="entity-mask" x="705" y="730" width="250" height="72" rx="14"/>
+    <rect class="entity entity-generic" x="705" y="730" width="250" height="72" rx="14"/>
+    <text class="entity-title" x="830" y="762" text-anchor="middle">[Repository / Store]</text>
+    <text class="entity-field" x="830" y="785" text-anchor="middle">Persistence boundary</text>
+  </g>
+
+  <g class="legend" transform="translate(1040 650)">
+    <rect class="legend-panel" x="0" y="0" width="420" height="112" rx="14"/>
+    <text class="legend-title" x="24" y="32">Legend</text>
+    <rect class="entity entity-core" x="24" y="52" width="22" height="14" rx="4"/>
+    <text class="legend-text" x="58" y="64">Aggregate root</text>
+    <rect class="entity entity-data" x="230" y="52" width="22" height="14" rx="4"/>
+    <text class="legend-text" x="264" y="64">Owned entity</text>
+    <line class="relation" x1="24" y1="88" x2="66" y2="88" marker-end="url(#arrow)"/>
+    <text class="legend-text" x="82" y="92">Relationship</text>
+    <text class="cardinality" x="230" y="92">1..*</text>
+    <text class="legend-text" x="282" y="92">Cardinality</text>
+  </g>
+
+  <text class="footer" x="92" y="812">Generated by devspec - [DATE_OR_VERSION]</text>
+</svg>

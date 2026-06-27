@@ -320,29 +320,34 @@ Use these examples as starting points. The command registry remains authoritativ
 | `/devspec.tasks` | Ready `finalize.md`; optional task-planning guidance | Work-item `tasks.md` | `/devspec.implement` |
 | `/devspec.implement` | Ready `finalize.md` and `tasks.md`; optional validation guidance | Work-item `implement.md` and code changes when allowed | `/devspec.review` |
 | `/devspec.review` | `finalize.md` and `implement.md`; optional review focus | Work-item `review.md` | Return to `/devspec.implement` for changes or close the work item |
-| `/devspec.diagram` | Diagram subject, work item, explicit process-flow batch request, or optional `format=svg` / `format=mermaid+svg` | Architecture or work-item Markdown diagram artifacts, with Mermaid by default and opt-in SVG images | Continue the current workflow |
+| `/devspec.diagram` | Diagram subject, work item, explicit process-flow batch request, or optional `format=` output combination using `svg`, `html`, and `mermaid` | Architecture or work-item SVG diagram artifacts by default, with optional Mermaid or HTML artifacts | Continue the current workflow |
 
 ## Diagrams
 
-Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, domain behavior, user journey, or a work-item-specific flow. Mermaid is the default output.
+Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, domain behavior, user journey, or a work-item-specific flow. SVG is the default output.
 
 Examples:
 
 ```text
+/devspec.diagram runtime architecture
 /devspec.diagram checkout payment flow
 /devspec.diagram authentication state transitions
 /devspec.diagram batch-generate queued process-flow diagrams
-/devspec.diagram format=svg checkout payment flow
-/devspec.diagram format=mermaid+svg authentication state transitions
+/devspec.diagram format=mermaid authentication state transitions
+/devspec.diagram format=html runtime architecture
+/devspec.diagram format=svg+html runtime architecture
+/devspec.diagram format=svg+mermaid checkout payment flow
+/devspec.diagram format=html+mermaid authentication state transitions
+/devspec.diagram format=svg+html+mermaid runtime architecture
 ```
 
-Durable detailed Markdown diagram artifacts live under `devspec/architecture/diagrams/`. Durable SVG images live under `devspec/architecture/images/` when `format=svg` or `format=mermaid+svg` is requested. High-level architecture diagram references belong in `devspec/architecture/overview.md`. Temporary work-item-specific diagrams belong in `devspec/work-items/<work-item-folder>/diagrams.md`, with temporary SVGs under `devspec/work-items/<work-item-folder>/images/`.
+Durable SVG images live under `devspec/architecture/images/` by default. Optional Mermaid diagram artifacts live as Markdown files under `devspec/architecture/diagrams/`. Optional standalone HTML diagrams live under `devspec/architecture/html/`. High-level architecture diagram references belong in `devspec/architecture/overview.md`. Temporary work-item-specific SVG diagrams belong under `devspec/work-items/<work-item-folder>/images/`, with optional Mermaid in `diagrams.md` and optional HTML under `html/`.
 
-Extraction may seed diagram candidates into `devspec/architecture/artifact-queue.md`. Use `/devspec.diagram` as the normal follow-up when a queued diagram should be generated. `/devspec.extract` preserves `format=svg` and `format=mermaid+svg` preferences in queue notes and may generate at most one approved diagram artifact set during extraction, matching the Mermaid approval gate.
+Extraction may seed diagram candidates into `devspec/architecture/artifact-queue.md`. Use `/devspec.diagram` as the normal follow-up when a queued diagram should be generated. `/devspec.extract` preserves requested diagram format preferences in queue notes and may generate at most one approved diagram artifact set during extraction, matching the diagram approval gate.
 
-Use `format=svg` for SVG-only visual output. The command still creates or updates the Markdown diagram artifact for resume state, metadata, evidence, assumptions, queue linkage, and SVG target reference. Use `format=mermaid+svg` when both the Mermaid block and SVG companion are needed.
+Use `format=svg` or omit the format token for SVG output. Use `format=mermaid` when a Markdown/Mermaid artifact is needed. Use `format=html` when a standalone HTML artifact is needed. Example: `format=svg`, `format=html`, `format=mermaid`, `format=svg+html`, `format=svg+mermaid`, `format=svg+html+mermaid`, `format=html+mermaid`.
 
-Generated Mermaid diagrams should follow the shared readability rules:
+Optional generated Mermaid diagrams should follow the shared readability rules:
 
 - Keep `DIA-*` and `dia-NNN-*` names for the durable diagram file and diagram queue, not for Mermaid nodes.
 - Use short alphanumeric node IDs, double-quoted node labels of 1-4 words, no `\n` or `<br>` line breaks, and 2-3 word edge labels.
@@ -360,7 +365,152 @@ flowchart LR
     ProviderSvc -->|"Reads Profile"| UserDb["User Database"]
 ```
 
-Generated SVG diagrams should be standalone XML created from `devspec/architecture/_template/architecture-diagram.svg` or, for process-flow SVGs, `devspec/architecture/_template/process-flow-diagram.svg`, with inline styles, no external assets, no `<script>`, no `<iframe>`, no `<foreignObject>`, no secrets, and no unresolved placeholders in generated output. Validate SVG files as XML before marking the queue row generated.
+Generated SVG diagrams should be standalone XML created from `devspec/architecture/_template/architecture-diagram.svg` or, for process-flow SVGs, `devspec/architecture/_template/process-flow-diagram.svg`, with inline styles, no external assets, no `<script>`, no `<iframe>`, no `<foreignObject>`, no secrets, and no unresolved placeholders in generated output. Validate SVG files as XML before marking the queue row generated. Optional HTML diagrams should be standalone static HTML created from `devspec/architecture/_template/diagram.html`, with inline styles, no external assets, no scripts, no iframes, no secrets, and no unresolved placeholders.
+
+### Structured Architecture Diagram Prompt
+
+Use this format when you want `/devspec.diagram` to produce a specific architecture view with less agent interpretation. SVG is the default output. Add a `format=` combination only when Mermaid or HTML artifacts are needed too.
+
+```text
+/devspec.diagram
+
+Create a clean, professional architecture diagram using the following information.
+
+Application/System:
+<name>
+
+Architecture style:
+<monolith / microservices / event-driven / serverless / agentic workflow / multi-repo / cloud-native>
+
+Primary goal of diagram:
+<explain runtime flow / deployment / security / dependencies / data movement / integration>
+
+Audience:
+<developers / architects / security reviewers / operators / stakeholders>
+
+Users/Actors:
+- <actor 1>
+- <actor 2>
+
+Core components:
+- <component>: <responsibility>
+- <component>: <responsibility>
+
+External systems:
+- <system>: <purpose>
+
+Data stores:
+- <database/store>: <data stored>
+
+Key flows:
+1. <step>
+2. <step>
+3. <step>
+
+Boundaries:
+- <client boundary>
+- <application boundary>
+- <cloud boundary>
+- <security boundary>
+- <tenant boundary>
+
+Design rules:
+- Use a 16:9 landscape layout
+- Use clear left-to-right or top-to-bottom flow
+- Use numbered arrows
+- Group related components
+- Use dashed boxes for boundaries
+- Use short labels only
+- Avoid crossing lines
+- Include a legend
+- Make the result suitable for a presentation slide
+
+Output format:
+Editable SVG.
+```
+
+For diagrams with lots of text, add:
+
+```text
+Generate this as SVG, not as a raster image.
+All text must be real SVG text, not embedded pixels.
+```
+
+Adapt this richer example when you need an enterprise architecture and data-flow diagram. It is documentation guidance only; agents should not assume Microsoft-specific components unless the request lists them.
+
+```text
+/devspec.diagram
+
+You are a principal software architect and expert visual designer.
+
+Create a high-quality enterprise architecture diagram for "Microsoft Copilot for Microsoft 365 style architecture".
+
+Audience:
+Developers, architects, and security reviewers.
+
+Purpose:
+Explain how user prompts, grounding data, Microsoft Graph, Copilot orchestration, compliance, and LLM processing interact inside a secure service boundary.
+
+Diagram type:
+Architecture + data flow diagram.
+
+Canvas:
+16:9 landscape, 1600x900, dark navy background.
+
+Visual style:
+- Modern Microsoft-style enterprise architecture diagram
+- Dark background with white text
+- Rounded rectangles for services
+- Dashed rounded rectangles for boundaries
+- Thin white arrows for flow direction
+- Numbered blue circles for data-flow steps
+- Minimal icons for Copilot, Graph, LLM, security, plugins, and external services
+- Clean spacing, no overlapping lines
+- Professional presentation-ready layout
+
+Main layout:
+- Title at the top center
+- Large dashed boundary in the center named "Microsoft 365 Service Boundary"
+- Copilot orchestration component in the middle
+- Microsoft Graph component at the lower center
+- LLM component on the right
+- External services such as Plugins, Bing, Dataverse, and Power Platform on the left
+- Compliance and post-processing controls near the Copilot component
+- Data-flow legend in the bottom-right
+
+Components:
+1. User prompt input
+2. Copilot orchestration
+3. Pre-processing
+4. Grounding
+5. Microsoft Graph
+6. Compliance and Purview
+7. Post-processing
+8. Large Language Model
+9. Responsible AI checks
+10. Azure OpenAI instance
+11. External grounding sources: Plugins, Bing, Dataverse, Power Platform
+
+Data flow:
+1. User sends prompt to Copilot
+2. Copilot accesses Microsoft Graph and optional web/services for grounding
+3. Copilot sends modified prompt to the LLM
+4. LLM returns response
+5. Copilot applies compliance, security, and post-processing checks
+
+Security notes:
+- All requests are encrypted
+- Prompts, responses, and grounding data are not used to train foundation models
+- Responsible AI checks are applied to input and output
+- Tenant data remains inside the Microsoft 365 service boundary
+
+Output:
+Generate an editable SVG diagram.
+Use crisp readable text.
+Make it presentation-ready.
+Avoid unnecessary decorations.
+Do not add any components not listed above.
+```
 
 ## Multi-Repo Work
 
@@ -477,6 +627,7 @@ devspec/foundation/*.md
 devspec/architecture/*.md
 devspec/architecture/diagrams/*.md
 devspec/architecture/images/*.svg
+devspec/architecture/html/*.html
 devspec/work-items/**
 devspec/constitution.md
 devspec/glossary.md

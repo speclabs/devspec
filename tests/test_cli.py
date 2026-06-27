@@ -26,8 +26,10 @@ def test_profiles_resolve_core_and_all_payloads() -> None:
     assert "devspec/adapters/command-registry.md" in core_paths
     assert "devspec/architecture/_template/architecture-diagram.svg" in core_paths
     assert "devspec/architecture/_template/process-flow-diagram.svg" in core_paths
+    assert "devspec/architecture/_template/diagram.html" in core_paths
     assert "devspec/architecture/_template/diagram.svg" not in core_paths
     assert "devspec/architecture/images/README.md" in core_paths
+    assert "devspec/architecture/html/README.md" in core_paths
     assert ".github/prompts/devspec.story.prompt.md" in core_paths
     assert ".github/agents/devspec.story.agent.md" in core_paths
     assert not any(path.startswith(".github/workflows/") for path in core_paths)
@@ -60,6 +62,7 @@ def test_ownership_classification_preserves_project_artifacts() -> None:
     assert classify_ownership(PurePosixPath("devspec/foundation/project-context.md")) == "project-owned"
     assert classify_ownership(PurePosixPath("devspec/architecture/overview.md")) == "project-owned"
     assert classify_ownership(PurePosixPath("devspec/architecture/images/dia-001-system-context.svg")) == "project-owned"
+    assert classify_ownership(PurePosixPath("devspec/architecture/html/dia-001-system-context.html")) == "project-owned"
     assert classify_ownership(PurePosixPath("devspec/architecture/_template/architecture-diagram.svg")) == "framework-owned"
     assert classify_ownership(PurePosixPath("devspec/architecture/_template/process-flow-diagram.svg")) == "framework-owned"
     assert classify_ownership(PurePosixPath("devspec/constitution.md")) == "project-owned"
@@ -87,6 +90,17 @@ def test_svg_diagram_templates_are_standalone_xml() -> None:
         assert root.find("{http://www.w3.org/2000/svg}desc") is not None
         for forbidden in ("<script", "<iframe", "<foreignObject"):
             assert forbidden.lower() not in text.lower()
+
+
+def test_html_diagram_template_is_standalone_static_html() -> None:
+    template = Path("devspec/architecture/_template/diagram.html")
+    text = template.read_text(encoding="utf-8")
+    lowered = text.lower()
+
+    assert lowered.startswith("<!doctype html>")
+    assert text.isascii()
+    for forbidden in ("<script", "<iframe", "http://", "https://"):
+        assert forbidden not in lowered
 
 
 def test_process_flow_svg_template_has_clean_ascii_source() -> None:

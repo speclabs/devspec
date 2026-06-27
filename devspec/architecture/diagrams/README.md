@@ -1,8 +1,8 @@
 # Architecture Diagrams
 
-Use this folder for durable Markdown diagram artifacts that are more specific than the high-level architecture context in `devspec/architecture/overview.md`. Mermaid is the default generated diagram content; SVG output is opt-in with `format=svg` or `format=mermaid+svg`.
+Use this folder for optional durable Mermaid diagram artifacts, stored as Markdown files, that are more specific than the high-level architecture context in `devspec/architecture/overview.md`. SVG is the default generated diagram output and lives under `devspec/architecture/images/`; Mermaid is generated only when the requested output set includes `mermaid`, such as `format=mermaid`, `format=svg+mermaid`, `format=html+mermaid`, or `format=svg+html+mermaid`.
 
-Store module, feature workflow, process-flow, user journey, sequence, state, class/domain, and cross-feature diagrams as one Markdown file per subject. Store durable SVG images under `devspec/architecture/images/dia-NNN-<diagram-name>.svg` when requested. Track proposed, generated, skipped, or blocked diagram work with evidence, confidence, output format, and tags in `devspec/architecture/artifact-queue.md`.
+Store optional module, feature workflow, process-flow, user journey, sequence, state, class/domain, and cross-feature Mermaid diagrams as one Markdown file per subject only when the output set includes `mermaid`. Store durable SVG images under `devspec/architecture/images/dia-NNN-<diagram-name>.svg` by default and optional HTML under `devspec/architecture/html/dia-NNN-<diagram-name>.html`. Track proposed, generated, skipped, or blocked diagram work with evidence, confidence, output format, and tags in `devspec/architecture/artifact-queue.md`.
 
 ## File and Queue Naming
 
@@ -10,17 +10,17 @@ Use Title Case for diagram display names and lowercase sequence-prefixed kebab-c
 
 Keep default subjects language-neutral after the sequence prefix, such as `dia-NNN-system-context`, `dia-NNN-runtime-containers`, `dia-NNN-dependency-graph`, or `dia-NNN-authentication-authorization-flow`. Use `dia-NNN-hybrid-user-to-data-operational-flow` for the durable hybrid flow that connects user entry points, application boundaries, services, data stores, validations, operational states, and outcomes.
 
-Queue `Diagram type` records the logical diagram family only. The generated diagram artifact records the output format, and records the full Mermaid declaration such as `flowchart LR`, `flowchart TD`, `sequenceDiagram`, `stateDiagram-v2`, or `erDiagram` when Mermaid output is selected.
+Queue `Diagram type` records the logical diagram family only. Optional Mermaid artifacts record the full Mermaid declaration such as `flowchart LR`, `flowchart TD`, `sequenceDiagram`, `stateDiagram-v2`, or `erDiagram` when the selected output set includes `mermaid`.
 
 `DIA-*` IDs, `dia-NNN-*` subjects, and `dia-NNN-*` filenames are durable diagram file and diagram queue naming conventions. They must not leak into Mermaid internal naming or SVG visible labels unless they are part of metadata outside the diagram content.
 
-## SVG Output
+## Output Formats
 
-- `/devspec.diagram <subject>` generates Mermaid by default.
-- `/devspec.diagram format=svg <subject>` generates SVG-only visual output plus the required Markdown metadata artifact.
-- `/devspec.diagram format=mermaid+svg <subject>` generates both the Mermaid block and the SVG companion file.
-- For SVG-only output, keep the Markdown artifact for resume state, metadata, evidence, assumptions, queue linkage, and SVG target reference.
-- Use `devspec/architecture/_template/process-flow-diagram.svg` for process-flow SVG output, and `devspec/architecture/_template/architecture-diagram.svg` for other durable SVG output. Validate generated SVG as XML before reporting success.
+- `/devspec.diagram <subject>` generates SVG by default.
+- `/devspec.diagram format=mermaid <subject>` generates optional Markdown/Mermaid output.
+- `/devspec.diagram format=html <subject>` generates optional standalone HTML output.
+- Output sets can contain any non-duplicated `+` combination of `svg`, `html`, and `mermaid`, such as `format=svg+html`, `format=svg+mermaid`, `format=html+mermaid`, or `format=svg+html+mermaid`.
+- Select SVG templates from `.github/prompts/PATTERNS.md#svg-output-pattern` when the output set includes `svg`, and validate generated SVG as XML before reporting success.
 
 ## Mermaid Readability
 
