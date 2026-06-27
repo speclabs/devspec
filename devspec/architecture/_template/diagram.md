@@ -39,7 +39,7 @@ Use this optional Markdown artifact for one durable Mermaid architecture, module
 | Tags | |
 | Queue row | `devspec/architecture/artifact-queue.md#diagram-queue-register` |
 
-When a request uses the structured architecture-diagram prompt format and the selected output set includes `mermaid`, reflect the provided system name, architecture style, purpose, audience, actors, components, stores, flows, boundaries, design rules, and output format in this metadata, the queue row notes, source evidence and assumptions, and generated diagram content. If the request omits output format, use SVG-only output and do not create this Markdown artifact.
+When a request uses the structured architecture-diagram prompt format and the selected output set includes `mermaid`, reflect the provided system name, architecture style, purpose, audience, actors, components, stores, flows, boundaries, design rules, and output format in this metadata, the queue row notes, source evidence and assumptions, and generated diagram content. If the request uses structured non-architecture diagram input, reflect the matching sequence, state/lifecycle, domain model, journey, timeline/gantt, quadrant, or mindmap fields in this metadata, the queue row notes, source evidence and assumptions, generated Mermaid content, and any SVG or HTML companion output. If the request omits output format, use SVG-only output and do not create this Markdown artifact.
 
 ## Mermaid Diagram
 

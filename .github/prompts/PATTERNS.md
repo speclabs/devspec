@@ -272,6 +272,27 @@ Output format:
 Editable SVG.
 ```
 
+## Diagram Family Intake Pattern
+
+- Use this pattern when `/devspec.diagram` receives structured non-architecture input for `sequenceDiagram`, `stateDiagram`, `classDiagram`, `erDiagram`, `journey`, `timeline`, `gantt`, `quadrantChart`, or `mindmap` content.
+- Treat structured family-specific input as approved input for one `/devspec.diagram` artifact set. Continue to follow the [Diagram Extraction Consistency Pattern](#diagram-extraction-consistency-pattern), [SVG Output Pattern](#svg-output-pattern), [Mermaid Internal Naming and Readability Pattern](#mermaid-internal-naming-and-readability-pattern), [Mermaid Visual Quality Pattern](#mermaid-visual-quality-pattern), and duplicate checks before writing.
+- Preserve SVG as the default output. Treat editable SVG, SVG-only output, real SVG text, "Generate as SVG", "Generate this as SVG", or "not as a raster image" as `format=svg` unless the user explicitly requests an output combination that includes `html` or `mermaid`.
+- Map shared fields such as `Subject`, `Title`, `Purpose`, `Audience`, `Scope`, `Evidence`, `Source`, `Output format`, `Design rules`, and `Exclusions` into diagram metadata, queue notes, source evidence or assumptions, maintenance notes, and generated content when they affect generation.
+- If structured input says `Do not add items`, `Use only listed items`, `Do not infer additional nodes`, or equivalent, treat the listed participants, states, entities, stages, milestones, plotted items, or topics as the complete visible set. Do not add inferred visible elements; record missing but relevant repository evidence as assumptions, blockers, or maintenance notes instead.
+- If structured input conflicts with confirmed architecture artifacts, ADRs, foundation rules, or repository evidence, record the conflict and ask one structured question only when choosing either source would materially change the diagram scope, security/compliance meaning, lifecycle/state meaning, data/domain meaning, timeline meaning, scoring meaning, or target artifact. Otherwise prefer confirmed durable artifacts and record the user input as an assumption or note.
+- Keep family-specific labels short and evidence-backed. Put long explanations in source evidence, assumptions, or maintenance notes rather than visible nodes, messages, states, cards, milestones, plotted labels, or branch labels.
+- Use family-specific mappings only for fields that materially change visible diagram content:
+
+| Diagram family | Structured input fields to map |
+| --- | --- |
+| `sequenceDiagram` | `Participants`, `Actors`, `Systems`, `Messages`, `Steps`, `Happy path`, `Error path`, `Method labels`, `Collapsed intermediaries`, `Notes` |
+| `stateDiagram` / lifecycle | `States`, `Start state`, `End state`, `Terminal states`, `Transitions`, `Events`, `Guards`, `Exception states`, `Rework states`, `State groups` |
+| `classDiagram` / `erDiagram` / domain model | `Entities`, `Classes`, `Fields`, `Methods`, `Relationships`, `Cardinality`, `Aggregate boundaries`, `External entities`, `Ownership` |
+| `journey` | `Actor`, `Persona`, `Stages`, `Actor touchpoints`, `System touchpoints`, `Decisions`, `Outcomes`, `Pain points`, `Status signals` |
+| `timeline` / `gantt` | `Phases`, `Milestones`, `Dates`, `Periods`, `Dependencies`, `Gates`, `Risks`, `Owners`, `Release markers` |
+| `quadrantChart` | `X axis`, `Y axis`, `Quadrant labels`, `Plotted items`, `Scores`, `Scoring meaning`, `Thresholds`, `Priority notes` |
+| `mindmap` | `Central topic`, `Branch groups`, `Child topics`, `Relationships`, `Priority branches`, `Open questions`, `Notes` |
+
 ## SVG Output Pattern
 
 - Use this pattern when `/devspec.diagram` or approved `/devspec.extract` continuation generates SVG, Mermaid, or HTML output.

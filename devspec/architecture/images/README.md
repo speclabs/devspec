@@ -12,7 +12,7 @@ Optional Mermaid Markdown diagram artifacts live under `devspec/architecture/dia
 
 ## Generation Rules
 
-- Use `devspec/architecture/_template/process-flow-diagram.svg` for process-flow SVGs. Use `devspec/architecture/_template/architecture-diagram.svg` for all other SVG diagram output unless a documented constraint requires a smaller custom SVG.
+- Select the SVG template from `.github/prompts/PATTERNS.md#svg-output-pattern`; every SVG must keep the shared dark architecture-style visual contract unless a documented constraint requires a smaller custom SVG.
 - Keep SVG files standalone: inline styles, inline markers, no remote assets, no scripts, no iframes, and no `foreignObject`.
 - Keep visible labels short and evidence-backed. Do not include secrets, credentials, private keys, internal-only URLs, or unresolved placeholders in generated SVG files.
 - Validate generated SVG as XML before marking the queue row generated.

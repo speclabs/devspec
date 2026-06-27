@@ -20,7 +20,7 @@ Queue `Diagram type` records the logical diagram family only. Optional Mermaid a
 - `/devspec.diagram format=mermaid <subject>` generates optional Markdown/Mermaid output.
 - `/devspec.diagram format=html <subject>` generates optional standalone HTML output.
 - Output sets can contain any non-duplicated `+` combination of `svg`, `html`, and `mermaid`, such as `format=svg+html`, `format=svg+mermaid`, `format=html+mermaid`, or `format=svg+html+mermaid`.
-- Use `devspec/architecture/_template/process-flow-diagram.svg` for process-flow SVG output, and `devspec/architecture/_template/architecture-diagram.svg` for other durable SVG output. Validate generated SVG as XML before reporting success.
+- Select SVG templates from `.github/prompts/PATTERNS.md#svg-output-pattern` when the output set includes `svg`, and validate generated SVG as XML before reporting success.
 
 ## Mermaid Readability
 
