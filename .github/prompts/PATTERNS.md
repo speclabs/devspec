@@ -278,13 +278,30 @@ Editable SVG.
 - SVG is the default output. `format=svg` generates the SVG visual output plus required queue or overview metadata. Any accepted combination generates exactly the requested output types: `svg` for the SVG visual output, `mermaid` for the optional Markdown/Mermaid artifact, and `html` for the optional standalone HTML artifact.
 - Store durable SVG files under `devspec/architecture/images/dia-NNN-<diagram-name>.svg`, optional Mermaid files under `devspec/architecture/diagrams/dia-NNN-<diagram-name>.md`, and optional HTML files under `devspec/architecture/html/dia-NNN-<diagram-name>.html`. Store temporary work-item SVG files under `devspec/work-items/<work-item-folder>/images/<diagram-name>.svg`, optional Mermaid content in `devspec/work-items/<work-item-folder>/diagrams.md`, and optional HTML files under `devspec/work-items/<work-item-folder>/html/<diagram-name>.html`.
 - For SVG-only output, do not create a Markdown diagram artifact unless requested. Preserve resumability and evidence through `devspec/architecture/artifact-queue.md`, `devspec/architecture/overview.md` diagram references, SVG metadata elements, and queue notes.
-- Select the SVG template deterministically. Use `devspec/architecture/_template/process-flow-diagram.svg` when the queue row has `process-flow`, `business-process`, `user-journey`, `lifecycle-flow`, or `hybrid-user-to-data-operational-flow` tags, or when the request explicitly asks for a process-flow SVG. Use `devspec/architecture/_template/architecture-diagram.svg` for architecture, component, topology, dependency, domain, state, sequence companion, and general workflow SVGs.
+- Select the SVG template deterministically from the matrix below. Use the most specific matching row by queue tags, explicit user request, or diagram family before falling back to `architecture-diagram.svg`; do not invent ad hoc SVG layouts when a matching template exists.
+
+| Diagram request, family, or tags | SVG template |
+| --- | --- |
+| Architecture, component, topology, dependency graph, API surface, event/message map, data ownership flow, deployment topology, configuration/secrets flow, risk/hotspot map, generic workflow map | `devspec/architecture/_template/architecture-diagram.svg` |
+| `process-flow`, `business-process`, process-flow rows tagged `user-journey` or `lifecycle-flow`, `hybrid-user-to-data-operational-flow`, explicit process-flow SVG | `devspec/architecture/_template/process-flow-diagram.svg` |
+| `sequenceDiagram`, interaction sequence, authentication/authorization sequence, critical workflow sequence | `devspec/architecture/_template/sequence-diagram.svg` |
+| `stateDiagram`, `stateDiagram-v2`, lifecycle, status transition | `devspec/architecture/_template/state-lifecycle-diagram.svg` |
+| `classDiagram`, `erDiagram`, domain model, domain structure, entity relationship | `devspec/architecture/_template/domain-model-diagram.svg` |
+| `journey`, explicit user journey that is not a process-flow row | `devspec/architecture/_template/journey-map-diagram.svg` |
+| `timeline`, `gantt`, release timeline, migration timeline, sprint or release plan | `devspec/architecture/_template/timeline-plan-diagram.svg` |
+| `quadrantChart`, risk quadrant, priority quadrant, 2D scoring | `devspec/architecture/_template/quadrant-analysis-diagram.svg` |
+| `mindmap`, domain capability mindmap, explicit brainstorming map | `devspec/architecture/_template/mindmap-diagram.svg` |
+
 - Generated SVG files must be standalone XML with `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 WIDTH HEIGHT" role="img" aria-labelledby="title desc">`, inline `<defs>` and `<style>`, and no external assets.
+- Generated SVG and HTML visual output must follow the shared devspec dark visual contract unless the user explicitly requests a light or custom theme: dark slate page background `#020617`, framed surface `#0f172a`, subtle grid or divider lines `#1e293b`, primary text `#f8fafc`, secondary text `#cbd5e1` or `#94a3b8`, and the semantic role palette used by the Mermaid Visual Quality Pattern.
+- Do not generate white-background, default-renderer, or simple unstylized SVG/HTML diagrams for `/devspec.diagram`. If a renderer or diagram family cannot honor the dark visual contract, prefer generating the SVG companion as the canonical visual output and record the limitation in the Mermaid or HTML artifact notes.
+- Use a 16:9 landscape SVG canvas by default, preferably `viewBox="0 0 1600 900"` for durable diagrams. Smaller custom SVGs are allowed only when documented constraints require them, and they must still keep the same dark chrome, monospace typography, role colors, line treatment, real `<text>` labels, and compact legend style.
+- Keep process-flow, journey, state, sequence companion, domain, workflow, and architecture SVGs visually related: same dark background, grid, framed surface, title treatment, footer treatment, semantic role colors, and legend treatment. Preserve family-specific semantics such as process lanes, decisions, exceptions, loop-backs, actors, stores, and boundaries inside that shared style.
 - Do not include `<script>`, `<iframe>`, `<foreignObject>`, remote images, remote fonts, external stylesheets, secrets, tokens, credentials, internal-only URLs, or visible placeholder tokens in generated SVG output.
 - Keep visible SVG text short: noun labels for nodes, protocol or action labels for arrows, and no paragraphs. Use semantic colors consistently with the Mermaid visual palette.
 - Draw arrows behind nodes, keep labels clear of connectors, keep the legend outside major boundaries, and ensure the diagram remains readable at README width and when exported to PNG or PDF.
 - Before reporting success, validate the generated SVG as XML and check required root attributes, forbidden elements, unresolved placeholders, obvious text overlap, and evidence-backed content.
-- For `format=html`, create a standalone `.html` file with escaped text, inline CSS, no scripts, no iframes, no remote assets, no remote fonts, no secrets, and no unresolved placeholders. Render the same evidence-backed diagram content as static HTML.
+- For `format=html`, create a standalone `.html` file with escaped text, inline CSS, no scripts, no iframes, no remote assets, no remote fonts, no secrets, and no unresolved placeholders. Render the same evidence-backed diagram content as static HTML using the same dark visual contract as the SVG output.
 - For `format=mermaid`, use `devspec/architecture/_template/diagram.md` for durable diagrams or `devspec/work-items/_template/diagrams.md` for temporary work-item diagrams, and include Mermaid content.
 
 ## Mermaid Internal Naming and Readability Pattern
@@ -338,6 +355,7 @@ Editable SVG.
 
 - Do not add `%%{init:...}%%` to `sequenceDiagram`, `journey`, `classDiagram`, `erDiagram`, `gantt`, `quadrantChart`, `mindmap`, or `timeline` blocks; those diagram families rely on renderer-managed defaults.
 - For `stateDiagram-v2`, include the init block only when the rendering context is confirmed to support it; omit it otherwise.
+- Mermaid output is not the canonical visual target when renderer support conflicts with the shared dark visual contract. When a Mermaid family or host renderer cannot reliably enforce dark styling, keep the Mermaid syntactically portable, record the renderer limitation in notes, and use SVG or HTML output for the consistent architecture-style visual.
 
 ### Semantic `classDef` Palette
 

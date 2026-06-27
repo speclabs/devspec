@@ -51,6 +51,7 @@ When a request uses the structured architecture-diagram prompt format and the se
 - Keep runtime communication and compile-time project dependencies in separate diagrams. Logical architecture diagrams exclude SDLC actors and build artifacts, and keep owned application databases inside the system boundary.
 - Avoid API, Swagger, tech stack, version, library, hosting, and framework boilerplate details in flowchart nodes unless the diagram is specifically about startup, request-pipeline, infrastructure-layer, or physical deployment behavior.
 - Apply the Mermaid Visual Quality Pattern: (1) open flowcharts with the dark theme init block, (2) declare `classDef` entries for every role present, (3) use role-appropriate node shapes, (4) wrap boundaries of 3+ nodes in named `subgraph` blocks, (5) draw cross-subgraph arrows after all `end` keywords, (6) assign `classDef` classes in a batch block at the end, (7) keep node count <= 15.
+- Mermaid renderers may ignore dark theme initialization for some families or hosts. When that happens, keep Mermaid portable and use the SVG or HTML companion as the canonical architecture-style visual output.
 
 ```mermaid
 %%{init: {'theme': 'dark', 'themeVariables': {'primaryColor': '#1e293b', 'primaryTextColor': '#f8fafc', 'lineColor': '#64748b', 'clusterBkg': '#0f172a', 'clusterBorder': '#334155'}}}%%
@@ -99,7 +100,7 @@ flowchart TD
 - Use this section when `Output format` includes `svg` or `html`.
 - Store the durable SVG at `devspec/architecture/images/dia-NNN-<diagram-name>.svg`.
 - Store optional standalone HTML at `devspec/architecture/html/dia-NNN-<diagram-name>.html`.
-- Use `devspec/architecture/_template/process-flow-diagram.svg` for process-flow SVGs. Use `devspec/architecture/_template/architecture-diagram.svg` for all other SVG diagram output unless a documented constraint requires a smaller custom SVG.
+- Select SVG templates from `.github/prompts/PATTERNS.md#svg-output-pattern`: `architecture-diagram.svg`, `process-flow-diagram.svg`, `sequence-diagram.svg`, `state-lifecycle-diagram.svg`, `domain-model-diagram.svg`, `journey-map-diagram.svg`, `timeline-plan-diagram.svg`, `quadrant-analysis-diagram.svg`, or `mindmap-diagram.svg`. Every template must preserve the shared dark architecture-style visual contract unless a documented constraint requires a smaller custom SVG.
 - Generated SVG must be standalone XML with inline styles and no external assets, `<script>`, `<iframe>`, `<foreignObject>`, remote fonts, remote images, secrets, credentials, internal-only URLs, or unresolved placeholders.
 - Generated HTML must be standalone static HTML with inline styles and no external assets, `<script>`, `<iframe>`, remote fonts, remote images, secrets, credentials, internal-only URLs, or unresolved placeholders.
 - Validate the SVG as XML before reporting generation complete.
@@ -108,7 +109,7 @@ flowchart TD
 | --- | --- |
 | SVG target | |
 | HTML target | |
-| Template used | `devspec/architecture/_template/architecture-diagram.svg`, `devspec/architecture/_template/process-flow-diagram.svg`, and optional `devspec/architecture/_template/diagram.html` |
+| Template used | `devspec/architecture/_template/<selected-svg-template>.svg` and optional `devspec/architecture/_template/diagram.html` |
 | Validation | pending |
 
 ## Source Evidence and Assumptions

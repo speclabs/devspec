@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">[DIAGRAM_TITLE] - Quadrant Analysis Diagram</title>
+  <desc id="desc">[DIAGRAM_DESCRIPTION]</desc>
+
+  <defs>
+    <style><![CDATA[
+      svg {
+        background: #020617;
+        font-family: "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+      }
+
+      .page-bg { fill: #020617; }
+      .grid-line { stroke: #1e293b; stroke-width: 0.7; opacity: 0.65; }
+      .surface { fill: #0f172a; stroke: #1e293b; stroke-width: 1.4; filter: url(#soft-shadow); }
+      .title { fill: #f8fafc; font-size: 38px; font-weight: 800; }
+      .subtitle { fill: #cbd5e1; font-size: 16px; font-weight: 500; }
+      .eyebrow { fill: #67e8f9; font-size: 13px; font-weight: 800; letter-spacing: 1.6px; }
+      .footer { fill: #64748b; font-size: 12px; }
+
+      .plot-bg { fill: rgba(15, 23, 42, 0.32); stroke: #334155; stroke-width: 1.4; }
+      .axis { stroke: #94a3b8; stroke-width: 2; }
+      .axis-label { fill: #cbd5e1; font-size: 13px; font-weight: 900; letter-spacing: 0.7px; }
+      .quadrant-title { fill: #67e8f9; font-size: 14px; font-weight: 900; }
+      .quadrant-subtitle { fill: #94a3b8; font-size: 11px; font-weight: 650; }
+      .quadrant-fill-a { fill: rgba(6, 78, 59, 0.18); }
+      .quadrant-fill-b { fill: rgba(8, 51, 68, 0.18); }
+      .quadrant-fill-c { fill: rgba(120, 53, 15, 0.18); }
+      .quadrant-fill-d { fill: rgba(136, 19, 55, 0.18); }
+
+      .item { stroke-width: 1.8; filter: url(#node-glow); }
+      .item-high { fill: rgba(6, 78, 59, 0.84); stroke: #34d399; }
+      .item-medium { fill: rgba(120, 53, 15, 0.84); stroke: #fbbf24; }
+      .item-risk { fill: rgba(136, 19, 55, 0.84); stroke: #fb7185; }
+      .item-info { fill: rgba(8, 51, 68, 0.84); stroke: #22d3ee; }
+      .item-label { fill: #f8fafc; font-size: 12px; font-weight: 900; }
+      .item-note { fill: #cbd5e1; font-size: 10px; font-weight: 650; }
+
+      .legend-panel { fill: rgba(15, 23, 42, 0.86); stroke: #334155; stroke-width: 1.2; }
+      .legend-title { fill: #f8fafc; font-size: 14px; font-weight: 800; }
+      .legend-text { fill: #cbd5e1; font-size: 12px; font-weight: 600; }
+    ]]></style>
+
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path class="grid-line" d="M 48 0 L 0 0 0 48" fill="none"/>
+    </pattern>
+
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000000" flood-opacity="0.34"/>
+    </filter>
+
+    <filter id="node-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#38bdf8" flood-opacity="0.16"/>
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e2e8f0"/>
+    </marker>
+  </defs>
+
+  <rect class="page-bg" width="1600" height="900"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.42"/>
+  <rect class="surface" x="48" y="42" width="1504" height="816" rx="20"/>
+
+  <text class="eyebrow" x="92" y="92">[PROJECT_NAME]</text>
+  <text class="title" x="92" y="138">[DIAGRAM_TITLE]</text>
+  <text class="subtitle" x="92" y="168">[DIAGRAM_DESCRIPTION]</text>
+
+  <g data-plot="quadrants">
+    <rect class="plot-bg" x="250" y="230" width="900" height="560" rx="18"/>
+    <rect class="quadrant-fill-a" x="700" y="230" width="450" height="280"/>
+    <rect class="quadrant-fill-b" x="250" y="230" width="450" height="280"/>
+    <rect class="quadrant-fill-c" x="250" y="510" width="450" height="280"/>
+    <rect class="quadrant-fill-d" x="700" y="510" width="450" height="280"/>
+    <line class="axis" x1="700" y1="230" x2="700" y2="790"/>
+    <line class="axis" x1="250" y1="510" x2="1150" y2="510"/>
+    <line class="axis" x1="250" y1="790" x2="1150" y2="790" marker-end="url(#arrow)"/>
+    <line class="axis" x1="250" y1="790" x2="250" y2="230" marker-end="url(#arrow)"/>
+    <text class="axis-label" x="700" y="826" text-anchor="middle">[X_AXIS_LOW] to [X_AXIS_HIGH]</text>
+    <text class="axis-label" x="164" y="512" text-anchor="middle" transform="rotate(-90 164 512)">[Y_AXIS_LOW] to [Y_AXIS_HIGH]</text>
+    <text class="quadrant-title" x="730" y="268">HIGH VALUE</text>
+    <text class="quadrant-subtitle" x="730" y="292">Prioritize</text>
+    <text class="quadrant-title" x="280" y="268">STRATEGIC</text>
+    <text class="quadrant-subtitle" x="280" y="292">Investigate</text>
+    <text class="quadrant-title" x="280" y="548">LOW RETURN</text>
+    <text class="quadrant-subtitle" x="280" y="572">Defer</text>
+    <text class="quadrant-title" x="730" y="548">HIGH RISK</text>
+    <text class="quadrant-subtitle" x="730" y="572">Mitigate</text>
+  </g>
+
+  <g data-item="item-a">
+    <circle class="item item-high" cx="930" cy="350" r="30"/>
+    <text class="item-label" x="930" y="355" text-anchor="middle">A</text>
+    <text class="item-note" x="970" y="354">[Item A]</text>
+  </g>
+
+  <g data-item="item-b">
+    <circle class="item item-info" cx="520" cy="380" r="26"/>
+    <text class="item-label" x="520" y="385" text-anchor="middle">B</text>
+    <text class="item-note" x="558" y="384">[Item B]</text>
+  </g>
+
+  <g data-item="item-c">
+    <circle class="item item-medium" cx="470" cy="650" r="24"/>
+    <text class="item-label" x="470" y="655" text-anchor="middle">C</text>
+    <text class="item-note" x="506" y="654">[Item C]</text>
+  </g>
+
+  <g data-item="item-d">
+    <circle class="item item-risk" cx="890" cy="650" r="28"/>
+    <text class="item-label" x="890" y="655" text-anchor="middle">D</text>
+    <text class="item-note" x="930" y="654">[Item D]</text>
+  </g>
+
+  <g class="legend" transform="translate(1200 650)">
+    <rect class="legend-panel" x="0" y="0" width="250" height="140" rx="14"/>
+    <text class="legend-title" x="24" y="32">Legend</text>
+    <circle class="item item-high" cx="34" cy="62" r="10"/>
+    <text class="legend-text" x="58" y="67">Priority item</text>
+    <circle class="item item-risk" cx="34" cy="92" r="10"/>
+    <text class="legend-text" x="58" y="97">Risk item</text>
+    <circle class="item item-info" cx="34" cy="122" r="10"/>
+    <text class="legend-text" x="58" y="127">Exploratory item</text>
+  </g>
+
+  <text class="footer" x="92" y="812">Generated by devspec - [DATE_OR_VERSION]</text>
+</svg>

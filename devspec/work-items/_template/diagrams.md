@@ -38,11 +38,16 @@ Reusable default SVG diagrams live under `devspec/architecture/images/`; optiona
 | Assumptions | none or listed below |
 | Notes | |
 
-Follow `.github/prompts/PATTERNS.md#diagram-extraction-consistency-pattern`, `#mermaid-internal-naming-and-readability-pattern`, `#mermaid-visual-quality-pattern`, and `#svg-output-pattern` when generating content.
+Follow `.github/prompts/PATTERNS.md#diagram-extraction-consistency-pattern`, `#mermaid-internal-naming-and-readability-pattern`, `#mermaid-visual-quality-pattern`, and `#svg-output-pattern` when generating content. Mermaid flowcharts must use the dark init block and semantic role palette; when a Mermaid renderer ignores theme settings, use SVG or HTML output as the canonical architecture-style visual and record the limitation in `Notes`.
 
 ```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': {'primaryColor': '#1e293b', 'primaryTextColor': '#f8fafc', 'lineColor': '#64748b', 'clusterBkg': '#0f172a', 'clusterBorder': '#334155'}}}%%
 flowchart TD
+    classDef gen fill:#1e293b,stroke:#64748b,color:#e2e8f0
+
     Placeholder["&nbsp;<diagram content>&nbsp;"]
+
+    class Placeholder gen
 ```
 
 Create this Markdown file only when the selected output set includes `mermaid`. For SVG-only or HTML-only output, store targets in the queue row and generated files instead.

@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">[DIAGRAM_TITLE] - Timeline Plan Diagram</title>
+  <desc id="desc">[DIAGRAM_DESCRIPTION]</desc>
+
+  <defs>
+    <style><![CDATA[
+      svg {
+        background: #020617;
+        font-family: "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+      }
+
+      .page-bg { fill: #020617; }
+      .grid-line { stroke: #1e293b; stroke-width: 0.7; opacity: 0.65; }
+      .surface { fill: #0f172a; stroke: #1e293b; stroke-width: 1.4; filter: url(#soft-shadow); }
+      .title { fill: #f8fafc; font-size: 38px; font-weight: 800; }
+      .subtitle { fill: #cbd5e1; font-size: 16px; font-weight: 500; }
+      .eyebrow { fill: #67e8f9; font-size: 13px; font-weight: 800; letter-spacing: 1.6px; }
+      .footer { fill: #64748b; font-size: 12px; }
+
+      .axis { stroke: #64748b; stroke-width: 2.2; }
+      .tick { stroke: #334155; stroke-width: 1.4; }
+      .tick-label { fill: #94a3b8; font-size: 12px; font-weight: 800; }
+      .phase-band { fill: rgba(15, 23, 42, 0.22); stroke: #334155; stroke-width: 1.1; stroke-dasharray: 8 8; }
+      .phase-title { fill: #67e8f9; font-size: 13px; font-weight: 900; letter-spacing: 0.8px; }
+
+      .milestone-mask { fill: #0f172a; }
+      .milestone { stroke-width: 1.8; filter: url(#node-glow); }
+      .milestone-plan { fill: rgba(8, 51, 68, 0.46); stroke: #22d3ee; }
+      .milestone-build { fill: rgba(6, 78, 59, 0.46); stroke: #34d399; }
+      .milestone-risk { fill: rgba(136, 19, 55, 0.46); stroke: #fb7185; }
+      .milestone-release { fill: rgba(76, 29, 149, 0.46); stroke: #a78bfa; }
+      .milestone-title { fill: #f8fafc; font-size: 14px; font-weight: 900; }
+      .milestone-date { fill: #cbd5e1; font-size: 11px; font-weight: 650; }
+      .milestone-dot { fill: #2563eb; stroke: #93c5fd; stroke-width: 1.4; }
+
+      .dependency { fill: none; stroke: #e2e8f0; stroke-width: 2.2; opacity: 0.92; }
+      .dependency-risk { fill: none; stroke: #fb7185; stroke-width: 2.2; opacity: 0.92; stroke-dasharray: 7 6; }
+      .dependency-label-bg { fill: #0f172a; stroke: #334155; stroke-width: 1; }
+      .dependency-label { fill: #f8fafc; font-size: 12px; font-weight: 800; }
+
+      .legend-panel { fill: rgba(15, 23, 42, 0.86); stroke: #334155; stroke-width: 1.2; }
+      .legend-title { fill: #f8fafc; font-size: 14px; font-weight: 800; }
+      .legend-text { fill: #cbd5e1; font-size: 12px; font-weight: 600; }
+    ]]></style>
+
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path class="grid-line" d="M 48 0 L 0 0 0 48" fill="none"/>
+    </pattern>
+
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000000" flood-opacity="0.34"/>
+    </filter>
+
+    <filter id="node-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#38bdf8" flood-opacity="0.16"/>
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e2e8f0"/>
+    </marker>
+
+    <marker id="arrow-security" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fb7185"/>
+    </marker>
+  </defs>
+
+  <rect class="page-bg" width="1600" height="900"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.42"/>
+  <rect class="surface" x="48" y="42" width="1504" height="816" rx="20"/>
+
+  <text class="eyebrow" x="92" y="92">[PROJECT_NAME]</text>
+  <text class="title" x="92" y="138">[DIAGRAM_TITLE]</text>
+  <text class="subtitle" x="92" y="168">[DIAGRAM_DESCRIPTION]</text>
+
+  <g data-phase="planning">
+    <rect class="phase-band" x="140" y="250" width="320" height="430" rx="18"/>
+    <text class="phase-title" x="168" y="284">PLANNING</text>
+  </g>
+
+  <g data-phase="build">
+    <rect class="phase-band" x="490" y="250" width="320" height="430" rx="18"/>
+    <text class="phase-title" x="518" y="284">BUILD</text>
+  </g>
+
+  <g data-phase="validate">
+    <rect class="phase-band" x="840" y="250" width="320" height="430" rx="18"/>
+    <text class="phase-title" x="868" y="284">VALIDATE</text>
+  </g>
+
+  <g data-phase="release">
+    <rect class="phase-band" x="1190" y="250" width="260" height="430" rx="18"/>
+    <text class="phase-title" x="1218" y="284">RELEASE</text>
+  </g>
+
+  <!-- Draw timeline axis and dependencies before milestone cards. -->
+  <line class="axis" x1="170" y1="470" x2="1410" y2="470"/>
+  <line class="tick" x1="250" y1="430" x2="250" y2="510"/>
+  <text class="tick-label" x="250" y="535" text-anchor="middle">[T1]</text>
+  <line class="tick" x1="600" y1="430" x2="600" y2="510"/>
+  <text class="tick-label" x="600" y="535" text-anchor="middle">[T2]</text>
+  <line class="tick" x1="950" y1="430" x2="950" y2="510"/>
+  <text class="tick-label" x="950" y="535" text-anchor="middle">[T3]</text>
+  <line class="tick" x1="1300" y1="430" x2="1300" y2="510"/>
+  <text class="tick-label" x="1300" y="535" text-anchor="middle">[T4]</text>
+
+  <path class="dependency" d="M 345 350 C 430 300, 515 300, 600 350" marker-end="url(#arrow)"/>
+  <rect class="dependency-label-bg" x="452" y="288" width="92" height="24" rx="7"/>
+  <text class="dependency-label" x="498" y="305" text-anchor="middle">Depends</text>
+  <path class="dependency dependency-risk" d="M 950 350 C 1038 300, 1212 300, 1300 350" marker-end="url(#arrow-security)"/>
+  <rect class="dependency-label-bg" x="1100" y="288" width="76" height="24" rx="7"/>
+  <text class="dependency-label" x="1138" y="305" text-anchor="middle">Risk</text>
+
+  <g data-milestone="plan">
+    <circle class="milestone-dot" cx="250" cy="470" r="15"/>
+    <rect class="milestone-mask" x="155" y="330" width="190" height="82" rx="12"/>
+    <rect class="milestone milestone-plan" x="155" y="330" width="190" height="82" rx="12"/>
+    <text class="milestone-title" x="250" y="362" text-anchor="middle">Plan Ready</text>
+    <text class="milestone-date" x="250" y="386" text-anchor="middle">[date / sprint]</text>
+  </g>
+
+  <g data-milestone="build">
+    <circle class="milestone-dot" cx="600" cy="470" r="15"/>
+    <rect class="milestone-mask" x="505" y="330" width="190" height="82" rx="12"/>
+    <rect class="milestone milestone-build" x="505" y="330" width="190" height="82" rx="12"/>
+    <text class="milestone-title" x="600" y="362" text-anchor="middle">Build Done</text>
+    <text class="milestone-date" x="600" y="386" text-anchor="middle">[date / sprint]</text>
+  </g>
+
+  <g data-milestone="validate">
+    <circle class="milestone-dot" cx="950" cy="470" r="15"/>
+    <rect class="milestone-mask" x="855" y="560" width="190" height="82" rx="12"/>
+    <rect class="milestone milestone-risk" x="855" y="560" width="190" height="82" rx="12"/>
+    <text class="milestone-title" x="950" y="592" text-anchor="middle">Validation Gate</text>
+    <text class="milestone-date" x="950" y="616" text-anchor="middle">[date / sprint]</text>
+  </g>
+
+  <g data-milestone="release">
+    <circle class="milestone-dot" cx="1300" cy="470" r="15"/>
+    <rect class="milestone-mask" x="1205" y="330" width="190" height="82" rx="12"/>
+    <rect class="milestone milestone-release" x="1205" y="330" width="190" height="82" rx="12"/>
+    <text class="milestone-title" x="1300" y="362" text-anchor="middle">Release</text>
+    <text class="milestone-date" x="1300" y="386" text-anchor="middle">[date / sprint]</text>
+  </g>
+
+  <g class="legend" transform="translate(1040 704)">
+    <rect class="legend-panel" x="0" y="0" width="420" height="112" rx="14"/>
+    <text class="legend-title" x="24" y="32">Legend</text>
+    <rect class="milestone milestone-build" x="24" y="52" width="22" height="14" rx="4"/>
+    <text class="legend-text" x="58" y="64">Milestone</text>
+    <rect class="milestone milestone-risk" x="230" y="52" width="22" height="14" rx="4"/>
+    <text class="legend-text" x="264" y="64">Gate / risk</text>
+    <line class="dependency" x1="24" y1="88" x2="66" y2="88" marker-end="url(#arrow)"/>
+    <text class="legend-text" x="82" y="92">Dependency</text>
+  </g>
+
+  <text class="footer" x="92" y="812">Generated by devspec - [DATE_OR_VERSION]</text>
+</svg>
