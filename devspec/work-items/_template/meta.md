@@ -53,7 +53,7 @@ Use this section for routing and lookup only; details live in `story.md`.
 | Current command | |
 | Current agent | |
 | Run status | See `devspec/glossary.md#run-status-values` |
-| Current item | |
+| Current item | baseline or CR-### |
 | Last completed step | |
 | Next required action | |
 | Pending user question | |

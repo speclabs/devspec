@@ -10,7 +10,7 @@ Use this artifact for review outcome, actionable findings, and handoff. Omit pla
 | Current command | `/devspec.review` |
 | Current agent | devspec.review |
 | Run status | See `devspec/glossary.md#run-status-values` |
-| Current item | |
+| Current item | baseline or CR-### |
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
@@ -20,6 +20,8 @@ Use this artifact for review outcome, actionable findings, and handoff. Omit pla
 | Updated | |
 
 ## Review Outcome
+
+For change-request review, record outcome for the active `CR-###` while preserving prior baseline or CR review evidence.
 
 | Field | Value |
 | --- | --- |
@@ -36,7 +38,7 @@ Use this artifact for review outcome, actionable findings, and handoff. Omit pla
 
 ## Review Findings
 
-Record only actionable findings; omit placeholder rows when there are none.
+Record only actionable findings; omit placeholder rows when there are none. Flag missing CR task rows, missing CR source refs, source-ref drift, CR work implemented outside appended tasks, or overwritten baseline evidence when they affect close readiness.
 
 | ID | Severity | Category | Details | Required action | Evidence | Status |
 | --- | --- | --- | --- | --- | --- | --- |

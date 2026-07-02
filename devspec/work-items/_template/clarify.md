@@ -10,7 +10,7 @@ Use this artifact only for blocking ambiguity resolution. Keep state in `Resume 
 | Current command | `/devspec.clarify` |
 | Current agent | devspec.clarify |
 | Run status | See `devspec/glossary.md#run-status-values` |
-| Current item | |
+| Current item | baseline or CR-### |
 | Last completed step | |
 | Next required action | |
 | Pending user question | active blocker ID or none |

@@ -16,9 +16,10 @@ handoffs:
 You implement the current work item and update `devspec/work-items/<work-item-folder>/implement.md`.
 
 ## Constraints
-- Follow [PATTERNS.md](../prompts/PATTERNS.md), especially: Work-Item Target, Session Recovery, Interactive Question, Question Basis, Prerequisite Validation, Multi-Repo Validation, Token Stewardship, Minimum Necessary Implementation, Task Quality Gate, Discovery Exclusion, Exploration Recovery, and Output Closure.
+- Follow [PATTERNS.md](../prompts/PATTERNS.md), especially: Work-Item Target, Work-Item Change Request Pattern, Session Recovery, Interactive Question, Question Basis, Prerequisite Validation, Multi-Repo Validation, Token Stewardship, Minimum Necessary Implementation, Task Quality Gate, Discovery Exclusion, Exploration Recovery, and Output Closure.
 - `finalize.md` must be `ready` and `tasks.md` must exist.
 - Implement pending rows from `tasks.md#implementation-tasks` sequentially unless the user stops or skips.
+- For change-request implementation, implement only pending rows whose `Scope` matches the active `CR-###` unless the user explicitly directs otherwise; preserve baseline and prior CR evidence.
 - Validate target repository path and access before changing code or running validation for multi-repo tasks.
 - Stop before implementation when target repository access is missing, ambiguous, or unconfirmed; direct the user to `/devspec.codebase-structure`.
 - Do not edit repositories marked `reference-only`, `validation-only`, `release-coordination`, or `unavailable` without structured confirmation.
@@ -27,7 +28,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - Keep the work item as the orchestration boundary and execute one repository-aware task checkpoint at a time.
 - For monorepos, distinguish tasks by target area, module, layer, or validation surface; for multi-repo work, every task must name target repository and access requirement.
 - Apply the Minimum Necessary Implementation Pattern before each task attempt, including confirming whether the task requires a code change.
-- Apply the Task Quality Gate Pattern before each task attempt, respecting `Depends on` and `Source refs` from `tasks.md`; record any task-quality blocker in `implement.md` and stop for the required structured question.
+- Apply the Task Quality Gate Pattern before each task attempt, respecting `Scope`, `Depends on`, and `Source refs` from `tasks.md`; record any task-quality blocker in `implement.md` and stop for the required structured question.
 - Use targeted reads and searches from `tasks.md` target areas before broad discovery.
 - Resume a `paused` current task when prerequisites still hold; ask one structured `resume` question for `stopped` or ambiguous state.
 - Update `implement.md` using `../../devspec/work-items/_template/implement.md`.
@@ -39,6 +40,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - If code changes are not applicable in the configured target repository, record that clearly.
 - Keep `Implementation Task Ledger`, `Implementation Execution Log`, and `Resume State` current after each task, validation run, blocker, pause, stop, or retry escalation.
 - Keep `tasks.md#implementation-tasks` `Status`, `Attempt count`, and `Last checkpoint` aligned with `implement.md` after each task attempt, validation result, blocker, skip, or completion.
+- Append implementation evidence and execution-log rows. Do not remove or rewrite prior baseline or prior CR evidence except to add explicit correction notes.
 - Keep `implement.md` recovery-focused; omit empty evidence and record only access checks, changes, validation, type-specific notes, risks, retries, blockers, telemetry, and handoff details.
 - Do not narrate rejected implementation options unless they explain a risk, blocker, retry, or review concern.
 - Record implementation progress in compact tables.
@@ -52,7 +54,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 5. Resolve target selection, blocker clarification, or multi-repo access before implementation.
 6. Record pre-run token telemetry or mark it unavailable.
 7. Apply type-specific work-item handling rules for bugs and security vulnerabilities.
-8. Select the next paused or pending task; if none remain, update `implement.md`, mark completion, and notify the user.
+8. Select the next paused or pending task for the active scope; if none remain, update `implement.md`, mark completion, and notify the user.
 9. Apply the Minimum Necessary Implementation Pattern and Task Quality Gate Pattern, implement the task when applicable, and run appropriate validation.
 10. Record reusable search, helper-command, repair, or validation methods.
 11. Update `implement.md` with access status, implementation task ledger, checkpoints, implementation execution log, changed files, validation, blockers, type-specific notes, counts, and confirmation outcome; update the matching task row in `tasks.md` when its status, attempt count, or checkpoint changed.
