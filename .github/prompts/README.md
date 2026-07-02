@@ -8,7 +8,7 @@ Artifacts should be developer-facing and compact. Prefer tables for stack, sourc
 
 Foundation: `extract` -> `projectcontext` -> `techstack` -> `codebase-structure` -> `coding-standards` -> `rules`
 
-Work items: `story` -> `finalize` -> `tasks` -> `implement` -> `review`
+Work items: `story` -> `finalize` -> `tasks` -> `implement` -> `review`; related post-baseline change requests re-enter through `story` and append `CR-###` scope records before continuing the same flow.
 
 Use `clarify` only when work-item intake or finalization records a blocking question.
 
@@ -42,7 +42,7 @@ Developers invoke registered slash commands from this directory. Agent names are
 
 - `PATTERNS.md`: shared workflow, recovery, output, discovery, foundation, work-item, memory, and multi-repo rules.
 - `../../devspec/adapters/command-registry.md`: provider-neutral registry for every registered `devspec` command, canonical prompt and agent source, output artifacts, mutation level, and handoff.
-- `../../devspec/adapters/validation-flows.md`: enterprise acceptance checklists for new repository, existing repository, story lifecycle, and cross-tool recovery validation.
+- `../../devspec/adapters/validation-flows.md`: enterprise acceptance checklists for new repository, existing repository, story lifecycle, append-only change requests, and cross-tool recovery validation.
 - `../../devspec/adapters/gemini-cli.md` and `../../devspec/adapters/antigravity.md`: Gemini CLI and Google Antigravity adapter guidance.
 - `PATTERNS.md#artifact-content-pattern`: shared structure rules for developer-facing artifacts, source labels, optional sections, and table/bullet/list usage.
 - `PATTERNS.md#work-item-change-request-pattern`: append-only handling for related post-baseline change requests and structured selection for independent work.

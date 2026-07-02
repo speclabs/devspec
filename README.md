@@ -69,6 +69,8 @@ Then run the work-item flow:
 /devspec.review
 ```
 
+For related scope added after a work item is finalized or later, run `/devspec.story` again with change-request input. Related requests append as `CR-001`, `CR-002`, and so on inside the same work-item folder without rewriting the baseline story, completed tasks, implementation evidence, or review history. Independent requests ask whether to append to the current item, create a new linked work item, or provide `Custom Answer`.
+
 Use `/devspec.clarify` only when a work item records a blocking question. Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, or domain behavior; SVG is the default, with optional Mermaid or HTML via `format=` combinations. Example: `format=svg`, `format=html`, `format=mermaid`, `format=svg+html`, `format=svg+mermaid`, `format=svg+html+mermaid`, `format=html+mermaid`.
 
 ## How It Works
@@ -78,7 +80,7 @@ Use `/devspec.clarify` only when a work item records a blocking question. Use `/
 | Layer | Purpose | Commands |
 | --- | --- | --- |
 | Foundation | Capture stable project context, architecture, stack, structure, standards, and rules. | `/devspec.extract`, `/devspec.projectcontext`, `/devspec.techstack`, `/devspec.codebase-structure`, `/devspec.coding-standards`, `/devspec.rules` |
-| Work items | Move one feature, bug, or security issue from intake to review. | `/devspec.story`, `/devspec.clarify`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, `/devspec.review` |
+| Work items | Move one feature, bug, security issue, or accepted change request from intake to review while preserving prior scope history. | `/devspec.story`, `/devspec.clarify`, `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, `/devspec.review` |
 
 ```mermaid
 flowchart TD
@@ -115,7 +117,7 @@ flowchart TD
 | `/devspec.codebase-structure` | Repository layout, boundaries, multi-repo access, or integration contracts must be recorded. | `devspec/foundation/codebase-structure.md` |
 | `/devspec.coding-standards` | Engineering standards and observed patterns must be recorded. | `devspec/foundation/coding-standards.md` |
 | `/devspec.rules` | Operational rules, compliance requirements, governance procedures, and gates must be recorded. | `devspec/foundation/rules.md` |
-| `/devspec.story` | A feature, bug, security issue, task, PBI, or provider reference needs intake. | Work-item `meta.md`, `story.md`, `decisions.md`, `notes.md` |
+| `/devspec.story` | A feature, bug, security issue, task, PBI, provider reference, or related post-baseline change request needs intake. | Work-item `meta.md`, `story.md`, `decisions.md`, `notes.md` |
 | `/devspec.clarify` | A blocking question must be resolved. | Work-item `clarify.md` |
 | `/devspec.finalize` | A work item needs an implementation-ready brief. | Work-item `finalize.md` |
 | `/devspec.tasks` | A ready brief needs executable tasks. | Work-item `tasks.md` |
@@ -238,6 +240,7 @@ Enterprise readiness requires these flows to pass for each supported adapter:
 - new repository foundation flow
 - existing repository extraction flow
 - full story lifecycle
+- append-only change-request flow
 - cross-tool recovery from Git-tracked artifacts
 
 Use:
