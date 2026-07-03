@@ -72,13 +72,12 @@ def test_ownership_classification_preserves_project_artifacts() -> None:
 
 
 def test_svg_diagram_templates_are_standalone_xml() -> None:
-    templates = [
-        Path("devspec/architecture/_template/architecture-diagram.svg"),
-        Path("devspec/architecture/_template/process-flow-diagram.svg"),
-    ]
+    templates = sorted(Path("devspec/architecture/_template").glob("*.svg"))
+    assert templates
 
     for template in templates:
         text = template.read_text(encoding="utf-8")
+        lowered = text.lower()
         root = ET.fromstring(text)
 
         assert root.tag.endswith("svg")
@@ -88,8 +87,9 @@ def test_svg_diagram_templates_are_standalone_xml() -> None:
         assert "http://www.w3.org/2000/svg" in root.tag
         assert root.find("{http://www.w3.org/2000/svg}title") is not None
         assert root.find("{http://www.w3.org/2000/svg}desc") is not None
-        for forbidden in ("<script", "<iframe", "<foreignObject"):
-            assert forbidden.lower() not in text.lower()
+        assert text.isascii()
+        for forbidden in ("<script", "<iframe", "<foreignobject", "<image", "@import", "href=\"http", "href='http"):
+            assert forbidden not in lowered
 
 
 def test_html_diagram_template_is_standalone_static_html() -> None:
