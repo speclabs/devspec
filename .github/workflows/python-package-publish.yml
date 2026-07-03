@@ -43,7 +43,9 @@ jobs:
       - name: Build devspec framework payload zip
         run: |
           zip -r "dist/devspec-framework-payload-${GITHUB_REF_NAME:-local}.zip" \
-            AGENTS.md GEMINI.md README.md devspec .github .claude .cursor .gemini .agents packaging/devspec-profiles.json
+            AGENTS.md GEMINI.md README.md devspec \
+            .github/prompts .github/agents .github/skills \
+            .claude .cursor .gemini .agents packaging/devspec-profiles.json
           find dist -maxdepth 1 -type f ! -name devspec-python-package-checksums.txt -print0 \
             | sort -z \
             | xargs -0 sha256sum > dist/devspec-python-package-checksums.txt

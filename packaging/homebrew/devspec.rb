@@ -3,8 +3,8 @@ class Devspec < Formula
 
   desc "Installer and synchronizer CLI for the devspec workflow framework"
   homepage "https://github.com/speclabs/devspec"
-  url "https://github.com/speclabs/devspec/archive/refs/tags/v0.1.2.tar.gz"
-  sha256 "REPLACE_WITH_V0_1_2_RELEASE_SHA256"
+  url "https://github.com/speclabs/devspec/archive/refs/tags/v0.1.3.tar.gz"
+  sha256 "REPLACE_WITH_V0_1_3_RELEASE_SHA256"
   license "Apache-2.0"
 
   depends_on "python@3.12"
