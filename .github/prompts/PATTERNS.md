@@ -122,14 +122,14 @@ Standard stage-specific option sets:
 ## Task Quality Gate Pattern
 
 - Use this pattern across `/devspec.tasks`, `/devspec.implement`, and `/devspec.review` to keep task planning, execution, and review aligned with the finalized brief.
-- Keep sequencing, dependency, and traceability information in task rows.
+- Keep scope, sequencing, dependency, and traceability information in task rows.
 - During `/devspec.tasks`, record a compact `Task Quality Review` before `Implementation Tasks` covering scope/source coverage, validation coverage, dependency order, granularity, blockers, ambiguity, and implementation-risk gaps.
-- Every executable task must include `Source refs` pointing to the finalized acceptance criteria, implementation brief rows, validation plan rows, risks, or follow-ups that justify the task.
+- Every executable task must include `Scope` (`baseline` or `CR-###`) and `Source refs` pointing to the finalized acceptance criteria, implementation brief rows, validation plan rows, risks, or follow-ups that justify the task.
 - Keep tasks actionable, independently verifiable where practical, and sized for one meaningful checkpoint. Split tasks that are too broad to validate safely; merge tasks that are too small to produce useful implementation or review evidence.
 - Sequence task rows so dependencies appear before dependents. Use the `Depends on` column for required predecessors, and use `none` only when the task can start without another task's output.
 - Treat missing coverage, impossible sequencing, vague done criteria, missing validation, ambiguous target areas, unresolved access, and external blockers as task-planning blockers when they would materially change implementation or review.
 - During `/devspec.implement`, before each task attempt, confirm the task is still actionable, within finalized scope, unblocked, specific enough to implement, and ordered after its dependencies. If implementation reveals task ambiguity, a blocking dependency, or oversized scope, update `implement.md`, update the task checkpoint or status when applicable, and stop for the required structured question instead of silently expanding scope.
-- During `/devspec.review`, compare `finalize.md`, `tasks.md`, `implement.md`, and changed code or artifacts. Flag missing source coverage, incomplete or skipped tasks without rationale, blocked tasks treated as done, missing validation evidence, source-ref drift, and implementation beyond task scope as review findings when they affect correctness, delivery risk, or readiness to close.
+- During `/devspec.review`, compare `finalize.md`, `tasks.md`, `implement.md`, and changed code or artifacts. Flag missing source coverage, missing or incorrect task scope, incomplete or skipped tasks without rationale, blocked tasks treated as done, missing validation evidence, source-ref drift, and implementation beyond task scope as review findings when they affect correctness, delivery risk, or readiness to close.
 
 ## Artifact Content Pattern
 
@@ -524,7 +524,21 @@ Do not use the following Mermaid families regardless of the requested subject. F
 - Work-item folders must follow the [Work-Item Folder Naming Pattern](#work-item-folder-naming-pattern) when created by `/devspec.story`.
 - Follow the [Artifact Content Pattern](#artifact-content-pattern) when updating work-item artifacts.
 - Treat optional user input as additive guidance only.
-- Update the target work-item artifact in place. Stay within current stage scope and, after finalization, within finalized scope.
+- Update the target work-item artifact in place. Stay within current stage scope and, after finalization, within finalized scope unless the [Work-Item Change Request Pattern](#work-item-change-request-pattern) classifies the input as an accepted append-only change request.
+
+## Work-Item Change Request Pattern
+
+- Use this pattern when user input for an existing work item may change scope after baseline intake has already moved beyond early clarification.
+- Before finalization, clarifications may update baseline intake when they resolve missing or ambiguous facts within the existing story scope.
+- After `meta.md#workflow-state` `Work item status` records `finalized`, `tasks-planned`, `implementing`, `implemented`, `reviewing`, or `reviewed`, treat new user scope as a change request instead of rewriting baseline story, finalized scope, task rows, implementation evidence, or review evidence.
+- Related post-baseline requests stay in the same work-item folder and append the next `CR-###` row in `story.md#change-requests`; derive the next ID from the highest existing `CR-###` in the work-item artifacts.
+- Independent or unrelated requests require one structured `selection` question before writing. Options must include appending to the current work item, creating a new linked work item with the standard folder naming pattern, and `Custom Answer`; recommend the option that best preserves one-story scope. If the user chooses a linked work item, create or update that separate work item and do not add a `CR-###` row to the original item.
+- Completed baseline rows are immutable except for explicit correction notes or later append-only records. Do not regenerate, renumber, remove, or rewrite completed task rows, implementation evidence, or review findings to fit a later request.
+- Change-request-scoped acceptance criteria and requirements use IDs prefixed by the change request, such as `CR-001-AC-001`, `CR-001-FR-001`, and `CR-001-NFR-001`, and should be added to the existing story tables rather than replacing baseline rows.
+- Change-request finalization appends readiness, implementation brief, validation plan, and blocker rows for the active `CR-###`; `Resume State` `Current item` should identify `baseline` or the active `CR-###`.
+- Change-request task planning appends new task rows after the highest existing task ID and records `Scope` as `CR-###`; baseline task rows use `baseline`.
+- `/devspec.clarify` is not a scope-change intake command. If clarify input introduces post-baseline scope, record the routing reason and hand off to `/devspec.story`.
+- This pattern is future-only. It prevents new overwrite cases but does not require automated reconstruction of artifacts already overwritten by an earlier run.
 
 ## Work-Item Folder Naming Pattern
 

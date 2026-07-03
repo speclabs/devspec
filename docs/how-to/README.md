@@ -15,6 +15,7 @@ This guide is practical usage documentation. The provider-neutral source of trut
 - [Foundation Flow for a New Repository](#foundation-flow-for-a-new-repository)
 - [Foundation Flow for an Existing Repository](#foundation-flow-for-an-existing-repository)
 - [Work-Item Lifecycle](#work-item-lifecycle)
+- [Post-Baseline Change Requests](#post-baseline-change-requests)
 - [Command Examples](#command-examples)
 - [Diagrams](#diagrams)
 - [Multi-Repo Work](#multi-repo-work)
@@ -249,7 +250,7 @@ Use the work-item lifecycle after the foundation exists.
 
 | Step | Command | Gate or note |
 | --- | --- | --- |
-| 1 | `/devspec.story` | Accepts a provider URL, provider identifier, manual feature request, bug report, security issue, task, or PBI. |
+| 1 | `/devspec.story` | Accepts a provider URL, provider identifier, manual feature request, bug report, security issue, task, PBI, or related post-baseline change request. |
 | 2 | `/devspec.clarify` | Use only when intake or finalization records a blocking question. |
 | 3 | `/devspec.finalize` | Creates the implementation readiness brief. |
 | 4 | `/devspec.tasks` | Requires `finalize.md` marked `ready`. |
@@ -302,6 +303,59 @@ If a blocking question is recorded, resolve it before continuing:
 /devspec.clarify
 ```
 
+Use `/devspec.clarify` only for active blockers inside the current scope. If the user introduces new scope after the work item is finalized or later, route that input through `/devspec.story` as a change request.
+
+## Post-Baseline Change Requests
+
+Use `/devspec.story` again when a related request arrives after the baseline work item is finalized, tasks-planned, implementing, implemented, reviewing, or reviewed. Related requests append as `CR-001`, `CR-002`, and so on inside the same work-item folder. The original baseline summary, description, acceptance criteria, completed task rows, implementation evidence, and review history stay intact.
+
+Canonical command for a related coverage change on an existing .NET 10 upgrade story:
+
+```text
+/devspec.story "Change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%"
+```
+
+Then continue the normal work-item flow for the active change request:
+
+```text
+/devspec.finalize
+/devspec.tasks
+/devspec.implement
+/devspec.review
+```
+
+For OpenAI Codex or Cursor, use the same intent as chat input:
+
+```text
+Run /devspec.story with change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%.
+Run /devspec.finalize.
+Run /devspec.tasks.
+Run /devspec.implement.
+Run /devspec.review.
+```
+
+For Gemini CLI:
+
+```text
+/devspec:story "Change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%"
+/devspec:finalize
+/devspec:tasks
+/devspec:implement
+/devspec:review
+```
+
+For Claude Code or Google Antigravity:
+
+```text
+/devspec-story "Change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%"
+/devspec-finalize
+/devspec-tasks
+/devspec-implement
+/devspec-review
+```
+
+If the request appears independent or unrelated, the agent asks one structured selection question before writing: append to the current work item, create a new linked work item, or provide `Custom Answer`. Choose a new linked work item when the request should have its own scope, tasks, implementation record, and review.
+
 ## Command Examples
 
 Use these examples as starting points. The command registry remains authoritative for required input, output artifacts, mutation level, and next handoff.
@@ -314,12 +368,12 @@ Use these examples as starting points. The command registry remains authoritativ
 | `/devspec.codebase-structure` | Repository layout, work areas, integration boundaries, access requirements | `devspec/foundation/codebase-structure.md` | `/devspec.coding-standards` |
 | `/devspec.coding-standards` | Style guides, observed patterns, testing expectations, anti-patterns | `devspec/foundation/coding-standards.md` | `/devspec.rules` |
 | `/devspec.rules` | Compliance requirements, delivery gates, forbidden patterns, operational governance rules | `devspec/foundation/rules.md` | `/devspec.story` |
-| `/devspec.story` | `https://github.com/example/repo/issues/123`; `owner/repo#123`; `JIRA-123`; manual bug report | Work-item `meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
+| `/devspec.story` | `https://github.com/example/repo/issues/123`; `owner/repo#123`; `JIRA-123`; manual bug report; `"Change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%"` | Work-item `meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
 | `/devspec.clarify` | Existing work item with a recorded blocker | Work-item `clarify.md` | Repeat until unblocked, then `/devspec.finalize` |
-| `/devspec.finalize` | Existing story artifacts plus optional readiness input | Work-item `finalize.md` | `/devspec.tasks` when ready |
-| `/devspec.tasks` | Ready `finalize.md`; optional task-planning guidance | Work-item `tasks.md` | `/devspec.implement` |
-| `/devspec.implement` | Ready `finalize.md` and `tasks.md`; optional validation guidance | Work-item `implement.md` and code changes when allowed | `/devspec.review` |
-| `/devspec.review` | `finalize.md` and `implement.md`; optional review focus | Work-item `review.md` | Return to `/devspec.implement` for changes or close the work item |
+| `/devspec.finalize` | Existing story artifacts plus optional readiness or accepted change-request input | Work-item `finalize.md` | `/devspec.tasks` when ready |
+| `/devspec.tasks` | Ready `finalize.md`; optional task-planning or accepted change-request planning guidance | Work-item `tasks.md` | `/devspec.implement` |
+| `/devspec.implement` | Ready `finalize.md` and `tasks.md`; optional validation, task-order, or active scope guidance | Work-item `implement.md` and code changes when allowed | `/devspec.review` |
+| `/devspec.review` | `finalize.md`, `tasks.md`, and `implement.md`; optional review focus | Work-item `review.md` | Return to `/devspec.implement` for changes or close the work item |
 | `/devspec.diagram` | Diagram subject, work item, explicit process-flow batch request, or optional `format=` output combination using `svg`, `html`, and `mermaid` | Architecture or work-item SVG diagram artifacts by default, with optional Mermaid or HTML artifacts | Continue the current workflow |
 
 ## Diagrams
@@ -574,6 +628,7 @@ Before using an adapter for enterprise delivery, validate these flows with the t
 - New repository foundation flow.
 - Existing repository extraction flow.
 - End-to-end story lifecycle.
+- Append-only change-request flow.
 - Cross-tool recovery from Git-tracked artifacts.
 
 Use:

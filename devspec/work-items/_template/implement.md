@@ -10,7 +10,7 @@ Use this artifact for implementation recovery, evidence, and handoff. Keep task 
 | Current command | `/devspec.implement` |
 | Current agent | devspec.implement-task |
 | Run status | See `devspec/glossary.md#run-status-values` |
-| Current item | |
+| Current item | baseline or CR-### |
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
@@ -21,7 +21,7 @@ Use this artifact for implementation recovery, evidence, and handoff. Keep task 
 
 ## Implementation Task Ledger
 
-Use this as the recovery view. Keep one row per task from `tasks.md`; source refs, targets, and dependencies stay there.
+Use this as the recovery view. Keep one row per task from `tasks.md`; source refs, scope, targets, and dependencies stay there. For change requests, append rows for the active `CR-###` and preserve prior baseline or CR rows.
 
 | Field | Value |
 | --- | --- |
@@ -42,7 +42,7 @@ Use this as the recovery view. Keep one row per task from `tasks.md`; source ref
 
 ## Implementation Evidence
 
-Record only evidence that exists. Use `Changed file` for targeted edits and `Changed area` for broad edits.
+Record only evidence that exists. Use `Changed file` for targeted edits and `Changed area` for broad edits. Append evidence for later `CR-###` work; do not rewrite prior baseline or CR evidence except with explicit correction notes.
 
 | Type | Applies to | Item | Evidence or notes | Status |
 | --- | --- | --- | --- | --- |

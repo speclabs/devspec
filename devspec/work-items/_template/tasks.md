@@ -10,7 +10,7 @@ Use this artifact for executable implementation checkpoints. Keep recovery in `R
 | Current command | `/devspec.tasks` |
 | Current agent | devspec.tasks |
 | Run status | See `devspec/glossary.md#run-status-values` |
-| Current item | |
+| Current item | baseline or CR-### |
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
@@ -36,8 +36,8 @@ Use this gate before handing off. Record material blockers in `Resume State`.
 
 ## Implementation Tasks
 
-Use one row per executable checkpoint. Keep rows compact; put traceability in `Source refs`, repository lists in `devspec/foundation/codebase-structure.md`, and only executable proof in `Validation`.
+Use one row per executable checkpoint. Keep rows compact; put traceability in `Source refs`, repository lists in `devspec/foundation/codebase-structure.md`, and only executable proof in `Validation`. Use `Scope` to distinguish `baseline` work from append-only change request work such as `CR-001`. For change requests, append new rows after the highest existing `T-###`; do not regenerate, renumber, remove, or rewrite existing task rows.
 
-| ID | Task | Source refs | Target repository | Target area or files | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T-001 | <developer-action> | <AC-PI-RISK-VAL-refs> | <repository-name> | <path-module-or-area> | See `devspec/glossary.md#access-requirement-values` | <task-id-or-none> | <command-method-or-review-signal-and-expected-result> | <observable-completion-condition-and-evidence> | pending | 0 | |
+| ID | Scope | Task | Source refs | Target repository | Target area or files | Required access | Depends on | Validation | Done when | Status | Attempt count | Last checkpoint |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| T-001 | baseline or CR-001 | <developer-action> | <AC-PI-RISK-VAL-refs> | <repository-name> | <path-module-or-area> | See `devspec/glossary.md#access-requirement-values` | <task-id-or-none> | <command-method-or-review-signal-and-expected-result> | <observable-completion-condition-and-evidence> | pending | 0 | |

@@ -51,7 +51,7 @@ Validate one full feature, bug, or security-vulnerability lifecycle after the fo
 | 1 | `/devspec.story` | `meta.md`, `story.md`, `decisions.md`, and `notes.md` exist under one valid work-item folder; `story.md` records one-story scope, readable intake sections, and observable acceptance criteria or a recorded blocker. |
 | 2 | `/devspec.clarify` when blocked | `clarify.md` records the active question, answer, resolution, and remaining blockers. |
 | 3 | `/devspec.finalize` | `finalize.md` records readiness, foundation and architecture alignment, implementation brief, validation plan, assumptions, and blockers. |
-| 4 | `/devspec.tasks` | `tasks.md` records task-quality review, source refs, executable tasks with repository, target area, validation, done criteria, dependencies, and status. |
+| 4 | `/devspec.tasks` | `tasks.md` records task-quality review, scope, source refs, executable tasks with repository, target area, validation, done criteria, dependencies, and status. |
 | 5 | `/devspec.implement` | `implement.md` records repository access checks, task quality checks, task ledger, attempts, changed files or areas, validation results, blockers, and resume state; `tasks.md` task-row progress fields stay aligned. |
 | 6 | `/devspec.review` | `review.md` records findings, scope adherence, task completion alignment, source-ref alignment, validation gaps, rule violations, and review status. |
 
@@ -64,12 +64,40 @@ Acceptance checklist:
 - `finalize.md` must be `ready` before `/devspec.tasks` plans implementation tasks.
 - `/devspec.finalize` records or blocks on applicable constitution, foundation, architecture, delivery-gate, repository-readiness, and validation-traceability gaps before marking `ready`.
 - `/devspec.tasks` does not expand scope beyond the finalized brief and records task-quality checks before implementation handoff.
-- `/devspec.tasks` includes source refs from finalized acceptance criteria, implementation brief rows, validation plan rows, risks, or follow-ups for every executable task.
+- `/devspec.tasks` includes scope and source refs from finalized acceptance criteria, implementation brief rows, validation plan rows, risks, or follow-ups for every executable task.
 - `/devspec.implement` respects repository access requirements from `devspec/foundation/codebase-structure.md`.
 - `/devspec.implement` keeps `tasks.md` task-row status, attempt count, and checkpoint fields aligned with `implement.md`.
 - `/devspec.implement` records blockers, ambiguity, skipped tasks, oversized task scope, and validation outcomes without silently expanding task scope.
 - `/devspec.review` reviews against the finalized brief, tasks, implementation record, and changed work instead of re-planning.
 - `/devspec.review` flags missing task coverage, skipped or blocked tasks without rationale, missing validation evidence, source-ref drift, and implementation beyond task scope when they affect close readiness.
+
+## Append-Only Change Request Scenario
+
+Validate that post-baseline scope changes preserve the original story ledger.
+
+| Step | Command | Expected evidence |
+| --- | --- | --- |
+| 1 | `/devspec.story` with `.NET 10 upgrade` | Baseline `story.md` records the upgrade scope with `AC-*`, `FR-*`, and related planning rows. |
+| 2 | `/devspec.finalize` -> `/devspec.tasks` -> `/devspec.implement` | Baseline `finalize.md`, `tasks.md`, and `implement.md` record ready scope, `baseline` task rows such as `T-001..T-003`, and implementation evidence. |
+| 3 | `/devspec.story` with `Change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%` | `story.md#change-requests` appends `CR-001`; CR-scoped criteria such as `CR-001-AC-001` are added without rewriting baseline summary, description, or criteria. |
+| 4 | `/devspec.finalize` -> `/devspec.tasks` -> `/devspec.implement` | `finalize.md` appends `CR-001` readiness, implementation brief, and validation rows; `tasks.md` appends new `Scope` = `CR-001` rows after the highest existing task ID; `implement.md` appends CR-scoped evidence and execution-log rows while `tasks.md` updates only the matching `CR-001` task rows. |
+| 5 | `/devspec.story` with another related request | `story.md#change-requests` appends `CR-002`; task planning later appends new task IDs without renumbering or rewriting `CR-001` or baseline rows. |
+| 6 | `/devspec.story` with an unrelated feature request for the same target | The agent asks one structured `selection` question to append to the current item, create a new linked work item, or provide `Custom Answer`; when the linked-item option is chosen, the new work-item folder follows the standard folder naming pattern, its `meta.md#work-item-record` `Parent work item` points to the original item, and the original item does not receive a `CR-###` row for that linked request. |
+| 7 | `/devspec.clarify` with post-baseline scope input | `clarify.md` records routing to `/devspec.story`; baseline intake remains unchanged. |
+| 8 | `/devspec.review` | Review flags missing CR task rows, missing CR source refs, CR work implemented outside appended tasks, source-ref drift, or overwritten baseline content. |
+
+Acceptance checklist:
+
+- `story.md#change-requests` uses disposition values from `devspec/glossary.md#change-request-disposition-values`.
+- Related post-baseline changes append `CR-###` rows inside the existing work-item folder.
+- Independent or unrelated changes trigger a structured selection before writing.
+- Choosing a linked work item creates or updates a separate work-item folder that follows `devspec` folder naming rules and records the original item in `meta.md#work-item-record` `Parent work item`.
+- Linked work-item routing does not add a `CR-###` row to the original work item's `story.md#change-requests`.
+- Baseline `AC-*`, task rows, implementation evidence, and review evidence remain intact.
+- `tasks.md#implementation-tasks` includes `Scope` with `baseline` or `CR-###`.
+- New CR task rows append after the highest existing `T-###`.
+- `/devspec.implement` processes the active `CR-###` scope without rewriting baseline or prior CR implementation evidence.
+- No `/devspec.change` command is introduced or recommended.
 
 ## Cross-Tool Recovery Scenario
 

@@ -10,7 +10,7 @@ Use this artifact for one work item or story at a time. Keep identity and routin
 | Current command | `/devspec.story` |
 | Current agent | devspec.story |
 | Run status | See `devspec/glossary.md#run-status-values` |
-| Current item | |
+| Current item | baseline or CR-### |
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
@@ -39,6 +39,14 @@ Use one short statement of the requested story and intended outcome.
 | --- | --- |
 | Summary | |
 
+## Change Requests
+
+Use this section only for post-baseline scope changes after the work item reaches `finalized`, `tasks-planned`, `implementing`, `implemented`, `reviewing`, or `reviewed`. Append one row per accepted, rejected, superseded, or withdrawn request that is handled inside this work-item folder. Keep baseline story rows unchanged; add CR-scoped acceptance criteria and requirements to the existing tables with IDs such as `CR-001-AC-001`, `CR-001-FR-001`, and `CR-001-NFR-001`. If the user chooses a new linked work item, record the relationship in the linked item's `meta.md#work-item-record` `Parent work item` field instead of adding a `CR-###` row here.
+
+| ID | Request | Relationship to baseline | Disposition | Source | Recorded |
+| --- | --- | --- | --- | --- | --- |
+| CR-001 | <post-baseline-change-request> | related, user-confirmed append, or superseded by linked item | See `devspec/glossary.md#change-request-disposition-values` | user, provider, review, discovery | <yyyy-mm-dd-or-unknown> |
+
 ## Description
 
 Record background, user or customer problem, affected scope, impact, and type-specific context. Keep repository access in `devspec/foundation/codebase-structure.md` and rules in `devspec/foundation/rules.md`.
@@ -53,7 +61,7 @@ Record background, user or customer problem, affected scope, impact, and type-sp
 
 ## Acceptance Criteria
 
-Record specific, testable conditions that must be true for completion.
+Record specific, testable conditions that must be true for completion. Use `AC-###` for baseline criteria and `CR-###-AC-###` for change-request criteria.
 
 | ID | Criterion | Source | Status |
 | --- | --- | --- | --- |
@@ -61,7 +69,7 @@ Record specific, testable conditions that must be true for completion.
 
 ## Functional Requirements
 
-Record expected system behavior.
+Record expected system behavior. Use `FR-###` for baseline requirements and `CR-###-FR-###` for change-request requirements.
 
 | ID | Requirement | Source | Status |
 | --- | --- | --- | --- |
@@ -69,7 +77,7 @@ Record expected system behavior.
 
 ## Nonfunctional Requirements
 
-Record quality attributes such as security, performance, reliability, accessibility, compliance, or scalability.
+Record quality attributes such as security, performance, reliability, accessibility, compliance, or scalability. Use `NFR-###` for baseline requirements and `CR-###-NFR-###` for change-request requirements.
 
 | ID | Requirement | Source | Status |
 | --- | --- | --- | --- |
@@ -77,7 +85,7 @@ Record quality attributes such as security, performance, reliability, accessibil
 
 ## Edge Cases
 
-Record boundary conditions, failure paths, unusual states, and exception handling.
+Record boundary conditions, failure paths, unusual states, and exception handling. Use `EDGE-###` for baseline cases and `CR-###-EDGE-###` for change-request cases.
 
 | ID | Case | Source | Status |
 | --- | --- | --- | --- |

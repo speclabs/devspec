@@ -83,6 +83,17 @@ Use for intake provenance in `meta.md`.
 | `manual` | User chose manual intake without external resolution. |
 | `blocked` | Source resolution is required but unavailable or invalid. |
 
+### Change Request Disposition Values
+
+Use for post-baseline scope changes recorded in `story.md#change-requests`. These values describe the handling decision for a requested scope change, not workflow progress.
+
+| Status | Meaning |
+| --- | --- |
+| `accepted` | The request is related to the current work item, or the user explicitly confirmed appending it, and it will be tracked as CR-scoped intake, finalization, tasks, implementation, and review evidence. |
+| `rejected` | The request will not be included in the current work item. |
+| `superseded` | A later change request or linked work item replaces this request. |
+| `withdrawn` | The requester withdrew the change request before implementation or review closure. |
+
 ### Artifact Status Values
 
 Use for generated or queued devspec artifacts, including architecture diagram queue rows.

@@ -16,11 +16,12 @@ handoffs:
 You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 
 ## Constraints
-- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Question Basis Pattern](../prompts/PATTERNS.md#question-basis-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
+- Follow the [Work-Item Target Pattern](../prompts/PATTERNS.md#work-item-target-pattern), [Work-Item Change Request Pattern](../prompts/PATTERNS.md#work-item-change-request-pattern), [Session Recovery Pattern](../prompts/PATTERNS.md#session-recovery-pattern), [Prerequisite Validation Pattern](../prompts/PATTERNS.md#prerequisite-validation-pattern), [Interactive Question Pattern](../prompts/PATTERNS.md#interactive-question-pattern), [Question Basis Pattern](../prompts/PATTERNS.md#question-basis-pattern), [Token Stewardship Pattern](../prompts/PATTERNS.md#token-stewardship-pattern), and [Output Closure Pattern](../prompts/PATTERNS.md#output-closure-pattern).
 - `story.md` must exist.
 - Update `Workflow State` in `meta.md` and `Resume State` in `clarify.md` before asking or resolving a blocking question.
 - Handle one independent blocker at a time.
 - Resolve the active blocker recorded in `story.md`, `finalize.md`, user input, or existing `clarify.md`; do not run the full Readiness Gap Scan in this command.
+- Do not use clarification to introduce post-baseline scope. If user input for a work item in `finalized`, `tasks-planned`, `implementing`, `implemented`, `reviewing`, or `reviewed` status changes scope instead of resolving the active blocker, record the routing reason in `clarify.md`, leave baseline intake unchanged, and hand off to `/devspec.story`.
 - Preserve and apply the Question Basis Pattern for the active blocker.
 - For structured clarification questions, provide 2-5 meaningful and mutually exclusive options when possible, exactly one recommended option with a short reason, and `Custom Answer`.
 - Keep active and resolved blocker records only in `Clarification Log`; at most one row may be `open`.
@@ -32,7 +33,7 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 1. Locate the target work item.
 2. Read `meta.md` when present, `story.md`, `finalize.md` when present, and existing `clarify.md`.
 3. Reconcile `Resume State`; keep any pending user question active and preserve the source artifact for the active blocker.
-4. Ask or resolve the active structured `clarification` question, then update `clarify.md` with `Resume State` and `Clarification Log`.
+4. Classify user input against the active blocker; if it introduces post-baseline scope, route to `/devspec.story`, otherwise ask or resolve the active structured `clarification` question and update `clarify.md` with `Resume State` and `Clarification Log`.
 5. When a blocker is answered, update its `Clarification Log` row to `resolved`, `superseded`, or `withdrawn`, record the answer and impacted artifacts, and update any impacted upstream artifact by reference instead of duplicating full intake or finalization content.
 6. When no blocker remains open, update next action toward `/devspec.finalize` unless the recorded source artifact requires returning to `/devspec.story`.
 7. Report per Output Format.
