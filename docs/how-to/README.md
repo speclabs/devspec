@@ -155,13 +155,11 @@ Use these rules when running or adapting `devspec` workflows:
 - Record blockers instead of guessing.
 - Recommend only registered `/devspec.*` commands.
 
-The command flow below shows how foundation setup feeds the work-item lifecycle, where readiness gates happen, and where supporting clarification and diagram commands fit.
-
-![devspec detailed command flow](../assets/command-flow-details.svg)
-
 ## Foundation Flow for a New Repository
 
 Use this flow when the repository is new or has little implementation evidence.
+
+![New repository foundation flow](../assets/command-flow-new-repository.svg)
 
 | Step | Command | Produces |
 | --- | --- | --- |
@@ -214,6 +212,8 @@ Gemini CLI:
 ## Foundation Flow for an Existing Repository
 
 Use this flow when existing code, docs, manifests, configuration, or tests should seed the foundation.
+
+![Existing repository foundation flow](../assets/command-flow-existing-repository.svg)
 
 | Step | Command | Produces |
 | --- | --- | --- |
@@ -287,6 +287,8 @@ Run /devspec.extract with sources UI - D:\repo-ui, API - D:\repo-api.
 ## Work-Item Lifecycle
 
 Use the work-item lifecycle after the foundation exists.
+
+![Work-item lifecycle flow](../assets/command-flow-work-item-lifecycle.svg)
 
 | Step | Command | Gate or note |
 | --- | --- | --- |

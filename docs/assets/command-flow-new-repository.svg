@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 420" role="img" aria-labelledby="title desc">
+  <title id="title">New repository foundation flow</title>
+  <desc id="desc">New repository foundation command sequence from project context through rules.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8"/>
+    </marker>
+    <style><![CDATA[
+      svg { background: #020617; font-family: "JetBrains Mono", "Cascadia Code", monospace; }
+      .frame { fill: #0f172a; stroke: #1e293b; stroke-width: 2; }
+      .grid { stroke: #1e293b; stroke-width: 1; opacity: 0.42; }
+      .title { fill: #f8fafc; font-size: 32px; font-weight: 700; }
+      .subtitle { fill: #cbd5e1; font-size: 16px; }
+      .node { fill: #082f49; stroke: #38bdf8; stroke-width: 2; rx: 12; }
+      .label { fill: #f8fafc; font-size: 13px; font-weight: 700; }
+      .note { fill: #94a3b8; font-size: 12px; }
+      .flow { fill: none; stroke: #38bdf8; stroke-width: 3; marker-end: url(#arrow); }
+    ]]></style>
+  </defs>
+  <rect width="1400" height="420" fill="#020617"/>
+  <g>
+    <path class="grid" d="M 70 130 H 1330"/>
+    <path class="grid" d="M 70 250 H 1330"/>
+    <path class="grid" d="M 280 80 V 350"/>
+    <path class="grid" d="M 560 80 V 350"/>
+    <path class="grid" d="M 840 80 V 350"/>
+    <path class="grid" d="M 1120 80 V 350"/>
+  </g>
+  <rect x="40" y="40" width="1320" height="340" rx="24" class="frame"/>
+  <text x="75" y="95" class="title">New repository foundation</text>
+  <text x="75" y="124" class="subtitle">Start here when the repository has little or no implementation evidence.</text>
+
+  <rect x="75" y="190" width="210" height="76" class="node"/>
+  <text x="90" y="233" class="label">/devspec.projectcontext</text>
+  <text x="127" y="253" class="note">product context</text>
+
+  <path class="flow" d="M 285 228 H 312"/>
+  <rect x="320" y="190" width="190" height="76" class="node"/>
+  <text x="346" y="233" class="label">/devspec.techstack</text>
+  <text x="367" y="253" class="note">runtime/tools</text>
+
+  <path class="flow" d="M 510 228 H 537"/>
+  <rect x="545" y="190" width="250" height="76" class="node"/>
+  <text x="557" y="233" class="label">/devspec.codebase-structure</text>
+  <text x="616" y="253" class="note">boundaries</text>
+
+  <path class="flow" d="M 795 228 H 822"/>
+  <rect x="830" y="190" width="250" height="76" class="node"/>
+  <text x="843" y="233" class="label">/devspec.coding-standards</text>
+  <text x="899" y="253" class="note">standards</text>
+
+  <path class="flow" d="M 1080 228 H 1107"/>
+  <rect x="1115" y="190" width="170" height="76" class="node"/>
+  <text x="1148" y="233" class="label">/devspec.rules</text>
+  <text x="1154" y="253" class="note">delivery gates</text>
+</svg>
