@@ -37,6 +37,8 @@ Install profiles let you choose which AI coding agent files to copy. Most multi-
 | Foundation | Capture stable project context, architecture, stack, structure, standards, and rules. | [New repository](docs/how-to/README.md#foundation-flow-for-a-new-repository), [existing repository](docs/how-to/README.md#foundation-flow-for-an-existing-repository) |
 | Work items | Move one feature, bug, security issue, or accepted change request from intake to review. | [Work-item lifecycle](docs/how-to/README.md#work-item-lifecycle) |
 
+![devspec command flow overview](docs/assets/command-flow-overview.svg)
+
 For a new project:
 
 ```text

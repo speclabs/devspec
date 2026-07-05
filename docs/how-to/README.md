@@ -155,6 +155,10 @@ Use these rules when running or adapting `devspec` workflows:
 - Record blockers instead of guessing.
 - Recommend only registered `/devspec.*` commands.
 
+The command flow below shows how foundation setup feeds the work-item lifecycle, where readiness gates happen, and where supporting clarification and diagram commands fit.
+
+![devspec detailed command flow](../assets/command-flow-details.svg)
+
 ## Foundation Flow for a New Repository
 
 Use this flow when the repository is new or has little implementation evidence.
