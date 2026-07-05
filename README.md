@@ -85,19 +85,20 @@ GitHub Copilot prompt and agent files are the reference implementation. Other ad
 
 Canonical command names remain `/devspec.*`. Some adapters expose host-native shortcuts such as `/devspec:story` or `/devspec-story`; see [Command Invocation by Agent](docs/how-to/README.md#command-invocation-by-agent).
 
-For command contracts, see [devspec/adapters/command-registry.md](devspec/adapters/command-registry.md). For copy-ready examples, see [Command Examples](docs/how-to/README.md#command-examples).
-
 ## More Documentation
 
-| Topic | Link |
+| Need | Start here |
 | --- | --- |
-| Setup guides | [docs/how-to/setup/README.md](docs/how-to/setup/README.md) |
-| Full workflow guide | [docs/how-to/README.md](docs/how-to/README.md) |
-| Upgrades | [docs/how-to/README.md#upgrades](docs/how-to/README.md#upgrades) |
-| Adapter guide | [devspec/adapters/README.md](devspec/adapters/README.md) |
-| Compatibility matrix | [devspec/adapters/compatibility-matrix.md](devspec/adapters/compatibility-matrix.md) |
-| Validation flows | [devspec/adapters/validation-flows.md](devspec/adapters/validation-flows.md) |
-| Enterprise governance | [devspec/adapters/enterprise-governance.md](devspec/adapters/enterprise-governance.md) |
+| Install or troubleshoot setup | [docs/how-to/setup/README.md](docs/how-to/setup/README.md) |
+| Run devspec workflows | [docs/how-to/README.md](docs/how-to/README.md) |
+| Use command examples | [docs/how-to/README.md#command-examples](docs/how-to/README.md#command-examples) |
+| Set up AI coding agents | [docs/how-to/README.md#ai-coding-agent-setup](docs/how-to/README.md#ai-coding-agent-setup) |
+| Work across multiple repositories | [docs/how-to/README.md#multi-repo-work](docs/how-to/README.md#multi-repo-work) |
+| Upgrade devspec files | [docs/how-to/README.md#upgrades](docs/how-to/README.md#upgrades) |
+| Validate adapter behavior | [devspec/adapters/validation-flows.md](devspec/adapters/validation-flows.md) |
+| Review adapter support details | [devspec/adapters/README.md](devspec/adapters/README.md) |
+| Check platform compatibility | [devspec/adapters/compatibility-matrix.md](devspec/adapters/compatibility-matrix.md) |
+| Plan enterprise rollout | [devspec/adapters/enterprise-governance.md](devspec/adapters/enterprise-governance.md) |
 
 ## License
 
