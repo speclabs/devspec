@@ -2,7 +2,7 @@
 
 Use this guide on Windows when your machine allows approved WinGet packages. WinGet is Windows' package installer for command-line and desktop tools.
 
-The planned public WinGet package identifier is `SpecLabs.Devspec`. Until Microsoft approves the package submission, use `uvx devspec ...` or manual copy as the fallback.
+The public WinGet package identifier is `SpecLabs.Devspec`. If the package is unavailable on your machine because of source, network, or policy restrictions, use `uvx devspec ...` or manual copy as the fallback.
 
 ## Before You Start
 
@@ -122,7 +122,7 @@ devspec init --target D:\code\my-app --profile all --repo-state existing
 | Argument | Meaning | Beginner explanation |
 | --- | --- | --- |
 | `winget --version` | Print the WinGet version. | Confirms WinGet is available on the machine. |
-| `winget install SpecLabs.Devspec` | Install the devspec CLI. | Installs the approved WinGet package after Microsoft accepts the package submission. |
+| `winget install SpecLabs.Devspec` | Install the devspec CLI. | Installs the approved WinGet package. |
 | `version` | Print the devspec CLI version. | Use this to confirm the command runs. It does not change files. |
 | `init` | Install devspec files. | Copies framework files into your repo. |
 | `--target .` | Target repo folder. | `.` means the folder your terminal is currently in. |
@@ -139,7 +139,8 @@ devspec init --target D:\code\my-app --profile all --repo-state existing
 | Problem | What to try |
 | --- | --- |
 | `winget` is not found. | Use Windows App Installer or ask your IT team whether WinGet is disabled. |
-| `SpecLabs.Devspec` is not found. | The package may still be awaiting Microsoft approval. Use `uvx devspec ...` until the package is published. |
+| `SpecLabs.Devspec` is not found. | Check approved WinGet sources and network access. Use [uv and uvx](uv.md) or [manual copy](manual-copy.md) if the package source is blocked. |
 | `devspec` is not found after install. | Close and reopen PowerShell so PATH changes reload. |
+| `winget list --id SpecLabs.Devspec` shows multiple installed versions. | Remove the older entry through WinGet or Windows Apps, then reopen PowerShell and confirm `devspec version` reports the expected version. |
 | PowerShell blocks a command. | Ask your team about execution policy or approved package sources. |
 | Corporate software policy blocks WinGet. | Use [uv and uvx](uv.md) if allowed, or [manual copy](manual-copy.md). |
