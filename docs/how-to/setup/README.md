@@ -9,7 +9,7 @@ Use these guides when you are installing `devspec` into a target repository for 
 | You want the simplest one-time command. | [uv and uvx](uv.md) |
 | Your team already uses Homebrew on macOS or Linux. | [Homebrew](homebrew.md) |
 | Your Windows machine uses approved WinGet packages. | [WinGet](winget.md) |
-| Package managers are blocked. | [Manual copy](manual-copy.md) |
+| CLI setup paths are blocked. | [Manual copy](manual-copy.md) |
 
 Install the package manager first when needed:
 
@@ -170,4 +170,4 @@ Setup does not copy `.github/workflows/`. Those CI/CD files belong to this frame
 | You are not sure what folder you are in. | Run `pwd` on macOS/Linux or `Get-Location` in PowerShell. |
 | You installed into the wrong folder. | Delete only the copied devspec files from that folder, then run the command again from the correct repo. |
 | `devspec init` reports conflicts. | Read the conflict list. Use `--force` only after you know the files are framework-owned and safe to replace. |
-| Downloads are blocked. | Use [manual copy](manual-copy.md). |
+| CLI setup downloads are blocked. | Use [manual copy](manual-copy.md). |

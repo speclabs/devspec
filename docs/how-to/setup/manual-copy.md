@@ -1,34 +1,19 @@
 # Manual Copy Setup
 
-Use manual copy only when command-line installers are blocked. It is supported, but the CLI paths are safer because they can validate files and detect conflicts.
+Use manual copy only when package managers and command-line installers are blocked. Prefer CLI setup when possible because it can validate files, detect conflicts, and report profile mismatches.
+
+For command-line setup, argument explanations, and upgrade examples, see [Setup Guides](README.md).
 
 ## Before You Start
 
 - Download or open a trusted `devspec` release.
 - Open the target repository in your file explorer or editor.
 - Do not overwrite the target repository's root `README.md`.
+- Do not copy `.github/workflows/`; those workflows publish and validate the `devspec` framework itself, not target repositories.
 
-## Open A Terminal
+## Choose Files By Tool
 
-Manual copy can be done with a file explorer. A terminal is still useful for validation with `git status`.
-
-## Go To Your Target Repository
-
-Windows PowerShell:
-
-```text
-cd D:\code\my-app
-```
-
-macOS/Linux:
-
-```text
-cd /Users/me/code/my-app
-```
-
-## Copy devspec Files
-
-Copy these core files and folders into the target repository root:
+Copy these core files first:
 
 ```text
 devspec/
@@ -37,53 +22,20 @@ devspec/
 AGENTS.md
 ```
 
-Then copy only the adapter files your team uses:
+Then add only the files for the AI coding tools your team uses:
 
-| Tool | Additional files |
+| Tool | Add these files |
 | --- | --- |
 | GitHub Copilot | `.github/skills/` |
 | Claude Code | `.claude/` |
-| OpenAI Codex | No extra files beyond `AGENTS.md` |
+| OpenAI Codex | No extra files; use core only |
 | Cursor | `.cursor/` |
 | Gemini CLI | `GEMINI.md`, `.gemini/` |
 | Google Antigravity | `.agents/` |
 
-Do not copy this framework repository's root `README.md` over your target project's README.
-Do not copy `.github/workflows/`; those workflows publish and validate the devspec framework itself, not target repositories.
+For one AI coding tool, copy the core files plus that tool's row. Codex uses the core files only.
 
-## Validate The Install
-
-If the CLI is available, run:
-
-```text
-devspec doctor --target . --profile all
-```
-
-If the CLI is not available, visually confirm these exist:
-
-```text
-devspec/
-.github/prompts/
-.github/agents/
-AGENTS.md
-```
-
-Then check Git sees the copied files:
-
-```text
-git status
-```
-
-## Commit The Copied Framework Files
-
-```text
-git add .
-git commit -m "Install devspec"
-```
-
-## Common Examples
-
-Manual copy for all supported tools:
+For all supported tools, copy:
 
 ```text
 devspec/
@@ -98,57 +50,44 @@ AGENTS.md
 GEMINI.md
 ```
 
-Manual copy for GitHub Copilot only:
+## Copy Safely
+
+Copy the selected files and folders into the target repository root. Do not copy `.git/`, `.venv/`, `dist/`, or build output.
+
+If your terminal opens somewhere else, go to the target repository before validation.
+
+Windows PowerShell:
 
 ```text
-devspec/
-.github/prompts/
-.github/agents/
-.github/skills/
-AGENTS.md
+cd D:\code\my-app
 ```
 
-Manual copy for Codex only:
+macOS/Linux:
 
 ```text
-devspec/
-.github/prompts/
-.github/agents/
-AGENTS.md
+cd /Users/me/code/my-app
 ```
 
-Manual copy for Cursor only:
+## Validate The Install
+
+Visually confirm the files from [Choose Files By Tool](#choose-files-by-tool) exist, then check Git sees the copied files:
 
 ```text
-devspec/
-.github/prompts/
-.github/agents/
-.cursor/
-AGENTS.md
+git status
 ```
 
-## Argument Reference
+## Commit The Copied Framework Files
 
-Manual copy does not use CLI arguments. If you later use the CLI, these are the common arguments:
-
-| Argument | Meaning | Beginner explanation |
-| --- | --- | --- |
-| `version` | Print the devspec CLI version. | Use this to confirm the command runs if the CLI becomes available later. |
-| `init` | Install devspec files. | Copies framework files into your repo. |
-| `--target .` | Target repo folder. | `.` means the folder your terminal is currently in. |
-| `--profile all` | Install or check profile. | `all` installs every supported adapter. Required for `init` and `sync`; optional for `diff` and `doctor`, where omission uses the installed manifest profile or falls back to `all`. |
-| `--repo-state existing` | Repo type. | Required for `init`. Use `existing` for most projects and `new` for empty or early repos. |
-| `doctor` | Validate install. | Checks that expected files exist. |
-| `diff` | Compare files. | Shows installed/package version context, then checksum-based missing, modified, stale, protected, or profile-mismatched files without writing changes. |
-| `sync` | Update framework-owned files. | Applies framework updates using checksum comparisons while preserving project-owned artifacts. |
-| `--dry-run` | Preview a sync. | Shows what `sync` would change without writing files. |
-| `--force` | Overwrite reviewed conflicts. | Applies to `init` and `sync`; use only after reading conflict output. |
+```text
+git add .
+git commit -m "Install devspec"
+```
 
 ## Troubleshooting
 
 | Problem | What to try |
 | --- | --- |
 | You are not sure what to copy. | Start with the core list, then add only the row for your AI coding tool. |
-| You accidentally copied the framework README over your project README. | Restore the project README from Git, then copy only the framework files listed above. |
+| You copied the framework README over your project README. | Restore the project README from Git, then copy only the framework files listed above. |
 | Git shows too many unrelated files. | Check that you copied only the listed files and did not include `.git/`, `.venv/`, `dist/`, or build output. |
 | The AI tool does not recognize commands. | Use the command as chat intent, for example `Run /devspec.extract for this repository.` |

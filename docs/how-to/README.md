@@ -117,7 +117,7 @@ uv tool install devspec
 devspec init --target . --profile all --repo-state existing
 ```
 
-For more detail, see [uv and uvx setup](setup/uv.md). If all package managers are blocked, use the GitHub Release ZIP or [Manual Copy Setup](setup/manual-copy.md). Keep credentials, local auth, and provider tokens outside copied prompt, agent, adapter, and artifact files.
+For more detail, see [uv and uvx setup](setup/uv.md). If CLI setup paths are blocked, use the GitHub Release ZIP or [Manual Copy Setup](setup/manual-copy.md). Keep credentials, local auth, and provider tokens outside copied prompt, agent, adapter, and artifact files.
 
 ## Command Invocation by Agent
 
@@ -627,7 +627,7 @@ During an upgrade:
 | Problem | What to do |
 | --- | --- |
 | `devspec` is not found after installation. | Prefer `uvx devspec ...` for one-off usage, or verify the user-local tool directory is on PATH. |
-| Package managers are blocked by corporate policy. | Use the GitHub Release ZIP as the source for [Manual Copy Setup](setup/manual-copy.md), then run the normal foundation flow. |
+| CLI setup paths are blocked by corporate policy. | Use the GitHub Release ZIP as the source for [Manual Copy Setup](setup/manual-copy.md), then run the normal foundation flow. |
 | `devspec init` reports existing file conflicts. | Review the files, keep local changes when intentional, and use `--force` only for reviewed framework-owned files. |
 | `devspec diff` reports a profile mismatch. | Re-run with the intended profile or update the installation with `devspec sync --target . --profile <profile> --dry-run`. |
 | `devspec doctor` reports missing adapter files. | Reinstall or sync with the adapter profile your team uses. |

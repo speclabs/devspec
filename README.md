@@ -24,7 +24,7 @@ For the full setup manual, see [docs/how-to/README.md](docs/how-to/README.md).
 | Simplest one-off setup | [uv and uvx setup](docs/how-to/setup/uv.md) |
 | Persistent macOS/Linux package install | [Homebrew setup](docs/how-to/setup/homebrew.md) |
 | Approved Windows package install | [WinGet setup](docs/how-to/setup/winget.md) |
-| Package managers are blocked | [Manual copy setup](docs/how-to/setup/manual-copy.md) |
+| CLI setup paths are blocked | [Manual copy setup](docs/how-to/setup/manual-copy.md) |
 
 Install profiles let you choose which AI coding agent files to copy. Most multi-agent teams can start with `--profile all`; single-tool teams can use a smaller profile such as `copilot`, `codex`, `cursor`, `claude`, `gemini`, or `antigravity`.
 
