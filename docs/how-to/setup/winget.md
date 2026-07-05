@@ -20,18 +20,24 @@ The public WinGet package identifier is `SpecLabs.Devspec`. If the package is un
 
 In VS Code, use **Terminal > New Terminal**. If you are using Windows directly, open PowerShell.
 
-## Go To Your Target Repository
-
-```text
-cd D:\code\my-app
-```
-
-## Install Or Run devspec
+## Install devspec
 
 Install the CLI:
 
 ```text
-winget install SpecLabs.Devspec
+winget install --id SpecLabs.Devspec
+```
+
+Confirm the command is available:
+
+```text
+devspec version
+```
+
+Go to your target repository:
+
+```text
+cd D:\code\my-app
 ```
 
 Install devspec files into your repository:
@@ -66,18 +72,57 @@ git add .
 git commit -m "Install devspec"
 ```
 
-## Common Examples
+## Upgrade devspec
 
-Check the CLI version:
+Upgrade the CLI:
+
+```text
+winget upgrade --id SpecLabs.Devspec
+```
+
+Check the installed CLI version:
 
 ```text
 devspec version
 ```
 
-Install all adapters:
+Preview framework file changes before writing anything:
+
+```text
+devspec diff --target .
+devspec sync --target . --profile all --dry-run
+```
+
+Apply the framework file upgrade after review:
+
+```text
+devspec sync --target . --profile all
+```
+
+## Uninstall devspec
+
+Uninstall the CLI:
+
+```text
+winget uninstall --id SpecLabs.Devspec
+```
+
+This removes the `devspec` command from your machine. It does not remove devspec files already copied into a repository.
+
+If you need to remove devspec from a repository, review the files in Git first and remove only the framework files your team no longer wants.
+
+## Common Examples
+
+Install all adapters into an existing repo:
 
 ```text
 devspec init --target . --profile all --repo-state existing
+```
+
+Install into a new repo:
+
+```text
+devspec init --target . --profile all --repo-state new
 ```
 
 Install only Copilot support:
@@ -98,23 +143,28 @@ Install only Cursor support:
 devspec init --target . --profile cursor --repo-state existing
 ```
 
-Preview an upgrade:
-
-```text
-devspec diff --target .
-devspec sync --target . --profile all --dry-run
-```
-
-Apply the framework file upgrade after review:
-
-```text
-devspec sync --target . --profile all
-```
-
 Use an explicit target path:
 
 ```text
 devspec init --target D:\code\my-app --profile all --repo-state existing
+```
+
+Validate an installed repository:
+
+```text
+devspec doctor --target . --profile all
+```
+
+Check the CLI version:
+
+```text
+devspec version
+```
+
+List the installed WinGet package:
+
+```text
+winget list --id SpecLabs.Devspec
 ```
 
 ## Argument Reference
@@ -122,7 +172,9 @@ devspec init --target D:\code\my-app --profile all --repo-state existing
 | Argument | Meaning | Beginner explanation |
 | --- | --- | --- |
 | `winget --version` | Print the WinGet version. | Confirms WinGet is available on the machine. |
-| `winget install SpecLabs.Devspec` | Install the devspec CLI. | Installs the approved WinGet package. |
+| `winget install --id SpecLabs.Devspec` | Install the devspec CLI. | Installs the approved WinGet package. |
+| `winget upgrade --id SpecLabs.Devspec` | Upgrade the devspec CLI. | Updates the command-line tool. Run a dry-run sync afterward before changing repository files. |
+| `winget uninstall --id SpecLabs.Devspec` | Uninstall the devspec CLI. | Removes the command from the machine. It does not remove files already copied into repositories. |
 | `version` | Print the devspec CLI version. | Use this to confirm the command runs. It does not change files. |
 | `init` | Install devspec files. | Copies framework files into your repo. |
 | `--target .` | Target repo folder. | `.` means the folder your terminal is currently in. |
