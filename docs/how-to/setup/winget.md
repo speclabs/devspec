@@ -8,13 +8,12 @@ The public WinGet package identifier is `SpecLabs.Devspec`. If the package is un
 
 - Use Windows PowerShell or the VS Code terminal.
 - WinGet must be available. Use Microsoft Learn if you need setup details: [Install or use WinGet](https://learn.microsoft.com/windows/package-manager/winget/).
+- WinGet installs, upgrades, and uninstalls the `devspec` CLI on your machine. Run `devspec init`, `devspec doctor`, and `devspec sync` from the repository you want to update.
 - Confirm WinGet is available:
 
   ```text
   winget --version
   ```
-
-- Open your target repository in a terminal.
 
 ## Open A Terminal
 
@@ -40,7 +39,7 @@ Go to your target repository:
 cd D:\code\my-app
 ```
 
-Install devspec files into your repository:
+Install devspec files into that repository:
 
 ```text
 devspec init --target . --profile all --repo-state existing
@@ -86,7 +85,7 @@ Check the installed CLI version:
 devspec version
 ```
 
-Preview framework file changes before writing anything:
+From the repository that already has devspec installed, preview framework file changes before writing anything:
 
 ```text
 devspec diff --target .
@@ -109,7 +108,7 @@ winget uninstall --id SpecLabs.Devspec
 
 This removes the `devspec` command from your machine. It does not remove devspec files already copied into a repository.
 
-If you need to remove devspec from a repository, review the files in Git first and remove only the framework files your team no longer wants.
+If you need to remove devspec files from a repository, review the files in Git first and remove only the framework files your team no longer wants.
 
 ## Common Examples
 
@@ -173,7 +172,7 @@ winget list --id SpecLabs.Devspec
 | --- | --- | --- |
 | `winget --version` | Print the WinGet version. | Confirms WinGet is available on the machine. |
 | `winget install --id SpecLabs.Devspec` | Install the devspec CLI. | Installs the approved WinGet package. |
-| `winget upgrade --id SpecLabs.Devspec` | Upgrade the devspec CLI. | Updates the command-line tool. Run a dry-run sync afterward before changing repository files. |
+| `winget upgrade --id SpecLabs.Devspec` | Upgrade the devspec CLI. | Updates the command-line tool on your machine. Run a dry-run sync from each repository before changing framework files. |
 | `winget uninstall --id SpecLabs.Devspec` | Uninstall the devspec CLI. | Removes the command from the machine. It does not remove files already copied into repositories. |
 | `version` | Print the devspec CLI version. | Use this to confirm the command runs. It does not change files. |
 | `init` | Install devspec files. | Copies framework files into your repo. |
