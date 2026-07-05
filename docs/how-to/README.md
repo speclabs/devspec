@@ -9,9 +9,11 @@ This guide is practical usage documentation. The provider-neutral source of trut
 - [Install devspec](#install-devspec)
 - [Setup Guides](setup/README.md)
 - [Install Profiles](#install-profiles)
+- [Repository Layout](#repository-layout)
 - [AI Coding Agent Setup](#ai-coding-agent-setup)
 - [Restricted Developer Machines](#restricted-developer-machines)
 - [Command Invocation by Agent](#command-invocation-by-agent)
+- [Operating Rules](#operating-rules)
 - [Foundation Flow for a New Repository](#foundation-flow-for-a-new-repository)
 - [Foundation Flow for an Existing Repository](#foundation-flow-for-an-existing-repository)
 - [Work-Item Lifecycle](#work-item-lifecycle)
@@ -20,6 +22,7 @@ This guide is practical usage documentation. The provider-neutral source of trut
 - [Diagrams](#diagrams)
 - [Multi-Repo Work](#multi-repo-work)
 - [Provider Integrations](#provider-integrations)
+- [Recommended Adoption](#recommended-adoption)
 - [Validation](#validation)
 - [Upgrades](#upgrades)
 - [Troubleshooting](#troubleshooting)
@@ -66,6 +69,25 @@ Choose the smallest profile that matches the tools your team uses.
 
 No install profile includes `.github/workflows/`. Those files are this repository's release and validation automation, not target-repository setup content.
 
+## Repository Layout
+
+After installation, `devspec` stores framework guidance, project context, and work-item history in predictable Git-tracked locations.
+
+| Path | Purpose |
+| --- | --- |
+| `devspec/constitution.md` | Rare durable project principles across all work items and agents; principle changes require explicit confirmation. |
+| `devspec/foundation/` | Product context, stack, structure, standards, operational rules, exclusions, and provider policy. |
+| `devspec/architecture/` | Architecture overview, default SVG diagrams, optional Mermaid or HTML diagrams, ADR templates, and artifact queue. |
+| `devspec/work-items/` | One folder per feature, bug, security issue, task, or accepted change request. |
+| `devspec/adapters/` | Multi-agent registry, compatibility, validation, and governance docs. |
+| `docs/how-to/` | User manual with install, workflow, AI coding agent, multi-repo, provider, validation, and upgrade examples. |
+| `.github/prompts/` | GitHub Copilot slash-command prompts and canonical command contracts. |
+| `.github/agents/` | GitHub Copilot agent definitions. |
+| `.github/skills/` | Optional reusable GitHub Copilot skills. |
+| `AGENTS.md` | Shared instructions for tools that read `AGENTS.md`. |
+| `GEMINI.md` | Gemini-native repository context. |
+| `.claude/`, `.cursor/`, `.gemini/`, `.agents/` | Optional adapter support for Claude Code, Cursor, Gemini CLI, and Google Antigravity. |
+
 ## AI Coding Agent Setup
 
 | AI coding agent | Installed files | Notes |
@@ -95,7 +117,7 @@ uv tool install devspec
 devspec init --target . --profile all --repo-state existing
 ```
 
-For more detail, see [uv and uvx setup](setup/uv.md). If all package managers are blocked, use the GitHub Release ZIP or [Manual Copy Setup](setup/manual-copy.md). Keep credentials, local auth, and provider tokens outside copied prompt, agent, adapter, and artifact files.
+For more detail, see [uv and uvx setup](setup/uv.md). If CLI setup paths are blocked, use the GitHub Release ZIP or [Manual Copy Setup](setup/manual-copy.md). Keep credentials, local auth, and provider tokens outside copied prompt, agent, adapter, and artifact files.
 
 ## Command Invocation by Agent
 
@@ -119,9 +141,25 @@ Canonical command names remain `/devspec.*`. Some AI coding agents expose host-n
 
 For OpenAI Codex and Cursor, exact slash-command registration is not assumed. If the tool does not invoke the command directly, type the example as a chat instruction and let the AI coding agent read `AGENTS.md`, `devspec/adapters/command-registry.md`, and the canonical prompt and agent files named in the registry.
 
+## Operating Rules
+
+Use these rules when running or adapting `devspec` workflows:
+
+- Keep `.github/prompts/*.prompt.md` and `.github/agents/*.agent.md` as the protected reference contracts.
+- Keep adapter support additive; do not change command intent for another tool.
+- Store workflow state in Git-tracked `devspec/` artifacts, not chat memory.
+- Use `devspec/glossary.md` for status values.
+- Use `devspec/foundation/codebase-structure.md` for repository access requirements.
+- Keep product facts in `devspec/foundation/project-context.md`, durable principles in `devspec/constitution.md`, and operational gates, compliance rules, enforcement details, and evolving governance in `devspec/foundation/rules.md`.
+- Keep secrets and provider credentials outside prompt, agent, adapter, and artifact files.
+- Record blockers instead of guessing.
+- Recommend only registered `/devspec.*` commands.
+
 ## Foundation Flow for a New Repository
 
 Use this flow when the repository is new or has little implementation evidence.
+
+![New repository foundation flow](../assets/command-flow-new-repository.svg)
 
 | Step | Command | Produces |
 | --- | --- | --- |
@@ -174,6 +212,8 @@ Gemini CLI:
 ## Foundation Flow for an Existing Repository
 
 Use this flow when existing code, docs, manifests, configuration, or tests should seed the foundation.
+
+![Existing repository foundation flow](../assets/command-flow-existing-repository.svg)
 
 | Step | Command | Produces |
 | --- | --- | --- |
@@ -247,6 +287,8 @@ Run /devspec.extract with sources UI - D:\repo-ui, API - D:\repo-api.
 ## Work-Item Lifecycle
 
 Use the work-item lifecycle after the foundation exists.
+
+![Work-item lifecycle flow](../assets/command-flow-work-item-lifecycle.svg)
 
 | Step | Command | Gate or note |
 | --- | --- | --- |
@@ -382,204 +424,82 @@ Use `/devspec.diagram` when a diagram would clarify architecture, workflow, stat
 
 Examples:
 
+System and application architecture:
+
 ```text
-/devspec.diagram runtime architecture
-/devspec.diagram checkout payment flow
-/devspec.diagram authentication state transitions
+/devspec.diagram system architecture showing all major components, boundaries, integrations, data stores, and user entry points
+/devspec.diagram service dependency map for identity, billing, notifications, reporting, and shared platform services
+/devspec.diagram data ownership and flow across UI, API, domain services, operational database, analytics store, and external reporting tools
+```
+
+Cloud infrastructure architecture:
+
+```text
+/devspec.diagram infrastructure architecture for an Azure cloud-native distributed application with App Gateway, AKS, Functions, Service Bus, Key Vault, SQL, Storage, and Monitor
+/devspec.diagram infrastructure architecture for an AWS cloud-native distributed application with CloudFront, API Gateway, ECS, Lambda, SQS, RDS, S3, Secrets Manager, and CloudWatch
+/devspec.diagram infrastructure architecture for a Google Cloud distributed application with Load Balancing, GKE, Cloud Run, Pub/Sub, Cloud SQL, Cloud Storage, Secret Manager, and Cloud Monitoring
+```
+
+User, security, and process flows:
+
+```text
+/devspec.diagram user flow for onboarding, profile setup, dashboard access, and notification preferences
+/devspec.diagram file upload flow from browser to API validation, malware scan, object storage, metadata persistence, and async processing
+/devspec.diagram authentication and authorization flow with identity provider, token issuance, API gateway validation, roles, and protected services
+/devspec.diagram event-driven order processing flow across API, message broker, workers, payment service, inventory service, and notification service
+```
+
+Operations and resilience:
+
+```text
+/devspec.diagram observability architecture for logs, metrics, traces, alerts, dashboards, and incident response
+/devspec.diagram disaster recovery architecture covering active region, standby region, backups, replication, failover, and recovery objectives
 /devspec.diagram batch-generate queued process-flow diagrams
-/devspec.diagram format=mermaid authentication state transitions
-/devspec.diagram format=html runtime architecture
-/devspec.diagram format=svg+html runtime architecture
-/devspec.diagram format=svg+mermaid checkout payment flow
-/devspec.diagram format=html+mermaid authentication state transitions
-/devspec.diagram format=svg+html+mermaid runtime architecture
 ```
 
-Durable SVG images live under `devspec/architecture/images/` by default. Optional Mermaid diagram artifacts live as Markdown files under `devspec/architecture/diagrams/`. Optional standalone HTML diagrams live under `devspec/architecture/html/`. High-level architecture diagram references belong in `devspec/architecture/overview.md`. Temporary work-item-specific SVG diagrams belong under `devspec/work-items/<work-item-folder>/images/`, with optional Mermaid in `diagrams.md` and optional HTML under `html/`.
-
-Extraction may seed diagram candidates into `devspec/architecture/artifact-queue.md`. Use `/devspec.diagram` as the normal follow-up when a queued diagram should be generated. `/devspec.extract` preserves requested diagram format preferences in queue notes and may generate at most one approved diagram artifact set during extraction, matching the diagram approval gate.
-
-Use `format=svg` or omit the format token for SVG output. Use `format=mermaid` when a Markdown/Mermaid artifact is needed. Use `format=html` when a standalone HTML artifact is needed. Example: `format=svg`, `format=html`, `format=mermaid`, `format=svg+html`, `format=svg+mermaid`, `format=svg+html+mermaid`, `format=html+mermaid`.
-
-Optional generated Mermaid diagrams should follow the shared readability rules:
-
-- Keep `DIA-*` and `dia-NNN-*` names for the durable diagram file and diagram queue, not for Mermaid nodes.
-- Use short alphanumeric node IDs, double-quoted node labels of 1-4 words, no `\n` or `<br>` line breaks, and 2-3 word edge labels.
-- Keep architectural flowcharts focused on one primary domain at macro level, without overloaded graphs, cross-layer arrows, decision diamonds, UI micro-interactions, or return/error paths.
-- Keep architectural flowcharts unidirectional and adjacent by layer.
-- Use `sequenceDiagram` for exact step-by-step request and response behavior, showing happy-path messages between distinct participants with method-name labels.
-- Keep runtime communication separate from compile-time project dependencies, exclude SDLC actors and build artifacts from logical architecture diagrams, and place owned application databases inside the system boundary.
-- Avoid API, Swagger, tech stack, version, library, hosting, and framework boilerplate details in flowchart nodes unless the requested diagram specifically needs that detail.
-
-Example Mermaid style:
-
-```mermaid
-flowchart LR
-    AuthCtrl["Authentication Controller"] -->|"Validates Session"| ProviderSvc["Provider Service"]
-    ProviderSvc -->|"Reads Profile"| UserDb["User Database"]
-```
-
-Generated SVG diagrams should be standalone XML created from `devspec/architecture/_template/architecture-diagram.svg` or, for process-flow SVGs, `devspec/architecture/_template/process-flow-diagram.svg`, with inline styles, no external assets, no `<script>`, no `<iframe>`, no `<foreignObject>`, no secrets, and no unresolved placeholders in generated output. Validate SVG files as XML before marking the queue row generated. Optional HTML diagrams should be standalone static HTML created from `devspec/architecture/_template/diagram.html`, with inline styles, no external assets, no scripts, no iframes, no secrets, and no unresolved placeholders.
-
-### Structured Architecture Diagram Prompt
-
-Use this format when you want `/devspec.diagram` to produce a specific architecture view with less agent interpretation. SVG is the default output. Add a `format=` combination only when Mermaid or HTML artifacts are needed too.
+Output format examples:
 
 ```text
-/devspec.diagram
-
-Create a clean, professional architecture diagram using the following information.
-
-Application/System:
-<name>
-
-Architecture style:
-<monolith / microservices / event-driven / serverless / agentic workflow / multi-repo / cloud-native>
-
-Primary goal of diagram:
-<explain runtime flow / deployment / security / dependencies / data movement / integration>
-
-Audience:
-<developers / architects / security reviewers / operators / stakeholders>
-
-Users/Actors:
-- <actor 1>
-- <actor 2>
-
-Core components:
-- <component>: <responsibility>
-- <component>: <responsibility>
-
-External systems:
-- <system>: <purpose>
-
-Data stores:
-- <database/store>: <data stored>
-
-Key flows:
-1. <step>
-2. <step>
-3. <step>
-
-Boundaries:
-- <client boundary>
-- <application boundary>
-- <cloud boundary>
-- <security boundary>
-- <tenant boundary>
-
-Design rules:
-- Use a 16:9 landscape layout
-- Use clear left-to-right or top-to-bottom flow
-- Use numbered arrows
-- Group related components
-- Use dashed boxes for boundaries
-- Use short labels only
-- Avoid crossing lines
-- Include a legend
-- Make the result suitable for a presentation slide
-
-Output format:
-Editable SVG.
-```
-
-For diagrams with lots of text, add:
-
-```text
-Generate this as SVG, not as a raster image.
-All text must be real SVG text, not embedded pixels.
-```
-
-Adapt this richer example when you need an enterprise architecture and data-flow diagram. It is documentation guidance only; agents should not assume Microsoft-specific components unless the request lists them.
-
-```text
-/devspec.diagram
-
-You are a principal software architect and expert visual designer.
-
-Create a high-quality enterprise architecture diagram for "Microsoft Copilot for Microsoft 365 style architecture".
-
-Audience:
-Developers, architects, and security reviewers.
-
-Purpose:
-Explain how user prompts, grounding data, Microsoft Graph, Copilot orchestration, compliance, and LLM processing interact inside a secure service boundary.
-
-Diagram type:
-Architecture + data flow diagram.
-
-Canvas:
-16:9 landscape, 1600x900, dark navy background.
-
-Visual style:
-- Modern Microsoft-style enterprise architecture diagram
-- Dark background with white text
-- Rounded rectangles for services
-- Dashed rounded rectangles for boundaries
-- Thin white arrows for flow direction
-- Numbered blue circles for data-flow steps
-- Minimal icons for Copilot, Graph, LLM, security, plugins, and external services
-- Clean spacing, no overlapping lines
-- Professional presentation-ready layout
-
-Main layout:
-- Title at the top center
-- Large dashed boundary in the center named "Microsoft 365 Service Boundary"
-- Copilot orchestration component in the middle
-- Microsoft Graph component at the lower center
-- LLM component on the right
-- External services such as Plugins, Bing, Dataverse, and Power Platform on the left
-- Compliance and post-processing controls near the Copilot component
-- Data-flow legend in the bottom-right
-
-Components:
-1. User prompt input
-2. Copilot orchestration
-3. Pre-processing
-4. Grounding
-5. Microsoft Graph
-6. Compliance and Purview
-7. Post-processing
-8. Large Language Model
-9. Responsible AI checks
-10. Azure OpenAI instance
-11. External grounding sources: Plugins, Bing, Dataverse, Power Platform
-
-Data flow:
-1. User sends prompt to Copilot
-2. Copilot accesses Microsoft Graph and optional web/services for grounding
-3. Copilot sends modified prompt to the LLM
-4. LLM returns response
-5. Copilot applies compliance, security, and post-processing checks
-
-Security notes:
-- All requests are encrypted
-- Prompts, responses, and grounding data are not used to train foundation models
-- Responsible AI checks are applied to input and output
-- Tenant data remains inside the Microsoft 365 service boundary
-
-Output:
-Generate an editable SVG diagram.
-Use crisp readable text.
-Make it presentation-ready.
-Avoid unnecessary decorations.
-Do not add any components not listed above.
+/devspec.diagram format=mermaid authentication state transitions for signed-out, signed-in, token-expired, and access-denied states
+/devspec.diagram format=html production infrastructure architecture for operations review
+/devspec.diagram format=svg+html multi-region deployment topology for architecture review
+/devspec.diagram format=svg+mermaid file upload flow for developer documentation
+/devspec.diagram format=html+mermaid authentication sequence for implementation planning
+/devspec.diagram format=svg+html+mermaid system architecture for enterprise architecture review
 ```
 
 ## Multi-Repo Work
 
 For multi-repo systems, open one workspace or AI coding agent project that includes every repository the agent should inspect, edit, test, or coordinate.
 
-Use named source input during extraction:
+Create a dedicated devspec coordination repository for the product, such as `SchoolPortal.SDD`. Install and run `devspec` from that repository; it is where the user or developer works with the AI coding agent and where the durable `devspec/` planning, architecture, implementation, review, and recovery artifacts live. The implementation repositories remain separate local repositories referenced by path during extraction and later work.
+
+Use named source input during extraction. Prefer one repository per line when the system has several parts:
 
 ```text
-/devspec.extract UI - D:\repo-ui, API - D:\repo-api, Jobs - D:\repo-jobs
+/devspec.extract
+
+Local repositories:
+UI - C:/code/SchoolPortal.Web.UI
+API - C:/code/SchoolPortal.Web.API
+Functions - C:/code/SchoolPortal.Functions
+DB - C:/code/SchoolPortal.DB
+```
+
+A compact single-line form is also supported:
+
+```text
+/devspec.extract UI - C:/code/SchoolPortal.Web.UI, API - C:/code/SchoolPortal.Web.API, Functions - C:/code/SchoolPortal.Functions, DB - C:/code/SchoolPortal.DB
 ```
 
 For OpenAI Codex or Cursor:
 
 ```text
-Run /devspec.extract with sources UI - D:\repo-ui, API - D:\repo-api, Jobs - D:\repo-jobs.
+Run /devspec.extract with these local repositories:
+UI - C:/code/SchoolPortal.Web.UI
+API - C:/code/SchoolPortal.Web.API
+Functions - C:/code/SchoolPortal.Functions
+DB - C:/code/SchoolPortal.DB
 ```
 
 Record repository roles, local paths, workspace membership, access requirements, boundaries, and integration contracts in:
@@ -620,6 +540,17 @@ devspec/foundation/provider-integrations.md
 ```
 
 Keep provider authentication and credentials outside prompt artifacts.
+
+## Recommended Adoption
+
+Adopt `devspec` incrementally so the team can tune the foundation docs and adapter behavior from real work:
+
+1. Install into one target repository with `uvx devspec init --target . --profile all --repo-state existing`.
+2. Run the foundation flow.
+3. Complete one real feature work item.
+4. Complete one real bug work item.
+5. Add security-vulnerability flow validation if relevant.
+6. Adjust foundation docs based on what the first runs teach the team.
 
 ## Validation
 
@@ -702,7 +633,7 @@ During an upgrade:
 | Problem | What to do |
 | --- | --- |
 | `devspec` is not found after installation. | Prefer `uvx devspec ...` for one-off usage, or verify the user-local tool directory is on PATH. |
-| Package managers are blocked by corporate policy. | Use the GitHub Release ZIP as the source for [Manual Copy Setup](setup/manual-copy.md), then run the normal foundation flow. |
+| CLI setup paths are blocked by corporate policy. | Use the GitHub Release ZIP as the source for [Manual Copy Setup](setup/manual-copy.md), then run the normal foundation flow. |
 | `devspec init` reports existing file conflicts. | Review the files, keep local changes when intentional, and use `--force` only for reviewed framework-owned files. |
 | `devspec diff` reports a profile mismatch. | Re-run with the intended profile or update the installation with `devspec sync --target . --profile <profile> --dry-run`. |
 | `devspec doctor` reports missing adapter files. | Reinstall or sync with the adapter profile your team uses. |

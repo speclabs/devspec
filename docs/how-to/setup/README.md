@@ -9,7 +9,7 @@ Use these guides when you are installing `devspec` into a target repository for 
 | You want the simplest one-time command. | [uv and uvx](uv.md) |
 | Your team already uses Homebrew on macOS or Linux. | [Homebrew](homebrew.md) |
 | Your Windows machine uses approved WinGet packages. | [WinGet](winget.md) |
-| Package managers are blocked. | [Manual copy](manual-copy.md) |
+| CLI setup paths are blocked. | [Manual copy](manual-copy.md) |
 
 Install the package manager first when needed:
 
@@ -29,7 +29,7 @@ uvx devspec init --target . --profile all --repo-state existing
 
 Open a terminal from your target repository when possible. In VS Code, use **Terminal > New Terminal**.
 
-The target repository is the project where you want to install `devspec`. Before running setup commands, go to that folder:
+The target repository is the project where you want to install `devspec`. Before running repository commands such as `devspec init`, go to that folder:
 
 ```text
 cd D:\code\my-app
@@ -45,11 +45,13 @@ When a command uses `--target .`, the `.` means "the folder I am currently in."
 
 ## Standard Setup Flow
 
-1. Go to your target repository.
-2. Install or run `devspec`.
+1. Install or run the `devspec` CLI.
+2. Go to your target repository before running repository commands.
 3. Install the framework files.
 4. Validate the install.
 5. Commit the copied files.
+
+For one-off `uvx` setup, you can run the CLI directly from the target repository. For persistent package managers such as Homebrew or WinGet, install the CLI first, then run `devspec init`, `devspec doctor`, and `devspec sync` from the target repository.
 
 If you are using `uvx`, prefix the `devspec` commands below with `uvx`, for example `uvx devspec doctor --target . --profile all`.
 
@@ -170,4 +172,4 @@ Setup does not copy `.github/workflows/`. Those CI/CD files belong to this frame
 | You are not sure what folder you are in. | Run `pwd` on macOS/Linux or `Get-Location` in PowerShell. |
 | You installed into the wrong folder. | Delete only the copied devspec files from that folder, then run the command again from the correct repo. |
 | `devspec init` reports conflicts. | Read the conflict list. Use `--force` only after you know the files are framework-owned and safe to replace. |
-| Downloads are blocked. | Use [manual copy](manual-copy.md). |
+| CLI setup downloads are blocked. | Use [manual copy](manual-copy.md). |

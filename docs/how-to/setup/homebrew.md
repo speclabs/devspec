@@ -8,19 +8,13 @@ The Homebrew package is distributed through the SpecLabs tap when a tap release 
 
 - Homebrew must be installed. Use the official site: [Install Homebrew](https://brew.sh/).
 - The SpecLabs Homebrew tap must be reachable from your machine.
-- Open your target repository in a terminal.
+- Homebrew installs, upgrades, and uninstalls the `devspec` CLI on your machine. Run `devspec init`, `devspec doctor`, and `devspec sync` from the repository you want to update.
 
 ## Open A Terminal
 
 On macOS, open Terminal, iTerm, or the VS Code terminal.
 
-## Go To Your Target Repository
-
-```text
-cd /Users/me/code/my-app
-```
-
-## Install Or Run devspec
+## Install devspec
 
 Install the CLI:
 
@@ -30,7 +24,19 @@ brew install speclabs/tap/devspec
 
 If the SpecLabs tap or the current `devspec` formula is not available in your environment yet, use [uv and uvx](uv.md) as the fallback.
 
-Install devspec files into your repository:
+Confirm the command is available:
+
+```text
+devspec version
+```
+
+Go to your target repository:
+
+```text
+cd /Users/me/code/my-app
+```
+
+Install devspec files into that repository:
 
 ```text
 devspec init --target . --profile all --repo-state existing
@@ -56,18 +62,57 @@ git add .
 git commit -m "Install devspec"
 ```
 
-## Common Examples
+## Upgrade devspec
 
-Check the CLI version:
+Upgrade the CLI:
+
+```text
+brew upgrade devspec
+```
+
+Check the installed CLI version:
 
 ```text
 devspec version
 ```
 
-Install all adapters:
+From the repository that already has devspec installed, preview framework file changes before writing anything:
+
+```text
+devspec diff --target .
+devspec sync --target . --profile all --dry-run
+```
+
+Apply the framework file upgrade after review:
+
+```text
+devspec sync --target . --profile all
+```
+
+## Uninstall devspec
+
+Uninstall the CLI:
+
+```text
+brew uninstall devspec
+```
+
+This removes the `devspec` command from your machine. It does not remove devspec files already copied into a repository.
+
+If you need to remove devspec files from a repository, review the files in Git first and remove only the framework files your team no longer wants.
+
+## Common Examples
+
+Install all adapters into an existing repo:
 
 ```text
 devspec init --target . --profile all --repo-state existing
+```
+
+Install into a new repo:
+
+```text
+devspec init --target . --profile all --repo-state new
 ```
 
 Install only Copilot support:
@@ -88,29 +133,28 @@ Install only Cursor support:
 devspec init --target . --profile cursor --repo-state existing
 ```
 
-Update the CLI with Homebrew:
-
-```text
-brew upgrade devspec
-```
-
-Preview a framework file upgrade:
-
-```text
-devspec diff --target .
-devspec sync --target . --profile all --dry-run
-```
-
-Apply the framework file upgrade after review:
-
-```text
-devspec sync --target . --profile all
-```
-
 Use an explicit target path:
 
 ```text
 devspec init --target /Users/me/code/my-app --profile all --repo-state existing
+```
+
+Validate an installed repository:
+
+```text
+devspec doctor --target . --profile all
+```
+
+Check the CLI version:
+
+```text
+devspec version
+```
+
+List the installed Homebrew package:
+
+```text
+brew list --versions devspec
 ```
 
 ## Argument Reference
@@ -118,7 +162,8 @@ devspec init --target /Users/me/code/my-app --profile all --repo-state existing
 | Argument | Meaning | Beginner explanation |
 | --- | --- | --- |
 | `brew install speclabs/tap/devspec` | Install the devspec CLI. | Installs from the public SpecLabs tap when the formula is published. Initial releases build from source. |
-| `brew upgrade devspec` | Update the devspec CLI. | Updates the command-line tool. Run `devspec sync --target . --profile all --dry-run` afterward to preview framework file changes. |
+| `brew upgrade devspec` | Upgrade the devspec CLI. | Updates the command-line tool on your machine. Run a dry-run sync from each repository before changing framework files. |
+| `brew uninstall devspec` | Uninstall the devspec CLI. | Removes the command from the machine. It does not remove files already copied into repositories. |
 | `version` | Print the devspec CLI version. | Use this to confirm the command runs. It does not change files. |
 | `init` | Install devspec files. | Copies framework files into your repo. |
 | `--target .` | Target repo folder. | `.` means the folder your terminal is currently in. |
