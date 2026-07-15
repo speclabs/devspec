@@ -71,6 +71,26 @@ Acceptance checklist:
 - `/devspec.review` reviews against the finalized brief, tasks, implementation record, and changed work instead of re-planning.
 - `/devspec.review` flags missing task coverage, skipped or blocked tasks without rationale, missing validation evidence, source-ref drift, and implementation beyond task scope when they affect close readiness.
 
+### Complete Requirement Clarification Scenario
+
+Use an underspecified work item such as `Export orders to CSV` to verify that question priority controls order without excluding valid questions.
+
+| Step | Command | Expected evidence |
+| --- | --- | --- |
+| 1 | `/devspec.story` | Intake records the requested export outcome without inventing missing observable behavior. |
+| 2 | `/devspec.finalize` | The Readiness Gap Scan identifies valid high-, medium-, and low-priority questions, keeps readiness `not ready`, and surfaces only the highest-priority question, such as export scope. |
+| 3 | `/devspec.clarify` | The user-facing question shows requirement context, unresolved impact, meaningful mutually exclusive options including `Custom Answer`, and exactly one recommendation with a concrete trade-off-based justification. The answer is recorded and applied to the owning artifact. |
+| 4 | `/devspec.finalize` -> `/devspec.clarify`, repeated | Each scan asks only the next valid question, including medium-priority empty-result behavior and low-priority filename convention after higher-priority questions are resolved. |
+| 5 | `/devspec.finalize` | Readiness becomes `ready` only after every valid requirement question is resolved, explicitly withdrawn, or answered through a user-accepted default. |
+
+Acceptance checklist:
+
+- Exactly one question is active at a time, and a later question is not presented before the current answer is recorded and applied.
+- High-, medium-, and low-priority valid requirement questions are all resolved; priority changes sequence, not inclusion.
+- Each user-facing structured question states its context and unresolved impact and includes exactly one trade-off-based recommendation.
+- Facts available from repository or durable artifact evidence, duplicate questions, purely stylistic preferences, and implementation choices such as CSV library selection are not presented as requirement questions.
+- `/devspec.finalize` remains `not ready` while any valid requirement question is unresolved.
+
 ## Append-Only Change Request Scenario
 
 Validate that post-baseline scope changes preserve the original story ledger.

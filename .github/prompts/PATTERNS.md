@@ -8,7 +8,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 - Before asking, follow the [Question Basis Pattern](#question-basis-pattern).
 - Use a structured multiple-choice question whenever a finite decision can be offered; use free-form wording only when meaningful options cannot be provided.
 - Use clickable multiple-choice options whenever the platform supports them. When clickable options are unavailable, render the same option labels as text and ask the user to reply with one label or `Custom Answer`.
-- Every structured question must include question intent, prompt text, option labels, exactly one recommended option with a short reason, fallback rendering, and the recorded state required by the Question Basis Pattern.
+- Every structured question must include question intent, brief source or requirement context, the impact of leaving the fact unresolved, prompt text, option labels, exactly one recommended option with a concrete trade-off-based justification, fallback rendering, and the recorded state required by the Question Basis Pattern.
 - Always include a `Custom Answer` option for user-facing choices.
 - Use stage-specific option sets only when the stage defines them in a pattern, agent, or artifact policy; otherwise use the standard option set for the question intent.
 - Wait for the user's answer before asking another question.
@@ -36,12 +36,13 @@ Standard stage-specific option sets:
 ## Question Basis Pattern
 
 - Use this pattern to justify and record any structured user or developer question.
-- Ask only when durable artifacts, configured sources, or repository evidence cannot resolve the issue and the answer would materially change intake, readiness, task planning, validation, repository access, compliance handling, delivery risk, or handoff.
+- Ask only when durable artifacts, configured sources, or repository evidence cannot resolve the issue and the answer would change intake, readiness, task planning, validation, repository access, compliance handling, delivery risk, or handoff.
+- A valid requirement question is an unresolved fact that cannot be derived from available evidence and whose answer would affect observable behavior or scope, acceptance criteria or validation, edge, failure, empty, or lifecycle behavior, integrations, security, privacy, compliance, or non-functional requirements.
 - Identify the source artifact, source section, source row or ID, user input, provider evidence, repository evidence, or failed lookup that created the question.
 - Name the missing, ambiguous, conflicting, or unconfirmed fact and the material impact of leaving it unresolved.
-- Ask only the highest-priority unresolved question; defer lower-impact questions until the active one is answered or withdrawn.
+- Ask only the highest-priority unresolved question as the current question; priority controls order, not inclusion. Defer other valid requirement questions until the active one is answered or withdrawn, then continue with the next valid question, including medium- and low-priority questions.
 - Use the [Interactive Question Pattern](#interactive-question-pattern) for option labels, recommended option, `Custom Answer`, and fallback rendering.
-- Before waiting for the answer, record question intent, question source, blocking gap, material impact, option labels, recommended option and reason, impacted artifacts, continuation condition, and next required action in the current `Resume State`, queue row, blocker row, or clarification log, using the stage artifact fields available for that command.
+- Before waiting for the answer, record question intent, question source, blocking gap, material impact, option labels, recommended option and trade-off-based justification, impacted artifacts, continuation condition, and next required action in the current `Resume State`, queue row, blocker row, or clarification log, using the stage artifact fields available for that command.
 - Do not ask about low-impact preferences, implementation tactics better handled by `/devspec.tasks`, or facts already captured in upstream artifacts.
 
 ## Next Action Selection Pattern
@@ -156,9 +157,11 @@ Standard stage-specific option sets:
 
 - Use this pattern during `/devspec.finalize` before marking a work item `ready`; other stages may record obvious blockers, but they must not run a broad readiness audit unless their command contract says so.
 - Scan the upstream work-item artifacts, accepted decisions, applicable foundation artifacts, `devspec/constitution.md`, `devspec/architecture/overview.md`, relevant `devspec/architecture/decisions/*.md`, and available repository evidence for gaps in scope boundaries, acceptance criteria, actors or personas, domain and data rules, lifecycle or state behavior, UX/error/empty/loading states, non-functional needs, integrations and external dependencies, security/privacy/compliance, validation testability, terminology consistency, TODO markers, ambiguous placeholders, and conflicts with durable principles, foundation constraints, delivery gates, or architecture decisions.
-- Treat a gap as blocking only when resolving it would materially change implementation scope, task decomposition, validation design, repository readiness, delivery risk, compliance handling, or type-specific rule handling.
+- Treat every valid requirement question defined by the [Question Basis Pattern](#question-basis-pattern) as unresolved readiness work, regardless of whether its priority is high, medium, or low.
 - Do not ask about low-impact preferences, purely stylistic choices, implementation tactics better left to `/devspec.tasks`, or facts already captured in upstream artifacts.
-- When one or more blocking gaps remain, prioritize by highest implementation impact and uncertainty, then surface only the top unresolved blocking clarification through the current stage's single-question or handoff flow.
+- When one or more valid requirement questions remain, prioritize them by implementation impact and uncertainty, then surface only the highest-priority unresolved question through the current stage's single-question or handoff flow.
+- After the answer is recorded and applied to the artifact that owns the requirement, rerun the scan and surface the next valid requirement question. Continue until every valid question is resolved, explicitly withdrawn, or answered through a user-accepted default.
+- Keep overall readiness `not ready` while any valid requirement question remains unresolved; priority controls question order and never makes an otherwise valid question optional.
 - Record scan outcomes through existing readiness gates, implementation brief rows, validation plan rows, blockers, or handoff state. Do not create a separate speculative audit artifact or invent coverage/status values outside `devspec/glossary.md`.
 
 ## Discovery Exclusion Pattern
