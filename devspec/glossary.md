@@ -55,13 +55,13 @@ Use these values for gates and outcomes. They are decisions, not workflow progre
 
 ### Readiness Status Values
 
-Use for readiness gates and the overall readiness field. Overall readiness uses `ready` or `not ready`; individual gate rows may use `not applicable` when the gate does not apply.
+Use for requirement coverage rows, readiness gates, and the overall readiness field. Overall readiness uses only `ready` or `not ready`; individual coverage and gate rows may use `not applicable` when the requirement dimension or gate does not apply.
 
 | Status | Meaning |
 | --- | --- |
-| `ready` | Meets readiness gates. |
-| `not ready` | Missing required information, approval, access, or evidence. |
-| `not applicable` | The readiness gate does not apply to this work item. |
+| `ready` | The requirement coverage row or readiness gate has sufficient confirmed evidence for planning. |
+| `not ready` | Required information, approval, access, evidence, or dependency resolution is missing. |
+| `not applicable` | The requirement dimension or readiness gate does not apply to the current work-item scope. |
 
 ### Review Status Values
 

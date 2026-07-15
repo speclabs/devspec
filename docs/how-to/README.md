@@ -619,6 +619,8 @@ devspec/constitution.md
 devspec/glossary.md
 ```
 
+When upgrading to a framework version that includes Requirement Coverage, manually merge the coverage-row readiness semantics into the project-owned `devspec/glossary.md` and the applicable technology-neutral safety principles into the project-owned `devspec/constitution.md`. Preserve stricter project principles and rules. Any weakening of an applicable safeguard requires explicit approval and a recorded exception or waiver in `devspec/foundation/rules.md`.
+
 During an upgrade:
 
 1. Run `devspec diff --target .`.

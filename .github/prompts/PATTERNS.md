@@ -162,7 +162,50 @@ Standard stage-specific option sets:
 - When one or more valid requirement questions remain, prioritize them by implementation impact and uncertainty, then surface only the highest-priority unresolved question through the current stage's single-question or handoff flow.
 - After the answer is recorded and applied to the artifact that owns the requirement, rerun the scan and surface the next valid requirement question. Continue until every valid question is resolved, explicitly withdrawn, or answered through a user-accepted default.
 - Keep overall readiness `not ready` while any valid requirement question remains unresolved; priority controls question order and never makes an otherwise valid question optional.
-- Record scan outcomes through existing readiness gates, implementation brief rows, validation plan rows, blockers, or handoff state. Do not create a separate speculative audit artifact or invent coverage/status values outside `devspec/glossary.md`.
+- Record scan outcomes through Requirement Coverage, existing readiness gates, implementation brief rows, validation plan rows, blockers, or handoff state. Do not create a separate speculative audit artifact or invent coverage/status values outside `devspec/glossary.md`.
+
+## Requirement Completeness Matrix Pattern
+
+- Use this pattern during `/devspec.finalize` with the [Readiness Gap Scan Pattern](#readiness-gap-scan-pattern). `/devspec.story` captures supplied business intent and obvious intake blockers but must not run this broad completeness analysis.
+- Create or update `finalize.md#requirement-coverage` for the current `baseline` or active `CR-###`. Use `RC-###` IDs for baseline rows and `CR-###-RC-###` IDs for change-request rows. Preserve completed baseline and prior change-request rows.
+- Evaluate every dimension below. Record at least one row per dimension for the current scope, including evidence-backed `ready` rows and `not applicable` rows with a reason; add separate rows when a dimension has multiple independent requirements or gaps.
+
+| Dimension | Coverage |
+| --- | --- |
+| `outcome-and-actors` | Initiating and affected actors, permissions, intended result, success signal, and scope exclusions. |
+| `inputs-outputs-boundaries` | Types, formats, required values, counts, lengths, sizes, ranges, naming, encoding, and output contracts. |
+| `rules-and-validation` | Business and cross-field rules, authoritative validation boundary, downstream constraints, and rejection behavior. |
+| `interaction-and-feedback` | Happy path, loading or progress, success, empty, error, partial success, cancel or retry, accessibility, and message presentation. |
+| `state-and-lifecycle` | Status transitions, replacement, deletion, retention, cleanup, concurrency, idempotency, rollback, and partial failure. |
+| `data-and-integrations` | API contracts, persistence capacity, database constraints, transactions, external systems, timeouts, retries, and versioning. |
+| `security-and-privacy` | Authentication, authorization, untrusted input, sensitive data, content execution, encryption, disclosure, audit, and compliance. |
+| `quality-and-resource-use` | Performance, availability, throughput, quotas, storage, memory, compute, scalability, and degradation behavior. |
+| `operations-and-support` | Safe logs, metrics, traces, correlation, audit events, alerts, support recovery, and administrative visibility. |
+| `compatibility-and-delivery` | Supported clients or versions, migrations, configuration, rollout, rollback, and dependency restrictions. |
+| `validation-coverage` | Happy-path, negative, boundary, security, failure, retry, concurrency, accessibility, integration, and operational evidence. |
+
+- Resolve each coverage row from the strongest available source before asking the user: durable principles and rules, accepted decisions, foundation or architecture artifacts, repository evidence, then user clarification.
+- Route missing observable behavior, scope, limits, or acceptance facts through `/devspec.clarify` and apply the answer to its owning story, decision, foundation, or architecture artifact. Route implementation tactics, including permitted library selection, to `/devspec.tasks`. Mark a task-routed coverage row `ready` when product behavior and constraints are finalized, repository and dependency policies allow safe planning, and no approval, access, architecture, licensing, or compliance decision remains missing; otherwise keep it `not ready` and route the missing prerequisite to the appropriate clarification, foundation, or architecture action.
+- Use only `ready`, `not ready`, or `not applicable` from `devspec/glossary.md#readiness-status-values` for coverage-row status. Use `high`, `medium`, or `low` only as question priority; use `n/a` when no question remains.
+- Record prerequisite row IDs in `Depends on`, or `none`. A `not ready` question is eligible only when every prerequisite row is `ready` or `not applicable`; dependency eligibility takes precedence over nominal priority.
+- Among eligible questions, select the highest priority, then highest implementation impact and uncertainty. Surface exactly one active question through the Interactive Question Pattern.
+- After an answer, update its owning artifact, rerun the matrix, and recompute every dependent row's applicability, gap statement, impact, priority, status, and next action. Mark an obsolete row `not applicable`; change an invalidated `ready` row back to `not ready` and ask it again when eligible.
+- Generate prompt text, option labels, and the recommendation only after a row becomes dependency-eligible and is selected as the single active question. Persist those question details in `clarify.md#clarification-log`, not in Requirement Coverage.
+- If newly discovered evidence invalidates a resolved prerequisite, re-evaluate that prerequisite and all transitive dependents before selecting another question.
+- If dependencies form a cycle, create one coherent upstream decision row that breaks the cycle when mutually exclusive options can represent it. Otherwise record a foundation or architecture blocker instead of inventing an order or implementation decision.
+- Overall readiness remains `not ready` while any applicable coverage row is `not ready`. Readiness gates summarize the matrix; they do not replace it.
+- Do not backfill or rewrite completed baseline coverage. Apply the matrix to new baselines, unfinished finalizations, and active change-request scopes.
+
+## Technology-Neutral Safety Baseline Pattern
+
+- Apply these safeguards only when the corresponding trust, protected-resource, disclosure, sensitive-data, or resource-exhaustion boundary exists. Record the applicability and source in Requirement Coverage.
+- Validate untrusted input at the first trusted execution boundary. Caller, client, or UI validation may improve feedback but never replaces authoritative validation.
+- Enforce authorization at the boundary for protected actions and resources.
+- Do not expose internal exceptions, secrets, paths, queries, stack traces, or other sensitive diagnostics through public errors.
+- Do not log secrets or sensitive payloads; use safe metadata and correlation identifiers.
+- Require evidence-backed resource bounds when variable or untrusted workloads could exhaust storage, memory, compute, or execution time. Derive actual values from confirmed policy, architecture, downstream contracts, configuration, or repository evidence; ask one contextual requirement question when the value remains unresolved.
+- Treat applicable safeguards as constraints, not ordinary preference questions. Any weakening requires explicit approval and a recorded exception or waiver in `devspec/foundation/rules.md`.
+- Keep safeguards technology-neutral. They require outcomes such as authoritative validation and safe disclosure, not a particular framework, middleware, annotation, database, cloud service, or library.
 
 ## Discovery Exclusion Pattern
 
@@ -538,7 +581,7 @@ Do not use the following Mermaid families regardless of the requested subject. F
 - Independent or unrelated requests require one structured `selection` question before writing. Options must include appending to the current work item, creating a new linked work item with the standard folder naming pattern, and `Custom Answer`; recommend the option that best preserves one-story scope. If the user chooses a linked work item, create or update that separate work item and do not add a `CR-###` row to the original item.
 - Completed baseline rows are immutable except for explicit correction notes or later append-only records. Do not regenerate, renumber, remove, or rewrite completed task rows, implementation evidence, or review findings to fit a later request.
 - Change-request-scoped acceptance criteria and requirements use IDs prefixed by the change request, such as `CR-001-AC-001`, `CR-001-FR-001`, and `CR-001-NFR-001`, and should be added to the existing story tables rather than replacing baseline rows.
-- Change-request finalization appends readiness, implementation brief, validation plan, and blocker rows for the active `CR-###`; `Resume State` `Current item` should identify `baseline` or the active `CR-###`.
+- Change-request finalization appends requirement coverage, readiness, implementation brief, validation plan, and blocker rows for the active `CR-###`; `Resume State` `Current item` should identify `baseline` or the active `CR-###`.
 - Change-request task planning appends new task rows after the highest existing task ID and records `Scope` as `CR-###`; baseline task rows use `baseline`.
 - `/devspec.clarify` is not a scope-change intake command. If clarify input introduces post-baseline scope, record the routing reason and hand off to `/devspec.story`.
 - This pattern is future-only. It prevents new overwrite cases but does not require automated reconstruction of artifacts already overwritten by an earlier run.
