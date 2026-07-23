@@ -17,6 +17,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 
 ## Constraints
 - Follow [PATTERNS.md](../prompts/PATTERNS.md), especially: Work-Item Target, Work-Item Change Request Pattern, Session Recovery, Interactive Question, Question Basis, Prerequisite Validation, Multi-Repo Validation, Token Stewardship, Minimum Necessary Implementation, Task Quality Gate, Discovery Exclusion, Exploration Recovery, and Output Closure.
+<decision_contract>
 - `finalize.md` must be `ready` and `tasks.md` must exist.
 - Implement pending rows from `tasks.md#implementation-tasks` sequentially unless the user stops or skips.
 - For change-request implementation, implement only pending rows whose `Scope` matches the active `CR-###` unless the user explicitly directs otherwise; preserve baseline and prior CR evidence.
@@ -25,6 +26,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - Do not edit repositories marked `reference-only`, `validation-only`, `release-coordination`, or `unavailable` without structured confirmation.
 - Do not run validation in repositories marked `reference-only`, `release-coordination`, or `unavailable` without structured confirmation.
 - Modify code when applicable and stay within finalized scope.
+</decision_contract>
 - Keep the work item as the orchestration boundary and execute one repository-aware task checkpoint at a time.
 - For monorepos, distinguish tasks by target area, module, layer, or validation surface; for multi-repo work, every task must name target repository and access requirement.
 - Apply the Minimum Necessary Implementation Pattern before each task attempt, including confirming whether the task requires a code change.

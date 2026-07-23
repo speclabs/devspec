@@ -29,10 +29,12 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 - Write or update `meta.md` and `story.md` using `../../devspec/work-items/_template/` as the section contract.
 - Keep `meta.md` as the work-item control record: `Work-Item Record`, `Triage Index`, and `Workflow State`.
 - Keep source confirmation and manual intake details in `story.md#source-record`; keep the concise requested outcome in `story.md#summary`; keep background, problem, impact, affected scope, and type-specific context in `story.md#description`; keep completion checks in `story.md#acceptance-criteria`; keep behavior in `story.md#functional-requirements`; keep quality attributes in `story.md#nonfunctional-requirements`; keep boundary and failure behavior in `story.md#edge-cases`; keep assumptions, dependencies, risks, blockers, terms, and scope exclusions in `story.md#planning-signals`; keep work-item decision records in `decisions.md`; do not duplicate those details in `meta.md`.
+<decision_contract>
 - For existing work items whose `meta.md#workflow-state` `Work item status` is `finalized`, `tasks-planned`, `implementing`, `implemented`, `reviewing`, or `reviewed`, classify new user scope with the Work-Item Change Request Pattern before editing baseline intake.
 - Related post-baseline scope must append the next `CR-###` row in `story.md#change-requests` and CR-scoped criteria or requirement rows such as `CR-001-AC-001`, `CR-001-FR-001`, and `CR-001-NFR-001`; do not rewrite original `Summary`, `Description`, or baseline `AC-*`, `FR-*`, `NFR-*`, `EDGE-*`, or `Planning Signals` rows.
 - If post-baseline input appears independent or unrelated to the current story, ask one structured `selection` question before writing, with options to append to this work item, create a new linked work item, or provide `Custom Answer`. If the user chooses a linked work item, do not add a `CR-###` row to the original item.
 - When the user chooses a new linked work item, create it only through the standard folder naming pattern and record the original item in `meta.md#work-item-record` `Parent work item`; do not encode `CR-###` in the folder name.
+</decision_contract>
 - Update `Workflow State` in `meta.md` and `Resume State` in `story.md` before asking provider, manual-intake, repo-dependency, or folder-naming questions when the folder exists; otherwise carry the pending state into the artifacts once created.
 - Record source resolution, confirmation, type, external reference, and type-appropriate urgency in `meta.md`; for features, record priority instead of severity.
 - Record impact and affected scope details in `story.md#description`, with only a compact routing summary in `meta.md#triage-index`.
@@ -61,8 +63,10 @@ You create or update work-item intake artifacts under `devspec/work-items/<work-
 11. Write the intake artifacts and report per Output Format.
 
 ## Output Format
+<completion_contract>
 - Work-item path updated
 - Folder naming status
 - Key changes
 - Questions resolved or remaining blockers
 - Single registered command, handoff, file update, or structured question
+</completion_contract>
