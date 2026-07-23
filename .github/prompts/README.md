@@ -41,6 +41,7 @@ Developers invoke registered slash commands from this directory. Agent names are
 ## Shared References
 
 - `PATTERNS.md`: shared workflow, recovery, output, discovery, foundation, work-item, memory, and multi-repo rules.
+- `PATTERNS.md#hybrid-prompt-authoring-pattern`: Markdown-first authoring rules and the limited hybrid tag vocabulary for runtime input, atomic decisions, and completion contracts.
 - `../../devspec/adapters/command-registry.md`: provider-neutral registry for every registered `devspec` command, canonical prompt and agent source, output artifacts, mutation level, and handoff.
 - `../../devspec/adapters/validation-flows.md`: enterprise acceptance checklists for new repository, existing repository, story lifecycle, append-only change requests, and cross-tool recovery validation.
 - `../../devspec/adapters/gemini-cli.md` and `../../devspec/adapters/antigravity.md`: Gemini CLI and Google Antigravity adapter guidance.
@@ -91,6 +92,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent front 
 ## Maintenance
 
 - Keep prompts stage-specific and concise.
+- Apply `PATTERNS.md#hybrid-prompt-authoring-pattern` only when a runtime-input, decision, or completion boundary benefits from it; do not convert ordinary Markdown structure by default.
 - Keep agents focused on execution, tools, and handoffs.
 - Keep adapter support additive; do not change prompt or agent intent to satisfy another tool.
 - Update `../../devspec/adapters/command-registry.md` whenever a registered command contract changes.

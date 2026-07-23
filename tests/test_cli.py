@@ -1,6 +1,7 @@
 ﻿from __future__ import annotations
 
 import json
+import re
 import xml.etree.ElementTree as ET
 from pathlib import Path, PurePosixPath
 
@@ -15,6 +16,17 @@ from devspec_installer.cli import (
     should_exclude_payload,
     version_status,
 )
+
+
+HYBRID_TAGS = {"runtime_input", "decision_contract", "completion_contract"}
+HYBRID_TAG_PATTERN = re.compile(r"</?([a-z]+(?:_[a-z]+)+)(?:\s[^>]*)?>")
+HYBRID_PROMPT_FILES = {
+    Path(".github/prompts/devspec.story.prompt.md"): {"runtime_input"},
+    Path(".github/prompts/devspec.extract.prompt.md"): {"runtime_input"},
+    Path(".github/agents/devspec.story.agent.md"): {"decision_contract", "completion_contract"},
+    Path(".github/agents/devspec.extract.agent.md"): {"decision_contract"},
+    Path(".github/agents/devspec.implement-task.agent.md"): {"decision_contract"},
+}
 
 
 def test_profiles_resolve_core_and_all_payloads() -> None:
@@ -112,6 +124,58 @@ def test_process_flow_svg_template_has_clean_ascii_source() -> None:
         assert mojibake not in text
     for process_role in ("step-manual", "step-automated", "step-integration", "decision", "exception-node", "artifact"):
         assert process_role in text
+
+
+def test_hybrid_prompt_markup_is_limited_and_well_formed() -> None:
+    observed_files: dict[Path, set[str]] = {}
+
+    for path in [*Path(".github/prompts").glob("*.prompt.md"), *Path(".github/agents").glob("*.agent.md")]:
+        text = path.read_text(encoding="utf-8")
+        tags = HYBRID_TAG_PATTERN.findall(text)
+        if not tags:
+            continue
+
+        assert set(tags) <= HYBRID_TAGS
+        assert not re.search(r"<(?:runtime_input|decision_contract|completion_contract)\s+[^>]+>", text)
+
+        stack: list[str] = []
+        for match in re.finditer(r"</?(runtime_input|decision_contract|completion_contract)>", text):
+            tag = match.group(1)
+            if match.group(0).startswith("</"):
+                assert stack.pop() == tag
+            else:
+                stack.append(tag)
+                assert len(stack) == 1
+        assert not stack
+        observed_files[path] = set(tags)
+
+    assert observed_files == HYBRID_PROMPT_FILES
+
+
+def test_story_hybrid_markup_preserves_input_and_contracts() -> None:
+    prompt = Path(".github/prompts/devspec.story.prompt.md").read_text(encoding="utf-8")
+    agent = Path(".github/agents/devspec.story.agent.md").read_text(encoding="utf-8")
+
+    assert "Required user input:\n\n<runtime_input>\n${input:workItemReference:" in prompt
+    assert "</runtime_input>" in prompt
+    assert "<decision_contract>" in agent
+    assert "append the next `CR-###` row" in agent
+    assert "do not rewrite original `Summary`" in agent
+    assert "<completion_contract>" in agent
+    assert "- Single registered command, handoff, file update, or structured question" in agent
+
+
+def test_extract_and_implement_hybrid_contracts_preserve_boundaries() -> None:
+    extract_prompt = Path(".github/prompts/devspec.extract.prompt.md").read_text(encoding="utf-8")
+    extract_agent = Path(".github/agents/devspec.extract.agent.md").read_text(encoding="utf-8")
+    implement_agent = Path(".github/agents/devspec.implement-task.agent.md").read_text(encoding="utf-8")
+
+    assert "Optional user input:\n\n<runtime_input>\n${input:extractSources:" in extract_prompt
+    assert "<decision_contract>\n- Source input is optional." in extract_agent
+    assert "Resolve every source before extraction" in extract_agent
+    assert "<decision_contract>\n- `finalize.md` must be `ready` and `tasks.md` must exist." in implement_agent
+    assert "Do not edit repositories marked `reference-only`" in implement_agent
+    assert "Modify code when applicable and stay within finalized scope." in implement_agent
 
 
 def test_init_writes_manifest_and_doctor_passes(tmp_path: Path) -> None:
