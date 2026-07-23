@@ -50,7 +50,7 @@ Validate one full feature, bug, or security-vulnerability lifecycle after the fo
 | --- | --- | --- |
 | 1 | `/devspec.story` | `meta.md`, `story.md`, `decisions.md`, and `notes.md` exist under one valid work-item folder; `story.md` records one-story scope, readable intake sections, and observable acceptance criteria or a recorded blocker. |
 | 2 | `/devspec.clarify` when blocked | `clarify.md` records the active question, answer, resolution, and remaining blockers. |
-| 3 | `/devspec.finalize` | `finalize.md` records readiness, foundation and architecture alignment, implementation brief, validation plan, assumptions, and blockers. |
+| 3 | `/devspec.finalize` | `finalize.md` records requirement coverage and dependencies, readiness, foundation and architecture alignment, implementation brief, validation plan, assumptions, and blockers. |
 | 4 | `/devspec.tasks` | `tasks.md` records task-quality review, scope, source refs, executable tasks with repository, target area, validation, done criteria, dependencies, and status. |
 | 5 | `/devspec.implement` | `implement.md` records repository access checks, task quality checks, task ledger, attempts, changed files or areas, validation results, blockers, and resume state; `tasks.md` task-row progress fields stay aligned. |
 | 6 | `/devspec.review` | `review.md` records findings, scope adherence, task completion alignment, source-ref alignment, validation gaps, rule violations, and review status. |
@@ -62,14 +62,67 @@ Acceptance checklist:
 - `story.md` keeps source tracking, summary, description, acceptance criteria, functional requirements, nonfunctional requirements, edge cases, and planning signals in distinct sections without duplicating routing details from `meta.md`.
 - Acceptance criteria captured during intake are specific and testable, or the missing criteria are recorded as a blocker.
 - `finalize.md` must be `ready` before `/devspec.tasks` plans implementation tasks.
-- `/devspec.finalize` records or blocks on applicable constitution, foundation, architecture, delivery-gate, repository-readiness, and validation-traceability gaps before marking `ready`.
+- `/devspec.finalize` records every generic completeness dimension in Requirement Coverage and blocks on applicable requirement, constitution, foundation, architecture, delivery-gate, repository-readiness, dependency, and validation-traceability gaps before marking `ready`.
 - `/devspec.tasks` does not expand scope beyond the finalized brief and records task-quality checks before implementation handoff.
 - `/devspec.tasks` includes scope and source refs from finalized acceptance criteria, implementation brief rows, validation plan rows, risks, or follow-ups for every executable task.
 - `/devspec.implement` respects repository access requirements from `devspec/foundation/codebase-structure.md`.
 - `/devspec.implement` keeps `tasks.md` task-row status, attempt count, and checkpoint fields aligned with `implement.md`.
 - `/devspec.implement` records blockers, ambiguity, skipped tasks, oversized task scope, and validation outcomes without silently expanding task scope.
 - `/devspec.review` reviews against the finalized brief, tasks, implementation record, and changed work instead of re-planning.
-- `/devspec.review` flags missing task coverage, skipped or blocked tasks without rationale, missing validation evidence, source-ref drift, and implementation beyond task scope when they affect close readiness.
+- `/devspec.review` flags unresolved or untraced Requirement Coverage, dependency drift, safety-baseline violations, missing task coverage, skipped or blocked tasks without rationale, missing validation evidence, source-ref drift, and implementation beyond task scope when they affect close readiness.
+
+### Complete Requirement Clarification Scenario
+
+Use an underspecified work item such as `Export orders to CSV` to verify that question priority controls order without excluding valid questions.
+
+| Step | Command | Expected evidence |
+| --- | --- | --- |
+| 1 | `/devspec.story` | Intake records the requested export outcome without inventing missing observable behavior. |
+| 2 | `/devspec.finalize` | The Readiness Gap Scan identifies valid high-, medium-, and low-priority questions, keeps readiness `not ready`, and surfaces only the highest-priority question, such as export scope. |
+| 3 | `/devspec.clarify` | The user-facing question shows requirement context, unresolved impact, meaningful mutually exclusive options including `Custom Answer`, and exactly one recommendation with a concrete trade-off-based justification. The answer is recorded and applied to the owning artifact. |
+| 4 | `/devspec.finalize` -> `/devspec.clarify`, repeated | Each scan asks only the next valid question, including medium-priority empty-result behavior and low-priority filename convention after higher-priority questions are resolved. |
+| 5 | `/devspec.finalize` | Readiness becomes `ready` only after every valid requirement question is resolved, explicitly withdrawn, or answered through a user-accepted default. |
+
+Acceptance checklist:
+
+- Exactly one question is active at a time, and a later question is not presented before the current answer is recorded and applied.
+- High-, medium-, and low-priority valid requirement questions are all resolved; priority changes sequence, not inclusion.
+- Each user-facing structured question states its context and unresolved impact and includes exactly one trade-off-based recommendation.
+- Facts available from repository or durable artifact evidence, duplicate questions, purely stylistic preferences, and implementation choices such as CSV library selection are not presented as requirement questions.
+- `/devspec.finalize` remains `not ready` while any valid requirement question is unresolved.
+
+### Generic Requirement Completeness Scenario
+
+Use `File upload functionality` as a test case for the generic matrix, not as a hardcoded feature profile. Supply only the basic outcome and partial acceptance criteria.
+
+| Step | Command | Expected evidence |
+| --- | --- | --- |
+| 1 | `/devspec.story` | Intake captures the supplied upload outcome, actors, business behavior, and partial criteria without inventing file types, limits, UI behavior, storage, or implementation tactics. |
+| 2 | `/devspec.finalize` | Requirement Coverage contains `RC-###` rows for every generic dimension and resolves available facts from the constitution, foundation artifacts, architecture, and repository before recording gaps. |
+| 3 | `/devspec.clarify` for accepted types | The highest-priority dependency-eligible product question is asked with context, impact, mutually exclusive options, and one trade-off-based recommendation. |
+| 4 | `/devspec.finalize` -> `/devspec.clarify` for size limits | The size-limit row depends on the accepted-type row and is not asked early. After the prerequisite answer, its applicability, gap statement, impact, priority, status, and next action are recomputed. When it becomes eligible and active, its prompt, options, and recommendation are generated and stored in `clarify.md#clarification-log`. |
+| 5 | Repeat finalization and clarification | Answers that remove downstream behavior mark affected rows `not applicable`; answers or evidence that invalidate prior coverage reopen affected rows as `not ready`; transitive dependents are recomputed before another question is selected. |
+| 6 | `/devspec.finalize` | Coverage records rejection behavior, interaction and validation messages, persistence constraints, lifecycle and cleanup, integrations, observability, contextual security or privacy needs, resource limits, compatibility, and validation coverage as `ready` or evidence-backed `not applicable`. |
+| 7 | `/devspec.tasks` | Concrete implementation tactics, including library selection, are planned from finalized constraints and existing repository standards without reopening product behavior. |
+| 8 | `/devspec.review` | Review checks coverage status and dependencies, task and validation traceability, safety-baseline adherence, and implemented behavior. |
+
+Acceptance checklist:
+
+- The same generic dimensions can be applied without modification to an API, desktop application, database change, cloud worker, AI workflow, or package.
+- Exactly one dependency-eligible question is active; nominal priority never bypasses an unresolved prerequisite.
+- Every answer is applied to its owning artifact before dependent rows are recomputed.
+- Requirement Coverage stores gaps and dependency state but not candidate prompt text, options, or recommendations; those details exist only for the active question in `clarify.md#clarification-log`.
+- A dependency cycle becomes one coherent upstream decision when possible; otherwise it is recorded as a foundation or architecture blocker.
+- Authoritative trust-boundary validation, protected-resource authorization, safe public errors, sensitive-log redaction, and applicable resource bounds come from the Technology-Neutral Safety Baseline instead of optional preference questions.
+- Actual accepted values such as file types, per-file or aggregate sizes, retention, and user-visible feedback come from evidence or clarification and are never invented by the safety baseline.
+- Persistence or database capacity is inspected as evidence before a product or architecture question is asked.
+- Testing coverage is derived from applicable requirements, risks, and boundaries; the user is not asked to invent a generic test list.
+- Existing platform capabilities and installed dependencies are preferred; selecting a permitted library remains `/devspec.tasks` work.
+- A task-routed coverage row is `ready` when finalized constraints permit safe planning and remains `not ready` when policy, approval, access, architecture, licensing, or compliance prerequisites are missing.
+- Readiness remains `not ready` until every applicable coverage row is `ready`; evidence-backed exclusions use `not applicable`.
+- `Blocking coverage` contains only `RC-###` or `CR-###-RC-###` IDs, while `Blocking gates` contains only `RG-###` IDs.
+- Review does not require coverage backfill for a completed legacy baseline, but an active change request on that baseline must append `CR-###-RC-###` coverage.
+- Coverage review findings use only the existing `scope`, `source-ref`, `validation`, `test-gap`, and `security` categories.
 
 ## Append-Only Change Request Scenario
 
@@ -80,7 +133,7 @@ Validate that post-baseline scope changes preserve the original story ledger.
 | 1 | `/devspec.story` with `.NET 10 upgrade` | Baseline `story.md` records the upgrade scope with `AC-*`, `FR-*`, and related planning rows. |
 | 2 | `/devspec.finalize` -> `/devspec.tasks` -> `/devspec.implement` | Baseline `finalize.md`, `tasks.md`, and `implement.md` record ready scope, `baseline` task rows such as `T-001..T-003`, and implementation evidence. |
 | 3 | `/devspec.story` with `Change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%` | `story.md#change-requests` appends `CR-001`; CR-scoped criteria such as `CR-001-AC-001` are added without rewriting baseline summary, description, or criteria. |
-| 4 | `/devspec.finalize` -> `/devspec.tasks` -> `/devspec.implement` | `finalize.md` appends `CR-001` readiness, implementation brief, and validation rows; `tasks.md` appends new `Scope` = `CR-001` rows after the highest existing task ID; `implement.md` appends CR-scoped evidence and execution-log rows while `tasks.md` updates only the matching `CR-001` task rows. |
+| 4 | `/devspec.finalize` -> `/devspec.tasks` -> `/devspec.implement` | `finalize.md` appends `CR-001-RC-###` requirement coverage plus CR-scoped readiness, implementation brief, and validation rows; `tasks.md` appends new `Scope` = `CR-001` rows after the highest existing task ID; `implement.md` appends CR-scoped evidence and execution-log rows while `tasks.md` updates only the matching `CR-001` task rows. |
 | 5 | `/devspec.story` with another related request | `story.md#change-requests` appends `CR-002`; task planning later appends new task IDs without renumbering or rewriting `CR-001` or baseline rows. |
 | 6 | `/devspec.story` with an unrelated feature request for the same target | The agent asks one structured `selection` question to append to the current item, create a new linked work item, or provide `Custom Answer`; when the linked-item option is chosen, the new work-item folder follows the standard folder naming pattern, its `meta.md#work-item-record` `Parent work item` points to the original item, and the original item does not receive a `CR-###` row for that linked request. |
 | 7 | `/devspec.clarify` with post-baseline scope input | `clarify.md` records routing to `/devspec.story`; baseline intake remains unchanged. |
@@ -113,6 +166,7 @@ Acceptance checklist:
 
 - The second adapter does not rely on the first adapter's chat history.
 - The second adapter preserves pending questions, blockers, current task, and next action.
+- When resuming finalization or clarification, the second adapter preserves Requirement Coverage IDs, dependency edges, row statuses, the eligible active question, and the need to recompute dependent rows after its answer.
 - Any unsupported platform feature is recorded as a limitation, not converted into a workflow change.
 
 ## Adapter Wrapper Checks

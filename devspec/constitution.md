@@ -16,6 +16,11 @@ This file holds enduring principles that apply across work items and agents. Use
 | Validation | Regressions should be captured in tests when practical. |
 | Security and compliance | Do not weaken security controls without explicit approval. |
 | Security and compliance | Handle sensitive data according to project and organizational rules. |
+| Security and compliance | Validate untrusted input at the first trusted execution boundary; caller or UI validation does not replace authoritative validation. |
+| Security and compliance | Enforce authorization at the boundary for protected actions and resources. |
+| Security and compliance | Do not expose internal exceptions, secrets, paths, queries, stack traces, or sensitive diagnostics through public errors. |
+| Security and compliance | Do not log secrets or sensitive payloads; use safe metadata and correlation identifiers. |
+| Reliability | Require evidence-backed resource bounds where variable or untrusted workloads could exhaust storage, memory, compute, or execution time. |
 
 ## Amendment Policy
 
