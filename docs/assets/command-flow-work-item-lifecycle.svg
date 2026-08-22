@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 500" role="img" aria-labelledby="title desc">
   <title id="title">Work-item lifecycle flow</title>
-  <desc id="desc">Work-item lifecycle command sequence from story to review, with clarify as a conditional blocker-resolution branch and diagram as an optional supporting command.</desc>
+  <desc id="desc">Work-item lifecycle command sequence from story to review, with clarify as a conditional blocker-resolution branch, an append-only post-finalization change-request loop, and diagram as an optional supporting command.</desc>
   <defs>
     <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#34d399"/>
@@ -17,6 +17,7 @@
       .node { fill: #064e3b; stroke: #34d399; stroke-width: 2; rx: 12; }
       .gate { fill: #431407; stroke: #fb923c; }
       .support { fill: #3b0764; stroke: #c084fc; }
+      .change { fill: #4c1d12; stroke: #fb923c; }
       .label { fill: #f8fafc; font-size: 13px; font-weight: 700; }
       .note { fill: #94a3b8; font-size: 12px; }
       .flow { fill: none; stroke: #34d399; stroke-width: 3; marker-end: url(#arrow-green); }
@@ -67,6 +68,13 @@
   <path class="optional" d="M 405 286 V 334"/>
 
   <rect x="1285" y="210" width="150" height="76" class="node support"/>
+  <rect x="780" y="342" width="235" height="62" class="node change"/>
+  <text x="795" y="378" class="label">/devspec.changerequest</text>
+  <text x="830" y="397" class="note">missed related requirement</text>
+  <path class="optional" d="M 1162 286 V 373 H 1015"/>
+  <path class="optional" d="M 780 373 H 620 V 310 H 500"/>
+  <text x="1027" y="338" class="note">post-finalization only</text>
+
   <text x="1309" y="253" class="label">/devspec.diagram</text>
   <text x="1308" y="273" class="note">optional visual</text>
   <path class="optional" d="M 1285 248 H 1262"/>

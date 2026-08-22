@@ -29,6 +29,8 @@ def test_profiles_resolve_core_and_all_payloads() -> None:
     assert "devspec/architecture/_template/diagram.html" in core_paths
     assert "devspec/architecture/_template/diagram.svg" not in core_paths
     assert "devspec/architecture/images/README.md" in core_paths
+    assert ".github/prompts/devspec.changerequest.prompt.md" in core_paths
+    assert ".github/agents/devspec.changerequest.agent.md" in core_paths
     assert "devspec/architecture/html/README.md" in core_paths
     assert ".github/prompts/devspec.story.prompt.md" in core_paths
     assert ".github/agents/devspec.story.agent.md" in core_paths
@@ -41,6 +43,9 @@ def test_profiles_resolve_core_and_all_payloads() -> None:
     assert ".claude/skills/devspec-story/SKILL.md" in all_paths
     assert ".gemini/commands/devspec/story.toml" in all_paths
     assert ".agents/skills/devspec-story.md" in all_paths
+    assert ".claude/skills/devspec-changerequest/SKILL.md" in all_paths
+    assert ".gemini/commands/devspec/changerequest.toml" in all_paths
+    assert ".agents/skills/devspec-changerequest.md" in all_paths
 
 
 def test_payload_excludes_github_workflows_even_from_broad_patterns() -> None:

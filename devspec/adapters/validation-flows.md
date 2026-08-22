@@ -79,11 +79,11 @@ Validate that post-baseline scope changes preserve the original story ledger.
 | --- | --- | --- |
 | 1 | `/devspec.story` with `.NET 10 upgrade` | Baseline `story.md` records the upgrade scope with `AC-*`, `FR-*`, and related planning rows. |
 | 2 | `/devspec.finalize` -> `/devspec.tasks` -> `/devspec.implement` | Baseline `finalize.md`, `tasks.md`, and `implement.md` record ready scope, `baseline` task rows such as `T-001..T-003`, and implementation evidence. |
-| 3 | `/devspec.story` with `Change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%` | `story.md#change-requests` appends `CR-001`; CR-scoped criteria such as `CR-001-AC-001` are added without rewriting baseline summary, description, or criteria. |
+| 3 | `/devspec.changerequest` with `Existing .NET 10 upgrade story: missing acceptance criterion requiring 80% coverage` | `story.md#change-requests` appends `CR-001`; CR-scoped criteria such as `CR-001-AC-001` are added without rewriting baseline summary, description, or criteria, and no CR-specific Markdown file is created. |
 | 4 | `/devspec.finalize` -> `/devspec.tasks` -> `/devspec.implement` | `finalize.md` appends `CR-001` readiness, implementation brief, and validation rows; `tasks.md` appends new `Scope` = `CR-001` rows after the highest existing task ID; `implement.md` appends CR-scoped evidence and execution-log rows while `tasks.md` updates only the matching `CR-001` task rows. |
-| 5 | `/devspec.story` with another related request | `story.md#change-requests` appends `CR-002`; task planning later appends new task IDs without renumbering or rewriting `CR-001` or baseline rows. |
-| 6 | `/devspec.story` with an unrelated feature request for the same target | The agent asks one interactive `selection` question with examples for `Append to the current item`, `Create a new linked work item`, and `Custom Answer`, plus exactly one recommendation with its justification; when the linked-item option is chosen, the new work-item folder follows the standard folder naming pattern, its `meta.md#work-item-record` `Parent work item` points to the original item, and the original item does not receive a `CR-###` row for that linked request. |
-| 7 | `/devspec.clarify` with post-baseline scope input | `clarify.md` records routing to `/devspec.story`; baseline intake remains unchanged. |
+| 5 | `/devspec.changerequest` with another related omission | `story.md#change-requests` appends `CR-002`; task planning later appends new task IDs without renumbering or rewriting `CR-001` or baseline rows. |
+| 6 | `/devspec.changerequest` with an unrelated feature request for the same target | The agent asks one interactive `selection` question with examples for `Append to the current item`, `Create a new linked work item`, and `Custom Answer`, plus exactly one recommendation with its justification; when the linked-item option is chosen, `/devspec.story` creates the new work-item folder under the standard naming pattern, its `meta.md#work-item-record` `Parent work item` points to the original item, and the original item does not receive a `CR-###` row for that linked request. |
+| 7 | `/devspec.clarify` with post-baseline scope input | `clarify.md` records routing to `/devspec.changerequest`; baseline intake remains unchanged. |
 | 8 | `/devspec.review` | Review flags missing CR task rows, missing CR source refs, CR work implemented outside appended tasks, source-ref drift, or overwritten baseline content. |
 
 Acceptance checklist:
@@ -97,7 +97,7 @@ Acceptance checklist:
 - `tasks.md#implementation-tasks` includes `Scope` with `baseline` or `CR-###`.
 - New CR task rows append after the highest existing `T-###`.
 - `/devspec.implement` processes the active `CR-###` scope without rewriting baseline or prior CR implementation evidence.
-- No `/devspec.change` command is introduced or recommended.
+- No unregistered change-request alias such as `/devspec.change` is introduced or recommended; use `/devspec.changerequest`.
 
 ## Interactive Question Contract Scenario
 

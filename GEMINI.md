@@ -27,6 +27,7 @@ Gemini CLI project commands live under `.gemini/commands/devspec/`.
 | `/devspec.coding-standards` | `/devspec:coding-standards` |
 | `/devspec.rules` | `/devspec:rules` |
 | `/devspec.story` | `/devspec:story` |
+| `/devspec.changerequest` | `/devspec:changerequest` |
 | `/devspec.clarify` | `/devspec:clarify` |
 | `/devspec.finalize` | `/devspec:finalize` |
 | `/devspec.tasks` | `/devspec:tasks` |

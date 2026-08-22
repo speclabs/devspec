@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 560" role="img" aria-labelledby="title desc">
+  <title id="title">Work-item command selection guide</title>
+  <desc id="desc">Decision guide for choosing story, clarify, changerequest, or a linked work item based on requirement timing and relationship to the current work item.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#34d399"/></marker>
+    <style><![CDATA[svg{background:#020617;font-family:"JetBrains Mono","Cascadia Code",monospace}.frame{fill:#0f172a;stroke:#1e293b;stroke-width:2}.title{fill:#f8fafc;font-size:30px;font-weight:700}.subtitle{fill:#cbd5e1;font-size:15px}.node{fill:#064e3b;stroke:#34d399;stroke-width:2;rx:12}.decision{fill:#431407;stroke:#fb923c;stroke-width:2}.change{fill:#4c1d12;stroke:#fb923c;stroke-width:2}.support{fill:#3b0764;stroke:#c084fc;stroke-width:2}.label{fill:#f8fafc;font-size:13px;font-weight:700}.note{fill:#94a3b8;font-size:12px}.flow{fill:none;stroke:#34d399;stroke-width:3;marker-end:url(#arrow)}.branch{fill:none;stroke:#c084fc;stroke-width:2.5;stroke-dasharray:8 7;marker-end:url(#arrow)}.changeflow{fill:none;stroke:#fb923c;stroke-width:3;marker-end:url(#arrow)}]]></style>
+  </defs>
+  <rect width="1500" height="560" fill="#020617"/>
+  <rect x="40" y="40" width="1420" height="480" rx="24" class="frame"/>
+  <text x="75" y="94" class="title">Which work-item command should I use?</text>
+  <text x="75" y="122" class="subtitle">Choose by timing, relationship to the existing outcome, and whether a recorded blocker is active.</text>
+  <path class="flow" d="M250 263 H310"/>
+  <path class="branch" d="M490 245 C530 185 530 143 570 143"/>
+  <path class="changeflow" d="M490 263 H570"/>
+  <path class="branch" d="M490 281 C530 340 530 383 570 383"/>
+  <path class="branch" d="M490 245 C700 80 900 80 1060 143"/>
+  <path class="flow" d="M800 143 C900 143 940 245 1060 263"/>
+  <path class="changeflow" d="M800 263 H1060"/>
+  <rect x="70" y="225" width="180" height="76" class="node"/>
+  <text x="103" y="259" class="label">Requirement update</text>
+  <text x="112" y="279" class="note">or discovered omission</text>
+  <rect x="310" y="220" width="180" height="86" class="decision"/>
+  <text x="338" y="255" class="label">Where does it fit?</text>
+  <text x="330" y="276" class="note">timing + relationship</text>
+  <rect x="570" y="105" width="230" height="76" class="node"/>
+  <text x="612" y="140" class="label">/devspec.story</text>
+  <text x="587" y="160" class="note">new or pre-finalization scope</text>
+  <rect x="570" y="225" width="230" height="76" class="change"/>
+  <text x="584" y="259" class="label">/devspec.changerequest</text>
+  <text x="598" y="279" class="note">related omission after finalization</text>
+  <rect x="570" y="345" width="230" height="76" class="support"/>
+  <text x="601" y="380" class="label">/devspec.clarify</text>
+  <text x="594" y="400" class="note">active blocker in current scope</text>
+  <rect x="1060" y="105" width="290" height="76" class="node"/>
+  <text x="1103" y="140" class="label">Linked /devspec.story</text>
+  <text x="1082" y="160" class="note">independent feature or outcome</text>
+  <rect x="1060" y="225" width="290" height="76" class="node"/>
+  <text x="1082" y="259" class="label">/devspec.finalize → tasks</text>
+  <text x="1093" y="279" class="note">then implement and review the CR</text>
+  <text x="75" y="480" class="note">Baseline records are immutable after finalization; a related omission appends CR-scoped rows to existing work-item Markdown files.</text>
+</svg>

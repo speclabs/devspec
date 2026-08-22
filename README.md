@@ -74,7 +74,13 @@ Then run the work-item flow:
 /devspec.review
 ```
 
-Use `/devspec.clarify` only when a work item records a blocking question. Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, or domain behavior.
+For a missed related requirement after finalization, use the append-only change-request route:
+
+![Work-item command selection guide](docs/assets/command-flow-work-item-selection.svg)
+
+`/devspec.changerequest` -> `/devspec.finalize` -> `/devspec.tasks` -> `/devspec.implement` -> `/devspec.review`
+
+Use `/devspec.clarify` only when a work item records a blocking question. Use `/devspec.changerequest` for a missed related requirement after finalization; it appends to existing work-item Markdown artifacts rather than creating a separate CR file. Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, or domain behavior.
 
 ## AI Tool Support
 

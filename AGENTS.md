@@ -67,7 +67,7 @@ Work-item story lifecycle:
 /devspec.review
 ```
 
-Use `/devspec.clarify` only when work-item intake or finalization records a blocking question. Use `/devspec.diagram` for diagram work after relevant context exists.
+Use `/devspec.clarify` only when work-item intake or finalization records a blocking question. For a missed related requirement after finalization, use `/devspec.changerequest` and continue through `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, and `/devspec.review`; it appends CR-scoped rows to existing work-item artifacts. Use `/devspec.diagram` for diagram work after relevant context exists.
 
 ## Enterprise Validation
 
