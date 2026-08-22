@@ -14,7 +14,10 @@ Use this artifact for executable implementation checkpoints. Keep recovery in `R
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
-| Recommended option | |
+| Question options and examples | |
+| Custom Answer entry or response | |
+| Recommended option and justification | |
+| Continuation condition | |
 | Resume command | `/devspec.tasks` |
 | Resume notes | |
 | Updated | |

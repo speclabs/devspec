@@ -67,6 +67,7 @@ Offer only these structured `confirmation` actions:
 | Cancel | Stop intake. |
 | Custom Answer | Route to clarification; do not create or update the work-item folder until resolved. |
 
+Present these actions as one interactive multiple-choice question, or the identical text fallback. Give every action a contextual, non-binding example; include `Custom Answer` with an example of another requested handling; and show exactly one recommendation with its justification.
 ## Integration Tooling and Access
 
 | Area | Requirement |

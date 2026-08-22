@@ -14,7 +14,10 @@ Use this optional Markdown artifact for one durable Mermaid architecture, module
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
-| Recommended option | |
+| Question options and examples | |
+| Custom Answer entry or response | |
+| Recommended option and justification | |
+| Continuation condition | |
 | Resume command | `/devspec.diagram` |
 | Resume notes | |
 | Updated | |

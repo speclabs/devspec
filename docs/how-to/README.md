@@ -396,7 +396,9 @@ For Claude Code or Google Antigravity:
 /devspec-review
 ```
 
-If the request appears independent or unrelated, the agent asks one structured selection question before writing: append to the current work item, create a new linked work item, or provide `Custom Answer`. Choose a new linked work item when the request should have its own scope, tasks, implementation record, and review.
+If the request appears independent or unrelated, the agent asks one structured selection question before writing with `Append to the current work item` (example: a closely related refinement), `Create a new linked work item` (example: an independent feature with its own tasks), and `Custom Answer` (example: another relationship). It shows one recommendation with its justification; choose a new linked work item when the request should have its own scope, tasks, implementation record, and review.
+
+Every Devspec question is asked one at a time with interactive multiple-choice options when the host supports them, or the identical text options otherwise. Each option, including `Custom Answer`, includes a non-binding example, and the agent shows one recommended option with its justification before waiting for the response.
 
 ## Command Examples
 

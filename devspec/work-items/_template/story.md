@@ -14,7 +14,10 @@ Use this artifact for one work item or story at a time. Keep identity and routin
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
-| Recommended option | |
+| Question options and examples | |
+| Custom Answer entry or response | |
+| Recommended option and justification | |
+| Continuation condition | |
 | Resume command | `/devspec.story` |
 | Resume notes | |
 | Updated | |

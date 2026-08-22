@@ -13,7 +13,7 @@ Follow these rules:
 - Preserve the original intent of the canonical Copilot prompt and agent files named in the registry.
 - Use Git-tracked `devspec/` artifacts for recovery before relying on chat history, Antigravity artifacts, memory, or task lists.
 - Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
-- Preserve structured question behavior from `.github/prompts/PATTERNS.md#interactive-question-pattern`; if clickable options are unavailable, render the same option labels as text and preserve the recommended option.
+- Preserve structured question behavior from `.github/prompts/PATTERNS.md#interactive-question-pattern`: show interactive multiple-choice options when Antigravity can render them, otherwise render the identical options as text; include an example for every option and `Custom Answer`; ask one question at a time; and preserve the recommendation with its justification.
 - Use `devspec/glossary.md` for status values.
 - Use `devspec/foundation/codebase-structure.md` for repository access requirements.
 - Keep product context in `devspec/foundation/project-context.md`, durable principles in `devspec/constitution.md`, and operational governance, compliance rules, enforcement details, and delivery gates in `devspec/foundation/rules.md`.

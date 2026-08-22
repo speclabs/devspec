@@ -33,8 +33,8 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - Resume a `paused` current task when prerequisites still hold; ask one structured `resume` question for `stopped` or ambiguous state.
 - Update `implement.md` using `../../devspec/work-items/_template/implement.md`.
 - Apply implementation requirements from `../../devspec/foundation/rules.md#work-item-handling-rules`.
-- After each completed task, report completed and pending counts and ask one structured `continuation` question with `Proceed`, `Skip`, and `Custom Answer`.
-- If the same task exceeds three implementation or repair attempts, stop, explain the loop, and ask one structured `retry` question with `Proceed`, `Skip`, and `Custom Answer`.
+- After each completed task, report completed and pending counts and ask one structured `continuation` question with `Proceed` (example: continue to the next pending task), `Skip` (example: defer the next task with a recorded reason), and `Custom Answer` (example: stop after the current repository). Show exactly one recommendation with its justification.
+- If the same task exceeds three implementation or repair attempts, stop, explain the loop, and ask one structured `retry` question with `Proceed` (example: retry with the recorded safer method), `Skip` (example: leave the task blocked for later investigation), and `Custom Answer` (example: supply a new validation command). Show exactly one recommendation with its justification.
 - Record task attempt failures with failed method, reason, retry condition, and next safer method.
 - Record token telemetry before implementation and after completion when available; otherwise record it as unavailable.
 - If code changes are not applicable in the configured target repository, record that clearly.

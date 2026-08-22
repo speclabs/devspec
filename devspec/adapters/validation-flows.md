@@ -82,7 +82,7 @@ Validate that post-baseline scope changes preserve the original story ledger.
 | 3 | `/devspec.story` with `Change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%` | `story.md#change-requests` appends `CR-001`; CR-scoped criteria such as `CR-001-AC-001` are added without rewriting baseline summary, description, or criteria. |
 | 4 | `/devspec.finalize` -> `/devspec.tasks` -> `/devspec.implement` | `finalize.md` appends `CR-001` readiness, implementation brief, and validation rows; `tasks.md` appends new `Scope` = `CR-001` rows after the highest existing task ID; `implement.md` appends CR-scoped evidence and execution-log rows while `tasks.md` updates only the matching `CR-001` task rows. |
 | 5 | `/devspec.story` with another related request | `story.md#change-requests` appends `CR-002`; task planning later appends new task IDs without renumbering or rewriting `CR-001` or baseline rows. |
-| 6 | `/devspec.story` with an unrelated feature request for the same target | The agent asks one structured `selection` question to append to the current item, create a new linked work item, or provide `Custom Answer`; when the linked-item option is chosen, the new work-item folder follows the standard folder naming pattern, its `meta.md#work-item-record` `Parent work item` points to the original item, and the original item does not receive a `CR-###` row for that linked request. |
+| 6 | `/devspec.story` with an unrelated feature request for the same target | The agent asks one interactive `selection` question with examples for `Append to the current item`, `Create a new linked work item`, and `Custom Answer`, plus exactly one recommendation with its justification; when the linked-item option is chosen, the new work-item folder follows the standard folder naming pattern, its `meta.md#work-item-record` `Parent work item` points to the original item, and the original item does not receive a `CR-###` row for that linked request. |
 | 7 | `/devspec.clarify` with post-baseline scope input | `clarify.md` records routing to `/devspec.story`; baseline intake remains unchanged. |
 | 8 | `/devspec.review` | Review flags missing CR task rows, missing CR source refs, CR work implemented outside appended tasks, source-ref drift, or overwritten baseline content. |
 
@@ -98,6 +98,18 @@ Acceptance checklist:
 - New CR task rows append after the highest existing `T-###`.
 - `/devspec.implement` processes the active `CR-###` scope without rewriting baseline or prior CR implementation evidence.
 - No `/devspec.change` command is introduced or recommended.
+
+## Interactive Question Contract Scenario
+
+Validate the same question behavior in every supported coding-agent adapter.
+
+| Step | Scenario | Expected evidence |
+| --- | --- | --- |
+| 1 | A finite selection is required | The agent asks exactly one interactive multiple-choice question with 2-5 contextual options plus `Custom Answer`; every option has a non-binding example and exactly one option is recommended with a justification. |
+| 2 | Interactive controls are unavailable | The agent renders the identical option labels and examples as text, accepts an option label or `Custom Answer`, and preserves the same recommendation and justification. |
+| 3 | An open-ended fact is required | The agent asks exactly one clarification question with `Provide the missing detail` and `Custom Answer`, each with an example, then waits for the answer. |
+| 4 | The answer is incomplete, ambiguous, conflicting, or custom | The agent records the response and asks only the next clarification needed to resolve it before continuing. |
+| 5 | The question is persisted | The relevant state records intent, source, gap, material impact, option labels and examples, the `Custom Answer` entry or response, recommendation and justification, continuation condition, and next action. |
 
 ## Cross-Tool Recovery Scenario
 
