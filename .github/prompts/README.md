@@ -8,7 +8,7 @@ Artifacts should be developer-facing and compact. Prefer tables for stack, sourc
 
 Foundation: `extract` -> `projectcontext` -> `techstack` -> `codebase-structure` -> `coding-standards` -> `rules`
 
-Work items: `story` -> `finalize` -> `tasks` -> `implement` -> `review`; related post-baseline change requests re-enter through `story` and append `CR-###` scope records before continuing the same flow.
+Work items: `story` -> `finalize` -> `tasks` -> `implement` -> `review`; related post-baseline completeness additions enter through `changerequest`, append `CR-###` scope records, and continue through the same flow. `story` retains compatible change-request intake for existing users.
 
 Use `clarify` only when work-item intake or finalization records a blocking question.
 
@@ -27,6 +27,7 @@ The registered devspec slash commands are:
 - `/devspec.coding-standards`
 - `/devspec.rules`
 - `/devspec.story`
+- `/devspec.changerequest`
 - `/devspec.clarify`
 - `/devspec.finalize`
 - `/devspec.tasks`
@@ -80,6 +81,7 @@ See [Model recommendations](../../README.md#model-recommendations). Agent front 
 | `devspec.codebase-structure.prompt.md` | Capture selective repository trees, repository configuration, work areas and boundaries, integration contracts, and structure gaps or blockers. | `foundation/codebase-structure.md` |
 | `devspec.coding-standards.prompt.md` | Capture an evidence-backed standards catalog with scoped rules, observed patterns, anti-patterns, source links, and optional short examples. | `foundation/coding-standards.md` |
 | `devspec.rules.prompt.md` | Capture actionable operational rules, compliance requirements, forbidden patterns, delivery gates, work-item handling rules, exceptions, enforcement points, source, and confidence. | `foundation/rules.md` |
+| `devspec.changerequest.prompt.md` | Append one missed, related requirement to a finalized-or-later work item as a `CR-###` record. | Existing `meta.md`, `story.md`, `decisions.md` |
 | `devspec.story.prompt.md` | Create or update one work-item intake, or append a related post-baseline change request. | `meta.md`, `story.md`, `decisions.md`, `notes.md` |
 | `devspec.clarify.prompt.md` | Ask, resolve, and record one active blocking clarification. | `clarify.md` |
 | `devspec.finalize.prompt.md` | Create or update a structured implementation readiness brief with readiness assessment, foundation and architecture alignment, implementation brief, validation plan, and blockers. | `finalize.md` |

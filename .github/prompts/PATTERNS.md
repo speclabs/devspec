@@ -541,7 +541,7 @@ Do not use the following Mermaid families regardless of the requested subject. F
 - Change-request-scoped acceptance criteria and requirements use IDs prefixed by the change request, such as `CR-001-AC-001`, `CR-001-FR-001`, and `CR-001-NFR-001`, and should be added to the existing story tables rather than replacing baseline rows.
 - Change-request finalization appends readiness, implementation brief, validation plan, and blocker rows for the active `CR-###`; `Resume State` `Current item` should identify `baseline` or the active `CR-###`.
 - Change-request task planning appends new task rows after the highest existing task ID and records `Scope` as `CR-###`; baseline task rows use `baseline`.
-- `/devspec.clarify` is not a scope-change intake command. If clarify input introduces post-baseline scope, record the routing reason and hand off to `/devspec.story`.
+- `/devspec.clarify` is not a scope-change intake command. If clarify input introduces post-baseline scope, record the routing reason and hand off to `/devspec.changerequest`.
 - This pattern is future-only. It prevents new overwrite cases but does not require automated reconstruction of artifacts already overwritten by an earlier run.
 
 ## Work-Item Folder Naming Pattern
