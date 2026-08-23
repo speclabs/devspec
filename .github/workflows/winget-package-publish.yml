@@ -14,13 +14,13 @@ jobs:
     name: Build WinGet portable package
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v10
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -40,7 +40,7 @@ jobs:
           }
 
           uv venv .venv-winget --python 3.12 --clear
-          uv pip install --python .\.venv-winget\Scripts\python.exe "pyinstaller>=6.0" $wheel.FullName
+          uv pip install --python .\.venv-winget\Scripts\python.exe "pyinstaller>=6.22.2" $wheel.FullName
 
           New-Item -ItemType Directory -Force -Path build\winget | Out-Null
           @(
@@ -75,7 +75,7 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
-          $version = if ($env:GITHUB_REF_NAME -match "^v(.+)$") { $Matches[1] } else { "0.1.3" }
+          $version = if ($env:GITHUB_REF_NAME -match "^v(.+)$") { $Matches[1] } else { "0.2.0" }
           $hash = (Get-FileHash dist\winget\devspec.exe -Algorithm SHA256).Hash.ToLowerInvariant()
           "$hash  devspec.exe" | Set-Content -Path dist\winget\devspec.exe.sha256 -Encoding ASCII
 
@@ -93,7 +93,7 @@ jobs:
           Write-Host "WinGet manifests: $manifestRoot"
 
       - name: Upload WinGet package artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: devspec-winget-package
           path: |
@@ -103,7 +103,7 @@ jobs:
 
       - name: Attach WinGet package artifacts
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             dist/winget/devspec.exe

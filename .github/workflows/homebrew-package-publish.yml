@@ -6,7 +6,7 @@ on:
       version:
         description: "Release version without the leading v"
         required: true
-        default: "0.1.3"
+        default: "0.2.0"
   push:
     tags:
       - "v*"
@@ -19,7 +19,7 @@ jobs:
     name: Generate Homebrew formula artifact
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Generate Homebrew formula
         shell: bash
@@ -46,7 +46,7 @@ jobs:
           echo "Source tarball SHA256: ${sha256}"
 
       - name: Upload Homebrew package artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: devspec-homebrew-package
           path: |
