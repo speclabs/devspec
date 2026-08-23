@@ -132,6 +132,7 @@ Canonical command names remain `/devspec.*`. Some AI coding agents expose host-n
 | `/devspec.coding-standards` | `/devspec.coding-standards` | `/devspec-coding-standards` | `Run /devspec.coding-standards ...` | `Run /devspec.coding-standards ...` | `/devspec:coding-standards` | `/devspec-coding-standards` |
 | `/devspec.rules` | `/devspec.rules` | `/devspec-rules` | `Run /devspec.rules ...` | `Run /devspec.rules ...` | `/devspec:rules` | `/devspec-rules` |
 | `/devspec.story` | `/devspec.story` | `/devspec-story` | `Run /devspec.story ...` | `Run /devspec.story ...` | `/devspec:story` | `/devspec-story` |
+| `/devspec.changerequest` | `/devspec.changerequest` | `/devspec-changerequest` | `Run /devspec.changerequest ...` | `Run /devspec.changerequest ...` | `/devspec:changerequest` | `/devspec-changerequest` |
 | `/devspec.clarify` | `/devspec.clarify` | `/devspec-clarify` | `Run /devspec.clarify ...` | `Run /devspec.clarify ...` | `/devspec:clarify` | `/devspec-clarify` |
 | `/devspec.finalize` | `/devspec.finalize` | `/devspec-finalize` | `Run /devspec.finalize ...` | `Run /devspec.finalize ...` | `/devspec:finalize` | `/devspec-finalize` |
 | `/devspec.tasks` | `/devspec.tasks` | `/devspec-tasks` | `Run /devspec.tasks ...` | `Run /devspec.tasks ...` | `/devspec:tasks` | `/devspec-tasks` |
@@ -292,7 +293,7 @@ Use the work-item lifecycle after the foundation exists.
 
 | Step | Command | Gate or note |
 | --- | --- | --- |
-| 1 | `/devspec.story` | Accepts a provider URL, provider identifier, manual feature request, bug report, security issue, task, PBI, or related post-baseline change request. |
+| 1 | `/devspec.story` | Accepts a provider URL, provider identifier, manual feature request, bug report, security issue, task, or PBI. |
 | 2 | `/devspec.clarify` | Use only when intake or finalization records a blocking question. |
 | 3 | `/devspec.finalize` | Creates the implementation readiness brief. |
 | 4 | `/devspec.tasks` | Requires `finalize.md` marked `ready`. |
@@ -345,16 +346,19 @@ If a blocking question is recorded, resolve it before continuing:
 /devspec.clarify
 ```
 
-Use `/devspec.clarify` only for active blockers inside the current scope. If the user introduces new scope after the work item is finalized or later, route that input through `/devspec.story` as a change request.
+Use `/devspec.clarify` only for active blockers inside the current scope. If the user introduces a missed related requirement after the work item is finalized or later, route that input through `/devspec.changerequest`.
 
 ## Post-Baseline Change Requests
 
-Use `/devspec.story` again when a related request arrives after the baseline work item is finalized, tasks-planned, implementing, implemented, reviewing, or reviewed. Related requests append as `CR-001`, `CR-002`, and so on inside the same work-item folder. The original baseline summary, description, acceptance criteria, completed task rows, implementation evidence, and review history stay intact.
+![Work-item command selection guide](../assets/command-flow-work-item-selection.svg)
+
+
+Use `/devspec.changerequest` when a related omission is discovered after the baseline work item is finalized, tasks-planned, implementing, implemented, reviewing, or reviewed. It appends `CR-001`, `CR-002`, and so on inside the same work-item folder; no separate change-request Markdown file is created. The original baseline summary, description, acceptance criteria, completed task rows, implementation evidence, and review history stay intact.
 
 Canonical command for a related coverage change on an existing .NET 10 upgrade story:
 
 ```text
-/devspec.story "Change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%"
+/devspec.changerequest "Existing .NET 10 upgrade story: missing acceptance criterion requiring 80% coverage"
 ```
 
 Then continue the normal work-item flow for the active change request:
@@ -369,7 +373,7 @@ Then continue the normal work-item flow for the active change request:
 For OpenAI Codex or Cursor, use the same intent as chat input:
 
 ```text
-Run /devspec.story with change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%.
+Run /devspec.changerequest for the existing .NET 10 upgrade story with the missing acceptance criterion requiring 80% coverage.
 Run /devspec.finalize.
 Run /devspec.tasks.
 Run /devspec.implement.
@@ -379,7 +383,7 @@ Run /devspec.review.
 For Gemini CLI:
 
 ```text
-/devspec:story "Change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%"
+/devspec:changerequest "Existing .NET 10 upgrade story: missing acceptance criterion requiring 80% coverage"
 /devspec:finalize
 /devspec:tasks
 /devspec:implement
@@ -389,14 +393,16 @@ For Gemini CLI:
 For Claude Code or Google Antigravity:
 
 ```text
-/devspec-story "Change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%"
+/devspec-changerequest "Existing .NET 10 upgrade story: missing acceptance criterion requiring 80% coverage"
 /devspec-finalize
 /devspec-tasks
 /devspec-implement
 /devspec-review
 ```
 
-If the request appears independent or unrelated, the agent asks one structured selection question before writing: append to the current work item, create a new linked work item, or provide `Custom Answer`. Choose a new linked work item when the request should have its own scope, tasks, implementation record, and review.
+If the request appears independent or unrelated, the agent asks one structured selection question before writing with `Append to the current work item` (example: a closely related refinement), `Create a new linked work item` (example: an independent feature with its own tasks), and `Custom Answer` (example: another relationship). It shows one recommendation with its justification; choose a new linked work item when the request should have its own scope, tasks, implementation record, and review.
+
+Every Devspec question is asked one at a time with interactive multiple-choice options when the host supports them, or the identical text options otherwise. Each option, including `Custom Answer`, includes a non-binding example, and the agent shows one recommended option with its justification before waiting for the response.
 
 ## Command Examples
 
@@ -409,8 +415,9 @@ Use these examples as starting points. The command registry remains authoritativ
 | `/devspec.techstack` | Runtime, framework, hosting, tooling, CI, support constraints | `devspec/foundation/tech-stack.md` | `/devspec.codebase-structure` |
 | `/devspec.codebase-structure` | Repository layout, work areas, integration boundaries, access requirements | `devspec/foundation/codebase-structure.md` | `/devspec.coding-standards` |
 | `/devspec.coding-standards` | Style guides, observed patterns, testing expectations, anti-patterns | `devspec/foundation/coding-standards.md` | `/devspec.rules` |
+| `/devspec.changerequest` | Existing finalized work item plus one missing related description, criterion, requirement, quality constraint, or edge case | Existing `meta.md`, `story.md`, `decisions.md`; no new CR-specific Markdown file | `/devspec.finalize` or `/devspec.story` for a linked independent item |
 | `/devspec.rules` | Compliance requirements, delivery gates, forbidden patterns, operational governance rules | `devspec/foundation/rules.md` | `/devspec.story` |
-| `/devspec.story` | `https://github.com/example/repo/issues/123`; `owner/repo#123`; `JIRA-123`; manual bug report; `"Change request for existing .NET 10 upgrade story: increase code coverage from 60% to 80%"` | Work-item `meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
+| `/devspec.story` | `https://github.com/example/repo/issues/123`; `owner/repo#123`; `JIRA-123`; manual bug report | Work-item `meta.md`, `story.md`, `decisions.md`, `notes.md` | `/devspec.clarify` if blocked, otherwise `/devspec.finalize` |
 | `/devspec.clarify` | Existing work item with a recorded blocker | Work-item `clarify.md` | Repeat until unblocked, then `/devspec.finalize` |
 | `/devspec.finalize` | Existing story artifacts plus optional readiness or accepted change-request input | Work-item `finalize.md` | `/devspec.tasks` when ready |
 | `/devspec.tasks` | Ready `finalize.md`; optional task-planning or accepted change-request planning guidance | Work-item `tasks.md` | `/devspec.implement` |
@@ -698,16 +705,16 @@ For WinGet releases, publish the Windows portable executable from GitHub Release
 ```text
 dist/winget/devspec.exe
 dist/winget/devspec.exe.sha256
-dist/winget/manifests/s/SpecLabs/Devspec/0.1.3/SpecLabs.Devspec.yaml
-dist/winget/manifests/s/SpecLabs/Devspec/0.1.3/SpecLabs.Devspec.locale.en-US.yaml
-dist/winget/manifests/s/SpecLabs/Devspec/0.1.3/SpecLabs.Devspec.installer.yaml
+dist/winget/manifests/s/SpecLabs/Devspec/0.2.0/SpecLabs.Devspec.yaml
+dist/winget/manifests/s/SpecLabs/Devspec/0.2.0/SpecLabs.Devspec.locale.en-US.yaml
+dist/winget/manifests/s/SpecLabs/Devspec/0.2.0/SpecLabs.Devspec.installer.yaml
 ```
 
 The manifest path is case-sensitive and must match `PackageIdentifier: SpecLabs.Devspec`. Validate the generated manifest directory on Windows before submission:
 
 ```text
-winget validate dist/winget/manifests/s/SpecLabs/Devspec/0.1.3
-winget install --manifest dist/winget/manifests/s/SpecLabs/Devspec/0.1.3
+winget validate dist/winget/manifests/s/SpecLabs/Devspec/0.2.0
+winget install --manifest dist/winget/manifests/s/SpecLabs/Devspec/0.2.0
 ```
 
 When adapter files are added, removed, or moved, update:

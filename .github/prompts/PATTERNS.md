@@ -6,17 +6,20 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 
 - Ask exactly one user question at a time.
 - Before asking, follow the [Question Basis Pattern](#question-basis-pattern).
-- Use a structured multiple-choice question whenever a finite decision can be offered; use free-form wording only when meaningful options cannot be provided.
-- Use clickable multiple-choice options whenever the platform supports them. When clickable options are unavailable, render the same option labels as text and ask the user to reply with one label or `Custom Answer`.
-- Every structured question must include question intent, prompt text, option labels, exactly one recommended option with a short reason, fallback rendering, and the recorded state required by the Question Basis Pattern.
-- Always include a `Custom Answer` option for user-facing choices.
+- Ask every user-facing question as one structured `clarification`, confirmation, selection, continuation, resume, approval, or retry interaction.
+- Take and resolve an unanswered, incomplete, ambiguous, conflicting, or custom response to any question as a clarification before continuing. Ask only the next one-at-a-time question needed to resolve it.
+- Show interactive multiple-choice options. If the host cannot render interactive controls, render the identical options as text and ask the user to reply with one option label or `Custom Answer`.
+- Include 2-5 meaningful, mutually exclusive context-specific options plus `Custom Answer` for every question. Give every option a brief, non-binding example that illustrates the likely answer or outcome.
+- When an open-ended fact has no two meaningful alternatives, offer `Provide the missing detail` with an example of the required value, plus `Custom Answer` with an example of another valid response.
+- Show exactly one recommended option with a clear justification.
+- Every structured question must include question intent, prompt text, option labels and examples, `Custom Answer`, the recommendation and justification, fallback rendering, and the recorded state required by the Question Basis Pattern.
 - Use stage-specific option sets only when the stage defines them in a pattern, agent, or artifact policy; otherwise use the standard option set for the question intent.
 - Wait for the user's answer before asking another question.
 - If several confirmations are discovered, present only the highest-priority one and defer the rest.
 
-| Question intent | Use when | Standard options |
+| Question intent | Use when | Standard options (each includes a contextual example) |
 | --- | --- | --- |
-| `clarification` | Required facts are missing or ambiguous, including provider identity, target work item, folder name, or blocked readiness facts. | Meaningful stage-specific choices plus `Custom Answer`; use free-form only when meaningful options cannot be offered. |
+| `clarification` | Required facts are missing or ambiguous, including provider identity, target work item, folder name, blocked readiness facts, or an unclear answer to an earlier question. | Meaningful stage-specific choices plus `Custom Answer`, each with an example. |
 | `confirmation` | A resolved fact, provider item, constitution change, repository access value, generated artifact, or risky scope change needs explicit approval. | `Yes`, `No`, `Custom Answer` unless a stage-specific confirmation set is defined. |
 | `selection` | The user must choose among sources, repositories, work items, diagram types, target locations, or other finite values. | The finite candidate values plus `Custom Answer`. |
 | `continuation` | A workflow, queue item, task, or handoff can continue or stop at the current checkpoint. | `Proceed`, `Skip`, `Custom Answer`. |
@@ -27,6 +30,7 @@ Keep repeated workflow behavior here instead of duplicating it in every prompt o
 Standard stage-specific option sets:
 
 - Binary confirmations use `Yes`, `No`, and `Custom Answer`.
+- Render every listed option with a contextual, non-binding example, include `Custom Answer` with an example of the text the user may enter, and show exactly one recommended option with its justification.
 - Source selection for `/devspec.extract` uses `Use current project root`, `Enter repo paths`, `Cancel extraction`, and `Custom Answer`.
 - Provider resolution uses `Confirm and continue`, `Reject and retry input`, `Switch to manual intake`, `Cancel`, and `Custom Answer`.
 - Repository access confirmation uses the values in `devspec/glossary.md#access-requirement-values` plus `Custom Answer`.
@@ -40,8 +44,8 @@ Standard stage-specific option sets:
 - Identify the source artifact, source section, source row or ID, user input, provider evidence, repository evidence, or failed lookup that created the question.
 - Name the missing, ambiguous, conflicting, or unconfirmed fact and the material impact of leaving it unresolved.
 - Ask only the highest-priority unresolved question; defer lower-impact questions until the active one is answered or withdrawn.
-- Use the [Interactive Question Pattern](#interactive-question-pattern) for option labels, recommended option, `Custom Answer`, and fallback rendering.
-- Before waiting for the answer, record question intent, question source, blocking gap, material impact, option labels, recommended option and reason, impacted artifacts, continuation condition, and next required action in the current `Resume State`, queue row, blocker row, or clarification log, using the stage artifact fields available for that command.
+- Use the [Interactive Question Pattern](#interactive-question-pattern) for option labels and examples, the `Custom Answer` entry, recommended option and justification, and fallback rendering.
+- Before waiting for the answer, record question intent, question source, blocking gap, material impact, option labels and examples, the `Custom Answer` entry or response when provided, recommended option and justification, impacted artifacts, continuation condition, and next required action in the current `Resume State`, queue row, blocker row, or clarification log, using the stage artifact fields available for that command.
 - Do not ask about low-impact preferences, implementation tactics better handled by `/devspec.tasks`, or facts already captured in upstream artifacts.
 
 ## Next Action Selection Pattern
@@ -532,12 +536,12 @@ Do not use the following Mermaid families regardless of the requested subject. F
 - Before finalization, clarifications may update baseline intake when they resolve missing or ambiguous facts within the existing story scope.
 - After `meta.md#workflow-state` `Work item status` records `finalized`, `tasks-planned`, `implementing`, `implemented`, `reviewing`, or `reviewed`, treat new user scope as a change request instead of rewriting baseline story, finalized scope, task rows, implementation evidence, or review evidence.
 - Related post-baseline requests stay in the same work-item folder and append the next `CR-###` row in `story.md#change-requests`; derive the next ID from the highest existing `CR-###` in the work-item artifacts.
-- Independent or unrelated requests require one structured `selection` question before writing. Options must include appending to the current work item, creating a new linked work item with the standard folder naming pattern, and `Custom Answer`; recommend the option that best preserves one-story scope. If the user chooses a linked work item, create or update that separate work item and do not add a `CR-###` row to the original item.
+- Independent or unrelated requests require one structured `selection` question before writing. Options must include `Append to the current work item` (example: a closely related refinement), `Create a new linked work item` (example: independent work with its own tasks), and `Custom Answer` (example: explain another relationship); show exactly one recommendation with its justification. If the user chooses a linked work item, create or update that separate work item and do not add a `CR-###` row to the original item.
 - Completed baseline rows are immutable except for explicit correction notes or later append-only records. Do not regenerate, renumber, remove, or rewrite completed task rows, implementation evidence, or review findings to fit a later request.
 - Change-request-scoped acceptance criteria and requirements use IDs prefixed by the change request, such as `CR-001-AC-001`, `CR-001-FR-001`, and `CR-001-NFR-001`, and should be added to the existing story tables rather than replacing baseline rows.
 - Change-request finalization appends readiness, implementation brief, validation plan, and blocker rows for the active `CR-###`; `Resume State` `Current item` should identify `baseline` or the active `CR-###`.
 - Change-request task planning appends new task rows after the highest existing task ID and records `Scope` as `CR-###`; baseline task rows use `baseline`.
-- `/devspec.clarify` is not a scope-change intake command. If clarify input introduces post-baseline scope, record the routing reason and hand off to `/devspec.story`.
+- `/devspec.clarify` is not a scope-change intake command. If clarify input introduces post-baseline scope, record the routing reason and hand off to `/devspec.changerequest`.
 - This pattern is future-only. It prevents new overwrite cases but does not require automated reconstruction of artifacts already overwritten by an earlier run.
 
 ## Work-Item Folder Naming Pattern
@@ -559,7 +563,7 @@ Do not use the following Mermaid families regardless of the requested subject. F
 - Treat repository location, workspace membership, and access requirement as separate facts; do not classify a repository outside the current repository folder or workspace as `reference-only` based on location.
 - Do not infer, default, or backfill missing access requirements. In particular, do not assume `reference-only`.
 - For each repository with a missing or ambiguous access requirement, ask exactly one repository-specific structured `confirmation` question before writing or relying on that configuration.
-- Access requirement confirmation options must be limited to the values in `devspec/glossary.md#access-requirement-values` plus `Custom Answer`.
+- Access requirement confirmation options must be limited to the values in `devspec/glossary.md#access-requirement-values` plus `Custom Answer`; show each with a contextual example and exactly one recommendation with its justification.
 - Respect access requirements: do not edit repositories marked `reference-only`, `validation-only`, `release-coordination`, or `unavailable` unless the user explicitly confirms a scope change.
 - Do not run validation in repositories marked `reference-only`, `release-coordination`, or `unavailable` unless the user explicitly confirms a scope change.
 - For multi-repo work, stop and surface a blocker instead of guessing when required repository configuration is missing, outdated, or inaccessible.

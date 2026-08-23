@@ -2,6 +2,7 @@
 
 import json
 import xml.etree.ElementTree as ET
+import re
 from pathlib import Path, PurePosixPath
 
 from devspec_installer import __version__
@@ -17,6 +18,30 @@ from devspec_installer.cli import (
 )
 
 
+def test_release_metadata_is_consistent() -> None:
+    root = Path(__file__).parent.parent
+    project = (root / "pyproject.toml").read_text(encoding="utf-8")
+    version_match = re.search(r'^version = "([^"]+)"$', project, re.MULTILINE)
+
+    assert version_match is not None
+    assert version_match.group(1) == __version__
+    assert 'requires-python = ">=3.10"' in project
+    assert '"Programming Language :: Python :: 3.14"' in project
+
+    for formula_path in (root / "packaging/homebrew/devspec.rb", root / "packaging/homebrew/tap/Formula/devspec.rb"):
+        formula = formula_path.read_text(encoding="utf-8")
+        assert f"/v{__version__}.tar.gz" in formula
+        assert f"REPLACE_WITH_V{__version__.replace('.', '_')}_RELEASE_SHA256" in formula
+
+    manifest_directory = root / "packaging/winget/manifests/s/SpecLabs/Devspec" / __version__
+    for manifest_path in manifest_directory.glob("*.yaml"):
+        assert f"PackageVersion: {__version__}" in manifest_path.read_text(encoding="utf-8")
+    assert (manifest_directory / "SpecLabs.Devspec.installer.yaml").is_file()
+
+    homebrew_workflow = (root / ".github/workflows/homebrew-package-publish.yml").read_text(encoding="utf-8")
+    winget_workflow = (root / ".github/workflows/winget-package-publish.yml").read_text(encoding="utf-8")
+
+
 def test_profiles_resolve_core_and_all_payloads() -> None:
     payload = Payload()
 
@@ -29,6 +54,8 @@ def test_profiles_resolve_core_and_all_payloads() -> None:
     assert "devspec/architecture/_template/diagram.html" in core_paths
     assert "devspec/architecture/_template/diagram.svg" not in core_paths
     assert "devspec/architecture/images/README.md" in core_paths
+    assert ".github/prompts/devspec.changerequest.prompt.md" in core_paths
+    assert ".github/agents/devspec.changerequest.agent.md" in core_paths
     assert "devspec/architecture/html/README.md" in core_paths
     assert ".github/prompts/devspec.story.prompt.md" in core_paths
     assert ".github/agents/devspec.story.agent.md" in core_paths
@@ -41,6 +68,9 @@ def test_profiles_resolve_core_and_all_payloads() -> None:
     assert ".claude/skills/devspec-story/SKILL.md" in all_paths
     assert ".gemini/commands/devspec/story.toml" in all_paths
     assert ".agents/skills/devspec-story.md" in all_paths
+    assert ".claude/skills/devspec-changerequest/SKILL.md" in all_paths
+    assert ".gemini/commands/devspec/changerequest.toml" in all_paths
+    assert ".agents/skills/devspec-changerequest.md" in all_paths
 
 
 def test_payload_excludes_github_workflows_even_from_broad_patterns() -> None:

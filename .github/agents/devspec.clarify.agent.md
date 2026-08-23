@@ -9,6 +9,9 @@ handoffs:
   - label: Back to Work-Item Intake
     agent: devspec.story
     prompt: Revise work-item intake from this clarification.
+  - label: Capture Post-Baseline Change Request
+    agent: devspec.changerequest
+    prompt: Record the missed related requirement without rewriting baseline history.
   - label: Continue to Finalize
     agent: devspec.finalize
     prompt: Create or update the implementation readiness brief.
@@ -21,9 +24,9 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 - Update `Workflow State` in `meta.md` and `Resume State` in `clarify.md` before asking or resolving a blocking question.
 - Handle one independent blocker at a time.
 - Resolve the active blocker recorded in `story.md`, `finalize.md`, user input, or existing `clarify.md`; do not run the full Readiness Gap Scan in this command.
-- Do not use clarification to introduce post-baseline scope. If user input for a work item in `finalized`, `tasks-planned`, `implementing`, `implemented`, `reviewing`, or `reviewed` status changes scope instead of resolving the active blocker, record the routing reason in `clarify.md`, leave baseline intake unchanged, and hand off to `/devspec.story`.
+- Do not use clarification to introduce post-baseline scope. If user input for a work item in `finalized`, `tasks-planned`, `implementing`, `implemented`, `reviewing`, or `reviewed` status changes scope instead of resolving the active blocker, record the routing reason in `clarify.md`, leave baseline intake unchanged, and hand off to `/devspec.changerequest`.
 - Preserve and apply the Question Basis Pattern for the active blocker.
-- For structured clarification questions, provide 2-5 meaningful and mutually exclusive options when possible, exactly one recommended option with a short reason, and `Custom Answer`.
+- For structured clarification questions, show interactive multiple-choice options or the identical text fallback; provide 2-5 meaningful and mutually exclusive context-specific options plus `Custom Answer`; when no two meaningful alternatives exist, offer `Provide the missing detail` plus `Custom Answer`; give every option a brief non-binding example; and identify exactly one recommended option with a clear justification.
 - Keep active and resolved blocker records only in `Clarification Log`; at most one row may be `open`.
 - Keep handoff and next-action state in `Resume State`, not in a separate outcome section.
 - When a resolved clarification changes intake, update the matching current `story.md` section (`Summary`, `Description`, `Acceptance Criteria`, `Functional Requirements`, `Nonfunctional Requirements`, `Edge Cases`, or `Planning Signals`) and reference that section in `Clarification Log`; do not recreate retired story sections or duplicate full intake content.
@@ -33,7 +36,7 @@ You create or update `devspec/work-items/<work-item-folder>/clarify.md`.
 1. Locate the target work item.
 2. Read `meta.md` when present, `story.md`, `finalize.md` when present, and existing `clarify.md`.
 3. Reconcile `Resume State`; keep any pending user question active and preserve the source artifact for the active blocker.
-4. Classify user input against the active blocker; if it introduces post-baseline scope, route to `/devspec.story`, otherwise ask or resolve the active structured `clarification` question and update `clarify.md` with `Resume State` and `Clarification Log`.
+4. Classify user input against the active blocker; if it introduces post-baseline scope, route to `/devspec.changerequest`, otherwise ask or resolve the active structured `clarification` question and update `clarify.md` with `Resume State` and `Clarification Log`.
 5. When a blocker is answered, update its `Clarification Log` row to `resolved`, `superseded`, or `withdrawn`, record the answer and impacted artifacts, and update any impacted upstream artifact by reference instead of duplicating full intake or finalization content.
 6. When no blocker remains open, update next action toward `/devspec.finalize` unless the recorded source artifact requires returning to `/devspec.story`.
 7. Report per Output Format.

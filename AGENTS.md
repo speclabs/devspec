@@ -16,7 +16,7 @@ Before running or continuing any `devspec` workflow:
 
 ## Structured Questions
 
-Follow `.github/prompts/PATTERNS.md#interactive-question-pattern` for user questions. Use clickable multiple-choice options when the host supports them; otherwise render the same option labels as text and ask the user to reply with one label or `Custom Answer`. Preserve question intent, option labels, the recommended option, and the continuation condition in the relevant `Resume State` or `Workflow State` before waiting for input.
+Follow `.github/prompts/PATTERNS.md#interactive-question-pattern` for user questions. Show interactive multiple-choice options; if the host cannot render them, render the identical options as text and accept one option label or `Custom Answer`. Ask one question at a time, include an example for every option and `Custom Answer`, and show exactly one recommended option with its justification. Preserve question intent, option labels and examples, the `Custom Answer` entry or response, the recommended option and justification, and the continuation condition in the relevant `Resume State` or `Workflow State` before waiting for input.
 
 ## No Intent Drift
 
@@ -67,7 +67,7 @@ Work-item story lifecycle:
 /devspec.review
 ```
 
-Use `/devspec.clarify` only when work-item intake or finalization records a blocking question. Use `/devspec.diagram` for diagram work after relevant context exists.
+Use `/devspec.clarify` only when work-item intake or finalization records a blocking question. For a missed related requirement after finalization, use `/devspec.changerequest` and continue through `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, and `/devspec.review`; it appends CR-scoped rows to existing work-item artifacts. Use `/devspec.diagram` for diagram work after relevant context exists.
 
 ## Enterprise Validation
 

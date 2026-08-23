@@ -22,8 +22,8 @@ For the full setup manual, see [docs/how-to/README.md](docs/how-to/README.md).
 | Situation | Start here |
 | --- | --- |
 | Simplest one-off setup | [uv and uvx setup](docs/how-to/setup/uv.md) |
-| Persistent macOS/Linux package install | [Homebrew setup](docs/how-to/setup/homebrew.md) |
 | Approved Windows package install | [WinGet setup](docs/how-to/setup/winget.md) |
+| Persistent macOS/Linux package install | [Homebrew setup](docs/how-to/setup/homebrew.md) |
 | CLI setup paths are blocked | [Manual copy setup](docs/how-to/setup/manual-copy.md) |
 
 Install profiles let you choose which AI coding agent files to copy. Most multi-agent teams can start with `--profile all`; single-tool teams can use a smaller profile such as `copilot`, `codex`, `cursor`, `claude`, `gemini`, or `antigravity`.
@@ -74,7 +74,13 @@ Then run the work-item flow:
 /devspec.review
 ```
 
-Use `/devspec.clarify` only when a work item records a blocking question. Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, or domain behavior.
+For a missed related requirement after finalization, use the append-only change-request route:
+
+![Work-item command selection guide](docs/assets/command-flow-work-item-selection.svg)
+
+`/devspec.changerequest` -> `/devspec.finalize` -> `/devspec.tasks` -> `/devspec.implement` -> `/devspec.review`
+
+Use `/devspec.clarify` only when a work item records a blocking question. Use `/devspec.changerequest` for a missed related requirement after finalization; it appends to existing work-item Markdown artifacts rather than creating a separate CR file. Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, or domain behavior.
 
 ## AI Tool Support
 

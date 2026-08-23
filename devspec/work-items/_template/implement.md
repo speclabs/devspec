@@ -14,7 +14,10 @@ Use this artifact for implementation recovery, evidence, and handoff. Keep task 
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
-| Recommended option | |
+| Question options and examples | |
+| Custom Answer entry or response | |
+| Recommended option and justification | |
+| Continuation condition | |
 | Resume command | `/devspec.implement` |
 | Resume notes | |
 | Updated | |

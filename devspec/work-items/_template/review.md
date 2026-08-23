@@ -14,7 +14,10 @@ Use this artifact for review outcome, actionable findings, and handoff. Omit pla
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
-| Recommended option | |
+| Question options and examples | |
+| Custom Answer entry or response | |
+| Recommended option and justification | |
+| Continuation condition | |
 | Resume command | `/devspec.review` |
 | Resume notes | |
 | Updated | |

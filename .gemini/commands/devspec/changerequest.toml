@@ -1,0 +1,13 @@
+description = "Run canonical /devspec.changerequest from Gemini CLI."
+prompt = """
+Execute canonical command `/devspec.changerequest`.
+
+Before acting:
+1. Read `devspec/adapters/command-registry.md` and use the `/devspec.changerequest` row as the command contract.
+2. Read `.github/prompts/devspec.changerequest.prompt.md` and `.github/agents/devspec.changerequest.agent.md` as the protected source of intent.
+3. Follow `.github/prompts/PATTERNS.md` for shared workflow, recovery, output, and recommendation behavior.
+4. Recover from existing Git-tracked `devspec/` artifacts before relying on Gemini session memory.
+5. Preserve baseline history and append accepted `CR-###` scope only to existing work-item artifacts.
+6. Treat Gemini-specific command syntax as platform mechanics, not a workflow change.
+
+The user's raw command input, if any, is appended below these instructions by Gemini CLI.

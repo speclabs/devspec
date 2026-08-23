@@ -57,7 +57,10 @@ Use this section for routing and lookup only; details live in `story.md`.
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
-| Recommended option | |
+| Question options and examples | |
+| Custom Answer entry or response | |
+| Recommended option and justification | |
+| Continuation condition | |
 | Resume command | |
 | Resume notes | |
 | Updated | |

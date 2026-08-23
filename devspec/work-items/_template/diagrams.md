@@ -16,7 +16,10 @@ Reusable default SVG diagrams live under `devspec/architecture/images/`; optiona
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
-| Recommended option | |
+| Question options and examples | |
+| Custom Answer entry or response | |
+| Recommended option and justification | |
+| Continuation condition | |
 | Resume command | `/devspec.diagram` |
 | Resume notes | |
 | Updated | |

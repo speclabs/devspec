@@ -3,20 +3,20 @@ class Devspec < Formula
 
   desc "Installer and synchronizer CLI for the devspec workflow framework"
   homepage "https://github.com/speclabs/devspec"
-  url "https://github.com/speclabs/devspec/archive/refs/tags/v0.1.3.tar.gz"
-  sha256 "REPLACE_WITH_V0_1_3_RELEASE_SHA256"
+  url "https://github.com/speclabs/devspec/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "REPLACE_WITH_V0_2_0_RELEASE_SHA256"
   license "Apache-2.0"
 
   depends_on "python@3.12"
 
   resource "hatchling" do
-    url "https://files.pythonhosted.org/packages/63/4c/8717ccb844b4fa5a5ba6352e97d743ed24e9a22cf90b7c109c17030a46a1/hatchling-1.30.1.tar.gz"
-    sha256 "eee4fd45357f72ebb3d7a42e5d72cfb5e29ed426d79e8836288926c4258d5f2e"
+    url "https://files.pythonhosted.org/packages/69/08/33331757185504aae48b8d9bd78cec03a76e3aecfb52e549d05a2347c0dd/hatchling-1.32.0.tar.gz"
+    sha256 "0bdbde4a52b06c37e3eca395f85a762bf0ef06fe374fd8ae429dc6be10230f5f"
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/d7/f1/e7a6dd94a8d4a5626c03e4e99c87f241ba9e350cd9e6d75123f992427270/packaging-26.2.tar.gz"
-    sha256 "ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661"
+    url "https://files.pythonhosted.org/packages/7d/fa/3944b40b07da9ce895c0e6303a5ab7d53da063554f534556b134a54d6093/packaging-26.3.tar.gz"
+    sha256 "94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79"
   end
 
   resource "pathspec" do

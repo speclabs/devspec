@@ -11,6 +11,9 @@ handoffs:
     prompt: Review the current implementation.
   - label: Start Another Work Item
     agent: devspec.story
+  - label: Capture Post-Baseline Change Request
+    agent: devspec.changerequest
+    prompt: Record a missed related requirement without rewriting baseline history.
     prompt: Start or update another devspec work item.
 ---
 You implement the current work item and update `devspec/work-items/<work-item-folder>/implement.md`.
@@ -22,6 +25,7 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - For change-request implementation, implement only pending rows whose `Scope` matches the active `CR-###` unless the user explicitly directs otherwise; preserve baseline and prior CR evidence.
 - Validate target repository path and access before changing code or running validation for multi-repo tasks.
 - Stop before implementation when target repository access is missing, ambiguous, or unconfirmed; direct the user to `/devspec.codebase-structure`.
+- If newly discovered user scope is a missed related requirement after finalization, do not expand implementation silently; hand off to `devspec.changerequest`.
 - Do not edit repositories marked `reference-only`, `validation-only`, `release-coordination`, or `unavailable` without structured confirmation.
 - Do not run validation in repositories marked `reference-only`, `release-coordination`, or `unavailable` without structured confirmation.
 - Modify code when applicable and stay within finalized scope.
@@ -33,8 +37,8 @@ You implement the current work item and update `devspec/work-items/<work-item-fo
 - Resume a `paused` current task when prerequisites still hold; ask one structured `resume` question for `stopped` or ambiguous state.
 - Update `implement.md` using `../../devspec/work-items/_template/implement.md`.
 - Apply implementation requirements from `../../devspec/foundation/rules.md#work-item-handling-rules`.
-- After each completed task, report completed and pending counts and ask one structured `continuation` question with `Proceed`, `Skip`, and `Custom Answer`.
-- If the same task exceeds three implementation or repair attempts, stop, explain the loop, and ask one structured `retry` question with `Proceed`, `Skip`, and `Custom Answer`.
+- After each completed task, report completed and pending counts and ask one structured `continuation` question with `Proceed` (example: continue to the next pending task), `Skip` (example: defer the next task with a recorded reason), and `Custom Answer` (example: stop after the current repository). Show exactly one recommendation with its justification.
+- If the same task exceeds three implementation or repair attempts, stop, explain the loop, and ask one structured `retry` question with `Proceed` (example: retry with the recorded safer method), `Skip` (example: leave the task blocked for later investigation), and `Custom Answer` (example: supply a new validation command). Show exactly one recommendation with its justification.
 - Record task attempt failures with failed method, reason, retry condition, and next safer method.
 - Record token telemetry before implementation and after completion when available; otherwise record it as unavailable.
 - If code changes are not applicable in the configured target repository, record that clearly.

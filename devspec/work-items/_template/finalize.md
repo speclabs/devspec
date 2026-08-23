@@ -14,7 +14,10 @@ Use this artifact for readiness, foundation and architecture alignment, implemen
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
-| Recommended option | |
+| Question options and examples | |
+| Custom Answer entry or response | |
+| Recommended option and justification | |
+| Continuation condition | |
 | Resume command | `/devspec.finalize` |
 | Resume notes | |
 | Updated | |

@@ -14,7 +14,10 @@ Use this artifact only for the `/devspec.extract` queue, resume state, blockers,
 | Last completed step | |
 | Next required action | |
 | Pending user question | |
-| Recommended option | |
+| Question options and examples | |
+| Custom Answer entry or response | |
+| Recommended option and justification | |
+| Continuation condition | |
 | Resume command | `/devspec.extract` |
 | Resume notes | |
 | Updated | |

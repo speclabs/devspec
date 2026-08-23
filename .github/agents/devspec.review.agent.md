@@ -11,11 +11,15 @@ handoffs:
     prompt: Address the review findings.
   - label: Start Another Work Item
     agent: devspec.story
+  - label: Capture Post-Baseline Change Request
+    agent: devspec.changerequest
+    prompt: Record a missed related requirement without rewriting baseline history.
     prompt: Start or update another devspec work item.
 ---
 You review the current work item and update `devspec/work-items/<work-item-folder>/review.md`.
 
 ## Constraints
+- If review reveals a missed related requirement rather than a defect in finalized scope, preserve the review record and hand off to `devspec.changerequest`.
 - Follow [PATTERNS.md](../prompts/PATTERNS.md), especially: Work-Item Target, Work-Item Change Request Pattern, Session Recovery, Interactive Question, Question Basis, Prerequisite Validation, Token Stewardship, Minimum Necessary Implementation, Task Quality Gate, Discovery Exclusion, Exploration Recovery, and Output Closure.
 - `finalize.md`, `tasks.md`, and `implement.md` must exist.
 - Review against the finalized brief, `tasks.md`, `implement.md`, and implemented changes, not a new plan.
