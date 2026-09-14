@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.12.0.schema.json
+PackageIdentifier: SpecLabs.Devspec
+PackageVersion: REPLACE_WITH_VERSION
+PackageLocale: en-US
+Publisher: SpecLabs
+PublisherUrl: https://github.com/speclabs
+PublisherSupportUrl: https://github.com/speclabs/devspec/issues
+PackageName: devspec
+PackageUrl: https://github.com/speclabs/devspec
+License: Apache-2.0
+LicenseUrl: https://github.com/speclabs/devspec/blob/main/LICENSE
+ShortDescription: Compact, resumable spec-driven workflow templates for AI coding agents.
+Description: devspec installs, compares, synchronizes, and validates spec-driven workflow contracts and agent wrappers for GitHub Copilot, OpenAI Codex, Claude Code, Cursor, Gemini CLI, and Google Antigravity.
+Moniker: devspec
+Tags:
+  - ai
+  - cli
+  - developer-tools
+  - spec-driven-development
+  - workflow
+ReleaseNotesUrl: https://github.com/speclabs/devspec/releases/tag/vREPLACE_WITH_VERSION
+ManifestType: defaultLocale
+ManifestVersion: 1.12.0

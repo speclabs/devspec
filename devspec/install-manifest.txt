@@ -1,0 +1,18 @@
+# Glob patterns for the canonical artifacts copied by automated and manual setup.
+# Not the full install list: repository-state.md is generated from the chosen repository
+# state, and architecture/overview.md and architecture/artifact-queue.md are seeded from
+# architecture/_template/ so a target repository starts with empty records.
+README.md
+constitution.md
+command-registry.md
+glossary.md
+lifecycle.md
+install-manifest.txt
+contracts/*.md
+protocols/*.xml
+foundation/_template/*.md
+foundation/template-map.md
+work-items/_template/*.md
+quickfixes/README.md
+quickfixes/_template.md
+architecture/_template/*

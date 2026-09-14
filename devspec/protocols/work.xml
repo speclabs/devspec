@@ -1,0 +1,14 @@
+<protocol id="work">
+  <when>Load with every command. It governs what may be touched and how a change is made.</when>
+  <scope>Select the smallest affected area and direct dependencies; exclude generated application outputs, dependency directories, caches, and unrelated source. Canonical `devspec/` artifacts remain in scope when the command owns them.</scope>
+  <initialize>When a target artifact, required state record, or its parent folder is missing, create it from the matching _template artifact before editing. Resolve foundation artifacts through devspec/foundation/template-map.md. For a new work item, initialize every file from devspec/work-items/_template, including meta.md and decisions.md. For a new quickfix, initialize devspec/quickfixes/QF-&lt;number&gt;-&lt;slug&gt;.md from devspec/quickfixes/_template.md. Never overwrite an existing artifact.</initialize>
+  <evidence>Apply the evidence labels defined in the state protocol to every durable fact this command records.</evidence>
+  <change>
+    Before editing source, inspect the affected behavior and relevant callers; for a defect, identify the underlying cause within approved scope. Artifact-only work needs no source exploration.
+    Choose the smallest safe change that satisfies approved requirements and project conventions. Prefer suitable existing project code, standard-library or platform capabilities, and installed dependencies before introducing custom code. New dependencies or abstractions require a concrete present need; do not add speculative ones.
+    Preserve required behavior, compatibility, readability, validation, security, accessibility, and protection against data loss.
+    Record a brief justification for a new dependency or material abstraction in the existing decision record. Routine implementation choices need no additional report.
+    If the necessary fix exceeds approved scope, stop before out-of-scope edits and use the command's existing clarification or routing behavior.
+  </change>
+  <artifacts>Update targeted sections only, link instead of duplicate, and preserve user-authored useful content. When an existing artifact lacks a section or column its template now defines, add it before writing there and keep existing entries.</artifacts>
+</protocol>

@@ -1,0 +1,8 @@
+<protocol id="security">
+  <when>Load whenever a command establishes, applies, or verifies the project security baseline.</when>
+  <baseline>Maintain exactly one OWASP Top 10:2025 baseline, in devspec/foundation/rules.md. For every category record its applicability (applicable, limited, out-of-scope, or unknown), the required project control, and the enforcement or evidence that backs it. Record gaps and unknowns rather than omitting a category.</baseline>
+  <exposure>Record limited or internal-only exposure only when enforceable access, deployment, or network evidence supports it; otherwise record the category as applicable and note the reduced exposure in its evidence. A known unresolved vulnerability is never closed as not applicable because access is limited, authenticated, or internal-only.</exposure>
+  <evidence>Record project-native evidence for every applicable control, expressed through the project's own code, tests, configuration, or pipeline rather than a claim in an artifact.</evidence>
+  <exception>A suspected false positive or not-applicable finding requires one material confirmation question to the developer, then a record of the explicit confirmation, its rationale, the enforceable supporting evidence, and a material-change revalidation trigger covering related code, access control, deployment, integration, and exposure. It remains proposed until a reviewer confirms it.</exception>
+  <gate>Do not mark a work item ready, and do not record an accepted review, while an applicable category, its required control, its planned validation, or an exception confirmation is unresolved.</gate>
+</protocol>

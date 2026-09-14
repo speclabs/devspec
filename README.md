@@ -1,117 +1,64 @@
 # devspec
 
-`devspec` is a spec-driven development framework for teams using GitHub Copilot and other AI coding agents.
+devspec is a compact, resumable spec-driven workflow for AI coding agents. Git-tracked `devspec/` artifacts are the canonical project state, so planning, implementation, review, and recovery never depend on chat history.
 
-It stores planning, implementation, review, and recovery state in Git-tracked files instead of relying on chat history. Use it when you want agents to follow the same workflow for project context, engineering standards, work-item intake, implementation, review, and session recovery.
+## Choose a setup route
 
-## Quick Start
+| Your situation | Use this guide |
+|---|---|
+| No installer, Python, package manager, or CLI | [Manual copy from `main`](docs/manual-copy.md) |
+| Python is available; one-off or persistent CLI use | [Python and uvx](docs/setup-python.md) |
+| Windows package-manager installation | [WinGet](docs/setup-winget.md) |
+| macOS/Linux package-manager installation | [Homebrew](docs/setup-homebrew.md) |
+| Already installed the CLI; need init, upgrade, or profile changes | [CLI lifecycle](docs/setup-lifecycle.md) |
+| A repository already uses devspec 0.2.x | [Upgrade from devspec 0.2.x](docs/setup-lifecycle.md#upgrade-from-devspec-02x) |
 
-Install with the `devspec` CLI from the target repository. The recommended one-off path is `uvx`, which avoids a permanent global install and works well on restricted developer machines.
+Manual copying and CLI installation produce the same canonical `devspec/` content and agent wrappers, once the manual route resets the project records listed in its guide. In either route, set the target repository's `repository-state.md` to `new` or `existing`. Choose one setup route; the CLI is optional.
 
-```text
+## CLI quick start
+
+```powershell
 uvx devspec init --target . --profile all --repo-state existing
 uvx devspec doctor --target . --profile all
 ```
 
-Use `--repo-state new` for a new repository. After validation, commit the copied framework files, run the foundation flow, then start the first work item.
+Use `--repo-state new` for a repository with no source yet. The [CLI quick start](docs/quickstart.md) covers both routes and the first command to run.
 
-For the full setup manual, see [docs/how-to/README.md](docs/how-to/README.md).
+`init` copies the canonical contracts, protocols, and templates plus the wrappers for the selected agent profile, generates `devspec/foundation/repository-state.md` from `--repo-state`, and seeds empty `devspec/architecture/overview.md` and `artifact-queue.md`. Those three files and `devspec/constitution.md` are project-owned: `init` and `sync` never overwrite them, even with `--force`.
 
-## Setup Options
+Before a framework upgrade, inspect drift with `devspec diff --target .` and preview it with `devspec sync --target . --profile all --dry-run`.
 
-| Situation | Start here |
-| --- | --- |
-| Simplest one-off setup | [uv and uvx setup](docs/how-to/setup/uv.md) |
-| Approved Windows package install | [WinGet setup](docs/how-to/setup/winget.md) |
-| Persistent macOS/Linux package install | [Homebrew setup](docs/how-to/setup/homebrew.md) |
-| CLI setup paths are blocked | [Manual copy setup](docs/how-to/setup/manual-copy.md) |
+## Supported agent hosts
 
-Install profiles let you choose which AI coding agent files to copy. Most multi-agent teams can start with `--profile all`; single-tool teams can use a smaller profile such as `copilot`, `codex`, `cursor`, `claude`, `gemini`, or `antigravity`.
+| Agent host | Profile | Installed wrapper | Invoke a command |
+|---|---|---|---|
+| GitHub Copilot | `copilot` | `.github/prompts/` and `.github/agents/` | `/devspec.story` |
+| OpenAI Codex | `codex` | `AGENTS.md` | Ask for `devspec.story` |
+| Claude Code | `claude` | `.claude/skills/` | `/devspec-story` |
+| Cursor | `cursor` | `.cursor/rules/devspec-workflow.mdc` | Ask for `devspec.story` |
+| Gemini CLI | `gemini` | `.gemini/commands/devspec/` | `/devspec:story` |
+| Google Antigravity | `antigravity` | `.agents/skills/` | The `devspec-story` skill |
 
-## Core Workflow
+Each wrapper only points at its contract in `devspec/contracts/`, so every host runs the same workflow. The `all` profile installs every wrapper.
 
-`devspec` has two workflow layers.
+## Choose a workflow route
 
-| Layer | Purpose | Full guide |
-| --- | --- | --- |
-| Foundation | Capture stable project context, architecture, stack, structure, standards, and rules. | [New repository](docs/how-to/README.md#foundation-flow-for-a-new-repository), [existing repository](docs/how-to/README.md#foundation-flow-for-an-existing-repository) |
-| Work items | Move one feature, bug, security issue, or accepted change request from intake to review. | [Work-item lifecycle](docs/how-to/README.md#work-item-lifecycle) |
+![Foundation route for new and existing repositories](docs/assets/foundation-routes.svg)
 
-For a new project:
+![Delivery route for quickfix and work items](docs/assets/delivery-routes.svg)
 
-![New repository foundation flow](docs/assets/command-flow-new-repository.svg)
+Use the [developer workflow guide](docs/workflows.md) for concrete quickfix, refinement, clarification, and change-request examples.
 
-```text
-/devspec.projectcontext
-/devspec.techstack
-/devspec.codebase-structure
-/devspec.coding-standards
-/devspec.rules
-```
+## How to
 
-For an existing project:
+Follow the scenario-based [how-to guide](docs/how-to.md) to choose the right command, establish a baseline, deliver a story, work across repositories, or route a small fix safely. The [beginner command examples](docs/command-examples.md) give a first prompt for every command.
 
-![Existing repository foundation flow](docs/assets/command-flow-existing-repository.svg)
+Two rules apply throughout. Confirm single-repository or multi-repository scope before every `devspec.*` command, unless current canonical evidence already records it. After starting a story, run the work-item commands or `continue` without repeating its ID: private per-worktree context resumes only the recorded next action.
 
-```text
-/devspec.extract
-/devspec.projectcontext
-/devspec.techstack
-/devspec.codebase-structure
-/devspec.coding-standards
-/devspec.rules
-```
+## Contributing and releases
 
-Then run the work-item flow:
-
-![Work-item lifecycle flow](docs/assets/command-flow-work-item-lifecycle.svg)
-
-```text
-/devspec.story
-/devspec.finalize
-/devspec.tasks
-/devspec.implement
-/devspec.review
-```
-
-For a missed related requirement after finalization, use the append-only change-request route:
-
-![Work-item command selection guide](docs/assets/command-flow-work-item-selection.svg)
-
-`/devspec.changerequest` -> `/devspec.finalize` -> `/devspec.tasks` -> `/devspec.implement` -> `/devspec.review`
-
-Use `/devspec.clarify` only when a work item records a blocking question. Use `/devspec.changerequest` for a missed related requirement after finalization; it appends to existing work-item Markdown artifacts rather than creating a separate CR file. Use `/devspec.diagram` when a diagram would clarify architecture, workflow, state, sequence, or domain behavior.
-
-## AI Tool Support
-
-GitHub Copilot prompt and agent files are the reference implementation. Other adapters are thin wrappers around the same command registry and Git-tracked artifacts.
-
-| Tool | Setup notes |
-| --- | --- |
-| GitHub Copilot | Native `/devspec.*` prompt commands through `.github/prompts/` and `.github/agents/`. |
-| Claude Code | Project skills expose `/devspec-*` command-style invocations. |
-| OpenAI Codex | `AGENTS.md` provides always-on repository instructions and Codex workflow guidance. |
-| Cursor | Project rules guide Cursor Agent and Inline Edit. |
-| Gemini CLI | `GEMINI.md` provides context; optional commands expose `/devspec:*` shortcuts. |
-| Google Antigravity | Workspace rules and skills expose `/devspec-*` command-style invocations. |
-
-Canonical command names remain `/devspec.*`. Some adapters expose host-native shortcuts such as `/devspec:story` or `/devspec-story`; see [Command Invocation by Agent](docs/how-to/README.md#command-invocation-by-agent).
-
-## More Documentation
-
-| Need | Start here |
-| --- | --- |
-| Install or troubleshoot setup | [docs/how-to/setup/README.md](docs/how-to/setup/README.md) |
-| Run devspec workflows | [docs/how-to/README.md](docs/how-to/README.md) |
-| Use command examples | [docs/how-to/README.md#command-examples](docs/how-to/README.md#command-examples) |
-| Set up AI coding agents | [docs/how-to/README.md#ai-coding-agent-setup](docs/how-to/README.md#ai-coding-agent-setup) |
-| Work across multiple repositories | [docs/how-to/README.md#multi-repo-work](docs/how-to/README.md#multi-repo-work) |
-| Upgrade devspec files | [docs/how-to/README.md#upgrades](docs/how-to/README.md#upgrades) |
-| Validate adapter behavior | [devspec/adapters/validation-flows.md](devspec/adapters/validation-flows.md) |
-| Review adapter support details | [devspec/adapters/README.md](devspec/adapters/README.md) |
-| Check platform compatibility | [devspec/adapters/compatibility-matrix.md](devspec/adapters/compatibility-matrix.md) |
-| Plan enterprise rollout | [devspec/adapters/enterprise-governance.md](devspec/adapters/enterprise-governance.md) |
+Run the test suite with `uv run python -m unittest discover -s tests`. Release pipelines, one-time publishing setup, and the release checklist are in [packaging/README.md](packaging/README.md).
 
 ## License
 
-This repository is released under the [Apache License 2.0](LICENSE).
+devspec is released under the [Apache License 2.0](LICENSE).

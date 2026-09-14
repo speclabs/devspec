@@ -1,0 +1,20 @@
+<protocol id="ask">
+  <when>Load with every command. It governs how any material question is asked and recorded.</when>
+  <scope>Maintain one active material-question queue for the invoking command. A contract that declares `queue="single-blocker"` on this protocol runs no interactive question sweep: it records at most one material blocker and asks nothing else.</scope>
+  <discovery>Review the available evidence and existing decisions to identify and queue every applicable unresolved material question in the active command's scope. Check for missing requirements, ambiguities, conflicting constraints, edge cases, and validation gaps. Do not re-ask questions already resolved by evidence or explicit decisions, and do not introduce speculative questions. Only one queued question may be an active material blocker.</discovery>
+  <sequence>Ask exactly one unanswered material question at a time. Record and resolve it before asking the next material question.</sequence>
+  <completion>Maintain the active material-question queue until every material question is answered or skipped. Re-run discovery after each answer and again before resuming; an empty queue alone does not establish completeness. Skip an invalid or inapplicable material question with its reason, then ask the next valid unanswered material question. Resume the workflow only when no applicable unanswered material questions remain.</completion>
+  <checkpoint>Persist material-question ID, evidence, impact, choices, recommendation, recommendation justification, applicability, canonical rule link when promoted, and answer-or-skip status in the command's decision record before waiting. The run protocol's state record owns the stage, run state, and resume pointer for the same pause; never record a second resume pointer here. When a question must run before its decision record can exist, because the answer is what names the record's folder, ask it in the conversation and persist it into the decision record as the first action after that record is initialized; a command relying on this must declare the exemption in its own rules.</checkpoint>
+  <interaction count="one" mode="interactive">
+    <choices>Offer two to five meaningful exclusive choices, each with a short example. A protocol that defines a fixed named value set offers that whole set instead. Custom Answer is always additional and never counts toward the limit.</choices>
+    <recommendation required="true" justification-required="true" />
+    <custom-answer required="true" />
+    <fallback>Render identical text choices only when the host lacks interactive controls.</fallback>
+  </interaction>
+  <decision-records>
+    <work-item>devspec/work-items/&lt;id&gt;/decisions.md</work-item>
+    <foundation>devspec/foundation/decisions.md</foundation>
+    <quickfix>Decisions section in devspec/quickfixes/QF-&lt;number&gt;-&lt;slug&gt;.md</quickfix>
+  </decision-records>
+  <resolution>Append the answer or skip reason to the command's decision record, update the affected artifact, then continue with one registered next action.</resolution>
+</protocol>

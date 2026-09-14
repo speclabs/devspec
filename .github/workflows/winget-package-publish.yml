@@ -24,16 +24,22 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Verify release version
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        run: python scripts/verify_release_version.py --tag $env:GITHUB_REF_NAME
+
       - name: Run tests
-        run: uv run pytest
+        run: uv run python -m unittest discover -s tests
 
       - name: Build Python wheel
-        run: uv build
+        run: uv build --wheel
 
       - name: Build devspec.exe
         shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
+          $PSNativeCommandUseErrorActionPreference = $true
           $wheel = Get-ChildItem dist -Filter "*.whl" | Select-Object -First 1
           if (-not $wheel) {
             throw "No wheel found in dist."
@@ -44,7 +50,7 @@ jobs:
 
           New-Item -ItemType Directory -Force -Path build\winget | Out-Null
           @(
-            "from devspec_installer.cli import main"
+            "from devspec.cli import main"
             ""
             "raise SystemExit(main())"
           ) | Set-Content -Path build\winget\devspec-entry.py -Encoding UTF8
@@ -57,37 +63,41 @@ jobs:
             --distpath dist\winget `
             --workpath build\pyinstaller `
             --specpath build\pyinstaller `
-            --collect-data devspec_installer `
+            --collect-data devspec `
             build\winget\devspec-entry.py
 
       - name: Smoke test devspec.exe
         shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
+          $PSNativeCommandUseErrorActionPreference = $true
           $target = Join-Path $env:RUNNER_TEMP "devspec-winget-smoke"
           New-Item -ItemType Directory -Force -Path $target | Out-Null
 
-          .\dist\winget\devspec.exe version
-          .\dist\winget\devspec.exe init --target $target --profile core --repo-state existing
-          .\dist\winget\devspec.exe doctor --target $target --profile core
+          .\dist\winget\devspec.exe --version
+          .\dist\winget\devspec.exe init --target $target --profile all --repo-state existing
+          .\dist\winget\devspec.exe doctor --target $target --profile all
 
       - name: Generate WinGet manifests
         shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
-          $version = if ($env:GITHUB_REF_NAME -match "^v(.+)$") { $Matches[1] } else { "0.2.0" }
+          $PSNativeCommandUseErrorActionPreference = $true
+          # The executable reports the version it was built from; tag runs verified it above.
+          $version = (.\dist\winget\devspec.exe --version).Split(" ")[-1]
           $hash = (Get-FileHash dist\winget\devspec.exe -Algorithm SHA256).Hash.ToLowerInvariant()
           "$hash  devspec.exe" | Set-Content -Path dist\winget\devspec.exe.sha256 -Encoding ASCII
 
-          $sourceRoot = "packaging\winget\manifests\s\SpecLabs\Devspec\$version"
+          $url = "https://github.com/speclabs/devspec/releases/download/v$version/devspec.exe"
           $manifestRoot = "dist\winget\manifests\s\SpecLabs\Devspec\$version"
           New-Item -ItemType Directory -Force -Path $manifestRoot | Out-Null
-          Copy-Item -Path "$sourceRoot\*.yaml" -Destination $manifestRoot
-
-          $installerManifest = Join-Path $manifestRoot "SpecLabs.Devspec.installer.yaml"
-          $manifest = Get-Content $installerManifest -Raw
-          $manifest = $manifest.Replace("REPLACE_WITH_RELEASE_SHA256", $hash)
-          $manifest | Set-Content -Path $installerManifest -Encoding UTF8
+          Get-ChildItem packaging\winget -Filter "SpecLabs.Devspec*.yaml" | ForEach-Object {
+            $manifest = (Get-Content $_.FullName -Raw).Replace("REPLACE_WITH_VERSION", $version).Replace("REPLACE_WITH_RELEASE_URL", $url).Replace("REPLACE_WITH_RELEASE_SHA256", $hash)
+            if ($manifest.Contains("REPLACE_WITH_")) {
+              throw "Unresolved placeholder in $($_.Name)"
+            }
+            Set-Content -Path (Join-Path $manifestRoot $_.Name) -Value $manifest -Encoding UTF8 -NoNewline
+          }
 
           Write-Host "devspec.exe SHA256: $hash"
           Write-Host "WinGet manifests: $manifestRoot"

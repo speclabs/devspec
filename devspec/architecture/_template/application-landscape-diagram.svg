@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">[DIAGRAM_TITLE] - Application Landscape Diagram</title>
+  <desc id="desc">[DIAGRAM_DESCRIPTION]</desc>
+
+  <defs>
+    <style><![CDATA[
+      svg {
+        background: #020617;
+        font-family: "JetBrains Mono", "Cascadia Code", monospace;
+      }
+
+      .page-bg { fill: #020617; }
+      .grid-line { stroke: #1e293b; stroke-width: 0.7; opacity: 0.65; }
+      .surface { fill: #0f172a; stroke: #1e293b; stroke-width: 1.4; filter: url(#soft-shadow); }
+      .title { fill: #f8fafc; font-size: 38px; font-weight: 800; }
+      .subtitle { fill: #cbd5e1; font-size: 16px; font-weight: 500; }
+      .eyebrow { fill: #67e8f9; font-size: 13px; font-weight: 800; letter-spacing: 1.6px; }
+      .footer { fill: #64748b; font-size: 12px; }
+
+      .domain { fill: rgba(15, 23, 42, 0.22); stroke-width: 1.6; stroke-dasharray: 10 8; }
+      .domain-a { stroke: #22d3ee; }
+      .domain-b { stroke: #34d399; }
+      .domain-shared { stroke: #a78bfa; }
+      .domain-title { font-size: 13px; font-weight: 900; letter-spacing: 1px; }
+      .domain-title.a { fill: #67e8f9; }
+      .domain-title.b { fill: #6ee7b7; }
+      .domain-title.shared { fill: #c4b5fd; }
+
+      .app-mask { fill: #0f172a; }
+      .app { stroke-width: 1.8; filter: url(#node-glow); }
+      .app-owned { fill: rgba(30, 41, 59, 0.78); stroke: #94a3b8; }
+      .app-primary { fill: rgba(8, 51, 68, 0.46); stroke: #22d3ee; }
+      .app-service { fill: rgba(6, 78, 59, 0.46); stroke: #34d399; }
+      .app-shared { fill: rgba(76, 29, 149, 0.46); stroke: #a78bfa; }
+      .app-vendor { fill: rgba(120, 53, 15, 0.40); stroke: #fbbf24; }
+
+      .app-title { fill: #f8fafc; font-size: 16px; font-weight: 800; }
+      .app-role { fill: #cbd5e1; font-size: 12px; font-weight: 600; }
+      .app-owner { fill: #94a3b8; font-size: 11px; font-weight: 600; }
+
+      .interface { fill: none; stroke: #e2e8f0; stroke-width: 2.2; opacity: 0.92; }
+      .interface-async { stroke: #fb923c; stroke-dasharray: 9 5; }
+      .interface-label-bg { fill: #0f172a; stroke: #334155; stroke-width: 1; }
+      .interface-label { fill: #f8fafc; font-size: 12px; font-weight: 800; }
+
+      .legend-panel { fill: rgba(15, 23, 42, 0.86); stroke: #334155; stroke-width: 1.2; }
+      .legend-title { fill: #f8fafc; font-size: 14px; font-weight: 800; }
+      .legend-text { fill: #cbd5e1; font-size: 12px; font-weight: 600; }
+    ]]></style>
+
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path class="grid-line" d="M 48 0 L 0 0 0 48" fill="none"/>
+    </pattern>
+
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000000" flood-opacity="0.34"/>
+    </filter>
+
+    <filter id="node-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#38bdf8" flood-opacity="0.16"/>
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e2e8f0"/>
+    </marker>
+
+    <marker id="arrow-async" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fb923c"/>
+    </marker>
+  </defs>
+
+  <rect class="page-bg" width="1600" height="900"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.42"/>
+  <rect class="surface" x="48" y="42" width="1504" height="816" rx="20"/>
+
+  <text class="eyebrow" x="92" y="92">[PROJECT_NAME]</text>
+  <text class="title" x="92" y="138">[DIAGRAM_TITLE]</text>
+  <text class="subtitle" x="92" y="168">[DIAGRAM_DESCRIPTION]</text>
+
+  <!-- Draw interface links before application cards so connectors stay behind the labels.
+       Every link joins two application edges; labels name the interface, not a step order. -->
+  <path class="interface" d="M 380 346 L 500 346" marker-end="url(#arrow)"/>
+  <rect class="interface-label-bg" x="406" y="334" width="68" height="24" rx="7"/>
+  <text class="interface-label" x="440" y="351" text-anchor="middle">REST</text>
+
+  <path class="interface" d="M 260 402 L 260 442" marker-end="url(#arrow)"/>
+  <rect class="interface-label-bg" x="282" y="410" width="76" height="24" rx="7"/>
+  <text class="interface-label" x="320" y="427" text-anchor="middle">Batch</text>
+
+  <path class="interface" d="M 740 346 L 940 346" marker-end="url(#arrow)"/>
+  <rect class="interface-label-bg" x="800" y="334" width="80" height="24" rx="7"/>
+  <text class="interface-label" x="840" y="351" text-anchor="middle">Contract</text>
+
+  <path class="interface" d="M 1140 346 L 1260 346" marker-end="url(#arrow)"/>
+  <rect class="interface-label-bg" x="1166" y="334" width="68" height="24" rx="7"/>
+  <text class="interface-label" x="1200" y="351" text-anchor="middle">SaaS</text>
+
+  <path class="interface" d="M 1040 402 L 1040 442" marker-end="url(#arrow)"/>
+  <rect class="interface-label-bg" x="1062" y="410" width="76" height="24" rx="7"/>
+  <text class="interface-label" x="1100" y="427" text-anchor="middle">Sync</text>
+
+  <path class="interface interface-async" d="M 620 402 C 620 520, 660 570, 720 646" marker-end="url(#arrow-async)"/>
+  <rect class="interface-label-bg" x="642" y="530" width="94" height="24" rx="7"/>
+  <text class="interface-label" x="689" y="547" text-anchor="middle">Publish</text>
+
+  <path class="interface interface-async" d="M 880 646 C 940 610, 980 580, 1040 542" marker-end="url(#arrow-async)"/>
+  <rect class="interface-label-bg" x="898" y="566" width="94" height="24" rx="7"/>
+  <text class="interface-label" x="945" y="583" text-anchor="middle">Consume</text>
+
+  <g data-domain="a">
+    <rect class="domain domain-a" x="104" y="230" width="656" height="330" rx="20"/>
+    <text class="domain-title a" x="130" y="262">[CAPABILITY_DOMAIN_A]</text>
+  </g>
+
+  <g data-domain="b">
+    <rect class="domain domain-b" x="900" y="230" width="604" height="330" rx="20"/>
+    <text class="domain-title b" x="926" y="262">[CAPABILITY_DOMAIN_B]</text>
+  </g>
+
+  <g data-domain="shared">
+    <rect class="domain domain-shared" x="104" y="596" width="1400" height="130" rx="20"/>
+    <text class="domain-title shared" x="130" y="626">[SHARED_PLATFORM]</text>
+  </g>
+
+  <g class="application" data-application="a-primary">
+    <rect class="app-mask" x="140" y="290" width="240" height="112" rx="14"/>
+    <rect class="app app-primary" x="140" y="290" width="240" height="112" rx="14"/>
+    <text class="app-title" x="260" y="330" text-anchor="middle">[App A1]</text>
+    <text class="app-role" x="260" y="354" text-anchor="middle">customer entry</text>
+    <text class="app-owner" x="260" y="378" text-anchor="middle">Owner: [team]</text>
+  </g>
+
+  <g class="application" data-application="a-service">
+    <rect class="app-mask" x="500" y="290" width="240" height="112" rx="14"/>
+    <rect class="app app-service" x="500" y="290" width="240" height="112" rx="14"/>
+    <text class="app-title" x="620" y="330" text-anchor="middle">[App A2]</text>
+    <text class="app-role" x="620" y="354" text-anchor="middle">order handling</text>
+    <text class="app-owner" x="620" y="378" text-anchor="middle">Owner: [team]</text>
+  </g>
+
+  <g class="application" data-application="a-support">
+    <rect class="app-mask" x="140" y="442" width="240" height="100" rx="14"/>
+    <rect class="app app-owned" x="140" y="442" width="240" height="100" rx="14"/>
+    <text class="app-title" x="260" y="480" text-anchor="middle">[App A3]</text>
+    <text class="app-role" x="260" y="504" text-anchor="middle">reporting</text>
+    <text class="app-owner" x="260" y="526" text-anchor="middle">Owner: [team]</text>
+  </g>
+
+  <g class="application" data-application="b-service">
+    <rect class="app-mask" x="940" y="290" width="200" height="112" rx="14"/>
+    <rect class="app app-service" x="940" y="290" width="200" height="112" rx="14"/>
+    <text class="app-title" x="1040" y="330" text-anchor="middle">[App B1]</text>
+    <text class="app-role" x="1040" y="354" text-anchor="middle">fulfilment</text>
+    <text class="app-owner" x="1040" y="378" text-anchor="middle">Owner: [team]</text>
+  </g>
+
+  <g class="application" data-application="b-vendor">
+    <rect class="app-mask" x="1260" y="290" width="220" height="112" rx="14"/>
+    <rect class="app app-vendor" x="1260" y="290" width="220" height="112" rx="14"/>
+    <text class="app-title" x="1370" y="330" text-anchor="middle">[Vendor App]</text>
+    <text class="app-role" x="1370" y="354" text-anchor="middle">bought capability</text>
+    <text class="app-owner" x="1370" y="378" text-anchor="middle">Owner: [vendor]</text>
+  </g>
+
+  <g class="application" data-application="b-support">
+    <rect class="app-mask" x="940" y="442" width="200" height="100" rx="14"/>
+    <rect class="app app-owned" x="940" y="442" width="200" height="100" rx="14"/>
+    <text class="app-title" x="1040" y="480" text-anchor="middle">[App B2]</text>
+    <text class="app-role" x="1040" y="504" text-anchor="middle">settlement</text>
+    <text class="app-owner" x="1040" y="526" text-anchor="middle">Owner: [team]</text>
+  </g>
+
+  <g class="application" data-application="shared-service">
+    <rect class="app-mask" x="640" y="646" width="320" height="64" rx="14"/>
+    <rect class="app app-shared" x="640" y="646" width="320" height="64" rx="14"/>
+    <text class="app-title" x="800" y="674" text-anchor="middle">[Shared Service]</text>
+    <text class="app-role" x="800" y="696" text-anchor="middle">events / identity / integration</text>
+  </g>
+
+  <g class="legend" transform="translate(400 748)">
+    <rect class="legend-panel" x="0" y="0" width="1108" height="76" rx="14"/>
+    <text class="legend-title" x="24" y="48">Legend</text>
+    <rect class="app app-service" x="130" y="40" width="22" height="14" rx="4"/>
+    <text class="legend-text" x="164" y="52">Owned application</text>
+    <rect class="app app-shared" x="330" y="40" width="22" height="14" rx="4"/>
+    <text class="legend-text" x="364" y="52">Shared platform</text>
+    <rect class="app app-vendor" x="510" y="40" width="22" height="14" rx="4"/>
+    <text class="legend-text" x="544" y="52">Vendor / SaaS</text>
+    <line class="interface" x1="690" y1="47" x2="732" y2="47" marker-end="url(#arrow)"/>
+    <text class="legend-text" x="748" y="52">Synchronous interface</text>
+    <line class="interface interface-async" x1="940" y1="47" x2="982" y2="47" marker-end="url(#arrow-async)"/>
+    <text class="legend-text" x="998" y="52">Event / async</text>
+  </g>
+
+  <text class="footer" x="92" y="812">Generated by devspec - [DATE_OR_VERSION]</text>
+</svg>

@@ -1,0 +1,6 @@
+<protocol id="revision">
+  <when>Load for every work-item command. The scope revision decides which records are current and which are history.</when>
+  <current>meta.md `scope_revision` starts at 1 and increases only when devspec.changerequest accepts a related requirement. Finalization, task, implementation, and review records each carry the revision they belong to. Read and write only the current revision. Each command stamps its own key in meta.md as it completes: devspec.finalize sets `finalized_revision`, devspec.tasks `planned_revision`, devspec.implement `implemented_revision`, and devspec.review `reviewed_revision`. A key behind `scope_revision` means that stage must run again.</current>
+  <supersede>An accepted change request increments the revision, marks the earlier finalization, task, implementation, and review sections superseded, and preserves their evidence unchanged. Fresh finalization is required before planning or implementation continues.</supersede>
+  <reject>Reject stale or superseded readiness, task, or implementation evidence instead of updating it in place, and record the mismatch as the reason.</reject>
+</protocol>
