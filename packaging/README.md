@@ -13,9 +13,11 @@ The package version has one source: `__version__` in `src/devspec/__init__.py`. 
 | `python-package-ci.yml` | Push to `main`, pull request, manual | Tests on Ubuntu, macOS, and Windows with Python 3.10 and 3.14; wheel and sdist; wheel smoke test | Nothing |
 | `python-package-publish.yml` | `v*` tag, manual | Wheel, sdist, and `devspec-python-package-checksums.txt` | PyPI and the GitHub release on a tag; TestPyPI only when a manual run selects `testpypi` |
 | `winget-package-publish.yml` | `v*` tag, manual | Portable `devspec.exe`, `devspec.exe.sha256`, and versioned WinGet manifests | The GitHub release on a tag |
-| `homebrew-package-publish.yml` | `v*` tag, manual | Tap-ready `Formula/devspec.rb` and the source-tarball SHA-256 | Nothing |
+| `homebrew-package-publish.yml` | `v*` tag, manual | Tap-ready `Formula/devspec.rb` and the PyPI sdist SHA-256 | Nothing |
 
 No workflow writes to `microsoft/winget-pkgs` or the Homebrew tap. Those submissions are manual steps in the release checklist below.
+
+The Homebrew formula builds from the PyPI sdist, whose URL and SHA-256 the workflow reads from PyPI's JSON API — GitHub's on-the-fly tag archives do not guarantee a stable checksum. On a tag push the Homebrew workflow polls PyPI for up to ten minutes while `python-package-publish.yml` uploads the release, and fails if the version never appears.
 
 Templates live in `packaging/`: `winget/SpecLabs.Devspec*.yaml` and `homebrew/devspec.rb`. The workflows replace their `REPLACE_WITH_*` placeholders and fail if any remain.
 
@@ -72,4 +74,4 @@ uvx --from dist/devspec-X.Y.Z-py3-none-any.whl devspec --version
 
 - The Python and WinGet workflows both attach files to the same GitHub release. If one fails while the other is creating the release, re-run the failed workflow.
 - PyPI rejects a second upload of an existing version. If the upload succeeded and a later step failed, re-run only the failed steps, or fix forward with a new patch version.
-- Run `Homebrew Package Publish` manually with a released version to regenerate its formula. The `vX.Y.Z` tag must exist and match the checked-out package version, so run it from the tag.
+- Run `Homebrew Package Publish` manually with a released version to regenerate its formula. The `vX.Y.Z` tag must exist and match the checked-out package version, so run it from the tag, and the version must already be on PyPI.

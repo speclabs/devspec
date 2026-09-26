@@ -3,7 +3,8 @@ class Devspec < Formula
 
   desc "Compact, resumable spec-driven workflow templates for AI coding agents"
   homepage "https://github.com/speclabs/devspec"
-  url "https://github.com/speclabs/devspec/archive/refs/tags/vREPLACE_WITH_VERSION.tar.gz"
+  # The PyPI sdist has a stable checksum; GitHub's on-the-fly tag archives do not guarantee one.
+  url "REPLACE_WITH_SDIST_URL"
   sha256 "REPLACE_WITH_RELEASE_SHA256"
   license "Apache-2.0"
 

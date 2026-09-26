@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import contextlib
+import io
 import re
 import tempfile
 import unittest
 from pathlib import Path
 from xml.etree import ElementTree
 
+from devspec import __version__
 from devspec.cli import main
 from devspec.definitions import COMMANDS
 from devspec.framework import PROFILES, doctor, install_framework, xml_block
@@ -16,6 +19,12 @@ class FrameworkTests(unittest.TestCase):
         with self.assertRaises(SystemExit) as result:
             main(["--version"])
         self.assertEqual(0, result.exception.code)
+
+    def test_version_subcommand_matches_version_flag(self) -> None:
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            self.assertEqual(0, main(["version"]))
+        self.assertEqual(f"devspec {__version__}", stdout.getvalue().strip())
 
     def test_init_all_and_doctor(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
@@ -407,7 +416,7 @@ class FrameworkTests(unittest.TestCase):
                 self.assertFalse(required - {child.tag for child in workflow})
                 transitions = workflow.find("transitions")
                 self.assertIsNotNone(transitions)
-                for transition in transitions or ():
+                for transition in transitions:
                     self.assertIn(transition.attrib["next"], valid_next)
                     self.assertIn(transition.attrib["run"], {"active", "blocked", "complete"})
 

@@ -26,6 +26,9 @@ class ReleaseMetadataTests(unittest.TestCase):
         mismatched = subprocess.run([*command, "--tag", "v9.9.9"], cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(2, mismatched.returncode)
         self.assertIn("does not match package version", mismatched.stderr)
+        unprefixed = subprocess.run([*command, "--tag", __version__], cwd=ROOT, capture_output=True, text=True)
+        self.assertEqual(2, unprefixed.returncode)
+        self.assertIn("must start with 'v'", unprefixed.stderr)
 
     def test_release_templates_are_parameterized(self) -> None:
         winget = ROOT / "packaging" / "winget"
@@ -39,7 +42,7 @@ class ReleaseMetadataTests(unittest.TestCase):
         homebrew = (ROOT / "packaging" / "homebrew" / "devspec.rb").read_text(encoding="utf-8")
         self.assertIn("REPLACE_WITH_RELEASE_URL", installer)
         self.assertIn("REPLACE_WITH_RELEASE_SHA256", installer)
-        self.assertIn("REPLACE_WITH_VERSION", homebrew)
+        self.assertIn('url "REPLACE_WITH_SDIST_URL"', homebrew, "The formula builds from the PyPI sdist, whose checksum is stable")
         self.assertIn("REPLACE_WITH_RELEASE_SHA256", homebrew)
         self.assertIn('resource "setuptools"', homebrew, "Homebrew builds without isolation and needs the build backend")
 
@@ -56,6 +59,8 @@ class ReleaseMetadataTests(unittest.TestCase):
         self.assertIn("devspec.exe.sha256", winget_publish)
         self.assertIn("REPLACE_WITH_RELEASE_SHA256", winget_publish)
         self.assertIn("curl -fsSL", homebrew_publish)
+        self.assertIn("https://pypi.org/pypi/devspec/${version}/json", homebrew_publish)
+        self.assertIn("REPLACE_WITH_SDIST_URL", homebrew_publish)
         self.assertIn("REPLACE_WITH_RELEASE_SHA256", homebrew_publish)
         # A dispatch input interpolated straight into a run script is a script-injection path.
         self.assertNotIn("${{ inputs.version }}\"", homebrew_publish)

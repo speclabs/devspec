@@ -26,6 +26,9 @@ def main() -> int:
     parser.add_argument("--tag", required=True, help="Release tag, for example v0.1.0")
     args = parser.parse_args()
 
+    if not args.tag.startswith("v"):
+        print(f"Release tag {args.tag!r} must start with 'v', for example v{package_version()}", file=sys.stderr)
+        return 2
     tag_version = args.tag.removeprefix("v")
     expected = package_version()
     if not SEMVER_PATTERN.fullmatch(expected):

@@ -22,6 +22,7 @@ def parser() -> argparse.ArgumentParser:
     root = argparse.ArgumentParser(prog="devspec")
     root.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     sub = root.add_subparsers(dest="command", required=True)
+    sub.add_parser("version", help="Print the devspec version (alias for --version)")
     for name in ("init", "doctor", "diff", "sync"):
         cmd = sub.add_parser(name)
         cmd.add_argument("--target", default=".", help="Repository to initialize, compare, synchronize, or validate")
@@ -50,6 +51,9 @@ def _report(title: str, values: list[str]) -> None:
 def main(argv: list[str] | None = None) -> int:
     root = parser()
     args = root.parse_args(argv)
+    if args.command == "version":
+        print(f"devspec {__version__}")
+        return 0
     target = Path(args.target).resolve()
     if not target.is_dir():
         root.error(f"target is not a directory: {target}")

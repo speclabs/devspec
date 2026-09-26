@@ -13,7 +13,7 @@ The terminal CLI is `devspec`. After initialization, the installed agent wrapper
 | Goal | Use | Notes |
 |---|---|---|
 | Install the CLI | `uvx`, `uv tool`, `pipx`, WinGet, or Homebrew | Choose one package-manager route below. |
-| Check version | `devspec --version` | Confirms the installed CLI. |
+| Check version | `devspec --version` | Confirms the installed CLI. `devspec version` prints the same output. |
 | Initialize | `devspec init --target <path> --profile <profile> --repo-state <new\|existing>` | Copies canonical artifacts and selected wrappers. `--profile` defaults to `all`. |
 | Validate | `devspec doctor --target <path> --profile <profile>` | Read-only check of contracts, protocols, templates, and wrappers. Exits 1 on errors. |
 | Compare installed framework files | `devspec diff --target <path>` | Read-only drift report. Exits 1 when files are missing, modified, stale, obsolete, or recorded under another profile. |
@@ -123,7 +123,7 @@ For a new repository, start with `devspec.projectcontext`. For an existing repos
 
 ## Upgrade from devspec 0.2.x
 
-devspec 0.3.0 replaced the 0.2.x framework. Commands are now contracts in `devspec/contracts/` that load shared `devspec/protocols/`, every wrapper was regenerated, the CLI reports its version with `devspec --version` instead of `devspec version`, and the `core` profile no longer exists. A 0.2.x installation upgrades in place:
+devspec 0.3.0 replaced the 0.2.x framework. Commands are now contracts in `devspec/contracts/` that load shared `devspec/protocols/`, every wrapper was regenerated, the CLI reports its version with `devspec --version` (the 0.2.x `devspec version` still works as an alias), and the `core` profile no longer exists. A 0.2.x installation upgrades in place:
 
 1. Upgrade the CLI with its package manager, and confirm `devspec --version` reports 0.3.0 or later.
 2. From a clean Git working tree in the target repository, preview the upgrade:
