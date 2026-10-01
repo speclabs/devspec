@@ -1,48 +1,30 @@
-# Review Record
+# Review
 
-Use this artifact for review outcome, actionable findings, and handoff. Omit placeholder finding rows when there are no findings.
+- Scope revision: <n>
+- Changed-work baseline: <same baseline recorded by implementation>
+- Outcome: accepted | rework-required | blocked
+- Next action:
 
-## Resume State
+## Foundation, Decision and Rule Verification
 
-| Field | Value |
-| --- | --- |
-| Current stage | review |
-| Current command | `/devspec.review` |
-| Current agent | devspec.review |
-| Run status | See `devspec/glossary.md#run-status-values` |
-| Current item | baseline or CR-### |
-| Last completed step | |
-| Next required action | |
-| Pending user question | |
-| Question options and examples | |
-| Custom Answer entry or response | |
-| Recommended option and justification | |
-| Continuation condition | |
-| Resume command | `/devspec.review` |
-| Resume notes | |
-| Updated | |
+| Foundation reference, decision, or rule ID | Expected intentional outcome | Evidence | Status | Finding or action |
+|---|---|---|---|---|
 
-## Review Outcome
+## Architecture and Diagram Verification
 
-For change-request review, record outcome for the active `CR-###` while preserving prior baseline or CR review evidence.
+| Architecture or diagram reference | Expected implementation or validation impact | Evidence | Status | Finding or action |
+|---|---|---|---|---|
 
-| Field | Value |
-| --- | --- |
-| Status | See `devspec/glossary.md#review-status-values` |
-| Reviewer | |
-| Date | |
-| Summary | |
-| Finalized scope alignment | aligned, drift found, not reviewed |
-| Validation coverage | complete, gaps found, not reviewed |
-| Task completion alignment | aligned, gaps found, not reviewed |
-| Source-ref alignment | aligned, drift found, not reviewed |
-| Type-specific review notes | bug/security/rule notes or n/a |
-| Follow-up summary | |
+Use `implemented-as-decided`, `intentionally-superseded` with a recorded replacement, or `not-verified`. Treat an unrecorded contradiction as rework-required.
 
-## Review Findings
+## Security Verification
 
-Record only actionable findings; omit placeholder rows when there are none. Flag missing CR task rows, missing CR source refs, source-ref drift, CR work implemented outside appended tasks, or overwritten baseline evidence when they affect close readiness.
+| Finding ID | OWASP category | Disposition | Developer confirmation | Rationale and enforceable evidence | Reviewer confirmation | Revalidate when | Status or action |
+|---|---|---|---|---|---|---|---|
 
-| ID | Severity | Category | Details | Required action | Evidence | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-| F-001 | critical, high, medium, low | bug, regression, security, validation, test-gap, scope, task-coverage, source-ref, maintainability, follow-up |  |  |  | open |
+Use `remediated`, `confirmed-not-applicable`, `confirmed-false-positive`, or `unresolved`. A confirmed exception requires both confirmations and enforceable evidence. Do not use an exception disposition for a known unresolved vulnerability.
+
+## Findings
+
+| Finding | Location | Severity | Evidence | Required action |
+|---|---|---|---|---|

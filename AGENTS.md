@@ -1,80 +1,20 @@
-# Devspec Agent Instructions
+# devspec
 
-Use these instructions for OpenAI Codex, Cursor, Gemini CLI, Google Antigravity, and other agents that read `AGENTS.md`.
+Use Git-tracked `devspec/` artifacts as canonical state. For a clear work-item continuation, resolve the per-worktree current context and run only its saved next action; ask before switching among multiple stories.
 
-## Canonical Workflow
-
-`devspec` is a spec-driven development framework. The Git-tracked `devspec/` artifacts are the durable source of truth; chat history and tool memory are transient.
-
-Before running or continuing any `devspec` workflow:
-
-1. Read `devspec/adapters/command-registry.md` for the requested command.
-2. Read the canonical Copilot prompt and agent files named in that registry row.
-3. Follow `.github/prompts/PATTERNS.md` for shared workflow, recovery, output, discovery, and recommendation behavior. For diagram generation, also apply `PATTERNS.md#mermaid-visual-quality-pattern` when Mermaid output is selected, `PATTERNS.md#mermaid-internal-naming-and-readability-pattern` when Mermaid output is selected, `PATTERNS.md#svg-output-pattern` when SVG output is selected or defaulted, and `PATTERNS.md#excluded-diagram-families` (do not generate or queue excluded families such as `architecture-beta`; use the portable alternative).
-4. Recover from existing `devspec/` artifacts before relying on memory.
-5. Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
-
-## Structured Questions
-
-Follow `.github/prompts/PATTERNS.md#interactive-question-pattern` for user questions. Show interactive multiple-choice options; if the host cannot render them, render the identical options as text and accept one option label or `Custom Answer`. Ask one question at a time, include an example for every option and `Custom Answer`, and show exactly one recommended option with its justification. Preserve question intent, option labels and examples, the `Custom Answer` entry or response, the recommended option and justification, and the continuation condition in the relevant `Resume State` or `Workflow State` before waiting for input.
-
-## No Intent Drift
-
-Do not change the original intent of `.github/prompts/*.prompt.md` or `.github/agents/*.agent.md`.
-
-An adapter or agent must not:
-
-- change command purpose
-- skip required input or confirmation
-- write a different artifact set
-- relax readiness, review, access, or security gates
-- invent status values outside `devspec/glossary.md`
-- recommend unregistered commands
-- hide platform limitations by changing workflow semantics
-
-Record platform gaps in `devspec/adapters/compatibility-matrix.md` when needed.
-
-## Required Flows
-
-New repository foundation:
-
-```text
-/devspec.projectcontext
-/devspec.techstack
-/devspec.codebase-structure
-/devspec.coding-standards
-/devspec.rules
-```
-
-Existing repository foundation:
-
-```text
-/devspec.extract
-/devspec.projectcontext
-/devspec.techstack
-/devspec.codebase-structure
-/devspec.coding-standards
-/devspec.rules
-```
-
-Work-item story lifecycle:
-
-```text
-/devspec.story
-/devspec.finalize
-/devspec.tasks
-/devspec.implement
-/devspec.review
-```
-
-Use `/devspec.clarify` only when work-item intake or finalization records a blocking question. For a missed related requirement after finalization, use `/devspec.changerequest` and continue through `/devspec.finalize`, `/devspec.tasks`, `/devspec.implement`, and `/devspec.review`; it appends CR-scoped rows to existing work-item artifacts. Use `/devspec.diagram` for diagram work after relevant context exists.
-
-## Enterprise Validation
-
-Use `devspec/adapters/validation-flows.md` as the acceptance checklist for new repository, existing repository, story lifecycle, and cross-tool recovery validation.
-
-## Gemini and Antigravity Notes
-
-- Gemini CLI reads `GEMINI.md`, which imports this file and maps native `/devspec:*` commands to canonical `/devspec.*` workflow intent.
-- Google Antigravity reads workspace rules and skills from `.agents/`; native skills use `/devspec-*` names while preserving canonical `/devspec.*` command behavior.
-- Gemini and Antigravity adapters must document platform-specific permission, sandbox, telemetry, and command-name limitations without changing `devspec` semantics.
+- `devspec.extract`: read `devspec/contracts/devspec.extract.md`.
+- `devspec.projectcontext`: read `devspec/contracts/devspec.projectcontext.md`.
+- `devspec.techstack`: read `devspec/contracts/devspec.techstack.md`.
+- `devspec.codebase-structure`: read `devspec/contracts/devspec.codebase-structure.md`.
+- `devspec.coding-standards`: read `devspec/contracts/devspec.coding-standards.md`.
+- `devspec.rules`: read `devspec/contracts/devspec.rules.md`.
+- `devspec.story`: read `devspec/contracts/devspec.story.md`.
+- `devspec.refine`: read `devspec/contracts/devspec.refine.md`.
+- `devspec.clarify`: read `devspec/contracts/devspec.clarify.md`.
+- `devspec.changerequest`: read `devspec/contracts/devspec.changerequest.md`.
+- `devspec.finalize`: read `devspec/contracts/devspec.finalize.md`.
+- `devspec.tasks`: read `devspec/contracts/devspec.tasks.md`.
+- `devspec.implement`: read `devspec/contracts/devspec.implement.md`.
+- `devspec.review`: read `devspec/contracts/devspec.review.md`.
+- `devspec.diagram`: read `devspec/contracts/devspec.diagram.md`.
+- `devspec.quickfix`: read `devspec/contracts/devspec.quickfix.md`.

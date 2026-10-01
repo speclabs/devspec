@@ -1,14 +1,5 @@
 ---
 name: devspec-codebase-structure
-description: Run /devspec.codebase-structure using the canonical devspec command registry and Copilot reference contract.
+description: Capture or customize owned source roots, repository layouts, module boundaries, integrations, and repository access.
 ---
-
-Execute canonical command `/devspec.codebase-structure`.
-
-- Read `devspec/adapters/command-registry.md` for the command contract.
-- Read `.github/prompts/devspec.codebase-structure.prompt.md` and `.github/agents/devspec.codebase-structure.agent.md` as the source of intent.
-- Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
-- Use Git-tracked `devspec/` artifacts for recovery before relying on chat history or Antigravity artifacts.
-- Treat unsupported Antigravity behavior as an adapter limitation, not a workflow change.
-
-Command input comes from the user's current message.
+Read and execute `devspec/contracts/devspec.codebase-structure.md`.

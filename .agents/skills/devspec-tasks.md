@@ -1,14 +1,5 @@
 ---
 name: devspec-tasks
-description: Run /devspec.tasks using the canonical devspec command registry and Copilot reference contract.
+description: Create ordered, independently verifiable implementation tasks.
 ---
-
-Execute canonical command `/devspec.tasks`.
-
-- Read `devspec/adapters/command-registry.md` for the command contract.
-- Read `.github/prompts/devspec.tasks.prompt.md` and `.github/agents/devspec.tasks.agent.md` as the source of intent.
-- Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
-- Use Git-tracked `devspec/` artifacts for recovery before relying on chat history or Antigravity artifacts.
-- Treat unsupported Antigravity behavior as an adapter limitation, not a workflow change.
-
-Command input comes from the user's current message.
+Read and execute `devspec/contracts/devspec.tasks.md`.

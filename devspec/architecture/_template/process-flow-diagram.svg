@@ -198,28 +198,28 @@
     <text class="step-detail" x="621" y="414" text-anchor="middle">validate + process</text>
   </g>
 
-  <g data-step="3" data-type="decision">
+  <g data-step="decision" data-type="decision">
     <polygon class="step-mask" points="825,326 885,386 825,446 765,386"/>
     <polygon class="decision" points="825,326 885,386 825,446 765,386"/>
     <text class="decision-text" x="825" y="381" text-anchor="middle">Decision?</text>
     <text class="decision-subtext" x="825" y="401" text-anchor="middle">Yes / No</text>
   </g>
 
-  <g data-step="4" data-type="integration">
+  <g data-step="3" data-type="integration">
     <rect class="step-mask" x="966" y="337" width="190" height="98" rx="12"/>
     <rect class="step step-integration" x="966" y="337" width="190" height="98" rx="12"/>
     <circle class="num num-integration" cx="991" cy="362" r="14"/>
-    <text class="num-text" x="991" y="366" text-anchor="middle">4</text>
+    <text class="num-text" x="991" y="366" text-anchor="middle">3</text>
     <text class="actor integration" x="1022" y="366">API</text>
     <text class="step-title" x="1061" y="392" text-anchor="middle">Integration</text>
     <text class="step-detail" x="1061" y="414" text-anchor="middle">external handoff</text>
   </g>
 
-  <g data-step="5" data-type="automated">
+  <g data-step="4" data-type="automated">
     <rect class="step-mask" x="1235" y="337" width="190" height="98" rx="12"/>
     <rect class="step step-automated" x="1235" y="337" width="190" height="98" rx="12"/>
     <circle class="num num-automated" cx="1260" cy="362" r="14"/>
-    <text class="num-text" x="1260" y="366" text-anchor="middle">5</text>
+    <text class="num-text" x="1260" y="366" text-anchor="middle">4</text>
     <text class="actor automated" x="1291" y="366">SYSTEM</text>
     <text class="step-title" x="1330" y="392" text-anchor="middle">Finalize</text>
     <text class="step-detail" x="1330" y="414" text-anchor="middle">notify + record</text>

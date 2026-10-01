@@ -1,14 +1,5 @@
 ---
 name: devspec-techstack
-description: Run /devspec.techstack using the canonical devspec command registry and Copilot reference contract.
+description: Capture evidence-backed runtime, frameworks, data, tooling, and delivery constraints.
 ---
-
-Execute canonical command `/devspec.techstack`.
-
-- Read `devspec/adapters/command-registry.md` for the command contract.
-- Read `.github/prompts/devspec.techstack.prompt.md` and `.github/agents/devspec.techstack.agent.md` as the source of intent.
-- Preserve required inputs, output artifacts, status values, gates, handoff order, and recovery behavior.
-- Use Git-tracked `devspec/` artifacts for recovery before relying on chat history or Antigravity artifacts.
-- Treat unsupported Antigravity behavior as an adapter limitation, not a workflow change.
-
-Command input comes from the user's current message.
+Read and execute `devspec/contracts/devspec.techstack.md`.

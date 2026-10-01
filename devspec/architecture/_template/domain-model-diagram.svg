@@ -85,10 +85,10 @@
   <path class="relation" d="M 955 400 C 1060 400, 1140 400, 1245 400" marker-end="url(#arrow)"/>
   <text class="cardinality" x="982" y="388">1</text>
   <text class="cardinality" x="1210" y="388">*</text>
-  <rect class="relation-label-bg" x="1080" y="388" width="84" height="24" rx="7"/>
-  <text class="relation-label" x="1122" y="405" text-anchor="middle">Uses</text>
+  <rect class="relation-label-bg" x="1010" y="388" width="84" height="24" rx="7"/>
+  <text class="relation-label" x="1052" y="405" text-anchor="middle">Uses</text>
 
-  <path class="relation relation-secondary" d="M 830 550 C 830 625, 830 655, 830 730" marker-end="url(#arrow-secondary)"/>
+  <path class="relation relation-secondary" d="M 830 470 C 830 560, 830 640, 830 730" marker-end="url(#arrow-secondary)"/>
   <rect class="relation-label-bg" x="852" y="632" width="94" height="24" rx="7"/>
   <text class="relation-label" x="899" y="649" text-anchor="middle">Stores</text>
 

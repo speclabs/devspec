@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Release version without the leading v"
-        required: true
-        default: "0.2.0"
+        description: "Released version without the leading v; empty uses the package version. The v<version> tag must already exist."
+        required: false
+        type: string
   push:
     tags:
       - "v*"
@@ -21,29 +21,71 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
       - name: Generate Homebrew formula
         shell: bash
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
 
-          version="${GITHUB_REF_NAME#v}"
-          if [[ "${GITHUB_REF_TYPE:-}" != "tag" ]]; then
-            version="${{ github.event.inputs.version }}"
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            version="$(python scripts/verify_release_version.py --tag "${GITHUB_REF_NAME}")"
+          elif [[ -n "${INPUT_VERSION:-}" ]]; then
+            version="$(python scripts/verify_release_version.py --tag "v${INPUT_VERSION}")"
+          else
+            version="$(PYTHONPATH=src python -c 'from devspec import __version__; print(__version__)')"
           fi
 
-          tarball_url="https://github.com/speclabs/devspec/archive/refs/tags/v${version}.tar.gz"
-          sha256="$(curl -fsSL "${tarball_url}" | sha256sum | awk '{print $1}')"
+          # The formula builds from the PyPI sdist because its checksum is stable, unlike
+          # GitHub's on-the-fly tag archives. A tag push races the PyPI upload, so poll.
+          sdist_meta=""
+          for attempt in $(seq 1 20); do
+            if sdist_meta="$(curl -fsSL "https://pypi.org/pypi/devspec/${version}/json" | python -c '
+          import json, sys
+          sdists = [entry for entry in json.load(sys.stdin)["urls"] if entry["packagetype"] == "sdist"]
+          if not sdists:
+              raise SystemExit(1)
+          print(sdists[0]["url"])
+          print(sdists[0]["digests"]["sha256"])
+          ')"; then
+              break
+            fi
+            sdist_meta=""
+            echo "devspec ${version} sdist is not on PyPI yet (attempt ${attempt}/20); retrying in 30s"
+            sleep 30
+          done
+          if [[ -z "${sdist_meta}" ]]; then
+            echo "devspec ${version} sdist did not appear on PyPI" >&2
+            exit 1
+          fi
+          sdist_url="$(head -n 1 <<<"${sdist_meta}")"
+          sha256="$(tail -n 1 <<<"${sdist_meta}")"
 
-          mkdir -p "dist/homebrew/Formula"
-          cp packaging/homebrew/devspec.rb "dist/homebrew/Formula/devspec.rb"
-          sed -i \
-            -e "s#https://github.com/speclabs/devspec/archive/refs/tags/v[0-9][0-9.]*.tar.gz#${tarball_url}#g" \
-            -e "s#REPLACE_WITH_V[0-9_]*_RELEASE_SHA256#${sha256}#g" \
-            "dist/homebrew/Formula/devspec.rb"
+          actual_sha256="$(curl -fsSL "${sdist_url}" | sha256sum | awk '{print $1}')"
+          if [[ "${actual_sha256}" != "${sha256}" ]]; then
+            echo "PyPI digest ${sha256} does not match downloaded sdist digest ${actual_sha256}" >&2
+            exit 1
+          fi
 
-          echo "${sha256}  devspec-v${version}.tar.gz" > "dist/homebrew/devspec-v${version}.tar.gz.sha256"
+          mkdir -p dist/homebrew/Formula
+          sed -e "s|REPLACE_WITH_SDIST_URL|${sdist_url}|g" -e "s|REPLACE_WITH_RELEASE_SHA256|${sha256}|g" \
+            packaging/homebrew/devspec.rb > dist/homebrew/Formula/devspec.rb
+          if grep -q 'REPLACE_WITH_' dist/homebrew/Formula/devspec.rb; then
+            echo "Unresolved placeholder in the generated formula" >&2
+            exit 1
+          fi
+          ruby -c dist/homebrew/Formula/devspec.rb
+
+          sdist_name="$(basename "${sdist_url}")"
+          echo "${sha256}  ${sdist_name}" > "dist/homebrew/${sdist_name}.sha256"
           echo "Homebrew formula: dist/homebrew/Formula/devspec.rb"
-          echo "Source tarball SHA256: ${sha256}"
+          echo "PyPI sdist: ${sdist_url}"
+          echo "PyPI sdist SHA256: ${sha256}"
 
       - name: Upload Homebrew package artifacts
         uses: actions/upload-artifact@v7

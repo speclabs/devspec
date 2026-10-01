@@ -1,0 +1,11 @@
+<protocol id="current-work-item">
+  <when>Use before a work-item command with an omitted ID and for a clear continuation request such as continue or where were we.</when>
+  <location>Use `git rev-parse --git-path devspec/current-work-item.json` for per-worktree local context. Never create or commit a tracked current-work-item artifact.</location>
+  <record>Store work-item ID, current branch, selection source, and timestamp only in that local JSON record; it is never committed or pushed.</record>
+  <selection>Prefer a validated explicit ID, then a valid local selection for the current branch, then exactly one non-terminal work item on the current branch. Ask the developer to choose whenever multiple items remain.</selection>
+  <validation>Clear a selection when its branch changed, its folder or meta record is missing, it is complete, or its saved stage and next action do not permit the requested command.</validation>
+  <recovery>When no valid selection exists, recover only one eligible work item; otherwise ask the developer to select one or start a work item.</recovery>
+  <continuation>For a clear continuation request, dispatch only the selected saved meta.md next action. A blocked item uses devspec.clarify; a terminal item is not resumed.</continuation>
+  <update>Set local context after story creation, validated explicit selection, or unique recovery. Preserve it while clarify restores the saved command.</update>
+  <clear>Clear local context after accepted review. Context is convenience state; meta.md remains canonical workflow truth.</clear>
+</protocol>

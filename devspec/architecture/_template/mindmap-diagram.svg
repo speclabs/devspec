@@ -75,21 +75,21 @@
   <text class="subtitle" x="92" y="168">[DIAGRAM_DESCRIPTION]</text>
 
   <!-- Draw branches before topic cards so connectors stay behind the labels. -->
-  <path class="branch" d="M 800 450 C 665 320, 515 290, 365 300" marker-end="url(#arrow)"/>
-  <path class="branch" d="M 800 450 C 650 430, 515 430, 380 430" marker-end="url(#arrow)"/>
-  <path class="branch branch-security" d="M 800 450 C 665 585, 515 620, 365 610" marker-end="url(#arrow-secondary)"/>
-  <path class="branch" d="M 800 450 C 935 320, 1085 290, 1235 300" marker-end="url(#arrow)"/>
-  <path class="branch branch-event" d="M 800 450 C 950 430, 1085 430, 1220 430" marker-end="url(#arrow)"/>
-  <path class="branch branch-secondary" d="M 800 450 C 935 585, 1085 620, 1235 610" marker-end="url(#arrow-secondary)"/>
+  <path class="branch" d="M 660 420 C 590 380, 520 310, 445 298" marker-end="url(#arrow)"/>
+  <path class="branch" d="M 660 450 C 600 450, 505 434, 445 430" marker-end="url(#arrow)"/>
+  <path class="branch branch-security" d="M 660 480 C 590 520, 520 600, 445 610" marker-end="url(#arrow-secondary)"/>
+  <path class="branch" d="M 940 420 C 1010 380, 1080 310, 1155 298" marker-end="url(#arrow)"/>
+  <path class="branch branch-event" d="M 940 450 C 1000 450, 1095 434, 1155 430" marker-end="url(#arrow)"/>
+  <path class="branch branch-secondary" d="M 940 480 C 1010 520, 1080 600, 1155 610" marker-end="url(#arrow-secondary)"/>
 
   <g data-cluster="left-capabilities">
-    <rect class="cluster cluster-left" x="128" y="238" width="420" height="430" rx="20"/>
-    <text class="cluster-title left" x="156" y="270">[CAPABILITY_GROUP_A]</text>
+    <rect class="cluster cluster-left" x="128" y="210" width="420" height="458" rx="20"/>
+    <text class="cluster-title left" x="156" y="242">[CAPABILITY_GROUP_A]</text>
   </g>
 
   <g data-cluster="right-capabilities">
-    <rect class="cluster cluster-right" x="1052" y="238" width="420" height="430" rx="20"/>
-    <text class="cluster-title right" x="1080" y="270">[CAPABILITY_GROUP_B]</text>
+    <rect class="cluster cluster-right" x="1052" y="210" width="420" height="458" rx="20"/>
+    <text class="cluster-title right" x="1080" y="242">[CAPABILITY_GROUP_B]</text>
   </g>
 
   <g data-topic="root">

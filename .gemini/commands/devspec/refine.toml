@@ -1,0 +1,2 @@
+description = "Make one draft story buildable through scoped review and material questions."
+prompt = "Read and execute devspec/contracts/devspec.refine.md"

@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Validated request delivery flow</title>
+  <desc id="desc">A four-stage flow moves from a confirmed request through validation and implementation to a reviewed result. Optional motion reveals the same sequence already represented by numbered cards and arrows.</desc>
+
+  <defs>
+    <style><![CDATA[
+      svg { background: #020617; font-family: "Cascadia Code", Consolas, monospace; }
+      .page-bg { fill: #020617; }
+      .grid-line { stroke: #1e293b; stroke-width: .7; opacity: .65; }
+      .surface { fill: #0f172a; stroke: #26354d; stroke-width: 1.5; }
+      .eyebrow { fill: #67e8f9; font-size: 13px; font-weight: 800; letter-spacing: 1.8px; }
+      .title { fill: #f8fafc; font-size: 38px; font-weight: 800; }
+      .subtitle { fill: #cbd5e1; font-size: 15px; }
+      .lane { fill: #0b1220; stroke: #334155; stroke-width: 1.2; stroke-dasharray: 8 8; }
+      .lane-title { fill: #94a3b8; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; }
+      .card { fill: #16223a; stroke: #38bdf8; stroke-width: 1.8; }
+      .card.decision { fill: #31204c; stroke: #a78bfa; }
+      .card.review { fill: #12382f; stroke: #34d399; }
+      .number { fill: #0891b2; }
+      .number-text { fill: #fff; font-size: 12px; font-weight: 900; }
+      .card-title { fill: #f8fafc; font-size: 17px; font-weight: 800; }
+      .card-detail { fill: #cbd5e1; font-size: 12px; }
+      .flow { fill: none; stroke: #67e8f9; stroke-width: 3; marker-end: url(#arrow); }
+      .flow-label { fill: #94a3b8; font-size: 11px; font-weight: 700; }
+      .note { fill: #101c31; stroke: #334155; stroke-width: 1.2; }
+      .note-title { fill: #67e8f9; font-size: 13px; font-weight: 800; }
+      .note-text { fill: #cbd5e1; font-size: 12px; }
+      .footer { fill: #64748b; font-size: 12px; font-weight: 600; }
+
+      .motion-node {
+        opacity: 1;
+        transform: none;
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: reveal-node .55s ease-out both;
+        animation-delay: var(--delay);
+      }
+      .motion-edge {
+        opacity: 1;
+        animation: reveal-edge .5s ease-out both;
+        animation-delay: var(--delay);
+      }
+      .motion-line {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 0;
+        animation: draw-edge .5s ease-out both;
+        animation-delay: var(--delay);
+      }
+      @keyframes reveal-node {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes reveal-edge {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes draw-edge {
+        from { stroke-dashoffset: 1; }
+        to { stroke-dashoffset: 0; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .motion-node, .motion-edge, .motion-line {
+          animation: none !important;
+          transition: none !important;
+          opacity: 1 !important;
+          transform: none !important;
+          stroke-dashoffset: 0 !important;
+        }
+      }
+    ]]></style>
+
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path class="grid-line" d="M 48 0 H 0 V 48" fill="none"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#67e8f9"/>
+    </marker>
+  </defs>
+
+  <rect class="page-bg" width="1600" height="900"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity=".42"/>
+  <rect class="surface" x="48" y="42" width="1504" height="816" rx="20"/>
+
+  <text class="eyebrow" x="92" y="96">OPT-IN MOTION PATTERN</text>
+  <text class="title" x="92" y="148">Validated request delivery</text>
+  <text class="subtitle" x="92" y="180">Motion follows the numbered flow; the complete diagram remains readable when animation is disabled.</text>
+  <line x1="92" y1="206" x2="1508" y2="206" stroke="#26354d"/>
+
+  <rect class="lane" x="92" y="258" width="1416" height="330" rx="18"/>
+  <text class="lane-title" x="118" y="290">EVIDENCE-BACKED DELIVERY SEQUENCE</text>
+
+  <g class="motion-edge" style="--delay:.65s">
+    <path class="flow motion-line" pathLength="1" d="M 398 425 H 474"/>
+    <text class="flow-label" x="436" y="410" text-anchor="middle">scope</text>
+  </g>
+  <g class="motion-edge" style="--delay:1.45s">
+    <path class="flow motion-line" pathLength="1" d="M 738 425 H 814"/>
+    <text class="flow-label" x="776" y="410" text-anchor="middle">ready</text>
+  </g>
+  <g class="motion-edge" style="--delay:2.25s">
+    <path class="flow motion-line" pathLength="1" d="M 1078 425 H 1154"/>
+    <text class="flow-label" x="1116" y="410" text-anchor="middle">evidence</text>
+  </g>
+
+  <g class="motion-node" style="--delay:.1s" data-step="1">
+    <rect class="card" x="154" y="348" width="244" height="154" rx="16"/>
+    <circle class="number" cx="190" cy="386" r="18"/>
+    <text class="number-text" x="190" y="391" text-anchor="middle">1</text>
+    <text class="card-title" x="276" y="414" text-anchor="middle">Confirm request</text>
+    <text class="card-detail" x="276" y="444" text-anchor="middle">scope and evidence</text>
+    <text class="card-detail" x="276" y="467" text-anchor="middle">are explicit</text>
+  </g>
+
+  <g class="motion-node" style="--delay:.9s" data-step="2">
+    <rect class="card decision" x="494" y="348" width="244" height="154" rx="16"/>
+    <circle class="number" cx="530" cy="386" r="18"/>
+    <text class="number-text" x="530" y="391" text-anchor="middle">2</text>
+    <text class="card-title" x="616" y="414" text-anchor="middle">Validate readiness</text>
+    <text class="card-detail" x="616" y="444" text-anchor="middle">resolve material gaps</text>
+    <text class="card-detail" x="616" y="467" text-anchor="middle">before implementation</text>
+  </g>
+
+  <g class="motion-node" style="--delay:1.7s" data-step="3">
+    <rect class="card" x="834" y="348" width="244" height="154" rx="16"/>
+    <circle class="number" cx="870" cy="386" r="18"/>
+    <text class="number-text" x="870" y="391" text-anchor="middle">3</text>
+    <text class="card-title" x="956" y="414" text-anchor="middle">Implement</text>
+    <text class="card-detail" x="956" y="444" text-anchor="middle">change approved scope</text>
+    <text class="card-detail" x="956" y="467" text-anchor="middle">and record validation</text>
+  </g>
+
+  <g class="motion-node" style="--delay:2.5s" data-step="4">
+    <rect class="card review" x="1174" y="348" width="244" height="154" rx="16"/>
+    <circle class="number" cx="1210" cy="386" r="18"/>
+    <text class="number-text" x="1210" y="391" text-anchor="middle">4</text>
+    <text class="card-title" x="1296" y="414" text-anchor="middle">Review result</text>
+    <text class="card-detail" x="1296" y="444" text-anchor="middle">verify decisions, rules,</text>
+    <text class="card-detail" x="1296" y="467" text-anchor="middle">and validation evidence</text>
+  </g>
+
+  <g transform="translate(92 632)">
+    <rect class="note" width="680" height="126" rx="16"/>
+    <text class="note-title" x="26" y="38">Static meaning remains complete</text>
+    <text class="note-text" x="26" y="70">Numbered cards and arrow direction encode the sequence.</text>
+    <text class="note-text" x="26" y="96">Motion only reinforces the evidence-backed order.</text>
+  </g>
+  <g transform="translate(828 632)">
+    <rect class="note" width="680" height="126" rx="16"/>
+    <text class="note-title" x="26" y="38">Reduced motion shows the final frame</text>
+    <text class="note-text" x="26" y="70">CSS disables animation and restores visible nodes and connectors.</text>
+    <text class="note-text" x="26" y="96">No relationship depends on timing or movement.</text>
+  </g>
+
+  <text class="footer" x="92" y="820">Diagram motion example - finite CSS animation - no external assets or scripts</text>
+</svg>
