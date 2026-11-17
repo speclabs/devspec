@@ -9,7 +9,7 @@ Use this policy to resolve external work items during `/devspec.story`. Keep pro
 | Workflow boundary | Keep work-item intake provider-agnostic; provider-specific lookup belongs in integration tools. |
 | Resolution preference | Prefer exact provider URLs or provider-qualified identifiers over inferred matches. |
 | Ambiguity handling | Ask one structured clarification before resolving an ambiguous provider or identifier. |
-| Manual fallback | Allow manual intake only when external resolution is unavailable and the developer explicitly chooses to proceed. |
+| Manual fallback | Allow manual intake only when external resolution is unavailable or the developer intentionally selects it. |
 | Retrieval consent | Ask and record explicit developer consent before any provider retrieval runs; see Retrieval Consent. |
 | Work-item creation gate | Do not create or update the work-item folder from provider input until the resolved item is shown to the developer and explicitly confirmed. |
 | Secret handling | Keep provider authentication, credentials, and secrets outside prompt artifacts. |
