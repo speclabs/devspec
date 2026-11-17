@@ -9,6 +9,7 @@ Run states, work-item and quickfix stages, task statuses, evidence labels, the c
 - Material blocker: a material question that must be answered before the command can continue. It sets run state `blocked` and makes `devspec.clarify` the next command. Exactly one may be active at a time.
 - Developer: the person the agent asks. Every interactive question in this framework is addressed to the developer; the agent never answers its own material question.
 - Registered next action: the single next command recorded in the state record. A command reports exactly one, and `none` is a valid registered next action for terminal work.
+- Attachment: a file or pasted block the developer supplies as source material, such as a mockup, document, or email, copied into the `docs/` folder of its work item or quickfix and listed in that folder's `index.md`. `devspec/protocols/attachments.xml` owns how it is confirmed, stored, indexed, and read.
 - OWASP exception: a reviewer-confirmed false-positive or not-applicable finding supported by enforceable evidence; it is distinct from an unresolved vulnerability. `devspec/protocols/security.xml` owns its confirmation rules.
 
 ## Repository access requirements

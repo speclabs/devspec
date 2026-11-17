@@ -7,6 +7,7 @@ validate the repository itself.
 
 from __future__ import annotations
 
+import html
 import re
 import sys
 import unittest
@@ -208,15 +209,57 @@ class RouteGraphTests(unittest.TestCase):
         for command in COMMANDS:
             element = workflow(command.name)
             outputs = {a.attrib["path"] for a in element.find("outputs")}
-            body = " ".join(
+            # tostring re-escapes the placeholders, which would hide every <id> path from the scan.
+            body = html.unescape(" ".join(
                 ElementTree.tostring(element.find(tag), encoding="unicode")
                 for tag in ("rules", "closure")
                 if element.find(tag) is not None
-            )
+            ))
             named = set(re.findall(r"devspec/[A-Za-z0-9_./<>-]+\.(?:md|xml)", body))
             named = {p for p in named if "_template" not in p and "/protocols/" not in p}
             with self.subTest(command.name):
                 self.assertEqual(set(), named - outputs, f"{command.name} writes an artifact it does not declare")
+
+    # Commands that take requirement input store attachments; the build stages only read them.
+    ATTACHMENT_WRITERS = {"story", "refine", "clarify", "changerequest", "quickfix"}
+    ATTACHMENT_READERS = {"finalize", "tasks", "implement", "review"}
+
+    def test_attachments_are_stored_by_requirement_stages_and_read_by_build_stages(self) -> None:
+        for command in COMMANDS:
+            element = workflow(command.name)
+            refs = [r for r in element.find("protocols") if r.attrib.get("ref") == "attachments"]
+            index_outputs = [a.attrib["path"] for a in element.find("outputs") if a.attrib["path"].endswith("/docs/index.md")]
+            rules = ElementTree.tostring(element.find("rules"), encoding="unicode")
+            with self.subTest(command.name):
+                if command.name in self.ATTACHMENT_WRITERS:
+                    self.assertEqual([None], [r.attrib.get("mode") for r in refs])
+                    self.assertTrue(index_outputs, "a command that stores attachments declares docs/index.md")
+                elif command.name in self.ATTACHMENT_READERS:
+                    self.assertEqual(["read"], [r.attrib.get("mode") for r in refs])
+                    self.assertEqual([], index_outputs, "a read-mode command stores nothing")
+                    self.assertIn("attachments under the attachments protocol", rules, "its Read only rule must admit them")
+                else:
+                    self.assertEqual([], refs)
+
+    def test_quickfix_record_path_is_stated_the_same_everywhere(self) -> None:
+        # The record moved from QF-<number>-<slug>.md into a folder; a surface left behind sends
+        # the agent to a path no other surface writes.
+        surfaces = {
+            name: (REPO / f"devspec/protocols/{name}.xml").read_text(encoding="utf-8") for name in ("run", "ask", "work")
+        } | {name: contract_text(name) for name in ("quickfix", "clarify")}
+        for name, text in surfaces.items():
+            with self.subTest(name):
+                self.assertIn("QF-&lt;number&gt;-&lt;slug&gt;/quickfix.md" if name != "work" else "initialize its quickfix.md", text)
+                if name != "work":
+                    self.assertNotIn("&lt;slug&gt;.md", text)
+
+    def test_a_command_that_asks_before_its_record_exists_declares_the_exemption(self) -> None:
+        # ask.xml allows a question to run before its decision record exists only for a command
+        # that says so in its own rules.
+        self.assertIn("must declare the exemption in its own rules", (REPO / "devspec/protocols/ask.xml").read_text(encoding="utf-8"))
+        for name in ("story", "quickfix"):
+            with self.subTest(name):
+                self.assertIn("this command's only exemption from the ask and run protocol checkpoint locations", contract_text(name))
 
     def test_registry_restates_the_contracts_exactly(self) -> None:
         text = (REPO / "devspec/command-registry.md").read_text(encoding="utf-8")
@@ -266,6 +309,10 @@ class ArtifactShapeTests(unittest.TestCase):
         roots = sorted((REPO / "devspec").rglob("*.md")) + sorted((REPO / "docs").rglob("*.md"))
         roots += [REPO / "README.md", REPO / "AGENTS.md"]
         for path in roots:
+            relative = path.relative_to(REPO).parts
+            if relative[0] == "devspec" and "docs" in relative[:-1] and path.name != "index.md":
+                # A stored attachment is the developer's file, not a framework-shaped artifact.
+                continue
             lines = path.read_text(encoding="utf-8").split("\n")
             for index, line in enumerate(lines[:-1]):
                 nxt = lines[index + 1].strip()
@@ -284,12 +331,13 @@ class ArtifactShapeTests(unittest.TestCase):
         "devspec/foundation/_template/project-context.md": ("Evidence label",),
         "devspec/foundation/_template/codebase-structure.md": ("Integration points", "Validation location"),
         "devspec/architecture/_template/artifact-queue.md": ("Duplicate check",),
-        "devspec/work-items/_template/story.md": ("Raised by", "Affected Areas"),
+        "devspec/work-items/_template/story.md": ("Raised by", "Affected Areas", "| Attachments |"),
+        "devspec/attachments/_template/index.md": ("| File | Kind | Added | By | Summary | Used for |",),
         "devspec/work-items/_template/finalize.md": ("CP-###", "Scope revision:"),
         "devspec/work-items/_template/tasks.md": ("Done condition", "Scope revision:"),
         "devspec/work-items/_template/implement.md": ("Changed-work baseline:",),
         "devspec/work-items/_template/review.md": ("Location", "implemented-as-decided", "Changed-work baseline:"),
-        "devspec/quickfixes/_template.md": ("last:", "resume:", "next:"),
+        "devspec/quickfixes/_template.md": ("last:", "resume:", "next:", "- Attachments:"),
     }
 
     def test_templates_carry_the_fields_contracts_require(self) -> None:
@@ -309,11 +357,17 @@ class ArtifactShapeTests(unittest.TestCase):
                 path = artifact.attrib["path"]
                 with self.subTest(command=command.name, path=path):
                     name = path.rsplit("/", 1)[-1]
-                    if path.startswith("devspec/work-items/"):
+                    if "/docs/" in path:
+                        # docs/ is created on the first attachment, so its index template lives
+                        # outside the record templates that are copied when a record is opened.
+                        self.assertIn(name, ("index.md", "<attachment>"))
+                        self.assertTrue((REPO / "devspec/attachments/_template/index.md").is_file())
+                    elif path.startswith("devspec/work-items/"):
                         self.assertIn(name, work_item_templates)
                     elif path.startswith("devspec/foundation/"):
                         self.assertIn(f"`{name}`", template_map)
                     elif path.startswith("devspec/quickfixes/"):
+                        self.assertEqual("quickfix.md", name)
                         self.assertTrue((REPO / "devspec/quickfixes/_template.md").is_file())
                     else:
                         self.assertTrue((REPO / path).is_file(), f"no home for {path}")

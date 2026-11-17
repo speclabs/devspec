@@ -19,6 +19,7 @@
 | Manual intake used | yes, no |
 | Manual description | |
 | Manual acceptance criteria | |
+| Attachments | none, or `docs/index.md` (N files) |
 
 Record a concise, redacted summary of the provider title, description, acceptance criteria, state, and relevant links used for intake. Do not record credentials, access tokens, or unnecessary personal data.
 

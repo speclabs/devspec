@@ -13,11 +13,12 @@ Invocation: `/devspec.clarify [work-item-id]`
     <protocol ref="current-work-item" />
     <protocol ref="revision" />
     <protocol ref="work" />
+    <protocol ref="attachments" />
   </protocols>
-  <scope>Use only to resolve one recorded material blocker and resume the command that recorded it. This command never advances a stage, changes scope, or answers a question its originating command has not recorded.</scope>
+  <scope>Use only to resolve one recorded material blocker and resume the command that recorded it. This command never advances a stage, changes scope, or answers a question its originating command has not recorded, apart from the attachments protocol's storage confirmation.</scope>
   <input>An optional work-item ID, or one foundation or quickfix record, with one active material blocker question.</input>
   <rules>
-    <rule>Resolve the one question the originating command recorded as its active material blocker, never another queued question and never a question the originating command did not record, and append its answer to the originating command's decision record as the ask protocol maps it for a work item, foundation, or quickfix. When the originating command keeps a wider queue, leave the remaining questions to that command's own re-discovery on resume. For a work item, append the origin command, question, resolution, evidence, and exact resume command to clarify.md.</rule>
+    <rule>Resolve the one question the originating command recorded as its active material blocker, never another queued question and never a question the originating command did not record, and append its answer to the originating command's decision record as the ask protocol maps it for a work item, foundation, or quickfix. When the originating command keeps a wider queue, leave the remaining questions to that command's own re-discovery on resume. For a work item, append the origin command, question, resolution, evidence, and exact resume command to clarify.md. A file supplied with the answer is stored under the attachments protocol in the blocked record's folder, and that confirmation is recorded in the same decision record.</rule>
     <rule>Do not accept scope changes after finalization; route them to changerequest.</rule>
     <rule>Return to the saved stage and next action after resolution.</rule>
   </rules>
@@ -26,8 +27,13 @@ Invocation: `/devspec.clarify [work-item-id]`
     <artifact path="devspec/foundation/decisions.md" />
     <artifact path="devspec/work-items/&lt;id&gt;/decisions.md" />
     <artifact path="devspec/work-items/&lt;id&gt;/clarify.md" />
-    <artifact path="devspec/quickfixes/QF-&lt;number&gt;-&lt;slug&gt;.md" />
+    <artifact path="devspec/quickfixes/QF-&lt;number&gt;-&lt;slug&gt;/quickfix.md" />
     <artifact path="devspec/work-items/&lt;id&gt;/meta.md" />
+    <artifact path="devspec/work-items/&lt;id&gt;/story.md" />
+    <artifact path="devspec/work-items/&lt;id&gt;/docs/index.md" />
+    <artifact path="devspec/work-items/&lt;id&gt;/docs/&lt;attachment&gt;" />
+    <artifact path="devspec/quickfixes/QF-&lt;number&gt;-&lt;slug&gt;/docs/index.md" />
+    <artifact path="devspec/quickfixes/QF-&lt;number&gt;-&lt;slug&gt;/docs/&lt;attachment&gt;" />
   </outputs>
   <transitions>
     <transition outcome="decision-resolved" stage="origin" run="active" next="resume-origin" />

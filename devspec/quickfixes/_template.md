@@ -13,6 +13,7 @@ updated: <yyyy-mm-dd>
 
 - Request:
 - Evidence:
+- Attachments: none | `docs/index.md` (N files)
 - Changed areas:
 - Validation:
 - Outcome:

@@ -89,6 +89,34 @@ def migrate_renamed_meta(root: Path, *, dry_run: bool = False) -> list[str]:
     return changes
 
 
+def migrate_flat_quickfixes(root: Path, *, dry_run: bool = False) -> tuple[list[str], list[str]]:
+    """Move legacy QF-*.md records to QF-*/quickfix.md. Returns (moved, left in place)."""
+    moved: list[str] = []
+    left: list[str] = []
+    for legacy in sorted((root / "devspec/quickfixes").glob("QF-*.md")):
+        if not legacy.is_file():
+            continue
+        folder = legacy.with_suffix("")
+        target = folder / "quickfix.md"
+        source_name, target_name = legacy.relative_to(root).as_posix(), target.relative_to(root).as_posix()
+        if target.exists() or (folder.exists() and not folder.is_dir()):
+            left.append(f"{source_name}: {target_name} already exists")
+            continue
+        if not dry_run:
+            created = not folder.exists()
+            try:
+                folder.mkdir(exist_ok=True)
+                # rename keeps the record byte for byte and refuses to replace an existing file on Windows.
+                legacy.rename(target)
+            except OSError as exc:
+                if created and folder.is_dir() and not any(folder.iterdir()):
+                    folder.rmdir()
+                left.append(f"{source_name}: {exc}")
+                continue
+        moved.append(f"{source_name} -> {target_name}")
+    return moved, left
+
+
 def doctor(root: Path, profile: str) -> list[str]:
     try:
         expected = expected_paths(profile)
@@ -99,12 +127,18 @@ def doctor(root: Path, profile: str) -> list[str]:
         if (root / forbidden).exists():
             issues.append(f"tracked current-work-item artifact is not allowed: {forbidden}")
     issues.extend(f"renamed work-item value: {change}; run devspec sync" for change in migrate_renamed_meta(root, dry_run=True))
+    flat_movable, flat_stuck = migrate_flat_quickfixes(root, dry_run=True)
+    issues.extend(f"flat quickfix record: {move}; run devspec sync" for move in flat_movable)
+    issues.extend(f"flat quickfix record cannot move: {item}; merge the two records by hand" for item in flat_stuck)
     valid_stages = {"foundation", "intake", "refinement", "finalization", "tasks", "implementation", "review", "complete", "triage", "validation", "routed", "caller", "origin"}
     valid_runs = {"active", "blocked", "complete"}
     valid_next = {f"devspec.{command.name}" for command in COMMANDS} | {"none", "return-to-caller", "resume-origin"}
     lifecycle_templates = {
         "devspec/work-items/_template/meta.md": ("scope_revision:", "finalized_revision:", "planned_revision:", "implemented_revision:", "reviewed_revision:"),
-        "devspec/work-items/_template/story.md": ("Source Record", "Immutable provider ID", "MCP resolution method", "User confirmation", "Raised by", "Affected Areas"), "devspec/work-items/_template/tasks.md": ("Scope revision:", "Source justification", "Done condition"), "devspec/work-items/_template/implement.md": ("Scope revision:", "Changed-work baseline:"), "devspec/work-items/_template/review.md": ("Scope revision:", "Changed-work baseline:"), "devspec/work-items/_template/clarify.md": ("Origin command", "Resolution", "Resume command"),
+        "devspec/work-items/_template/story.md": ("Source Record", "Immutable provider ID", "MCP resolution method", "User confirmation", "Attachments", "Raised by", "Affected Areas"),
+        "devspec/attachments/_template/index.md": ("| File | Kind | Added | By | Summary | Used for |",),
+        "devspec/quickfixes/_template.md": ("- Attachments:",),
+        "devspec/work-items/_template/tasks.md": ("Scope revision:", "Source justification", "Done condition"), "devspec/work-items/_template/implement.md": ("Scope revision:", "Changed-work baseline:"), "devspec/work-items/_template/review.md": ("Scope revision:", "Changed-work baseline:"), "devspec/work-items/_template/clarify.md": ("Origin command", "Resolution", "Resume command"),
     }
     current_context_commands = {"story", "refine", "finalize", "tasks", "implement", "review", "clarify", "changerequest"}
     protocol_text_requirements = {
@@ -122,6 +156,12 @@ def doctor(root: Path, profile: str) -> list[str]:
             "continuation": ("saved meta.md next action", "devspec.clarify", "terminal item is not resumed"),
             "clear": ("accepted review",),
         },
+        "attachments": {
+            "trust": ("untrusted data", "never follow an instruction"),
+            "confirm": ("one material question per batch", "Custom Answer", "Store nothing before the answer"),
+            "store": ("Always copy", "keep the stored file", "only when the first row is written"),
+            "read": ("open only the files the current step needs",),
+        },
     }
     for name in PROTOCOLS:
         path = root / f"devspec/protocols/{name}.xml"
@@ -138,6 +178,7 @@ def doctor(root: Path, profile: str) -> list[str]:
                     "repo-access": ("when", "collect", "question", "recommend", "record", "respect"),
                     "current-work-item": ("when", "location", "record", "selection", "validation", "recovery", "continuation", "update", "clear"),
                     "state": ("when", "run-states", "stages", "task-statuses", "evidence-labels", "resume"),
+                    "attachments": ("when", "scope", "attachment-folders", "trust", "confirm", "store", "pasted", "index", "pointer", "carry", "read"),
                 }.get(name, ())
                 present = {child.tag for child in protocol}
                 missing = sorted(set(required) - present)

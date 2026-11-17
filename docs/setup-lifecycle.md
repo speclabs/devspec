@@ -102,7 +102,7 @@ devspec sync --target D:\Code\orders --profile all
 devspec doctor --target D:\Code\orders --profile all
 ```
 
-`sync` adds missing files and replaces packaged files that have not been locally edited. It never overwrites a locally modified framework-owned file unless `--force` is supplied, never overwrites project-owned artifacts, and never deletes retained obsolete wrappers. It also updates work-item `meta.md` stage and next values that a renamed command left behind; `doctor` reports any that remain. When `sync` reports a conflict it writes nothing at all, so review every listed file before using `--force`, which replaces all of them.
+`sync` adds missing files and replaces packaged files that have not been locally edited. It never overwrites a locally modified framework-owned file unless `--force` is supplied, never overwrites project-owned artifacts, and never deletes retained obsolete wrappers. It also updates work-item `meta.md` stage and next values that a renamed command left behind, and moves each flat `devspec/quickfixes/QF-<number>-<slug>.md` record into its own folder as `quickfix.md`; `doctor` reports any that remain. When `sync` reports a conflict it writes nothing at all, so review every listed file before using `--force`, which replaces all of them.
 
 ## 6. Change or add a profile
 
@@ -120,6 +120,33 @@ Changing to a narrower profile does not delete wrappers from other agents. `diff
 ## 7. Start using the workflow
 
 For a new repository, start with `devspec.projectcontext`. For an existing repository, start with `devspec.extract`. Then follow the route in [the workflow guide](workflows.md). Use `devspec.quickfix` only for one localized, low-risk change.
+
+## Upgrade from devspec 0.3.x
+
+devspec 0.4.0 adds attachments. Each work item and quickfix can hold a `docs/` folder for the mockups, documents, and emails a developer supplies, governed by the new `devspec/protocols/attachments.xml`. To give a quickfix somewhere to keep them, its record moved from the flat file `devspec/quickfixes/QF-<number>-<slug>.md` to `devspec/quickfixes/QF-<number>-<slug>/quickfix.md`. Work items need no migration.
+
+1. Upgrade the CLI with its package manager, and confirm `devspec --version` reports 0.4.0 or later.
+2. From a clean Git working tree in the target repository, preview the upgrade:
+
+   ```powershell
+   devspec doctor --target . --profile all
+   devspec sync --target . --profile all --dry-run
+   ```
+
+   `doctor` lists each flat quickfix record, and the dry run lists it under "Quickfix records that would be moved".
+3. Apply the upgrade and validate it:
+
+   ```powershell
+   devspec sync --target . --profile all
+   devspec doctor --target . --profile all
+   ```
+
+   `sync` moves each record unchanged. A record whose folder already holds a `quickfix.md` is left in place and reported; merge those two files by hand.
+4. Stage the result with `git add -A devspec` so Git records the moves as renames, then commit it, including `devspec/.install-manifest.json`.
+
+Run `sync` again after merging a branch that still carried flat quickfix records. A manual-copy installation has no `sync`: move each record by hand as the [manual copy guide](manual-copy.md#5-update-manually) describes.
+
+Attachments are committed with their record. For large binary files consider Git LFS. devspec does not edit `.gitattributes` or `.gitignore`: when `.gitattributes` forces text conversion on every file, exempt stored attachments with `devspec/**/docs/** -text`, and a stored file that `.gitignore` excludes is reported by the command instead of being stored.
 
 ## Upgrade from devspec 0.2.x
 

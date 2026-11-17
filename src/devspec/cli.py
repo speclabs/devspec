@@ -13,6 +13,7 @@ from .framework import (
     doctor_warnings,
     install_framework,
     manifest_profile,
+    migrate_flat_quickfixes,
     migrate_renamed_meta,
     sync_framework,
 )
@@ -94,14 +95,18 @@ def main(argv: list[str] | None = None) -> int:
         print("No files were written. Run with --dry-run first, then use --force only for reviewed framework-owned files.")
         return 1
     renamed = migrate_renamed_meta(target, dry_run=args.dry_run)
+    moved, unmoved = migrate_flat_quickfixes(target, dry_run=args.dry_run)
     if args.dry_run:
         print(f"Dry run for devspec ({profile}) in {target}")
         _report("Files that would be written", writable)
         _report("Work-item values that would be renamed", renamed)
+        _report("Quickfix records that would be moved", moved)
     else:
         print(f"Synchronized devspec ({profile}) in {target}")
         _report("Files written", writable)
         _report("Work-item values renamed", renamed)
+        _report("Quickfix records moved", moved)
+    _report("Quickfix records left in place", unmoved)
     _report("Skipped files", skipped)
     _report("Retained obsolete files", obsolete)
     return 0

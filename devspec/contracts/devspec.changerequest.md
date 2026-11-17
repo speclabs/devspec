@@ -13,6 +13,7 @@ Invocation: `/devspec.changerequest [work-item-id] Add JSON export`
     <protocol ref="current-work-item" />
     <protocol ref="revision" />
     <protocol ref="work" />
+    <protocol ref="attachments" />
   </protocols>
   <scope>Use only for a requirement related to a work item that is already finalized. Use devspec.story for independent scope, and edit the story directly while it is still before finalization.</scope>
   <input>An optional work-item ID and one related missing requirement.</input>
@@ -21,6 +22,7 @@ Invocation: `/devspec.changerequest [work-item-id] Add JSON export`
     <rule>List every requirement gap the change leaves open in story.md's Open Requirement Gaps table, raised by its CR-### ID, and ask none of them; devspec.refine owns those questions.</rule>
     <rule>Mark the earlier finalization, task, implementation, and review sections superseded when the revision increments, preserving their recorded evidence unchanged.</rule>
     <rule>Ask one material classification question when it is unclear whether the request is related or a new linked work item. Until the request is classified related, leave the work item's stage and next action unchanged: route an independent request to devspec.story as a linked work item, and when the developer cannot answer yet, stop with the question unanswered in decisions.md.</rule>
+    <rule>Store attachments under the attachments protocol only after the request is classified related; an independent request takes them to devspec.story unstored.</rule>
   </rules>
   <entry>Related requirement for a finalized-or-later work item with an active current scope revision; reject independent, blocked, or pre-finalization requests.</entry>
   <outputs>
@@ -31,6 +33,8 @@ Invocation: `/devspec.changerequest [work-item-id] Add JSON export`
     <artifact path="devspec/work-items/&lt;id&gt;/tasks.md" />
     <artifact path="devspec/work-items/&lt;id&gt;/implement.md" />
     <artifact path="devspec/work-items/&lt;id&gt;/review.md" />
+    <artifact path="devspec/work-items/&lt;id&gt;/docs/index.md" />
+    <artifact path="devspec/work-items/&lt;id&gt;/docs/&lt;attachment&gt;" />
   </outputs>
   <transitions>
     <transition outcome="related-change-accepted" stage="refinement" run="active" next="devspec.refine" />  </transitions>

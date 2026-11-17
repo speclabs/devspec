@@ -13,6 +13,7 @@ protocols/*.xml
 foundation/_template/*.md
 foundation/template-map.md
 work-items/_template/*.md
+attachments/_template/*.md
 quickfixes/README.md
 quickfixes/_template.md
 architecture/_template/*

@@ -15,11 +15,12 @@ Invocation: `/devspec.implement [work-item-id]`
     <protocol ref="work" />
     <protocol ref="repo-access" />
     <protocol ref="security" />
+    <protocol ref="attachments" mode="read" />
   </protocols>
   <scope>Use to execute the ordered pending tasks of the current scope revision. This command does not re-plan, widen scope, or review its own output.</scope>
   <input>An optional work-item ID with ready finalization and pending or reopened rework task records.</input>
   <rules>
-    <rule>Read only the tasks being implemented, the finalization traces they cite, and the code area and direct dependencies each task names. Do not scan unrelated work items, unrelated code areas, or historical decision records.</rule>
+    <rule>Read only the tasks being implemented, the finalization traces they cite, the code area and direct dependencies each task names, and the work item's attachments under the attachments protocol. Do not scan unrelated work items, unrelated code areas, or historical decision records.</rule>
     <rule>Confirm every task is in finalized scope, unblocked, and ordered before editing code.</rule>
     <rule>Checkpoint before edits and focused validation; stop for a material ambiguity instead of expanding scope.</rule>
     <rule>Implementation choices inside an approved task are made under the work protocol, not asked. A material ambiguity becomes one recorded blocker; never ask a requirement question mid-edit.</rule>

@@ -5,7 +5,7 @@
   <state-records>
     <work-item>devspec/work-items/&lt;id&gt;/meta.md</work-item>
     <foundation>devspec/foundation/decisions.md</foundation>
-    <quickfix>Front matter in devspec/quickfixes/QF-&lt;number&gt;-&lt;slug&gt;.md</quickfix>
+    <quickfix>Front matter in devspec/quickfixes/QF-&lt;number&gt;-&lt;slug&gt;/quickfix.md</quickfix>
   </state-records>
   <context>For a work-item continuation, resolve current-work-item before validating stage. Dispatch only the saved next action; never skip a stage.</context>
   <resume>Resume when prerequisites hold. The current-work-item protocol owns selecting, validating, recovering, and clearing that local context.</resume>

@@ -14,7 +14,7 @@
   <decision-records>
     <work-item>devspec/work-items/&lt;id&gt;/decisions.md</work-item>
     <foundation>devspec/foundation/decisions.md</foundation>
-    <quickfix>Decisions section in devspec/quickfixes/QF-&lt;number&gt;-&lt;slug&gt;.md</quickfix>
+    <quickfix>Decisions section in devspec/quickfixes/QF-&lt;number&gt;-&lt;slug&gt;/quickfix.md</quickfix>
   </decision-records>
   <resolution>Append the answer or skip reason to the command's decision record, update the affected artifact, then continue with one registered next action.</resolution>
 </protocol>

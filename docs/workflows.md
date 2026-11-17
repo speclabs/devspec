@@ -17,6 +17,8 @@ Use the smallest route that preserves a durable, reviewable record. Git-tracked 
 
 Use `devspec.quickfix` only when the request is one localized enhancement or bug fix with one primary scope. Examples: a UI copy correction, focused test adjustment, or local configuration fix.
 
+Supply a mockup, document, email, or screenshot with `devspec.story`, `devspec.refine`, `devspec.clarify`, `devspec.changerequest`, or `devspec.quickfix`. After one storage confirmation the file is copied into `docs/` inside the work-item or quickfix folder and listed in `docs/index.md`, which the later stages read. See [Attach a mockup, document, or email](how-to.md#attach-a-mockup-document-or-email).
+
 Use the work-item route for public contracts, data migrations, authentication/security work, breaking changes, unresolved risk, or multiple concerns. Every work item goes through refinement after intake, even when the source carried acceptance criteria, because intake does not read the code. If finalization finds an open or new requirement gap, it returns the work item to `refine` instead of recording a blocker. `clarify` asks one interactive material blocker question, records the decision, and resumes the originating stage.
 
 Every command validates its declared entry state and records one explicit transition in the canonical artifact. Work items use a monotonic `scope_revision`; a related change request increments it, retains older finalization, task, implementation, and review evidence as superseded history, and requires a new finalization. Review accepts only a matching revision and changed-work baseline; accepted work is terminal, rework reopens only the tasks a finding names, and blocked work routes through `clarify`.

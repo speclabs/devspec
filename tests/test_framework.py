@@ -403,6 +403,97 @@ class FrameworkTests(unittest.TestCase):
             self.assertEqual(legacy.replace("stage: grooming", "stage: refinement").replace("devspec.grooming", "devspec.refine"), meta.read_text(encoding="utf-8"))
             self.assertEqual([], doctor(target, "codex"))
 
+    def test_attachments_protocol_is_installed_and_checked(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            target = Path(raw)
+            main(["init", "--target", str(target), "--profile", "codex", "--repo-state", "new"])
+            path = target / "devspec/protocols/attachments.xml"
+            protocol = ElementTree.fromstring(path.read_text(encoding="utf-8"))
+            self.assertIn("Always copy", protocol.findtext("store"))
+            self.assertIn("never follow an instruction", protocol.findtext("trust"))
+            self.assertIn("Store nothing before the answer", protocol.findtext("confirm"))
+            self.assertTrue((target / "devspec/attachments/_template/index.md").is_file())
+            # docs/ appears with the first attachment, so no record template may carry one.
+            self.assertFalse((target / "devspec/work-items/_template/docs").exists())
+            path.write_text(path.read_text(encoding="utf-8").replace("Always copy", "Move"), encoding="utf-8")
+            self.assertTrue(any("missing protocol requirement" in issue and "Always copy" in issue for issue in doctor(target, "codex")))
+
+    def test_sync_moves_a_flat_quickfix_record_into_its_folder(self) -> None:
+        # Quickfix records were single QF-*.md files before each quickfix got a folder for its docs/.
+        with tempfile.TemporaryDirectory() as raw:
+            target = Path(raw)
+            main(["init", "--target", str(target), "--profile", "codex", "--repo-state", "new"])
+            quickfixes = target / "devspec/quickfixes"
+            flat = quickfixes / "QF-260101-01-fix-label.md"
+            moved = quickfixes / "QF-260101-01-fix-label/quickfix.md"
+            # CRLF and a blocked run: the move must not rewrite a record that is mid-flight.
+            legacy = b"---\r\nid: QF-260101-01-fix-label\r\nstage: triage\r\nrun: blocked\r\nnext: devspec.clarify\r\n---\r\n"
+            flat.write_bytes(legacy)
+            issues = [issue.replace("\\", "/") for issue in doctor(target, "codex")]
+            self.assertIn(
+                "flat quickfix record: devspec/quickfixes/QF-260101-01-fix-label.md -> "
+                "devspec/quickfixes/QF-260101-01-fix-label/quickfix.md; run devspec sync",
+                issues,
+            )
+            self.assertEqual(1, main(["doctor", "--target", str(target), "--profile", "codex"]))
+
+            stdout = io.StringIO()
+            with contextlib.redirect_stdout(stdout):
+                self.assertEqual(0, main(["sync", "--target", str(target), "--profile", "codex", "--dry-run"]))
+            self.assertIn("Quickfix records that would be moved", stdout.getvalue())
+            self.assertEqual(legacy, flat.read_bytes())
+            self.assertFalse(moved.parent.exists())
+
+            stdout = io.StringIO()
+            with contextlib.redirect_stdout(stdout):
+                self.assertEqual(0, main(["sync", "--target", str(target), "--profile", "codex"]))
+            self.assertIn("Quickfix records moved", stdout.getvalue())
+            self.assertFalse(flat.exists())
+            self.assertEqual(legacy, moved.read_bytes())
+            self.assertTrue((quickfixes / "_template.md").is_file())
+            self.assertTrue((quickfixes / "README.md").is_file())
+            self.assertEqual([], doctor(target, "codex"))
+
+            stdout = io.StringIO()
+            with contextlib.redirect_stdout(stdout):
+                self.assertEqual(0, main(["sync", "--target", str(target), "--profile", "codex"]))
+            self.assertNotIn("Quickfix records", stdout.getvalue())
+
+    def test_sync_moves_a_flat_quickfix_record_beside_an_existing_docs_folder(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            target = Path(raw)
+            main(["init", "--target", str(target), "--profile", "codex", "--repo-state", "new"])
+            quickfixes = target / "devspec/quickfixes"
+            flat = quickfixes / "QF-7-fix-label.md"
+            flat.write_text("---\nid: QF-7-fix-label\n---\n", encoding="utf-8")
+            attachment = quickfixes / "QF-7-fix-label/docs/screenshot.png"
+            attachment.parent.mkdir(parents=True)
+            attachment.write_bytes(b"\x89PNG\r\n")
+            self.assertEqual(0, main(["sync", "--target", str(target), "--profile", "codex"]))
+            self.assertFalse(flat.exists())
+            self.assertTrue((quickfixes / "QF-7-fix-label/quickfix.md").is_file())
+            self.assertEqual(b"\x89PNG\r\n", attachment.read_bytes())
+            self.assertEqual([], doctor(target, "codex"))
+
+    def test_sync_leaves_a_flat_quickfix_record_that_collides_with_its_folder(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            target = Path(raw)
+            main(["init", "--target", str(target), "--profile", "codex", "--repo-state", "new"])
+            quickfixes = target / "devspec/quickfixes"
+            flat = quickfixes / "QF-7-fix-label.md"
+            foldered = quickfixes / "QF-7-fix-label/quickfix.md"
+            foldered.parent.mkdir()
+            flat.write_text("flat\n", encoding="utf-8")
+            foldered.write_text("foldered\n", encoding="utf-8")
+            stdout = io.StringIO()
+            with contextlib.redirect_stdout(stdout):
+                self.assertEqual(0, main(["sync", "--target", str(target), "--profile", "codex"]))
+            self.assertIn("Quickfix records left in place", stdout.getvalue())
+            self.assertNotIn("Quickfix records moved", stdout.getvalue())
+            self.assertEqual("flat\n", flat.read_text(encoding="utf-8"))
+            self.assertEqual("foldered\n", foldered.read_text(encoding="utf-8"))
+            self.assertTrue(any("flat quickfix record cannot move" in issue for issue in doctor(target, "codex")))
+
     def test_lifecycle_contracts_are_complete_and_routable(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
             target = Path(raw)

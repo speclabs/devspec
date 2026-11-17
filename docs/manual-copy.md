@@ -27,7 +27,7 @@ Copy `devspec/` and the folder or file for the agent host into the target reposi
 | Gemini | `devspec/`, `.gemini/` | `devspec/`, `.gemini/` |
 | Antigravity | `devspec/`, `.agents/` | `devspec/`, `.agents/` |
 
-Do not pre-copy individual foundation or work-item templates. When an agent needs a missing target artifact, the shared `work` protocol creates it from the matching `_template`; creating a work item initializes every file in `devspec/work-items/_template`, including `meta.md`.
+Do not pre-copy individual foundation or work-item templates. When an agent needs a missing target artifact, the shared `work` protocol creates it from the matching `_template`; creating a work item initializes every file in `devspec/work-items/_template`, including `meta.md`. A `docs/` folder is added to a work item or quickfix only when the developer supplies an attachment.
 
 The `main` checkout also carries devspec's own project records, which the CLI never installs. After copying, reset these in the target so it starts empty:
 
@@ -35,7 +35,7 @@ The `main` checkout also carries devspec's own project records, which the CLI ne
 |---|---|
 | `devspec/architecture/artifact-queue.md` | Replace with `devspec/architecture/_template/artifact-queue.md` |
 | `devspec/architecture/overview.md` | Replace with `devspec/architecture/_template/overview.md` |
-| `devspec/quickfixes/QF-*.md` | Delete; keep `README.md` and `_template.md` |
+| `devspec/quickfixes/QF-*/` | Delete; keep `README.md` and `_template.md` |
 | `devspec/foundation/repository-state.md` | Replace as described in step 3 |
 
 ## 3. Set the target repository state
@@ -63,3 +63,5 @@ Verify that every glob pattern in `devspec/install-manifest.txt` resolves to at 
 ## 5. Update manually
 
 Pull the latest `main` branch, or make a fresh `main` checkout. Compare the incoming files with the target repository, copy the approved changes, preserve local customizations, and retain the target's own `repository-state.md`. The CLI `doctor`, `init`, and package-manager upgrade paths are optional alternatives; they are not prerequisites for manual setup.
+
+When updating from a release before 0.4.0, move each `devspec/quickfixes/QF-<number>-<slug>.md` to `devspec/quickfixes/QF-<number>-<slug>/quickfix.md` without changing its content.

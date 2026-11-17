@@ -49,6 +49,16 @@ Intake asks nothing else: it records what the source supplies, lists the remaini
 
 Before enabling an organization connector, record its approved read and write boundaries in `foundation/provider-integrations.md`; never put credentials or tokens in devspec artifacts.
 
+## Attach supporting files
+
+Supply mockups, technical documents, emails, or screenshots with `/devspec.story`, `/devspec.refine`, `/devspec.clarify`, `/devspec.changerequest`, or `/devspec.quickfix`, as a file path or pasted text. After one storage confirmation the command copies each file into the record's `docs/` folder and lists it in `docs/index.md`; the original stays where it is.
+
+```text
+/devspec.story Add bulk order export. Mockup: D:\Design\export-dialog.png
+
+/devspec.quickfix Fix Orders empty-state text; scope: UI. Screenshot: C:\Users\me\Pictures\orders-empty.png
+```
+
 ## Command examples
 
 | Command | Use it when | Beginner example |
