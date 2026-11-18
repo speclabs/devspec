@@ -2,7 +2,7 @@
 
 Use this optional Markdown artifact for one durable Mermaid architecture, module, feature, workflow, process-flow, user journey, sequence, state, or domain diagram when the selected output set includes `mermaid`. SVG is the default diagram output and lives under `devspec/architecture/diagrams/`; HTML is optional and lives under `devspec/architecture/diagrams/`. Keep diagram status in `devspec/architecture/artifact-queue.md`; keep generated content references, supporting evidence, assumptions, and maintenance notes here when this Markdown artifact is created.
 
-This record holds evidence and maintenance notes only. Queue status lives in `devspec/architecture/artifact-queue.md`, and any material question belongs in the caller's decision record; a diagram never holds workflow run state.
+This record holds evidence and maintenance notes only. Queue status lives in `devspec/architecture/artifact-queue.md`, and an evidence gap is recorded on that queue row; only a directly requested diagram records a blocker, in `devspec/foundation/decisions.md`. A diagram never holds workflow run state.
 
 ## Diagram Metadata
 

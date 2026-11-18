@@ -24,7 +24,7 @@ For provider-backed story intake, pass one GitHub, Azure DevOps, Jira, GitLab, o
 | One local, low-risk correction | `devspec.quickfix` | Complete directly, clarify a blocker, or route to a story. |
 | A recorded material decision blocks current work | `devspec.clarify` | Resume the exact saved command. |
 | A related requirement arrives after finalization | `devspec.changerequest` | Refine and re-finalize the new scope revision. |
-| One evidence-backed architecture or workflow visual is needed | `devspec.diagram` | Return to the caller's workflow, or clarify an evidence blocker. |
+| One evidence-backed architecture or workflow visual is needed | `devspec.diagram` | Return to the caller's workflow and record any evidence gap on the queue row; a diagram requested on its own clarifies an evidence blocker. |
 | A known foundation artifact needs a narrow update | Its matching foundation command | Return to the caller, or clarify an evidence blocker. |
 
 ## Continue current work without an ID

@@ -261,6 +261,29 @@ class RouteGraphTests(unittest.TestCase):
             with self.subTest(name):
                 self.assertIn("this command's only exemption from the ask and run protocol checkpoint locations", contract_text(name))
 
+    def test_audited_routes_stay_resolvable(self) -> None:
+        # Each of these was an instruction an agent could not follow: a blocker with no record to
+        # hold it, a routed quickfix nobody closed, a status the next stage refused, a second
+        # resume pointer, and a single-blocker command required to ask a question.
+        story = self.transitions("story")
+        self.assertEqual({"active"}, {t["run"] for t in story}, "intake has no record to block in")
+        self.assertIn("devspec/quickfixes/QF-<number>-<slug>/quickfix.md", {a.attrib["path"] for a in workflow("story").find("outputs")})
+        self.assertIn("close the quickfix record", contract_text("story"))
+
+        diagram = self.transitions("diagram")
+        self.assertNotIn(("caller", "blocked"), {(t["stage"], t["run"]) for t in diagram}, "a diagram never blocks its caller")
+        self.assertFalse(any("work-items" in a.attrib["path"] for a in workflow("diagram").find("outputs")))
+
+        template = (REPO / "devspec/work-items/_template/finalize.md").read_text(encoding="utf-8")
+        self.assertNotIn("revised", template.split("\n## ")[0].split("Status:")[1].split("\n")[0])
+        self.assertIn("Revised:", template)
+        self.assertIn("keep its Status ready", contract_text("finalize"))
+
+        self.assertIn("not complete", workflow("changerequest").findtext("entry"))
+        security = (REPO / "devspec/protocols/security.xml").read_text(encoding="utf-8")
+        self.assertIn('queue="single-blocker"', security)
+        self.assertIn("The reviewer is devspec.review", security)
+
     def test_registry_restates_the_contracts_exactly(self) -> None:
         text = (REPO / "devspec/command-registry.md").read_text(encoding="utf-8")
         rows = table_rows(text, "Command")

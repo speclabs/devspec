@@ -1,7 +1,8 @@
 # Finalization
 
 - Scope revision: <n>
-- Status: ready | blocked | revised | superseded
+- Status: ready | blocked | superseded
+- Revised: none | <decision ID of an in-place correction>
 
 ## Readiness
 

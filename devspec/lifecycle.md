@@ -11,7 +11,7 @@ Canonical contracts in `devspec/contracts/` own command behavior. This document 
 
 | Stage | Required next command or terminal outcome |
 |---|---|
-| `intake` | `devspec.story` or `devspec.clarify` |
+| `intake` | `devspec.story` |
 | `refinement` | `devspec.refine` or `devspec.clarify` |
 | `finalization` | `devspec.finalize` or `devspec.clarify` |
 | `tasks` | `devspec.tasks`, `devspec.clarify`, or `devspec.finalize` to correct the current-revision brief before implementation begins |
@@ -19,7 +19,9 @@ Canonical contracts in `devspec/contracts/` own command behavior. This document 
 | `review` | `devspec.review` or `devspec.clarify` |
 | `complete` | terminal (`next: none`) |
 
-A work-item stage that records a material blocker routes to `devspec.clarify` and nowhere else. The foundation, caller, and quickfix triage stages do the same; the quickfix `routed` stage is non-terminal and routes only to `devspec.story`. `devspec/protocols/revision.xml` owns which revision each stage may read and write.
+Besides its saved next action, a finalized work item that is not complete also accepts `devspec.changerequest` at the `tasks`, `implementation`, and `review` stages; these off-route commands keep the current-work-item selection. A `complete` work item is never reopened: a change to it opens a new linked work item through `devspec.story`. Intake has no blocked state, because no record exists before the developer confirms it.
+
+A work-item stage that records a material blocker routes to `devspec.clarify` and nowhere else. The foundation and quickfix triage stages do the same; the quickfix `routed` stage is non-terminal and routes only to `devspec.story`, which closes the record (`run: complete`, `next: none`) once the work item exists. `devspec/protocols/revision.xml` owns which revision each stage may read and write.
 
 ## Route graph
 
@@ -27,4 +29,4 @@ A work-item stage that records a material blocker routes to `devspec.clarify` an
 - New repository: `devspec.projectcontext → devspec.techstack → devspec.codebase-structure → devspec.coding-standards → devspec.rules → devspec.story`. A targeted foundation update returns to its caller after completing its declared artifact.
 - Work item: `devspec.story → devspec.refine → devspec.finalize → devspec.tasks → devspec.implement → devspec.review`. From `finalization`, `devspec.finalize` returns a story with an open or newly exposed requirement gap to `devspec.refine` as an active route, not a blocker. From `tasks`, `devspec.finalize` may re-run once to correct its own brief at the same scope revision while no task is in-progress or complete; it resets `planned_revision` so `devspec.tasks` re-plans. A new or widened requirement is not a correction and goes to `devspec.changerequest`. Review results are `accepted → complete`, `rework-required → devspec.implement`, or `blocked → devspec.clarify`.
 - Work-item IDs are optional selectors for switching or resolving ambiguity. Without one, the current-work-item protocol resolves which work item a command acts on.
-- `devspec.clarify` resolves one decision and resumes its saved originating command. `devspec.changerequest` is allowed only after finalization and always routes to `devspec.refine` with a new revision before `devspec.finalize` runs again. `devspec.quickfix` ends complete, blocks to `devspec.clarify`, or routes to `devspec.story`. `devspec.diagram` returns to its caller, ends terminal when it was requested directly, or blocks to `devspec.clarify`.
+- `devspec.clarify` resolves one decision and resumes its saved originating command. `devspec.changerequest` is allowed only after finalization and before the work item is complete, and always routes to `devspec.refine` with a new revision before `devspec.finalize` runs again. `devspec.quickfix` ends complete, blocks to `devspec.clarify`, or routes to `devspec.story`. `devspec.diagram` returns to its caller, recording an evidence gap on its queue row instead of blocking the caller; a directly requested diagram ends terminal or blocks to `devspec.clarify`.
