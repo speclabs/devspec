@@ -5,7 +5,7 @@ stage: triage
 run: active
 last: none
 resume: none
-next: select scope
+next: devspec.quickfix
 updated: <yyyy-mm-dd>
 ---
 

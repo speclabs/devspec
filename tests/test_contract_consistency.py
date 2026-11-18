@@ -419,6 +419,17 @@ class ArtifactShapeTests(unittest.TestCase):
             with self.subTest(template=template.name):
                 self.assertIn(template.name, declared, "no command creates this work-item file")
 
+    def test_record_templates_start_at_a_registered_next_action(self) -> None:
+        # A record is dispatched by its saved next action, so a template must start at a
+        # command (the one that is creating the record), never at a free-form step.
+        registered = {f"devspec.{command.name}" for command in COMMANDS} | {"none"}
+        for template in ("devspec/work-items/_template/meta.md", "devspec/quickfixes/_template.md"):
+            with self.subTest(template=template):
+                text = (REPO / template).read_text(encoding="utf-8")
+                match = re.search(r"^next: (\S+)\s*$", text, re.MULTILINE)
+                self.assertIsNotNone(match, "template has no next field")
+                self.assertIn(match.group(1), registered)
+
 
 if __name__ == "__main__":
     unittest.main()
