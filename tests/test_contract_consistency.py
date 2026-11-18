@@ -395,6 +395,30 @@ class ArtifactShapeTests(unittest.TestCase):
                     else:
                         self.assertTrue((REPO / path).is_file(), f"no home for {path}")
 
+    def test_work_item_files_are_created_by_their_owning_command(self) -> None:
+        # The work protocol initializes only the intake records; every later file is created
+        # lazily, so each one needs a command that declares it as an output.
+        intake = {"story.md", "meta.md", "decisions.md"}
+        initialize = ElementTree.fromstring(
+            (REPO / "devspec/protocols/work.xml").read_text(encoding="utf-8")
+        ).findtext("initialize")
+        self.assertIn("initialize story.md, meta.md, and decisions.md", initialize)
+        story_files = {
+            artifact.attrib["path"].rsplit("/", 1)[-1]
+            for artifact in workflow("story").find("outputs")
+            if artifact.attrib["path"].startswith("devspec/work-items/") and "/docs/" not in artifact.attrib["path"]
+        }
+        self.assertEqual(intake, story_files)
+        declared = {
+            artifact.attrib["path"].rsplit("/", 1)[-1]
+            for command in COMMANDS
+            for artifact in workflow(command.name).find("outputs")
+            if artifact.attrib["path"].startswith("devspec/work-items/") and "/docs/" not in artifact.attrib["path"]
+        }
+        for template in (REPO / "devspec/work-items/_template").glob("*.md"):
+            with self.subTest(template=template.name):
+                self.assertIn(template.name, declared, "no command creates this work-item file")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -27,7 +27,7 @@ Copy `devspec/` and the folder or file for the agent host into the target reposi
 | Gemini | `devspec/`, `.gemini/` | `devspec/`, `.gemini/` |
 | Antigravity | `devspec/`, `.agents/` | `devspec/`, `.agents/` |
 
-Do not pre-copy individual foundation or work-item templates. When an agent needs a missing target artifact, the shared `work` protocol creates it from the matching `_template`; creating a work item initializes every file in `devspec/work-items/_template`, including `meta.md`. A `docs/` folder is added to a work item or quickfix only when the developer supplies an attachment.
+Do not pre-copy individual foundation or work-item templates. When an agent needs a missing target artifact, the shared `work` protocol creates it from the matching `_template`; creating a work item initializes `story.md`, `meta.md`, and `decisions.md` from `devspec/work-items/_template`, and each later file, such as `tasks.md`, is created when the command that owns it first writes it. A `docs/` folder is added to a work item or quickfix only when the developer supplies an attachment.
 
 The `main` checkout also carries devspec's own project records, which the CLI never installs. After copying, reset these in the target so it starts empty:
 
