@@ -146,9 +146,23 @@ uvx devspec doctor --target . --profile all
 ```
 
 2. Answer the one storage question. It lists each file with its stored name, destination, size, and any flag for personal data, credential-like text, or a file over 5 MB. It recommends storing the unflagged files and keeping only a summary of the flagged ones.
-3. Supply later files the same way with `/devspec.refine`, `/devspec.clarify`, `/devspec.changerequest`, or `/devspec.quickfix`.
+3. Supply later files the same way with `/devspec.refine`, `/devspec.clarify`, `/devspec.changerequest`, or `/devspec.quickfix`. A file for the task being implemented goes with `/devspec.implement`; see [Use a mockup for the task being implemented](#use-a-mockup-for-the-task-being-implemented).
 
 **What to expect.** Files are copied, never moved, into `docs/` inside the work-item or quickfix folder, and each gets a row in `docs/index.md`. The folder appears only with the first attachment. Pasted text is saved as a redacted Markdown file; a pasted image is saved when the agent has its file, and otherwise you are asked once for a path. `finalize`, `tasks`, `implement`, and `review` read the index and open only the files they need. A quickfix routed to a story carries its attachments into the new work item. Stored files are committed with the record, so check them for secrets and personal data before confirming. `devspec/protocols/attachments.xml` owns these rules.
+
+### Use a mockup for the task being implemented
+
+**Scenario.** Implementation reaches the UI task, and you have a mockup for it.
+
+1. Attach it with the implement command. For example:
+
+```text
+/devspec.implement Use the attached mockup for the UI. Mockup: D:\Design\export-dialog.png
+```
+
+2. Before any code changes, answer one confirmation. It lists what will be built in the current task, each item traced to the approved criterion it meets, and any deviation: something the mockup shows that no criterion covers, or that contradicts one. Choose Confirm and continue, Confirm without storing the file, or Stop for a change request.
+
+**What to expect.** On confirm, the mockup is copied into `docs/` with the task ID in its index row, the task is built to the confirmed items in the same run, and each deviation is listed in the Attachments Applied table of `implement.md` as not built. An approved criterion always wins over the mockup. To get a deviation built, run `/devspec.changerequest`, which starts a new scope revision. Review checks the work against the confirmed items, not the whole mockup.
 
 ### Add a related requirement after implementation started
 

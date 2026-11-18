@@ -15,7 +15,7 @@ Invocation: `/devspec.implement [work-item-id]`
     <protocol ref="work" />
     <protocol ref="repo-access" />
     <protocol ref="security" />
-    <protocol ref="attachments" mode="read" />
+    <protocol ref="attachments" mode="task" />
   </protocols>
   <scope>Use to execute the ordered pending tasks of the current scope revision. This command does not re-plan, widen scope, or review its own output.</scope>
   <input>An optional work-item ID with ready finalization and pending or reopened rework task records.</input>
@@ -24,6 +24,7 @@ Invocation: `/devspec.implement [work-item-id]`
     <rule>Confirm every task is in finalized scope, unblocked, and ordered before editing code.</rule>
     <rule>Checkpoint before edits and focused validation; stop for a material ambiguity instead of expanding scope.</rule>
     <rule>Implementation choices inside an approved task are made under the work protocol, not asked. A material ambiguity becomes one recorded blocker; never ask a requirement question mid-edit.</rule>
+    <rule>Use a mockup, document, or other file the developer supplies for the task being implemented in that same task, under the attachments protocol's task-fit rule: confirm the items to build and the deviations before editing, record that confirmation in decisions.md, build only the confirmed items, and list each deviation in implement.md's Attachments Applied table for devspec.changerequest. A supplied file never widens scope or reopens planning.</rule>
     <rule>Before editing, apply the relevant finalization foundation trace: coding standards and their follow examples, owned code areas and boundaries, canonical rules, and applicable OWASP controls.</rule>
     <rule>Record changed areas, applied decision or canonical rule IDs, and validation evidence after each meaningful task.</rule>
     <rule>Express a business or validation decision through named code and tests. Add a developer comment only when its rationale is not evident from the code or test; reference the canonical rule ID, never an old work-item decision as the sole authority.</rule>
@@ -34,6 +35,9 @@ Invocation: `/devspec.implement [work-item-id]`
     <artifact path="devspec/work-items/&lt;id&gt;/tasks.md" />
     <artifact path="devspec/work-items/&lt;id&gt;/meta.md" />
     <artifact path="devspec/work-items/&lt;id&gt;/decisions.md" />
+    <artifact path="devspec/work-items/&lt;id&gt;/story.md" />
+    <artifact path="devspec/work-items/&lt;id&gt;/docs/index.md" />
+    <artifact path="devspec/work-items/&lt;id&gt;/docs/&lt;attachment&gt;" />
   </outputs>
   <transitions>
     <transition outcome="implementation-complete" stage="review" run="active" next="devspec.review" />

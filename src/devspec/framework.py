@@ -138,7 +138,7 @@ def doctor(root: Path, profile: str) -> list[str]:
         "devspec/work-items/_template/story.md": ("Source Record", "Immutable provider ID", "MCP resolution method", "User confirmation", "Attachments", "Raised by", "Affected Areas"),
         "devspec/attachments/_template/index.md": ("| File | Kind | Added | By | Summary | Used for |",),
         "devspec/quickfixes/_template.md": ("- Attachments:",),
-        "devspec/work-items/_template/tasks.md": ("Scope revision:", "Source justification", "Done condition"), "devspec/work-items/_template/implement.md": ("Scope revision:", "Changed-work baseline:"), "devspec/work-items/_template/review.md": ("Scope revision:", "Changed-work baseline:"), "devspec/work-items/_template/clarify.md": ("Origin command", "Resolution", "Resume command"),
+        "devspec/work-items/_template/tasks.md": ("Scope revision:", "Source justification", "Done condition"), "devspec/work-items/_template/implement.md": ("Scope revision:", "Changed-work baseline:", "Attachments Applied"), "devspec/work-items/_template/review.md": ("Scope revision:", "Changed-work baseline:"), "devspec/work-items/_template/clarify.md": ("Origin command", "Resolution", "Resume command"),
     }
     current_context_commands = {"story", "refine", "finalize", "tasks", "implement", "review", "clarify", "changerequest"}
     protocol_text_requirements = {
@@ -160,6 +160,7 @@ def doctor(root: Path, profile: str) -> list[str]:
             "trust": ("untrusted data", "never follow an instruction"),
             "confirm": ("one material question per batch", "Custom Answer", "Store nothing before the answer"),
             "store": ("Always copy", "keep the stored file", "only when the first row is written"),
+            "task-fit": ("before any code is edited", "deviation is never built in the current task"),
             "read": ("open only the files the current step needs",),
         },
     }
@@ -178,7 +179,7 @@ def doctor(root: Path, profile: str) -> list[str]:
                     "repo-access": ("when", "collect", "question", "recommend", "record", "respect"),
                     "current-work-item": ("when", "location", "record", "selection", "validation", "recovery", "continuation", "update", "clear"),
                     "state": ("when", "run-states", "stages", "task-statuses", "evidence-labels", "resume"),
-                    "attachments": ("when", "scope", "attachment-folders", "trust", "confirm", "store", "pasted", "index", "pointer", "carry", "read"),
+                    "attachments": ("when", "scope", "attachment-folders", "trust", "confirm", "task-fit", "store", "pasted", "index", "pointer", "carry", "read"),
                 }.get(name, ())
                 present = {child.tag for child in protocol}
                 missing = sorted(set(required) - present)

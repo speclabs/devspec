@@ -220,9 +220,11 @@ class RouteGraphTests(unittest.TestCase):
             with self.subTest(command.name):
                 self.assertEqual(set(), named - outputs, f"{command.name} writes an artifact it does not declare")
 
-    # Commands that take requirement input store attachments; the build stages only read them.
+    # Commands that take requirement input store attachments; implement stores only a file that
+    # fits the task in progress; the other build stages only read them.
     ATTACHMENT_WRITERS = {"story", "refine", "clarify", "changerequest", "quickfix"}
-    ATTACHMENT_READERS = {"finalize", "tasks", "implement", "review"}
+    ATTACHMENT_TASK_FIT = {"implement"}
+    ATTACHMENT_READERS = {"finalize", "tasks", "review"}
 
     def test_attachments_are_stored_by_requirement_stages_and_read_by_build_stages(self) -> None:
         for command in COMMANDS:
@@ -234,6 +236,11 @@ class RouteGraphTests(unittest.TestCase):
                 if command.name in self.ATTACHMENT_WRITERS:
                     self.assertEqual([None], [r.attrib.get("mode") for r in refs])
                     self.assertTrue(index_outputs, "a command that stores attachments declares docs/index.md")
+                elif command.name in self.ATTACHMENT_TASK_FIT:
+                    self.assertEqual(["task"], [r.attrib.get("mode") for r in refs])
+                    self.assertTrue(index_outputs, "a command that stores attachments declares docs/index.md")
+                    self.assertIn("task-fit rule", rules)
+                    self.assertIn("Attachments Applied", rules)
                 elif command.name in self.ATTACHMENT_READERS:
                     self.assertEqual(["read"], [r.attrib.get("mode") for r in refs])
                     self.assertEqual([], index_outputs, "a read-mode command stores nothing")
@@ -283,6 +290,21 @@ class RouteGraphTests(unittest.TestCase):
         security = (REPO / "devspec/protocols/security.xml").read_text(encoding="utf-8")
         self.assertIn('queue="single-blocker"', security)
         self.assertIn("The reviewer is devspec.review", security)
+
+    def test_an_attachment_supplied_during_implementation_serves_the_current_task(self) -> None:
+        # A mockup handed to implement was read but never kept, and implement's single-blocker
+        # queue left it no way to confirm what the mockup changed.
+        protocol = ElementTree.fromstring((REPO / "devspec/protocols/attachments.xml").read_text(encoding="utf-8"))
+        task_fit = protocol.findtext("task-fit")
+        for phrase in ("before any code is edited", "Confirm and continue", "Stop for a change request",
+                       "deviation is never built in the current task", "devspec.changerequest"):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, task_fit)
+        self.assertIn('mode="task"', protocol.findtext("scope"))
+        ask_scope = ElementTree.fromstring((REPO / "devspec/protocols/ask.xml").read_text(encoding="utf-8")).findtext("scope")
+        self.assertIn("task-fit confirmation, are outside that limit", ask_scope)
+        self.assertIn("Attachments Applied", (REPO / "devspec/work-items/_template/implement.md").read_text(encoding="utf-8"))
+        self.assertIn("Attachments Applied", contract_text("review"))
 
     def test_registry_restates_the_contracts_exactly(self) -> None:
         text = (REPO / "devspec/command-registry.md").read_text(encoding="utf-8")
@@ -358,7 +380,7 @@ class ArtifactShapeTests(unittest.TestCase):
         "devspec/attachments/_template/index.md": ("| File | Kind | Added | By | Summary | Used for |",),
         "devspec/work-items/_template/finalize.md": ("CP-###", "Scope revision:"),
         "devspec/work-items/_template/tasks.md": ("Done condition", "Scope revision:"),
-        "devspec/work-items/_template/implement.md": ("Changed-work baseline:",),
+        "devspec/work-items/_template/implement.md": ("Changed-work baseline:", "## Attachments Applied", "| Task | Attachment | Built items and criteria | Deviations not built | Decision ID |"),
         "devspec/work-items/_template/review.md": ("Location", "implemented-as-decided", "Changed-work baseline:"),
         "devspec/quickfixes/_template.md": ("last:", "resume:", "next:", "- Attachments:"),
     }
