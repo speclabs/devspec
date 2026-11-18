@@ -15,12 +15,14 @@ Invocation: `/devspec.review [work-item-id]`
     <protocol ref="work" />
     <protocol ref="repo-access" />
     <protocol ref="security" />
+    <protocol ref="attachments" mode="read" />
   </protocols>
   <scope>Use to judge completed implementation against the current scope revision's approved scope and recorded evidence. This command records findings; devspec.implement applies them.</scope>
   <input>An optional work-item ID with finalization, tasks, implementation record, and changed work.</input>
   <rules>
-    <rule>Read only the changed-work baseline's changed paths and their direct callers, the current-revision finalization, tasks, and implementation records, and the canonical rules those records cite. Do not re-review unchanged code or unrelated work items.</rule>
+    <rule>Read only the changed-work baseline's changed paths and their direct callers, the current-revision finalization, tasks, and implementation records, the canonical rules those records cite, and the work item's attachments under the attachments protocol. Do not re-review unchanged code or unrelated work items.</rule>
     <rule>Compare changed work to approved scope, task source coverage, finalization foundation and architecture traces, validation evidence, and every applicable accepted material decision or canonical rule.</rule>
+    <rule>Check work built from an attachment against the confirmed items in implement.md's Attachments Applied table, not against the whole attachment. A listed deviation that was built anyway is a scope finding; an unbuilt deviation is not.</rule>
     <rule>Verify the work against every protocol this work item loaded, and report a violation as a finding: evidence labels and changed-work baseline from state, revision currency from revision, scope and change discipline from work, access boundaries from repo-access, and the security gate from security.</rule>
     <rule>Check changed source against the shared work protocol for duplicated capabilities, unjustified dependencies, speculative abstractions, and unused configuration. Evaluate the choices against approved requirements, project conventions, and any recorded justification.</rule>
     <rule>Record actionable complexity findings in the existing Findings table with the location, supporting evidence, and a suitable simpler alternative or removal that preserves required behavior and safeguards.</rule>

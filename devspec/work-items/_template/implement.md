@@ -7,6 +7,13 @@
 | Task | Decision or rule IDs | Changed areas | Validation | Outcome |
 |---|---|---|---|---|
 
+## Attachments Applied
+
+One row per attachment confirmed for a task under the attachments protocol's task-fit rule. Deviations are not built in that task; raise them with `devspec.changerequest`.
+
+| Task | Attachment | Built items and criteria | Deviations not built | Decision ID |
+|---|---|---|---|---|
+
 ## Security Evidence and Proposed Exceptions
 
 | Finding ID | OWASP category | Disposition | Developer confirmation | Rationale and enforceable evidence | Validation evidence | Revalidate when |

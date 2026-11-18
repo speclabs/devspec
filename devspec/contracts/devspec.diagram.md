@@ -21,8 +21,7 @@ Invocation: `/devspec.diagram runtime architecture format=svg motion=none|explai
     <rule>Select the diagram type from devspec/architecture/_template/diagram-types.md. Start each SVG from the matching family-specific template that catalogue names for the selected type, and never reduce a selected family to generic boxes and arrows.</rule>
     <rule>Create only evidence-backed, non-duplicate diagrams and persist queue or overview state for recovery.</rule>
     <rule>Diagram type, family template, and layout are selected from the evidence and the type catalogue, not asked.</rule>
-    <rule>Record an evidence blocker in the caller's decision record, never in the queue, and leave the caller's saved stage unchanged. A directly requested diagram has no caller: run it at the foundation stage, record its blocker in devspec/foundation/decisions.md, and end at `none` instead of returning. Blocking sets the caller's run state to blocked and its next action to devspec.clarify, which resumes this diagram request through the caller's saved resume reference; the caller's stage and its own pending next action survive unchanged behind that pointer.</rule>
-    <rule>When the blocker is recorded in a work-item decision record, stamp it with that work item's current scope revision so a later change request supersedes it with the rest of that revision's evidence.</rule>
+    <rule>A diagram never blocks the work item or command it serves. Record an evidence gap on its queue row as status `blocked`, naming the missing evidence and the condition that unblocks it in Next, then return with the caller's stage, run state, and next action unchanged. A directly requested diagram that serves no work item runs at the foundation stage: it ends at `none` when complete, and records an evidence blocker in devspec/foundation/decisions.md with devspec.clarify as its next action.</rule>
     <rule>Accept a stable queued `DIA-###` ID or diagram subject, record subject, type, evidence, output format, duplicate-check result, status, and next action in the queue, and index completed output in the overview. On an explicit process-flow batch request, generate every queued non-duplicate process-flow candidate, validate each output, update each queue row independently, and leave the caller lifecycle state unchanged.</rule>
     <rule>Default to SVG with title and description and validate its XML. Write Mermaid or HTML only when explicitly requested, and when you do, record it from `devspec/architecture/_template/diagram.md` or `diagram.html` so its evidence, assumptions, and maintenance notes stay with the output.</rule>
     <rule>Default to `motion=none`. Treat an explicit request for an animated diagram without a motion value as `motion=explain`; reject unsupported motion values.</rule>
@@ -38,11 +37,9 @@ Invocation: `/devspec.diagram runtime architecture format=svg motion=none|explai
     <artifact path="devspec/architecture/artifact-queue.md" />
     <artifact path="devspec/architecture/overview.md" />
     <artifact path="devspec/foundation/decisions.md" />
-    <artifact path="devspec/work-items/&lt;id&gt;/decisions.md" />
   </outputs>
   <transitions>
     <transition outcome="diagram-complete" stage="caller" run="active" next="return-to-caller" />
-    <transition outcome="evidence-blocked" stage="caller" run="blocked" next="devspec.clarify" />
     <transition outcome="standalone-complete" stage="foundation" run="complete" next="none" />
     <transition outcome="standalone-blocked" stage="foundation" run="blocked" next="devspec.clarify" />
   </transitions>

@@ -5,7 +5,7 @@ stage: triage
 run: active
 last: none
 resume: none
-next: select scope
+next: devspec.quickfix
 updated: <yyyy-mm-dd>
 ---
 
@@ -13,6 +13,7 @@ updated: <yyyy-mm-dd>
 
 - Request:
 - Evidence:
+- Attachments: none | `docs/index.md` (N files)
 - Changed areas:
 - Validation:
 - Outcome:
